@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于bohe</title>
+    <meta name="keywords" content="a1">
+    <meta name="description" content="a1">
+</head>
+
+<body>
+    <div v-cloak class="wrap_of_maboutus" id="app">
+        <div class="ptb_30_60">
+            <h1 class="font_s23" v-show="appParam.region_code == 0">{{$t("index.b1")}}</h1>
+            <h1 class="font_s23" v-show="appParam.region_code == 1">{{$t("index.b20")}}</h1>
+            <p class="font_s24" v-show="appParam.region_code == 0">{{$t("index.b2")}}</p>
+            <p class="font_s25" v-show="appParam.region_code == 0">{{$t("index.b3")}}</p>
+            <p class="font_s24" v-show="appParam.region_code == 1">{{$t("index.b21")}}</p>
+        </div>
+        <div class="ptb_27_18">
+            <div class="pb_30">
+                <a class="le_bh" style="margin-right: 15px">
+                    <img src="./images/7.png" alt="" width="36" height="36">
+                </a>
+                <div class="le_bh" style="width: 80%">
+                    <p class="font_s26">{{$t("maboutus.w1")}}</p>
+                    <p class="font_s27">{{$t("maboutus.w2")}}</p>
+                </div>
+            </div>
+            <div class="pb_30">
+                <a class="le_bh" style="margin-right: 15px">
+                    <img src="./images/6.png" alt="" width="36" height="36">
+                </a>
+                <div class="le_bh" style="width: 80%">
+                    <p class="font_s26">{{$t("maboutus.w3")}}</p>
+                    <p class="font_s27">{{$t("maboutus.w4")}}</p>
+                </div>
+            </div>
+            <div class="pb_30">
+                <a class="le_bh" style="margin-right: 15px;">
+                    <img src="./images/4.png" alt="" width="36" height="36">
+                </a>
+                <div class="le_bh" style="width: 80%">
+                    <p class=" font_s26">{{$t("maboutus.w5")}}</p>
+                    <p class="font_s27">{{$t("maboutus.w6")}}</p>
+                </div>
+            </div>
+            <div class="pb_30">
+                <a class="le_bh" style="margin-right: 15px;">
+                    <img src="./images/5.png" alt="" width="36" height="36">
+                </a>
+                <div class="le_bh" style="width: 80%">
+                    <p class="font_s26">{{$t("maboutus.w7")}}</p>
+                    <p class="font_s27">{{$t("maboutus.w8")}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="ptb_27_18">
+            <div>
+                <a class="" style="width: 30%">
+                    <img class="img_filter" src="./images/1.png" alt="">
+                </a>
+                <h2 class="font_s29">{{$t("maboutus.w9")}}</h2>
+                <p class="font_s28">{{$t("maboutus.w10")}}</p>
+            </div>
+            <div>
+                <a class="" style="width: 30%">
+                    <img class="img_filter" src="./images/2.png" alt="">
+                </a>
+                <h2 class="font_s29">{{$t("maboutus.w11")}}</h2>
+                <p class="font_s28">{{$t("maboutus.w12")}}</p>
+            </div>
+            <div>
+                <a class="" style="width: 30%">
+                    <img class="img_filter" src="./images/3.png" alt="">
+                </a>
+                <h2 class="font_s29">{{$t("maboutus.w13")}}</h2>
+                <p class="font_s28">{{$t("maboutus.w14")}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

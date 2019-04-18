@@ -1,0 +1,627 @@
+/**
+  公共类
+ */
+
+/**** 颜色 *****/
+@logo_font: #ffc713; //  雷神主题色
+@orange: #ffb33e; //橙黄色
+@time_green: #32d889; //恢复时间
+@time_red: #ff5656; //暂停时间
+@time_green_hover: #2bc57c; //恢复hover
+@time_red_hover: #ea4646; //暂停hover
+@btn_bg: #ffd33e; //按钮背景色
+@btn_bg_hover: #ffdc67; //按钮hover背景色
+@btn_white_hover: #f6f6f6; //白色按钮hover背景色
+@container_bg: #363437; //套餐容器背景
+@box_bg: #2b2a2a; //充值盒子背景
+@box_border_active: #ffe15d; //hover的盒子边框颜色
+@box_shadow_active: #ffd000; //hover的盒子阴影颜色
+@pay_font: #fcdb55; //支付的金额颜色
+@alipay_font: #10a3e8; //支付宝主体色调
+@wechat_font: #00c800; //微信主体色调
+@package_number: #ffc713; //套餐的数字颜色
+
+/**** 基础颜色 *****/
+@white: #fff; //白色
+@black: #333; //黑色
+@gray: #838383; //灰色
+@input_border: #dcdfe6; //输入框边框颜色
+
+/**** 字体大小 *****/
+@font_small: 12px;
+@font_normal: 14px;
+@font_big: 16px;
+
+/**** 字体粗细 *****/
+@f_weight_normal: normal;
+@f_weight_bold: bold;
+@f_weight_bolder: bolder;
+
+/**
+    位置函数，通过设定参数来动态改变元素间的距离
+ */
+
+.margin_fn(@t:0,@r:0,@b:0,@l:0) {
+    margin: @arguments;
+}
+
+.padding_fn(@t:0,@r:0,@b:0,@l:0) {
+    padding: @arguments;
+}
+
+/**
+    分割虚线
+ */
+.solid_dot_line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #525252;
+    margin: 15px auto;
+}
+
+/**
+    分割实线
+ */
+.solid_line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid @black;
+    margin: 10px auto;
+}
+
+/**
+    段落文字缩进
+ */
+.text_indent {
+    text-indent: 2em;
+}
+
+.text_indent_3em {
+    text-indent: 3em;
+}
+
+/**
+    文字对齐
+*/
+.text_left {
+    text-align: left;
+}
+
+.text_right {
+    text-align: right;
+}
+
+.text_center {
+    text-align: center;
+}
+
+// flex左中右布局+左右布局 主轴对齐方式space-between
+.flex_sbe {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+//  flex左右布局，对齐方式space-between，换行
+.flex_sbe_wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+//  子盒子横向靠顶部对齐
+.flex_sbe_start {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+// 子盒子纵向对其方式，以顶部基线对齐
+.flex_al_start {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+.flex_row_center_top {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+//  子盒子纵向对齐方式，以底部基线对齐
+.flex_al_end {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+}
+
+//  子盒子纵向对齐方式，以中部基线对齐
+.flex_al_center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+//  子盒子纵向对齐方式，以内容基线对齐
+.flex_al_baseline {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+}
+
+//  子盒子内容纵向左靠齐
+.flex_content_left {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+//  子盒子横向靠左
+.flex_col_item_left {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+.flex_row_item_right {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+}
+
+/***********************  盒子flex布局  *********/
+
+//横向flex居中布局
+.flex_row_center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+//横向flex靠起点布局
+.flex_row_start {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+//横向flex靠终点布局
+.flex_row_end {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+//横向flex自适应平均分布布局(两边无间距)
+.flex_row_between {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+//横向flex自适应平均分布布局(两边有间距)
+.flex_row_around {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+//纵向flex居中布局
+.flex_column_center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+//纵向flex靠起点布局
+.flex_column_start {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+//纵向flex靠终点布局
+.flex_column_end {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+//纵向flex自适应平均分布布局(两边无间距)
+.flex_column_between {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+//纵向flex自适应平均分布布局(两边有间距)
+.flex_column_around {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    justify-content: space-around;
+}
+/**
+    flex换行class
+*/
+.flex_wrap_row_start {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.flex_wrap_row_between {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.flex_wrap_row_around {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+/**
+    flex顶部对齐居中靠左
+*/
+.flex_cen_start_top {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+//  公共按钮样式(主题颜色)
+.public_btn {
+    padding: 5px 25px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: @font_normal;
+    color: @black;
+    border: 1px solid @btn_bg;
+    border-radius: 6px;
+    background: @btn_bg;
+    cursor: pointer;
+}
+
+.public_btn:hover {
+    background: @btn_bg_hover;
+}
+
+//  公共按钮样式(白色)
+.white_btn {
+    padding: 5px 25px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: @font_normal;
+    color: @black;
+    border: 1px solid @gray;
+    border-radius: 6px;
+    background: @white;
+    cursor: pointer;
+}
+
+.white_btn:hover {
+    background: @btn_bg_hover;
+    border: 1px solid transparent;
+}
+
+//  弹出层按钮样式(主题颜色)
+.dialog_btn {
+    padding: 5px 40px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: @font_normal;
+    color: @black;
+    border: 1px solid @btn_bg;
+    border-radius: 6px;
+    background: @btn_bg;
+    cursor: pointer;
+}
+
+/***********************  图片  *********/
+
+// 资讯图片填满父盒子样式
+.img_filter {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    border: none;
+}
+
+// 文字溢出隐藏
+.words_flow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/***********************  CSS一般效果  *********/
+
+// 元素隐藏
+.hide {
+    display: none;
+}
+
+// 元素显示
+.show {
+    display: block;
+}
+
+//hover手型
+.cursor {
+    cursor: pointer !important;
+}
+
+.no_cursor {
+    cursor: none !important;
+}
+
+.default_cursor {
+    cursor: default !important;
+}
+
+//遮罩层
+.shadow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+html,
+body {
+    height: 100%;
+    -webkit-font-smoothing: antialiased; //苹果电脑字体优化，面向MacOSS
+}
+
+/***********************  标签样式  *********/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+img {
+    border: none;
+    vertical-align: middle;
+}
+
+[v-cloak] {
+    display: none !important;
+}
+
+/**
+   针对IE布局应用的公用类
+*/
+.f_left {
+    float: left;
+}
+
+.f_right {
+    float: right;
+}
+
+.clear_fix {
+    overflow: hidden;
+    clear: both;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>雷神网吧版-忘记密码</title>
+    <meta name="keywords" content="雷神网吧版">
+    <meta name="description" content="雷神网吧版">
+</head>
+
+<body>
+    <div id="login" v-cloak>
+        <div class="leigod_container">
+            <!-- 头部 -->
+            <header-nav></header-nav>
+
+            <!-- banner -->
+            <div class="leigod_bannerBox">
+                <div class="leigod_banner">
+                    <img src="./images//wangbaloginbanner.png" class="leigod_center" alt="" srcset="">
+                    <div class="leigod_bannerCon">
+                        <h3 class="leigod_banner_tit leigod_text_center">忘记密码</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- content -->
+            <div class="leigod_contentBox" style="background:#eee;">
+                <div class="leigod_loginBox"   @keyup.enter="clickFindPassword">
+                    <div class="leigod_login" >
+                        <div class="leigod_reg_block">
+                            <el-input class="leigod_login_cell" placeholder="请输入手机号码" v-model="username" clearable></el-input>
+                        </div>
+                        <div class="leigod_reg_block">
+                            <el-input class="leigod_login_cell" placeholder="请输入图形验证码" v-model="checkcode" clearable></el-input>
+                            <img @click="getCaptcha" :src="imgCaptchaM.image" height="35"
+                                class="leigod_reg_verify" alt="">
+                        </div>
+                        <div class="leigod_reg_block">
+                            <el-input class="leigod_login_cell" placeholder="请输入短信验证码" v-model="smscode"></el-input>
+                            <div class="leigod_sendsms" @click="onSmsCode" v-show="smsCountDownNum <= 0">发送短信</div>
+                            <div class="leigod_sendsms" style="color:#999;" v-show="smsCountDownNum > 0">已发送{{smsCountDownNum}}s</div>
+                        </div>
+                        <div class="leigod_reg_block">
+                            <el-input type="password" class="leigod_login_cell" placeholder="请输入密码(6~20位数字加字母组合)"
+                                v-model="password" clearable></el-input>
+                        </div>
+
+                        <button class="leigod_loginBtn" @click="clickFindPassword">确定</button>
+                        <h5 class="leigod_login_tips leigod_login_cell"><a href="./login.html">返回登录</a></h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- foot -->
+            <footer-nav></footer-nav>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

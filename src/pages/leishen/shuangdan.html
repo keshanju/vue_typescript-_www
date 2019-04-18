@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://hm.baidu.com/hm.js?0eb4303e084ff5791f2a25e3df421cea"></script>
+    <title>雷神双旦活动</title>
+</head>
+
+<body style="background: #c5cdd9;">
+    <div id="app">
+        <!--顶部导航-->
+        <head-nav v-on:changelanguage="onChangeLanguage"></head-nav>
+        <canvas id="canvas" class="snow"></canvas>
+        <div class="sd_banner">
+            <div class="sd_sub_banner">
+                <div class="sd_package_list">
+                    <div class="sd_pack_one">
+                        <a @click="gotoRecharge" class="goumai_btn position_btn">
+                            购买套餐
+                        </a>
+                    </div>
+                    <div class="sd_pack_two">
+                        <a @click="gotoRecharge" class="goumai_btn position_btn">
+                            购买套餐
+                        </a>
+                    </div>
+                    <div class="sd_shuoming"></div>
+                </div>
+                <div class="expired_timing_box">
+                    <p class="sd_timing_font">活动时间：</p>
+                    <p class="sd_timing_font" style="margin-top: 15px;">2018年12月25日15:30~2019年1月9日15:30</p>
+                </div>
+            </div>
+        </div>
+        <div class="sd_main_bg">
+            <div class="sd_contend flex_col_item_left">
+                <!--页面主体-->
+                <div class="sd_main_contend" style="width: 1028px">
+                    <div class="sd_main_box pos_sd_box flex_row_between">
+                        <div class="flex_column_center" style="width: 403px;">
+                            <img style="margin: 40px 0 0;" src="./images/sdpc_jiangping.png" alt="">
+                            <div style="width: 403px;" class="flex_wrap_row_between">
+                                <img style="margin-bottom: 6px" src="./images/pc_500_meiyuan.png" alt="">
+                                <img style="margin-bottom: 6px" src="./images/pc_present_iphone.png" alt="">
+                                <img src="./images/pc_188_hours.png" alt="">
+                                <img src="./images/pc_88_hours.png" alt="">
+                            </div>
+                            <img style="margin: 16px 0;" src="./images/sdpc_gonggao.png" alt="">
+                            <div class="jilu_box" id="jilu_box">
+                                <div style="height:164px;overflow:hidden;">
+                                    <ul>
+                                        <li v-for="(item, index) in awardList" :key="index">
+                                            <p class="jilu_font">
+                                                <span>恭喜</span>
+                                                <span class="pos_jilu_list">{{item.nickname}}</span>
+                                                <span class="pos_jilu_list">获得</span>
+                                                <span class="pos_jilu_list">{{item.title}}</span>
+                                                <span>{{item.create_time}}</span>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div style="width: 525px;" class="">
+                            <div class="sd_click_box flex_column_between" :class="[isBengin ? 'sd_click_box_choose' : '']">
+                                <p style="margin-top: 25px">
+                                    <span class="sd_tishi_font">您还有</span>
+                                    <span class="ssd_chishu">{{aCount}}</span>
+                                    <span class="sd_tishi_font">次砸金蛋机会</span>
+                                </p>
+                                <!-- 敲击区域 -->
+                                <div class="sd_click_area" @click="onClickDraw">
+                                    <!-- 抽中的奖品 -->
+                                    <div class="up_to_show_box" :class="{'present_show': isWin }">
+                                        <img v-if="isWin" :src="imageHeadUrl + awardInfo.img_url" alt="" class="img_filter">
+                                    </div>
+                                </div>
+                                <div class="flex_row_around guize_box">
+                                    <a class="goumai_btn" @click="onClickGuize">
+                                        查看规则
+                                    </a>
+                                    <a class="goumai_btn" @click="onClickAward">
+                                        中奖纪录
+                                    </a>
+                                </div>
+                                <div class="caidai_box">
+                                    <img src="./images/sdpc_caidai.png" alt="" class="img_filter">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sd_sec_box pos_sd_box flex_column_center">
+                        <p class="sd_jingli_font" style="margin-top: 55px;">参与雷神官方微博双旦活动 关注@雷神加速器</p>
+                        <p class="sd_jingli_font">转发并说出您在2018年中加速时间最长的一款游戏</p>
+                        <p class="sd_cart_font">8760小时充值卡等你来抢</p>
+                        <a target="_blank" :href="sina_link" class="goumai_btn">立即参与</a>
+                    </div>
+                    <div class="sd_seven_box pos_sd_box" style="z-index: 9">
+                        <p class="hd_time_font">2018年12月25日15:30~2019年1月9日15:30</p>
+                    </div>
+                    <div class="sd_third_box pos_sd_box" style="position: relative;z-index: 99">
+                        <div class="flex_row_center sd_links_box">
+                            <a type="text" v-text="refer_code" class="sd_copy_btn" style="margin-right: 5px;font-size: 16px;"></a>
+                            <a @click="copyRefercodeLink" class="goumai_btn" style="padding: 4px 22px;">复制链接</a>
+                        </div>
+                    </div>
+                    <div class="sd_forth_box pos_sd_box"></div>
+                    <div class="sd_five_box pos_sd_box"></div>
+                    <div class="sd_six_box sd_explain_font" style="z-index: 99">
+                        <ul style="list-style: circle inside;">
+                            <li class="flex_cen_start_top" style="margin-bottom: 20px;">
+                                <p class="pos_sd_wenzi">【活动时间】</p>
+                                <p class="pos_sd_con">活动时间：2018年12月25日15:30~2019年1月9日15:30。</p>
+                            </li>
+                            <li class="flex_cen_start_top" style="margin-bottom: 20px;">
+                                <p class="pos_sd_wenzi">【如何抽奖】</p>
+                                <div class="pos_sd_con">
+                                    <p>1，砸金蛋活动需要购买套餐方可参加，每购买一次套餐即可参与砸金蛋一次,购买8760小时套餐可砸三次金蛋。</p>
+                                    <p>2，关注雷神官方微博并转发活动即可免费参与8760小时年卡抽奖。</p>
+                                    <p>3，扫码关注雷神微信公众号 进入雷神微信公众号菜单栏“双旦福利”即可参与抽奖。微信免费抽奖时间：2018年12月25日15:30~2019年1月9日15:30。</p>
+                                </div>
+                            </li>
+                            <li class="flex_cen_start_top" style="margin-bottom: 20px;">
+                                <p class="pos_sd_wenzi">【奖品发放】</p>
+                                <div class="pos_sd_con">
+                                    <p>1，活动期间，抽中实物奖品、steam卡可根据中奖提示添加发奖客服微信（微信号： service6000)领取奖品。</p>
+                                    <p>2，抽中时长卡用户，点击领取兑换即可充值到你的账户余额里面。</p>
+                                    <p>（实物奖品颜色随机发放，请您及时与发奖客服进行联系，逾期将停止兑奖）</p>
+                                </div>
+                            </li>
+                            <li class="flex_cen_start_top">
+                                <p class="pos_sd_wenzi">【注意事项】</p>
+                                <div class="pos_sd_con">
+                                    <p style="margin-bottom: 20px;">此活动只针对于雷神超级会员，海外会员不在此活动范围内</p>
+                                    <p>参与活动前请仔细阅读活动规则</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="sd_ereweima_box flex_column_end">
+                            <div class="flex_column_center" style="margin-right: 10px;">
+                                <img src="./images/pc_ewm.png" alt="">
+                                <p class="sd_tianjia_font">请扫描添加发奖客服微信</p>
+                            </div>
+                            <p>本次活动的最终解释权归上海雷神网络科技有限公司所有</p>
+                        </div>
+                    </div>
+                </div>
+                <!--分享部分-->
+                <div style="width: 150px;z-index: 99" :class="{'fixed_share':joinleftfix==1}" class="wrap_side_box">
+                    <div class="sd_side_box flex_column_center" style="width: 150px;z-index: 99">
+                        <!--未登录-->
+                        <div @click="gotoRecharge" v-if="userInfo == null" class="flex_column_center" style="margin-top: 20px;">
+                            <a>
+                                <img class="pos_activity_banner" src="./images/nav_logo.png" alt="" width="76">
+                            </a>
+                            <a class="sd_share_login_font">请登录</a>
+                        </div>
+                        <!--已登录-->
+                        <div @click="gotoRecharge" v-if="userInfo != null" class="flex_column_center" style="margin-top: 20px;">
+                            <a>
+                                <img class="pos_activity_banner" style="border-radius: 50%;" :src="userInfo.avatar"
+                                    onerror="javascript:this.src='./images/default_avatar.png'" width="76">
+                            </a>
+                            <a class="sd_share_login_font" style="font-size: 10px;">{{userInfo.nickname}}</a>
+                        </div>
+
+                        <div class="sd_share_line"></div>
+                        <div class="flex_column_center bdsharebuttonbox">
+                            <p class="pos_activity_banner sd_share_happy_font">分享快乐</p>
+                            <a href="#" class="bds_tsina weibo_bg" data-cmd="tsina">
+                                <!-- <img class="pos_activity_banner" src="./images/share_weibo.png" alt=""> -->
+                            </a>
+                            <a href="#" class="bds_sqq weixin_bg" data-cmd="sqq">
+                                <!-- <img class="pos_activity_banner" class="bds_weixin" src="./images/share_qq.png" alt=""> -->
+                            </a>
+                            <a href="#" class="bds_qzone qq_bg" data-cmd="qzone">
+                                <!-- <img class="pos_activity_banner" src="./images/share_qqzone.png" alt=""> -->
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--错误提示-->
+        <el-dialog title="温馨提示" :visible.sync="dialog_error" width="30%" @close="continueDraw" center>
+            <div style="text-align: center">
+                <div class="flex_column_center">
+                    <span>{{dialog_msg}}</span>
+                    <span slot="footer" class="dialog-footer" style="margin-top: 40px;">
+                        <a @click="closeDialog" class="goumai_btn">确定</a>
+                    </span>
+                </div>
+            </div>
+        </el-dialog>
+
+        <!--中奖提醒-->
+        <div class="sd_tankuang_box">
+            <el-dialog title="" :visible.sync="dialog_win" width="40%" @close="continueDraw" center>
+                <div class="get_choosed_box">
+                    <div class="flex_row_center">
+                        <div style="margin-right: 20px;">
+                            <img src="./images/sd_pc_choose_bg.png" alt="">
+                        </div>
+                        <div class="flex_column_center">
+                            <p class="gif_title_font">恭喜您砸中：</p>
+                            <div class="gift_title_box">{{dialog_msg}}</div>
+                            <span slot="footer" class="dialog-footer" style="margin-top: 40px;">
+                                <a @click="continueDraw" class="goumai_btn" style="padding: 2px 70px;">继续</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </el-dialog>
+        </div>
+
+        <!--未登录提醒-->
+        <el-dialog title="温馨提示" :visible.sync="dialog_no_login" width="30%" center>
+            <div style="text-align: center">
+                <div class="flex_column_center">
+                    <span>请先登录!</span>
+                    <span slot="footer" class="dialog-footer" style="margin-top: 40px;">
+                        <a @click="gotoLogin" class="goumai_btn">登录</a>
+                    </span>
+                </div>
+            </div>
+        </el-dialog>
+
+        <!--提示充值-->
+        <el-dialog title="温馨提示" :visible.sync="dialog_recharge" width="30%" center>
+            <div style="text-align: center">
+                <div class="flex_column_center">
+                    <span>您的砸金蛋机会为0次，暂不能参与砸金蛋活动！ 每购买一次套餐即可参与砸金蛋1次，购买8760小时套餐可砸3次金蛋！</span>
+                    <span slot="footer" class="dialog-footer" style="margin-top: 40px;">
+                        <a @click="gotoRecharge" class="goumai_btn">前去充值</a>
+                    </span>
+                </div>
+            </div>
+        </el-dialog>
+
+        <!--复制到剪切板-->
+        <el-dialog title="温馨提示" :visible.sync="dialog_copy_ref_link" width="30%" center>
+            <div style="text-align: center">
+                <div class="flex_column_center">
+                    <span>邀请链接已复制到剪切板！快去邀请好友注册充值送砸金蛋机会吧！</span>
+                    <span slot="footer" class="dialog-footer" style="margin-top: 40px;">
+                        <a @click="closeDialog" class="goumai_btn">确定</a>
+                    </span>
+                </div>
+            </div>
+        </el-dialog>
+        <!-- 我的中奖纪录 -->
+        <el-dialog title="中奖纪录" :visible.sync="dialog_award" width="40%" center>
+            <div style="text-align: center">
+                <!-- 中奖纪录模块 -->
+                <div>
+                    <!-- 暂无中奖 -->
+                    <div style="display: none;" v-show="awardRecordList.length <= 0" class="flex_column_center">
+                        <img src="./images/sdpc_none.png" alt="" width="96">
+                        <p style="padding: 20px;">暂无中奖记录</p>
+                    </div>
+                    <!-- 已中奖纪录 -->
+                    <div style="display: none" v-show="awardRecordList.length > 0" class="">
+                        <ul>
+                            <li v-for="(item, index) in awardRecordList" :key="index">
+                                <p class="award_list_cell">
+                                    <span>抽中</span>
+                                    <span class="present_list_font">{{item.present_title}}</span>
+                                    <span>{{item.create_time}}</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 公共底部 -->
+                    <div class="jilu_footer_box flex_row_start">
+                        <img src="./images/sd_kefu_code.png" alt="" width="120">
+                        <div style="margin-left: 15px;">
+                            <p>请扫描二维码添加发奖客服微信</p>
+                            <div style="text-align: left;">
+                                <p>1、活动期间，中奖用户可根据中奖提示添加客服微信：service6000 领取奖品</p>
+                                <p>2、抽中时长卡用户，点击领取兑换即可充值到你的账户余额里面</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </el-dialog>
+        <!-- 活动规则弹框 -->
+        <el-dialog title="活动规则" :visible.sync="dialog_guize" width="45%" center>
+            <div>
+                <!-- 中奖纪录模块 -->
+                <div class="">
+                    <div style="margin-bottom: 20px">
+                        <ul>
+                            <li class="flex_cen_start_top" style="margin-bottom: 20px;">
+                                <p class="pos_sd_wenzi">【活动时间】</p>
+                                <p>活动时间：2018年12月25日15:30~2019年1月9日15:30。</p>
+                            </li>
+                            <li class="flex_cen_start_top" style="margin-bottom: 20px;">
+                                <p class="pos_sd_wenzi">【如何抽奖】</p>
+                                <div style="width: 80%">
+                                    <p>1，砸金蛋活动需要购买套餐方可参加，每购买一次套餐即可参与砸金蛋一次,购买8760小时套餐可砸三次金蛋。</p>
+                                    <p>2，关注雷神官方微博并转发活动即可免费参与8760小时年卡抽奖。</p>
+                                    <p>3，扫码关注雷神微信公众号 进入雷神微信公众号菜单栏“双旦福利”即可参与抽奖。微信免费抽奖时间：2018年12月25日15:30~2019年1月9日15:30。</p>
+                                </div>
+                            </li>
+                            <li class="flex_cen_start_top" style="margin-bottom: 20px;">
+                                <p class="pos_sd_wenzi">【奖品发放】</p>
+                                <div style="width: 80%;">
+                                    <p>1，活动期间，抽中实物奖品、steam卡可根据中奖提示添加发奖客服微信（微信号： service6000)领取奖品。</p>
+                                    <p>2，抽中时长卡用户，点击领取兑换即可充值到你的账户余额里面。</p>
+                                    <p>（实物奖品颜色随机发放，请您及时与发奖客服进行联系，逾期将停止兑奖）</p>
+                                </div>
+                            </li>
+                            <li class="flex_cen_start_top">
+                                <p class="pos_sd_wenzi">【注意事项】</p>
+                                <div style="width: 80%">
+                                    <p style="margin-bottom: 20px;">此活动只针对于雷神超级会员，海外会员不在此活动范围内</p>
+                                    <p>参与活动前请仔细阅读活动规则</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 公共底部 -->
+                    <div class="jilu_footer_box flex_row_start">
+                        <img src="./images/sd_kefu_code.png" alt="" width="120">
+                        <div style="margin-left: 15px;">
+                            <p>请扫描二维码添加发奖客服微信</p>
+                            <div>
+                                <p>1、活动期间，中奖用户可根据中奖提示添加客服微信：service6000 领取奖品</p>
+                                <p>2、抽中时长卡用户，点击领取兑换即可充值到你的账户余额里面</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </el-dialog>
+        <!--页面底部导航-->
+        <foot-nav class="other_foot_nav"></foot-nav>
+    </div>
+</body>
+
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "0",
+            "bdSize": "16"
+        },
+        "share": {}
+    };
+    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src =
+        '/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)
+    ];
+</script>
+
+</html>

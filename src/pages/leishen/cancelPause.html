@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://hm.baidu.com/hm.js?0eb4303e084ff5791f2a25e3df421cea"></script>
+    <title>雷神加速器</title>
+    <meta name="keywords" content="a1">
+    <meta name="description" content="a1">
+</head>
+
+<body style="background: #222222;">
+<div id="app">
+    <!--顶部导航-->
+    <head-nav v-on:changelanguage="onChangeLanguage"></head-nav>
+    <div class="zhuanti_banner_box">
+        <img v-if="webParam.language == 'zh_CN'" src="./images/nbcn_banner.jpg" :alt="$t('index.a1')"
+             class="pause_banner">
+        <img v-if="webParam.language == 'en'" src="./images/nb_en_banner.jpg" :alt="$t('index.a1')"
+             class="pause_banner">
+    </div>
+    <div class="zhuanti_contend_box">
+        <img v-if="webParam.language == 'zh_CN'" src="./images/nbcn_screen01.jpg" :alt="$t('index.a1')">
+        <img v-if="webParam.language == 'en'" src="./images/nb_en_screen01.jpg" :alt="$t('index.a1')">
+        <img v-if="webParam.language == 'zh_CN'" src="./images/nbcn_screen02.jpg" :alt="$t('index.a1')">
+        <img v-if="webParam.language == 'en'" src="./images/nb_en_screen02.jpg" :alt="$t('index.a1')">
+        <img v-if="webParam.language == 'zh_CN'" src="./images/nbcn_screen03.jpg" :alt="$t('index.a1')">
+        <img v-if="webParam.language == 'en'" src="./images/nb_en_screen03.jpg" :alt="$t('index.a1')">
+        <img v-if="webParam.language == 'zh_CN'" src="./images/nbcn_screen04.jpg" :alt="$t('index.a1')">
+        <img v-if="webParam.language == 'en'" src="./images/nb_en_screen04.jpg" :alt="$t('index.a1')">
+        <img v-if="webParam.language == 'zh_CN'" src="./images/nbcn_screen05.jpg" :alt="$t('index.a1')">
+        <img v-if="webParam.language == 'en'" src="./images/nb_en_screen05.jpg" :alt="$t('index.a1')">
+        <img v-if="webParam.language == 'en'" src="./images/nb_en_screen06.jpg" alt="$t('index.a1')">
+        <div v-if="webParam.language == 'zh_CN'" class="new_side_box" :class="{'fixed_share':joinleftfix==1}"></div>
+        <div v-if="webParam.language == 'en'" class="new_en_side_box" :class="{'fixed_share':joinleftfix==1}"></div>
+    </div>
+
+    <!-- 客服下载 -->
+    <download-box v-if="webParam.region_code == 1"></download-box>
+    <!--页面底部导航-->
+    <foot-nav class="other_foot_nav"></foot-nav>
+</div>
+；
+</body>
+<!-- 客服-->
+#include('./components/_kefu.html')
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="robots" content="noindex">
+		<title>帮助中心</title>
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+	</head>
+
+	<body style="background:  #363437">
+		<div class="app_help" id="app" v-cloak>
+			<van-collapse v-model="activeName" accordion @change="changeCollapse">
+				<van-collapse-item v-for="item in newsList" :key="item.id" :title="item.title" :name="item.id">
+					亲爱的雷神用户: <br />
+					<p v-html="item.content"></p>
+				</van-collapse-item>
+			</van-collapse>
+			<!--
+				<van-collapse v-model="activeName" accordion>
+				    <van-collapse-item title="找不到我想玩的游戏怎么办?" name="1">
+				        亲爱的雷神用户: <br>
+				        如果您在游戏界面未找到您想玩的游戏，可联系我们的QQ客服（QQ：2852362693）“小雷妹”进行咨询后。客服视情况进行添加。
+				    </van-collapse-item>
+				    <van-collapse-item title="为何系统显示的加速流量这么多？" name="2">
+				        亲爱的雷神用户: <br>
+				        由于加速服务的特性，需要接管指定游戏进程的所有流量，所以原本游戏的流量都通过加速器转发，雷神加速器自身并不产生额外的游戏数据流量。
+				    </van-collapse-item>
+				    <van-collapse-item title="为什么雷神的延迟和游戏内延迟不一样？" name="3">
+				        亲爱的雷神用户: <br>
+				        雷神的延迟指的是您到我们加速器的延迟，实际游戏内延迟还要算上雷神到游戏服务器的延迟，请以实际游戏中的网络流畅度为准。
+				    </van-collapse-item>
+				    <van-collapse-item title="为什么加速后进入游戏显示网络异常？" name="4">
+				        亲爱的雷神用户: <br>
+				        请尝试切换网络（4G换WiFi、WiFi换4G）加速是否可行，小米手机关闭神隐模式，不行则联系QQ客服（QQ：2852362693）“小雷妹”进行处理。
+				    </van-collapse-item>
+				    <van-collapse-item title="加速器运行时崩溃或闪退, 怎么办？" name="5">
+				        亲爱的雷神用户: <br>
+				        首先感谢您使用雷神加速器，如果出现加速器运行时崩溃或闪退，请联系QQ客服（QQ：2852362693）“小雷妹”，说明您的手机型号及系统版本，我们的攻城狮会火速进行修复。
+				    </van-collapse-item>
+				    <van-collapse-item title="网络一直连不上怎么办？" name="6">
+				        亲爱的雷神用户: <br>
+				        如果出现网络连接不上，请按照以下步骤进行操作：<br>
+				        1、请检查当前网络是否连接，确认网络连接正常后重启加速器；<br>
+				        2、请确认是否开启了其他VPN，如果您正在使用其他VPN，请先关闭其他VPN再使用我们的加速服务；<br>
+				        3、如果您的手机系统是iOS10+,同时加速器不能联网，请打开手机的【设置】--【蜂窝移动网络】--【使用无线局域网和蜂窝移动网络的应用】-【雷神加速器】，选择【无线局域网和蜂窝移动数据】即可；<br>
+				        若设置中找不到加速器，建议在【设置】--【蜂窝移动网络】中打开【无线局域网助理】，再尝试打开加速器。<br>
+				        如果以上方法都不行，建议重启手机再试哦…
+				    </van-collapse-item>
+				</van-collapse>
+			-->
+		</div>
+	</body>
+</html>

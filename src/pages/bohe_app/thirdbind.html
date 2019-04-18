@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Binding</title>
+    <meta name="keywords" content="a1">
+    <meta name="description" content="a1">
+</head>
+
+<body style="background: #fff;">
+    <div class="wrap_of_thirdbind" id="app" style="padding-top:20px;">
+        <!-- <div class="pos_top">
+            <span class="font_s20">{{$t("bindmobile.bd4")}}</span>
+        </div> -->
+        <div>
+            <ul class="pos_center">
+                <li class="tab_s0" style="height: 30px;text-align: center;" @click="changeRegisterType(4)" :class="{tab_col:resignType == 4,showEmail:isShowEmail==0}">{{$t("bindmobile.bd1")}}</li>
+                <li class="tab_s0" style="height: 30px;text-align: center;" v-show="isShowEmail" @click="changeRegisterType(5)" :class="{tab_col:resignType == 5}">{{$t("bindmobile.bd2")}}</li>
+            </ul>
+        </div>
+        <div>
+            <ul class="" v-show="resignType == 4">
+                <li class="list_input clearfix_bh" style="width: 85%;" id="regioncode">
+                    <el-select @change="onSelectCountryCode" v-model="countryCode" style="float: left;width: 100px;height: 40px;">
+                        <el-option v-for="item in areaCodeListArr" :key="item" :value="item" :label="item"></el-option>
+                    </el-select>
+                    <input v-model="phone" class="input_s0" style="width:calc(100% - 108px) ;float:right;" type="text" :placeholder="$t('login.l4')" />
+                </li>
+                <li class="list_input" style="position: relative;width: 85%;" v-show="isimgVerification == 1" >
+                    <input v-model="imgCaptchaCode" class="input_s0" type="text" :placeholder="$t('login.l8')" />
+                    <span class="pos_code_s" @click="getCaptcha" style="right:0px; height: 40px;width:80px;">
+                        <img v-show="imgCaptchaM.img != null" :src="imgCaptchaM.img" alt="" width="100%" height="100%">
+                    </span>
+                </li>
+                <li class="list_input" style="position: relative;width:85%;">
+                    <input v-model="smscode" class="input_s0"    type="text" :placeholder="$t('login.l5')" />
+
+                    <div class="pos_msg_s" style="right: 8px;top: 12px;">
+                        <span @click="onSmsCode" v-show="smsCountDownNum <= 0">{{$t("login.l17")}}</span>
+                        <b v-show="smsCountDownNum <= 0 && countryCode == 86">|</b>
+                        <span style="display: none;" @click="onVoiceCode" v-show="smsCountDownNum <= 0 && countryCode == 86">{{$t("login.l18")}}</span>
+                        <span style="display: none;" v-show="smsCountDownNum > 0">({{smsCountDownNum}}s)</span>
+                    </div>
+                </li>
+                <li class="list_input" v-show="bind_status == 4" style="width: 85%;" >
+                    <input v-model="phonePassword" class="input_s0"    type="password" :placeholder="$t('login.l6')" />
+                </li>
+            </ul>
+            <ul v-show="resignType == 5">
+                <li class="list_input" style="width: 85%;">
+                    <input v-model="email" class="input_s0" type="text" :placeholder="$t('login.l9')" />
+                </li>
+                <li class="list_input" style="position: relative; width: 85%;" v-show="isimgVerification == 1">
+                    <input v-model="imgCaptchaCode" class="input_s0" type="text" :placeholder="$t('login.l8')" />
+                    <span class="pos_code_s" @click="getCaptcha" style="right:0px; height: 40px;width:80px;">
+                        <img v-show="imgCaptchaM.img != null" :src="imgCaptchaM.img" alt="" width="100%" height="100%">
+                    </span>
+                </li>
+                <li class="list_input" style="position: relative;width: 85%; ">
+                    <input v-model="emailcode" class="input_s0" type="text" :placeholder="$t('login.l10')" />
+
+                    <div class="pos_msg_s" style="right: 8px;top: 12px;">
+                        <span @click="onEmailCode" v-show="emailCountDownNum <= 0">{{$t("login.l19")}}</span>
+                        <span style="display: none;" v-show="emailCountDownNum > 0">({{emailCountDownNum}}s)</span>
+                    </div>
+                </li>
+                <li class="list_input" v-show="bind_status == 4" style="position: relative;width: 85%; ">
+                    <input v-model="emailPassword" class="input_s0" type="password" :placeholder="$t('login.l6')" />
+                </li>
+            </ul>
+        </div>
+
+        <div class="pt_center">
+            <button @keyup.enter="clickBind" @click="clickBind" class="button_click">{{$t("bindmobile.bd3")}}</button>
+        </div>
+
+        <!-- loading弹窗 -->
+        <div class="loading" v-show="isLoading">
+            <div class="loadingContent">
+                <van-loading type="spinner" color="white" />
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

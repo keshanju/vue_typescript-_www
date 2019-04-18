@@ -1,0 +1,28 @@
+{
+    "leigod": {
+        "windows": {
+            "download_url": "//www.bohe.com/soft/win/BOHESetup.1.0.0.0.exe"
+        },
+        "mac": {
+            "download_url": ""
+        },
+        "wangba": {
+            "download_url": "//www.leigod.com/soft/netbar/leigod_netbar_V3.8.3.5.exe"
+        },
+        "pay": {
+            "is_show_wx": 1,
+            "is_show_zfb": 0,
+            "is_show_paypal": 1
+        },
+        "register": {
+            "is_email": 1
+        },
+        "help": {
+            "first_id": 22,
+            "second_id": 0
+        },
+        "index": {
+            "activity_id": 36
+        }
+    }
+}

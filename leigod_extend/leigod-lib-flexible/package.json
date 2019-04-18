@@ -1,0 +1,10 @@
+{
+  "name": "leigod-lib-flexible",
+  "version": "1.0.6",
+  "description": "移动端适配解决方案",
+  "keywords": [
+    "适配"
+  ],
+  "license": "ISC",
+  "main": "flexible.js"
+}

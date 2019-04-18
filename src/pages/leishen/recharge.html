@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://hm.baidu.com/hm.js?0eb4303e084ff5791f2a25e3df421cea"></script>
+    <title>雷神加速器</title>
+    <meta name="keywords" content="a1">
+    <meta name="description" content="a1">
+</head>
+
+<body style="background: #EBEBEB;">
+    <div id="app">
+        <!--顶部导航-->
+        <head-nav v-on:changelanguage="onChangeLanguage"></head-nav>
+        <!-- 套餐页轮播图 -->
+        <div :class="webParam.region_code == 1 ? 'recharge_banner' : 'recharge_en_banner'">
+            <div class="package_slideshow_box">
+                <el-carousel style="height: 394px;">
+
+                    <el-carousel-item v-if="webParam.region_code == 0" style="height: 394px;">
+                        <a href="brandnew.html" class="img_filter">
+                            <img class="img_filter cursor" src="images/recharge_banner_4.png" alt="" v-show="webParam.region_code == 0"
+                                style="display: none;">
+                        </a>
+                    </el-carousel-item>
+
+                    <el-carousel-item v-if="webParam.region_code == 1" style="height: 394px;">
+                        <a :href="activity_url" class="img_filter">
+                            <img class="img_filter cursor" src="images/recharge_banner_middle.png" alt="" v-show="webParam.region_code == 1"
+                                style="display: none;">
+                        </a>
+                    </el-carousel-item>
+
+                </el-carousel>
+            </div>
+        </div>
+        <!-- 套餐列表 -->
+        <div class="recharge_banner_content">
+            <ul class="webpackage_box_fa" style="display:none;" v-show="webParam.region_code == 0">
+                <li class="webpackage_box_son" :class="{'webpackage_active': chooseIndex == 1}" @click="onChoosePrice(1)">
+                    <div class="webpackage_top_cell">
+                        <!--圆周动画的小icon-->
+                        <b class="web_icon_anim"></b>
+                        <p class="package_title_font">720</p>
+                        <p class="package_time_font">{{$t("recharge.c19")}}</p>
+                    </div>
+                    <div class="flex_al_start">
+                        <span class="package_symbol_font" style="margin-top: 8px;">¥</span>
+                        <span class="package_amount_font">60</span>
+                    </div>
+                    <div class="lists_font" style="text-align: center;margin-bottom: 30px;">
+                        <span>{{$t("recharge.c20")}}</span>
+                    </div>
+                    <div class="web_white_btn pak_buynow_font" style="padding: 12px 40px;" @click="buyNow">
+                        {{$t("recharge.c22")}}
+                    </div>
+                </li>
+                <li class="webpackage_box_son" :class="{'webpackage_active': chooseIndex == 2}" @click="onChoosePrice(2)">
+                    <div class="webpackage_top_cell">
+                        <!--圆周动画的小icon-->
+                        <b class="web_icon_anim"></b>
+                        <p class="package_title_font">2160</p>
+                        <p class="package_time_font">{{$t("recharge.c19")}}</p>
+                    </div>
+                    <div class="flex_al_start">
+                        <span class="package_symbol_font" style="margin-top: 8px;">¥</span>
+                        <span class="package_amount_font">162</span>
+                    </div>
+                    <div class="lists_font" style="text-align: center;margin-bottom: 30px;">
+                        <span>{{$t("recharge.c23")}}</span>
+                    </div>
+                    <div class="web_white_btn pak_buynow_font" style="padding: 12px 40px;" @click="buyNow">
+                        {{$t("recharge.c22")}}
+                    </div>
+                </li>
+                <li class="webpackage_box_son" :class="{'webpackage_active': chooseIndex == 3}" @click="onChoosePrice(3)">
+                    <div class="webpackage_top_cell">
+                        <!--圆周动画的小icon-->
+                        <b class="web_icon_anim"></b>
+                        <p class="package_title_font">4320</p>
+                        <p class="package_time_font">{{$t("recharge.c19")}}</p>
+                    </div>
+                    <div class="flex_al_start">
+                        <span class="package_symbol_font" style="margin-top: 8px;">¥</span>
+                        <span class="package_amount_font">288</span>
+                    </div>
+                    <div class="lists_font" style="text-align: center;margin-bottom: 30px;">
+                        <span>{{$t("recharge.c25")}}</span>
+                    </div>
+                    <div class="web_white_btn pak_buynow_font" style="padding: 12px 40px;" @click="buyNow">
+                        {{$t("recharge.c22")}}
+                    </div>
+                </li>
+                <li class="webpackage_box_son" :class="{'webpackage_active': chooseIndex == 4}" @click="onChoosePrice(4)">
+                    <div class="webpackage_top_cell">
+                        <!--圆周动画的小icon-->
+                        <b class="web_icon_anim"></b>
+                        <p class="package_title_font">8760</p>
+                        <p class="package_time_font">{{$t("recharge.c19")}}</p>
+                    </div>
+                    <div class="flex_al_start">
+                        <span class="package_symbol_font" style="margin-top: 8px;">¥</span>
+                        <span class="package_amount_font">298</span>
+                    </div>
+                    <div class="lists_font" style="text-align: center;margin-bottom: 30px;">
+                        <span>{{$t("recharge.c27")}}</span>
+                    </div>
+                    <div class="web_white_btn pak_buynow_font" style="padding: 12px 40px;" @click="buyNow">
+                        {{$t("recharge.c22")}}
+                    </div>
+                </li>
+            </ul>
+            <ul class="webpackage_box_fa" style="display:none;" v-show="webParam.region_code == 1">
+                <li class="webpackage_box_son" :class="{'webpackage_active': chooseIndex == 1}" @click="onChoosePrice(1)">
+                    <div class="webpackage_top_cell">
+                        <!--圆周动画的小icon-->
+                        <b class="web_icon_anim"></b>
+                        <p class="package_title_font">720</p>
+                        <p class="package_time_font">{{$t("recharge.c19")}}</p>
+                    </div>
+                    <div class="flex_al_start">
+                        <span class="package_symbol_font" style="margin-top: 8px;">¥</span>
+                        <span class="package_amount_font">45</span>
+                    </div>
+                    <div class="lists_font" style="text-align: center;margin-bottom: 30px;">
+                        <span>{{$t("recharge.c20")}}</span>
+                    </div>
+                    <div class="web_white_btn pak_buynow_font" style="padding: 12px 40px;" @click="buyNow">
+                        {{$t("recharge.c22")}}
+                    </div>
+                </li>
+                <li class="webpackage_box_son" :class="{'webpackage_active': chooseIndex == 2}" @click="onChoosePrice(2)">
+                    <div class="webpackage_top_cell">
+                        <!--圆周动画的小icon-->
+                        <b class="web_icon_anim"></b>
+                        <p class="package_title_font">2160</p>
+                        <p class="package_time_font">{{$t("recharge.c19")}}</p>
+                    </div>
+                    <div class="flex_al_start">
+                        <span class="package_symbol_font" style="margin-top: 8px;">¥</span>
+                        <span class="package_amount_font">122</span>
+                    </div>
+                    <div class="lists_font" style="text-align: center;margin-bottom: 30px;">
+                        <span>{{$t("recharge.c23")}}</span>
+                    </div>
+                    <div class="web_white_btn pak_buynow_font" style="padding: 12px 40px;" @click="buyNow">
+                        {{$t("recharge.c22")}}
+                    </div>
+                </li>
+                <li class="webpackage_box_son" :class="{'webpackage_active': chooseIndex == 3}" @click="onChoosePrice(3)">
+                    <div class="webpackage_top_cell">
+                        <!--圆周动画的小icon-->
+                        <b class="web_icon_anim"></b>
+                        <p class="package_title_font">4320</p>
+                        <p class="package_time_font">{{$t("recharge.c19")}}</p>
+                    </div>
+                    <div class="flex_al_start">
+                        <span class="package_symbol_font" style="margin-top: 8px;">¥</span>
+                        <span class="package_amount_font">216</span>
+                    </div>
+                    <div class="lists_font" style="text-align: center;margin-bottom: 30px;">
+                        <span>{{$t("recharge.c25")}}</span>
+                    </div>
+                    <div class="web_white_btn pak_buynow_font" style="padding: 12px 40px;" @click="buyNow">
+                        {{$t("recharge.c22")}}
+                    </div>
+                </li>
+                <li class="webpackage_box_son" :class="{'webpackage_active': chooseIndex == 4}" @click="onChoosePrice(4)">
+                    <div class="webpackage_top_cell">
+                        <!--圆周动画的小icon-->
+                        <b class="web_icon_anim"></b>
+                        <p class="package_title_font">8760</p>
+                        <p class="package_time_font">{{$t("recharge.c19")}}</p>
+                    </div>
+                    <div class="flex_al_start">
+                        <span class="package_symbol_font" style="margin-top: 8px;">¥</span>
+                        <span class="package_amount_font">188</span>
+                    </div>
+                    <div class="lists_font" style="text-align: center;margin-bottom: 30px;">
+                        <span>{{$t("recharge.c27")}}</span>
+                    </div>
+                    <div class="web_white_btn pak_buynow_font" style="padding: 12px 40px;" @click="buyNow">
+                        {{$t("recharge.c22")}}
+                    </div>
+                </li>
+            </ul>
+            <div class="zanting_box">
+                <!-- 雷神全球加速器 -->
+                <p class="zanting_logo_font pos_zanting">{{$t('index.a1')}}</p>
+                <!-- 可随时暂停时间的网游加速器 -->
+                <p class="zanting_title_font pos_zanting">{{$t('index.a3')}}</p>
+                <!-- 一次购买相当于永久使用 -->
+                <p class="zanting_buy_font pos_zanting">{{$t('index.a4')}}</p>
+                <!-- 扫码关注“雷神加速器”微信公众号 -->
+                <p class="zanting_detail_font">{{$t('recharge.c31')}}</p>
+                <!-- 也可随时暂停时间 -->
+                <p class="zanting_detail_font">{{$t('index.a15')}}</p>
+            </div>
+            <!-- 温馨提示 （根据不同组件进行渲染）-->
+            <div class="pos_warm_box">
+                <h3 class="warm_tips_font">{{$t("warmtips.tip1")}}</h3>
+                <div class="warm_detail_font">
+                    <p class="pos_warm_txt" style="word-break:keep-all;">{{$t("warmtips.tip2")}}</p>
+                    <p class="pos_warm_txt" style="word-break:keep-all;">{{$t("warmtips.tip3")}}</p>
+                    <p class="pos_warm_txt" style="word-break:keep-all;">{{$t("warmtips.tip4")}}</p>
+                </div>
+                <div class="hide warm_detail_font">
+                    <p class="pos_warm_txt" style="word-break:keep-all;">{{$t("warmtips.tip5")}}</p>
+                    <p class="pos_warm_txt" style="word-break:keep-all;">{{$t("warmtips.tip6")}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- 客服下载 -->
+        <download-box v-if="webParam.region_code == 1"></download-box>
+
+        <!--页面底部导航-->
+        <foot-nav class="other_foot_nav"></foot-nav>
+    </div>
+</body>
+<!-- 客服-->
+#include('./components/_kefu.html')
+
+</html>

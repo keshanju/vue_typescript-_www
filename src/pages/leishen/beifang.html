@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://hm.baidu.com/hm.js?0eb4303e084ff5791f2a25e3df421cea"></script>
+    <title>雷神加速器</title>
+    <meta name="keywords" content="a1">
+    <meta name="description" content="a1">
+</head>
+
+<body>
+    <div id="app">
+        <div class="back-to-index">
+                <!-- 返回首页 -->
+            <a href="/">{{$t('public.share65')}}</a>
+        </div>
+        <div class="beifang_banner">
+            <div class="zhuanti_contend_box">
+                <div class="download-client-leigod">
+                        <!-- 北方线路延迟 完爆市面上其他加速 -->
+                    <h1 class="new_notice_font">北方线路延迟 完爆市面上其他加速器</h1>
+                    <a class="click_to_download" @click="windowsDownload">
+                        <img class="img_filter" src="./images/beifangdownload.png" alt="">
+                    </a>
+                </div>
+                <img src="./images/beifang_bg_1.png">
+                <img src="./images/beifang_bg_2.png">
+                <img src="./images/beifang_bg_3.png">
+                <img src="./images/beifang_bg_4.png">
+            </div>
+        </div>
+
+        <!-- 客服下载 -->
+        <download-box v-if="webParam.region_code == 1"></download-box>
+
+        <!--页面底部导航-->
+        <foot-nav class="other_foot_nav"></foot-nav>
+    </div>
+</body>
+<!-- 客服-->
+#include('./components/_kefu.html')
+
+</html>

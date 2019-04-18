@@ -1,0 +1,152 @@
+{
+  "0": {
+    "en": [{
+        "name": "index.html",
+        "title": "<title>BOHE International Accelerator</title>",
+        "keywords": "<meta name=\"keywords\" content=\"bohe vpn,Free accelerator,game accelerator,overseas accelerator,Chinese accelerators,live streaming accelerator,video acceleration software,bohe booster,bohe app\">",
+        "description": "<meta name=\"description\" content=\"BOHE Accelerator is committed to providing high-quality access and service to global network for overseas Chinese and Chinese-culture-loving foreign friends.We enable users to access global websites (such as YouTube, Faceboock, etc.), video, music, game and live streaming quickly and smoothly.\">"
+      },
+      {
+        "name": "recharge.html",
+        "title": "<title>Plans - Bohe official websites</title>",
+        "keywords": "<meta name=\"keywords\" content=\"Plans\">",
+        "description": "<meta name=\"description\" content=\"BOHE Accelerator provides Gold plan, Platinum plan and Diamond plan, with different prices .\">"
+      },
+      {
+        "name": "news.html",
+        "title": "<title>Game information - Bohe official websites</title>",
+        "keywords": "<meta name=\"keywords\" content=\"Free accelerators, game accelerators, overseas accelerators, domestic accelerators, live accelerators, video acceleration software\">",
+        "description": "<meta name=\"description\" content=\"BOHE Accelerator provides the latest news on Chinese games and international games, game strategies and heros items for users around the world.\">"
+      },
+      {
+        "name": "notify.html",
+        "title": "<title>Announcements - Bohe official websites</title>",
+        "keywords": "<meta name=\"keywords\" content=\"News of Chinese games, News of international games\">",
+        "description": "<meta name=\"description\" content=\"Announcements in BOHE official websites provides the latest events information in the station.\">"
+      },
+      {
+        "name": "about.html",
+        "title": "<title>About BOHE - Bohe official websites</title>",
+        "keywords": "<meta name=\"keywords\" content=\"About BOHE\">",
+        "description": "<meta name=\"description\" content=\"Introduction to BOHE accelerator and its official website\">"
+      },
+      {
+        "name": "protocol.html",
+        "title": "<title>User Agreement - Bohe official websites</title>",
+        "keywords": "<meta name=\"keywords\" content=\"User Agreement\">",
+        "description": "<meta name=\"description\" content=\"User Agreement for BOHE accelerator\">"
+      }
+    ],
+    "cn": [{
+        "name": "index.html",
+        "title": "<title>薄荷全球加速—独享专线互联游戏、视频、网页、直播、音乐、商务、APP加速【官方网站】</title>",
+        "keywords": "<meta name=\"keywords\" content=\"免费加速器,游戏加速器,海外加速器,薄荷免费vpn,国内加速器,薄荷bohe吃鸡加速器,视频加速软件\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器致力于为海外华人和热爱中国文化的外国友人，提供高速访问全球网络的优质技术与服务。能够帮助用户快速访问全球的网站(如YouTube加速、Facebook加速等)、视频、音乐、游戏、直播等多方位的需求。\">"
+      }, {
+        "name": "recharge.html",
+        "title": "<title>套餐列表-薄荷官方网站</title>",
+        "keywords": "<meta name=\"keywords\" content=\"套餐列表\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器分黄金会员、铂金会员和钻石会员，每个等级都有不同价格供您选择。\">"
+      },
+      {
+        "name": "news.html",
+        "title": "<title>游戏资讯-薄荷加速器官网</title>",
+        "keywords": "<meta name=\"keywords\" content=\"国服游戏资讯,外服游戏资讯\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器提供国内外游戏相关新闻、最新游戏信息、最新最热网络游戏资讯、网络游戏任务攻略，相关英雄物品技能等资料,以及最新热门游戏资料专题\">"
+      },
+      {
+        "name": "notify.html",
+        "title": "<title>公告-薄荷官方网站</title>",
+        "keywords": "<meta name=\"keywords\" content=\"公告\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器网站公告，提供站内最新公告活动信息\">"
+      },
+      {
+        "name": "about.html",
+        "title": "<title>关于薄荷-薄荷官方网站</title>",
+        "keywords": "<meta name=\"keywords\" content=\"关于薄荷\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器及薄荷官网介绍\">"
+      },
+      {
+        "name": "protocol.html",
+        "title": "<title>用户协议-薄荷官方网站</title>",
+        "keywords": "<meta name=\"keywords\" content=\"用户协议\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器用户协议说明\">"
+      }
+    ]
+  },
+  "1": {
+    "en": [{
+        "name": "index.html",
+        "title": "<title>BOHE Online Accelerator</title>",
+        "keywords": "<meta name=\"keywords\" content=\"Free accelerators, game accelerators, overseas accelerators, domestic accelerators, live accelerators, video acceleration software\">",
+        "description": "<meta name=\"description\" content=\"BOHE Accelerator is dedicated to providing high-speed access to Chinese networks for overseas Chinese and foreign friends who love Chinese culture. It can help users get access to Chinese websites, videos, music, games, live streaming and other aspects of needs.\">"
+      },
+      {
+        "name": "package.html",
+        "title": "<title>Plans - Bohe official websites</title>",
+        "keywords": "<meta name=\"keywords\" content=\"Free accelerators, game accelerators, overseas accelerators, domestic accelerators, live accelerators, video acceleration software\">",
+        "description": "<meta name=\"description\" content=\"BOHE Accelerator provides Gold plan, Platinum plan and Diamond plan, with different prices .\">"
+      },
+      {
+        "name": "news.html",
+        "title": "<title>Game information - Bohe official websites</title>",
+        "keywords": "<meta name=\"keywords\" content=\"Free accelerators, game accelerators, overseas accelerators, domestic accelerators, live accelerators, video acceleration software\">",
+        "description": "<meta name=\"description\" content=\"BOHE Accelerator provides the latest news on Chinese games and international games, game strategies and heros items for users around the world.\">"
+      },
+      {
+        "name": "notify.html",
+        "title": "<title>Announcements - Bohe official websites</title>",
+        "keywords": "<meta name=\"keywords\" content=\"Announcements\">",
+        "description": "<meta name=\"description\" content=\"Announcements in BOHE official websites provides the latest events information in the station.\">"
+      },
+      {
+        "name": "about.html",
+        "title": "<title>About BOHE - Bohe official websites</title>",
+        "keywords": "<meta name=\"keywords\" content=\"About BOHE\">",
+        "description": "<meta name=\"description\" content=\"Introduction to BOHE accelerator and its official website\">"
+      },
+      {
+        "name": "protocol.html",
+        "title": "<title>User Agreement - Bohe official websites</title>",
+        "keywords": "<meta name=\"keywords\" content=\"User Agreement\">",
+        "description": "<meta name=\"description\" content=\"User Agreement for BOHE accelerator\">"
+      }
+    ],
+    "cn": [{
+        "name": "index.html",
+        "title": "<title>薄荷全球免费加速—独享专线互联游戏、视频、网页、直播、音乐、商务、APP加速【官方网站】</title>",
+        "keywords": "<meta name=\"keywords\" content=\"免费加速器,游戏加速器,国内加速器\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器致力于为海外华人和热爱中国文化的外国友人，提供高速访问国内网络的优质技术与服务。能够帮助用户快速访问国内的网站、视频、音乐、游戏、直播等多方位的需求。\">"
+      }, {
+        "name": "package.html",
+        "title": "<title>薄荷全球免费加速—独享专线互联游戏、视频、网页、直播、音乐、商务、APP加速【官方网站】</title>",
+        "keywords": "<meta name=\"keywords\" content=\"免费加速器,游戏加速器,海外加速器,国内加速器,直播加速器,视频加速软件\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器致力于为海外华人和热爱中国文化的外国友人，提供高速访问国内网络的优质技术与服务。能够帮助用户快速访问国内的网站、视频、音乐、手游、直播等多方位的需求。\">"
+      },
+      {
+        "name": "news.html",
+        "title": "<title>游戏资讯-薄荷官方网站</title>",
+        "keywords": "<meta name=\"keywords\" content=\"国服游戏资讯,外服游戏资讯\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器提供国内外游戏相关新闻、最新游戏信息、最新最热网络游戏资讯、网络游戏任务攻略，相关英雄物品技能等资料,以及最新热门游戏资料专题\">"
+      },
+      {
+        "name": "notify.html",
+        "title": "<title>公告-薄荷官方网站</title>",
+        "keywords": "<meta name=\"keywords\" content=\"公告\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器网站公告，提供站内最新公告活动信息\">"
+      },
+      {
+        "name": "about.html",
+        "title": "<title>关于薄荷-薄荷官方网站</title>",
+        "keywords": "<meta name=\"keywords\" content=\"关于薄荷\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器及薄荷官网介绍\">"
+      },
+      {
+        "name": "protocol.html",
+        "title": "<title>用户协议-薄荷官方网站</title>",
+        "keywords": "<meta name=\"keywords\" content=\"用户协议\">",
+        "description": "<meta name=\"description\" content=\"（BOHE）薄荷加速器用户协议说明\">"
+      }
+    ]
+  }
+}

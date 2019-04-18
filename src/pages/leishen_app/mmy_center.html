@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>会员中心</title>
+		<meta
+			name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+		/>
+		<meta name="robots" content="noindex" />
+		<meta
+			http-equiv="Cache-Control"
+			content="no-cache, no-store, must-revalidate"
+		/>
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+	</head>
+
+	<body style="padding-bottom: 50px;">
+		<div class="mui-content" id="app" v-cloak>
+			<!-- 用户资料 -->
+			<user-info v-if="showIndex==1"></user-info>
+
+			<!-- 卡密充值 -->
+			<user-cardpsw v-if="showIndex==2"></user-cardpsw>
+
+			<!-- 订单管理 -->
+			<user-orders v-if="showIndex==3"></user-orders>
+
+			<!-- 设置 -->
+			<user-setting v-if="showIndex==4"></user-setting>
+
+			<!-- 导航 -->
+			<navlist></navlist>
+		</div>
+	</body>
+</html>

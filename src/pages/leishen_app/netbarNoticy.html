@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>公告</title>
+    <style>
+      body {
+        overflow: hidden;
+      }
+    
+      .problem_box {
+        width: 310px;
+        height: auto !important;
+      }
+    
+      .problem_con {
+        width: 290px;
+        margin-left: 12px !important;
+      }
+      .problem_con em{
+       font-size: 12px;
+      }
+    
+      .problem_con li {
+        margin-top: 0 !important;
+      }
+    
+      .problem_con li a {
+        line-height: 24px;
+        color: #fff;
+        font-size: 12px !important;
+        letter-spacing: 0.5px;
+    
+      }
+    
+      .problem_tab {
+        width: 99%;
+        margin: auto;
+        border-radius: 5px;
+        border: 1px solid #434a64;
+        background: #fff;
+        overflow: hidden;
+      }
+    
+      .problem_tab a {
+        float: left;
+        display: block;
+        width: 50%;
+        text-align: center;
+        height: 20px;
+        padding: 3px 0;
+        color: #434a64;
+      }
+    
+      .problem_con {
+        margin-top: 5px;
+        max-height: 165px !important;;
+      }
+    
+      .problem_con>ul>li:first-child a {
+        background: url(./images/newicon4.png) no-repeat right;
+        background-size: 13px 12px;
+        padding-right: 18px;
+      }
+    
+      .problem_con a:hover,
+      .problem_con a:active {
+        color: #FFBF4B;
+    
+      }
+    
+      .picbox_cao {
+        width: 302px;
+        margin: 5px auto;
+      }
+    
+      .picbox_cao img {
+        width: 302px;
+        margin: auto;
+        height: 116px;
+      }
+    </style>
+</head>
+<body style="width:310px;background: #3A3A3A;" scroll="no">
+  <div id="app">
+  <!-- content -->
+    <div class="problem_con">
+      <ul>
+        <li v-for="item in newsList" :key="item.id">
+          <a :href="'http://www.leigod.com/notice_'+item.id+'.html'" target="_blank">[<em>{{item.publish_time_month}}-{{item.publish_time_day}}</em>] {{item.title}}</a>
+        </li>
+      </ul>
+      
+    </div>
+    <div class="picbox_cao">
+      <img src="./images/cao20181012.png" alt="" width="302" height="116" srcset="">
+    </div>
+  </div>
+ 
+
+
+</body>
+</html>

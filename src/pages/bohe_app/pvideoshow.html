@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>视频加速</title>
+</head>
+
+<body style="max-height: 3000px;">
+    <div v-cloak id="app" class="page_box">
+        <img class="bg_img" :src="bgImg" alt="">
+        <div class="content_box">
+            <div class="wrap_of_pvideoshow">
+                <p class="font_s33">
+                    <span>
+                        {{$t("pvideoshow.v1")}}
+                    </span>
+                    <span>
+                        {{$t("pvideoshow.v2")}}
+                    </span>
+                </p>
+                <div>
+                    <span class="font_s34">{{$t("pvideoshow.v3")}}</span>
+                    <span class="font_s34">{{$t("pvideoshow.v4")}}</span>
+                    <span class="font_s34">{{$t("pvideoshow.v5")}}</span>
+                    <span class="font_s34">{{$t("pvideoshow.v6")}}</span>
+                </div>
+                <div class="bg_img_3">
+                    <div>
+                        <span class="font_s35">100</span>
+                        <span class="font_s36">m</span>
+                    </div>
+                </div>
+                <div class="bg_img_4">
+                    <a class="btn_img_5 com_btn" @click="isShowThis">
+                        {{$t("pvideoshow.v7")}}
+                    </a>
+                </div>
+                <!-- 弹出提示层 -->
+                <div class="shadow_tips0" v-show="isOpen == 0">
+                    <div class="layer_tips0">
+                        <div class="clearfix_bh">
+                            <span class="font_s37">{{$t("pvideoshow.v8")}}</span>
+                            <a class="img_a1" @click="closeFrame">
+                                <img src="./images/cancel1.png" alt="" class="img_filter">
+                            </a>
+                        </div>
+                        <div class="wr_box0">
+                            <div class="img_div0">
+                                <img src="./images/tpis_video_cn.png" alt="" class="img_filter">
+                            </div>
+                            <div style="margin: 8px 0 16px; color: #000;">
+                                <p>{{$t("pvideoshow.v9")}} </p>
+                                <p>{{$t("pvideoshow.v10")}}</p>
+                            </div>
+                            <a class="a_btn_s0 com_btn" @click="closeFrame">{{$t("pvideoshow.v11")}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

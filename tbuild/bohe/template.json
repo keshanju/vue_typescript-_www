@@ -1,0 +1,38 @@
+{
+  "news": [
+    {
+      "template_path": "news/template.html",
+      "static_file_path": "/data/bohe/"
+    },
+    {
+      "template_path": "cn/news/template.html",
+      "static_file_path": "/data/bohe/cn/"
+    },
+    {
+      "template_path": "1/news/template.html",
+      "static_file_path": "/data/bohe/1/"
+    },
+    {
+      "template_path": "1/cn/news/template.html",
+      "static_file_path": "/data/bohe/1/cn/"
+    }
+  ],
+  "notice": [
+    {
+      "template_path": "notice/template.html",
+      "static_file_path": "/data/bohe/"
+    },
+    {
+      "template_path": "cn/notice/template.html",
+      "static_file_path": "/data/bohe/cn/"
+    },
+    {
+      "template_path": "1/notice/template.html",
+      "static_file_path": "/data/bohe/1/"
+    },
+    {
+      "template_path": "1/cn/notice/template.html",
+      "static_file_path": "/data/bohe/1/cn/"
+    }
+  ]
+}

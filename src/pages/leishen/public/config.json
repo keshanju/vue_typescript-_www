@@ -1,0 +1,47 @@
+{
+    "leigod": {
+        "windows": {
+            "download_url": "//www.leigod.com/soft/win/4.0.0.9/LeiGodSetup.4.0.0.9.exe"
+        },
+        "mac": {
+            "download_url": ""
+        },
+        "wangba": {
+            "download_url": "//static.leigod.com/images/soft/leigod-haiwai-20180906.exe"
+        },
+        "help":{
+            "first_id": 22,
+            "second_id": 0
+        },
+        "activity":{
+            "activity_id":170,
+            "activity_url":"hanjia.html"
+        },
+        "down_platform": {
+            "baidu": {
+                "windows":{
+                    "download_url":"//www.leigod.com/soft/win/4.0.0.9/LeiGodSetup.4.0.0.9.exe"
+                },
+                "mac":{
+                    "download_url": ""
+                }
+            },
+            "360": {
+                "windows":{
+                    "download_url":"//www.leigod.com/soft/win/4.0.0.9/LeiGodSetup.4.0.0.9.exe"
+                },
+                "mac":{
+                    "download_url": ""
+                }
+            },
+            "guanwang": {
+                "windows":{
+                    "download_url":"//www.bohe.com/soft/win/BOHESetup.1.0.1.6.exe"
+                },
+                "mac":{
+                    "download_url": ""
+                }
+            }
+        }
+    }
+}

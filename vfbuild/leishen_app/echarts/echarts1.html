@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<script src="./echarts-en.common.min.js" rel="preload" as="script"></script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			html,
+			body {
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main" style="height:100%;width:100%;"></div>
+
+		<script type="text/javascript">
+			// 指定图表的配置项和数据
+			var option = {
+				color: ["#3EF36F"],
+				grid: {
+					top: 10,
+					bottom: 10,
+					left: 10,
+					right: 0
+				},
+				xAxis: [
+					{
+						type: "category",
+						boundaryGap: false,
+						show: false,
+						data: []
+					}
+				],
+				yAxis: [
+					{
+						boundaryGap: ["0%", "20%"],
+						type: "value",
+						axisLabel: {
+							show: false
+						},
+						axisLine: {
+							show: false
+						},
+						axisTick: {
+							show: false
+						},
+						splitLine: {
+							lineStyle: {
+								color: {
+									type: "linear",
+									x: 0,
+									y: 0,
+									x2: 1,
+									y2: 1,
+									colorStops: [
+										{
+											offset: 0,
+											color: "rgba(77, 74, 79, 0.6)" // 0% 处的颜色
+										},
+										{
+											offset: 1,
+											color: "rgba(91,86,93, 0.8)" // 100% 处的颜色
+										}
+									],
+									globalCoord: false // 缺省为 false
+								}
+							}
+						}
+					}
+				],
+				series: [
+					{
+						type: "line",
+						symbol: "none",
+						smooth: true,
+						data: [],
+						itemStyle: {
+							shadowColor: "#2F8EEF",
+							shadowBlur: 30
+						},
+						areaStyle: {
+							color: {
+								type: "linear",
+								x: 0,
+								y: 0,
+								x2: 1,
+								y2: 1,
+								colorStops: [
+									{
+										offset: 0,
+										color: "rgba(74, 248, 232, 0.6)" // 0% 处的颜色
+									},
+									{
+										offset: 1,
+										color: "rgba(47, 142, 239, 0.8)" // 100% 处的颜色
+									}
+								],
+								globalCoord: false // 缺省为 false
+							}
+						}
+					}
+				]
+			};
+			// 使用刚指定的配置项和数据显示图表。
+			var xAsisArr = [0]; //横坐标的数组
+			var yDataArr = [{ value: 0, symbol: "circle", symbolSize: 6 }]; //纵坐标的数组
+			var myChart; // init的chart对象
+			var initIterVal; // 初始化的setInterval
+			/**
+			 *
+			 * @param min-纵坐标的最小值
+			 * @param max--纵坐标的最大值
+			 */
+			myChart = echarts.init(document.getElementById("main"));
+			function initInterval() {
+				xAsisArr = [0];
+				yDataArr = [{ value: 0, symbol: "circle", symbolSize: 6 }];
+				option.color = ["#3EF36F"];
+				initIterVal = setInterval(function() {
+					xAsisArr.push(xAsisArr[xAsisArr.length - 1] + 1);
+					yDataArr[yDataArr.length - 1].symbol = undefined;
+					yDataArr[yDataArr.length - 1].symbolSize = undefined;
+					yDataArr.push({ value: 0, symbol: "circle", symbolSize: 6 });
+					// 如果长度大于6
+					if (xAsisArr.length > 6) {
+						var xAsisArrCopy = [];
+						var yDataArrCopy = [];
+						for (var zz = 0; zz < 7; zz++) {
+							xAsisArrCopy.push(zz);
+							yDataArrCopy.push(0);
+						}
+						xAsisArrCopy.push(7);
+						yDataArrCopy.push({ value: 0, symbol: "circle", symbolSize: 6 });
+						xAsisArr = xAsisArrCopy.slice();
+						yDataArr = yDataArrCopy.slice();
+					}
+					option.series[0].data = yDataArr;
+					option.xAxis[0].data = xAsisArr;
+					option.xAxis[0].max = xAsisArr.length + 6;
+					myChart.setOption(option);
+				}, 2000);
+			}
+			initInterval();
+			/**
+			 *
+			 * @param color--16进制的颜色值，例子："#4AF8E8"
+			 * @param yData--纵坐标的值，
+			 * @param flag--开始加速传1，停止加速传0；
+			 */
+			function chart(color, yData, flag) {
+				// alert("调用chart方法");
+				clearInterval(initIterVal);
+				// initInterval = undefined;
+				option.color = [color];
+				var tempXAsisArr = xAsisArr.slice();
+				var tempYDataArr = yDataArr.slice();
+				tempXAsisArr.push(tempXAsisArr[tempXAsisArr.length - 1] + 1);
+				tempYDataArr[tempYDataArr.length - 1].symbol = undefined;
+				tempYDataArr[tempYDataArr.length - 1].symbolSize = undefined;
+				tempYDataArr.push({ value: yData, symbol: "circle", symbolSize: 6 });
+				if (tempXAsisArr.length > 30) {
+					xAsisArr = tempXAsisArr.slice(1);
+					yDataArr = tempYDataArr.slice(1);
+				} else {
+					xAsisArr = tempXAsisArr.slice();
+					yDataArr = tempYDataArr.slice();
+				}
+				option.series[0].data = yDataArr;
+				option.xAxis[0].data = xAsisArr;
+				option.xAxis[0].max = xAsisArr.length + 6;
+				if (myChart) myChart.setOption(option);
+			}
+			function stop() {
+				clearInterval(initIterVal);
+				initInterval();
+			}
+			// setTimeout(function() {
+			// 	//延迟10秒以后，开始调用开始加速，没2秒调用一次开始加速
+			// 	setInterval(function() {
+			// 		chart("#4AF8E8", Math.round(Math.random() * 100));
+			// 	}, 2000);
+			// }, 10000);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, target-densitydpi=medium-dpi" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>薄荷app下载</title>
+</head>
+
+<body>
+    <div class="page_box" id="app" v-clock>
+        <loading v-show="isLoading"></loading>
+        <div class="container_world" :class="{'container_world_cn':appParam.language == 'zh_CN'}" v-if="appParam.region_code == 0">
+            <div class="btn_download">
+                <a class="pos_s0">
+                    <img style="display:none;" v-show="appParam.language == 'en'" class="img_filter" src="./images/m_download.png" alt="">
+                    <img  style="display:none;" v-show="appParam.language == 'zh_CN'" class="img_filter" src="./images/m_download02.png" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="container_china" :class="{container_china_en:appParam.language == 'en'}"
+            v-if="appParam.region_code == 1">
+            <div class="btn_download">
+                <a class="pos_s0">
+                    <img style="display:none;" v-show="appParam.language == 'en'" class="img_filter" src="./images/m_download.png" alt="">
+                    <img style="display:none;" v-show="appParam.language == 'zh_CN'" class="img_filter" src="./images/m_download02.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow">
+        <img src="images/m_wx_tips.png"/>
+    </div>
+</body>

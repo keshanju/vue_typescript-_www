@@ -1,0 +1,1554 @@
+@import "leishen_common.less"; //导入公共样式文件
+@rate: 100rem; //转换比例
+
+/** 引入剩余时间字体 **/
+@font-face {
+    font-family: "timing";
+    src: url("../../pages/leishen_pc/font/quartzef.ttf") format("truetype");
+}
+
+/***********************  盒子位置  *********/
+
+// 盒子位置调整
+.margin10 {
+    margin: 0 0 10 / @rate;
+}
+
+/***********************  盒子  *********/
+
+// 父盒子模型
+.box_fa {
+    width: 100%;
+    border-radius: 6 / @rate;
+    background: @white;
+    padding: 5 / @rate 10 / @rate;
+    margin: 10 / @rate auto;
+    box-sizing: border-box;
+}
+
+// 子盒子模型
+.box_son {
+    width: 49%;
+    border-radius: 6 / @rate;
+    background: @white;
+    padding: 5/@rate 10/@rate;
+    box-sizing: border-box;
+}
+
+//  public box
+.public_box {
+    border-radius: 6 / @rate;
+    background: @white;
+    padding: 10 / @rate;
+    box-sizing: border-box;
+}
+
+/***********************  文字  *********/
+
+//  列表项文字样式
+.lists_font {
+    width: 100%;
+    margin: 0 0 5 / @rate;
+    font-size: 12 / @rate;
+    color: @gray;
+    text-align: left;
+    cursor: pointer;
+    &:extend(.words_flow);
+}
+
+.lists_font:hover {
+    color: @black;
+}
+
+.lists_font_cen {
+    width: 100%;
+    margin: 5 / @rate 0;
+    font-size: 12 / @rate;
+    color: @gray;
+    cursor: pointer;
+    &:extend(.words_flow);
+}
+
+/**
+    客服页文字样式
+ */
+.pc_service_font {
+    font-size: 12 / @rate;
+    color: @gray;
+    margin: 15 / @rate 0 5 / @rate;
+}
+
+// 更多文字样式
+.more_style {
+    color: #666;
+}
+
+.more_style:hover {
+    color: #333;
+}
+
+//  列表标题文字样式
+.top_list_font {
+    width: 100%;
+    font-size: 14 / @rate;
+    color: @black;
+    text-align: left;
+    padding-bottom: 5 / @rate;
+    border-bottom: 1 / @rate solid transparent;
+}
+
+//.top_list_font:hover {
+//    color: @logo_font;
+//}
+
+//  展示的标题
+.title_font {
+    width: 100%;
+    margin: 5 / @rate 0;
+    font-size: 16/@rate;
+    color: @btn_bg;
+    text-align: left;
+}
+
+//  数字样式
+.number_font {
+    font-size: 20 / @rate;
+    color: @package_number;
+    font-weight: bold;
+    text-align: center;
+}
+
+//  列表hover或者点击样式
+.nav_active {
+    &:extend(.top_list_font);
+    border-bottom: 1 / @rate solid @black;
+}
+
+/**** 图片高度限制 *****/
+@height_img_banner: 130 / @rate;
+@height_img_list: 80 / @rate;
+/******  ******/
+
+/***********************  图片高度  *********/
+
+//活动、资讯等图片固定高度
+.fixed_height {
+    height: @height_img_list;
+    width: 100%;
+    margin-bottom: 10 / @rate;
+    border-radius: 5 / @rate;
+    overflow: hidden;
+}
+
+/***********************  按钮  *********/
+//  暂停按钮样式
+.time_btn {
+    padding: 7 / @rate 15 / @rate;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 14/@rate;
+    color: @white;
+    border-radius: 30 / @rate;
+    cursor: pointer;
+}
+
+.suspended_btn {
+    background: @time_red;
+}
+
+.suspended_btn:hover {
+    background: @time_red_hover;
+}
+
+.restore_btn {
+    background: @time_green;
+}
+
+.restore_btn:hover {
+    background: @time_green_hover;
+}
+
+.suspended_icon {
+    width: 20/@rate;
+    height: 20/@rate;
+    display: inline-block;
+    vertical-align: top;
+    background: url('../../pages/leishen_pc/images/zanting_normal.png') center center no-repeat;
+    background-size: contain;
+}
+
+.suspended_btn:hover .suspended_icon {
+    background: url('../../pages/leishen_pc/images/zanting_hover.gif') center center no-repeat;
+    background-size: contain;
+}
+
+.restore_icon {
+    width: 20/@rate;
+    height: 20/@rate;
+    display: inline-block;
+    vertical-align: top;
+    background: url('../../pages/leishen_pc/images/huifu_normal.png') center center no-repeat;
+    background-size: contain;
+}
+
+.restore_btn:hover .restore_icon {
+    background: url('../../pages/leishen_pc/images/huifu_hover.gif') center center no-repeat;
+    background-size: contain;
+}
+
+/********* form表单样式 **********/
+.form_box {
+    padding: 0 20 / @rate;
+    box-sizing: border-box;
+}
+
+.form_item {
+    width: 100%;
+    margin-top: 10 / @rate;
+}
+
+.form_title {
+    width: 20%;
+    height: 30 / @rate;
+    line-height: 30 / @rate;
+    text-align: left;
+}
+
+.form_input_box {
+    position: relative;
+    width: 100%;
+    height: 30 / @rate;
+}
+
+.form_input {
+    width: 100%;
+    height: 30 / @rate;
+    box-sizing: border-box;
+    border: 1 / @rate solid @input_border;
+    border-radius: 5 / @rate;
+    text-indent: 10 / @rate;
+}
+
+.send_code {
+    position: absolute;
+    right: 10 / @rate;
+    top: 5 / @rate;
+}
+
+.send:hover {
+    color: @orange;
+}
+
+.verificatioPic {
+    position: absolute;
+    right: 0 / @rate;
+    top: 0;
+    width: 80 / @rate;
+    height: 30 / @rate;
+}
+
+/********* form表单样式end **********/
+
+/******** 弹出框样式 *********/
+.dialog {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+}
+
+.dialog_box {
+    // position: absolute;
+    // z-index: 999;
+    // left: 50%;
+    // top: 60/@rate;
+    width: 350 / @rate;
+    padding-bottom: 30 / @rate;
+    border-radius: 6 / @rate;
+    background-color: @white;
+}
+
+.dialog_title {
+    padding-top: 5 / @rate;
+    padding-left: 10 / @rate;
+}
+
+.dialog_tip {
+    width: 100%;
+}
+
+.dialog_tip_img {
+    width: 80 / @rate;
+    margin: 0 auto;
+}
+
+.dialog_msg {
+    text-align: center;
+    color: #666;
+}
+
+.dialog_form {
+    padding: 0 35 / @rate;
+    min-height: 50 / @rate;
+    text-align: center;
+}
+
+.step_box {
+    text-align: center;
+}
+
+.step_count {
+    display: inline-block;
+    width: 20 / @rate;
+    height: 20 / @rate;
+    box-sizing: border-box;
+    border: 1 / @rate solid #d8d8d8;
+    border-radius: 10 / @rate;
+    background-color: @white;
+}
+
+.step_count_active {
+    background-color: @orange;
+    border: 1 / @rate solid @orange;
+}
+
+.step_msg {
+    color: #999;
+}
+
+.step_msg_active {
+    color: @black;
+}
+
+.step_line {
+    width: 20%;
+    height: 1 / @rate;
+    background-color: #d8d8d8;
+    margin-bottom: 10 / @rate;
+}
+
+.close_dialog {
+    position: absolute;
+    top: 5 / @rate;
+    right: 5 / @rate;
+    width: 15 / @rate;
+    height: 15 / @rate;
+    background: url("../../pages/leishen_pc/images/cancel_icon.png");
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+/******** 弹出框样式end *********/
+
+/******************** 第三方ui样式调整start ******************/
+.form_input_box .el-input__inner {
+    height: 30 / @rate;
+    line-height: 30 / @rate;
+}
+
+.form_input_box .el-date-editor.el-input {
+    width: 100%;
+}
+
+.form_input_box .el-input__icon {
+    line-height: 30 / @rate;
+}
+
+.dialog_form .el-select {
+    width: 33%;
+}
+
+.dialog_form .el-input__inner {
+    height: 30 / @rate;
+    line-height: 30 / @rate;
+}
+
+.pcbind_box .el-input__inner {
+    height: 30 / @rate;
+    line-height: 30 / @rate;
+}
+
+.pcbind_box .el-input__icon {
+    line-height: 30 / @rate;
+}
+
+.dialog_form .el-input__icon {
+    line-height: 30 / @rate;
+}
+
+.el-dialog__body {
+    padding: 20 / @rate 20 / @rate;
+}
+
+.el-dialog__wrapper .el-dialog {
+    margin: 0 auto !important;
+    margin-top: 2/@rate !important;
+}
+
+/******************** 第三方ui样式调整end ******************/
+
+/**
+PC内嵌
+ */
+
+.page_pc {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background: @white;
+}
+
+/**
+  start 顶部用户信息导航样式, 尽量做成组件样式
+ */
+.nav_box {
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    height: 0 / @rate;
+    top: 0;
+    left: 0;
+    background: @white;
+}
+
+.nav_box_height {
+    height: 55 / @rate;
+}
+
+.nav_box_show {
+    height: 350 / @rate;
+}
+
+.avtar {
+    width: 50 / @rate;
+    height: 50 / @rate;
+    background: @white;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+}
+
+.nickname_pc {
+    display: inline-block;
+    max-width: 100 / @rate;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.timing {
+    color: @orange;
+    font-size: 26 / @rate;
+    font-family: "timing";
+    margin: 0 / @rate 5 / @rate 0 / @rate 5 / @rate;
+}
+
+.refresh_icon {
+    display: inline-block;
+    width: 16 / @rate;
+    height: 16 / @rate;
+    vertical-align: middle;
+    cursor: pointer;
+    background: url("../../pages/leishen_pc/images/refresh.png") no-repeat center center;
+    background-size: contain;
+}
+
+.refresh_icon:hover {
+    background: url("../../pages/leishen_pc/images/refresh_hover.png") no-repeat center center;
+    background-size: contain;
+}
+
+.user_nickname {
+    font-size: 14/@rate;
+    color: @black;
+}
+
+.edit {
+    display: inline-block;
+    width: 19 / @rate;
+    height: 19 / @rate;
+    vertical-align: top;
+    background: url("../../pages/leishen_pc/images/edit.png") no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.edit:hover {
+    background: url("../../pages/leishen_pc/images/edit_hover.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.user_level {
+    font-size: 14 / @rate;
+    color: @orange;
+}
+
+.user_state {
+    font-size: 12/@rate;
+    color: @gray;
+    text-align: center;
+}
+
+.userinfo {
+    width: 100%;
+    height: 300 / @rate;
+    padding: 0 30 / @rate;
+    box-sizing: border-box;
+}
+
+.times_font {
+    font-size: 10 / @rate;
+    color: #999999;
+}
+
+/**** tabNav ******/
+
+.tab_nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.tab_nav_li {
+    height: 30 / @rate;
+    line-height: 30 / @rate;
+    box-sizing: border-box;
+    margin: 20 / @rate 18 / @rate 0;
+}
+
+.tab_nav_li_active {
+    border-bottom: 2 / @rate solid @orange;
+}
+
+/**** 修改用户信息 ****/
+.reset_userinfo {
+    width: 100%;
+    min-height: 150 / @rate;
+    margin-top: 10 / @rate;
+}
+
+.update_avtar {
+    width: 50%;
+    box-sizing: border-box;
+    padding-left: 30 / @rate;
+}
+
+.update_type_nav {
+    width: 100%;
+}
+
+.update_type_li_left {
+    width: 50%;
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 5 / @rate 0;
+    border: 1 / @rate solid #838383;
+    border-radius: 4 / @rate 0 0 4 / @rate;
+    text-align: center;
+}
+
+.update_type_li_right {
+    width: 50%;
+    padding: 5 / @rate 0;
+    cursor: pointer;
+    box-sizing: border-box;
+    border: 1 / @rate solid #838383;
+    border-radius: 0 4 / @rate 4 / @rate 0;
+    text-align: center;
+}
+
+.update_type_li_active {
+    background: #838383;
+    color: #fff;
+}
+
+.update_type_upload {
+    width: 142 / @rate;
+    height: 142 / @rate;
+    margin-top: 10 / @rate;
+    position: relative;
+}
+
+.update_type_preview {
+    width: 142 / @rate;
+    height: 142 / @rate;
+    box-sizing: border-box;
+    background: #f6f6f6;
+    border: 1 / @rate solid #d8d8d8;
+    margin-top: 10 / @rate;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    // -ms-overflow-style: none;
+}
+
+.avtar_preview {
+    width: 60 / @rate;
+    min-height: 150 / @rate;
+    margin-left: 20 / @rate;
+    padding-top: 20 / @rate;
+}
+
+.avtar_preview_img {
+    width: 100%;
+    height: 60/@rate;
+    box-sizing: border-box;
+    padding: 8 / @rate;
+}
+
+.preview_msg {
+    text-align: center;
+    color: @gray;
+}
+
+.preview_img {
+    width: 40 / @rate;
+    height: 40 / @rate;
+    padding: 5 / @rate;
+    box-sizing: border-box;
+}
+
+.upload_btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 30 / @rate;
+    cursor: pointer;
+    position: relative;
+    color: @logo_font
+}
+
+.update_input {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    filter: Alpha(opacity=0);
+}
+
+.scale_btn {
+    text-align: center;
+    margin-top: 5 / @rate;
+}
+
+.suoxiao_icon {
+    display: inline-block;
+    width: 15 / @rate;
+    height: 15 / @rate;
+    background: url("../../pages/leishen_pc/images/suoxiao.png");
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.suoxiao_icon:hover {
+    background: url("../../pages/leishen_pc/images/suoxiao_hover.png");
+    background-size: 100% 100%;
+}
+
+.fangda_icon {
+    display: inline-block;
+    width: 15 / @rate;
+    height: 15 / @rate;
+    background: url("../../pages/leishen_pc/images/fangda.png");
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.fangda_icon:hover {
+    background: url("../../pages/leishen_pc/images/fangda_hover.png");
+    background-size: 100% 100%;
+}
+
+/**** 修改用户信息end ****/
+
+/****** 账户安全中心 *********/
+.safety {
+    width: 95%;
+    margin: 15 / @rate 18 / @rate;
+    padding: 10 / @rate 0;
+    border: 1 / @rate solid #d8d8d8;
+    border-radius: 4 / @rate;
+    background: #f6f6f6;
+}
+
+.safety_item {
+    width: 100%;
+    margin: 12 / @rate 0;
+}
+
+.safety_title {
+    width: 20%;
+    font-size: 14/@rate;
+    color: @black;
+    text-align: center;
+}
+
+.safety_msg {
+    width: 60%;
+    font-size: 12/@rate;
+    color: @gray;
+}
+
+.safety_btn {
+    width: 20%;
+    text-align: center;
+}
+
+.reset_bind:hover {
+    color: @orange;
+}
+
+.reset_icon {
+    display: inline-block;
+    width: 16 / @rate;
+    height: 16 / @rate;
+    background: url("../../pages/leishen_pc/images/xiugai.png");
+    background-size: 100% 100%;
+    vertical-align: top;
+    margin-right: 3 / @rate;
+}
+
+.reset_bind:hover .reset_icon {
+    background: url("../../pages/leishen_pc/images/xiugai_hover.png");
+    background-size: 100% 100%;
+}
+
+.bind_icon {
+    display: inline-block;
+    width: 16 / @rate;
+    height: 16 / @rate;
+    background: url("../../pages/leishen_pc/images/bangding.png");
+    background-size: 100% 100%;
+    vertical-align: top;
+    margin-right: 3 / @rate;
+}
+
+.reset_bind:hover .bind_icon {
+    background: url("../../pages/leishen_pc/images/bangding_hover.png");
+    background-size: 100% 100%;
+}
+
+.unbind_icon {
+    display: inline-block;
+    width: 16 / @rate;
+    height: 16 / @rate;
+    background: url("../../pages/leishen_pc/images/jiebang.png");
+    background-size: 100% 100%;
+    vertical-align: top;
+    margin-right: 3 / @rate;
+}
+
+.reset_bind:hover .unbind_icon {
+    background: url("../../pages/leishen_pc/images/jiebang_hover.png");
+    background-size: 100% 100%;
+}
+
+/****** 账户安全中心end *********/
+
+/********** 第三方绑定 ****************/
+.three_bind {
+    width: 95%;
+    margin: 15 / @rate 18 / @rate;
+    border: 1 / @rate solid #d8d8d8;
+    border-radius: 4 / @rate;
+    background: #f6f6f6;
+    text-align: center;
+}
+
+.three_bind_item {
+    width: 33.33%;
+    padding: 20 / @rate 0;
+    border-right: 1 / @rate dashed #d8d8d8;
+}
+
+.three_bind_icon {
+    width: 34 / @rate;
+    height: 34 / @rate;
+}
+
+.three_bind_type {
+    margin-top: 5 / @rate;
+}
+
+.three_bind_btn {
+    margin-top: 50 / @rate;
+}
+
+.three_bind_btn_pd {
+    padding: 2 / @rate 10 / @rate;
+}
+
+//去除边框
+.border_none {
+    border: 0;
+}
+
+/********** 第三方绑定end ****************/
+
+/************* 绑定手机号组件 *************/
+.bind_mobile {
+    width: 95%;
+    min-height: 160 / @rate;
+    box-sizing: border-box;
+    padding: 10 / @rate;
+    margin: 15 / @rate 18 / @rate;
+    border: 1 / @rate solid #d8d8d8;
+    border-radius: 4 / @rate;
+    background: #f6f6f6;
+}
+
+.bind_msg {
+    padding-left: 20 / @rate;
+    margin-bottom: 20 / @rate;
+    color: @time_red;
+}
+
+/************* 绑定手机号组件 *************/
+
+.btn_control {
+    text-align: center;
+    margin-top: 20 / @rate;
+}
+
+.pull_btn {
+    width: 50 / @rate;
+    height: 15 / @rate;
+    position: absolute;
+    left: 30 / @rate;
+    bottom: -15 / @rate;
+    background: url(../../pages/leishen_pc/images/pull_bg.png) no-repeat;
+    background-size: 100% auto;
+    cursor: pointer;
+}
+
+.pull_icon {
+    width: 20 / @rate;
+    height: 9 / @rate;
+    margin: 0 auto;
+    background: url("../../pages/leishen_pc/images/xiala_normal.png");
+    background-size: contain;
+}
+
+.pull_icon:hover {
+    background: url("../../pages/leishen_pc/images/xiala_hover.png");
+    background-size: contain;
+}
+
+.pull_up_icon {
+    width: 20 / @rate;
+    height: 9 / @rate;
+    margin: 0 auto;
+    background: url("../../pages/leishen_pc/images/shouqi_normal.png");
+    background-size: contain;
+}
+
+.pull_up_icon:hover {
+    background: url("../../pages/leishen_pc/images/shouqi_hover.png");
+    background-size: contain;
+}
+
+.user_avtar {
+    width: 44 / @rate;
+    height: 44 / @rate;
+    margin-top: 3 / @rate;
+    border-radius: 22 / @rate;
+}
+
+/**
+  end 顶部用户信息导航样式, 尽量做成组件样式
+ */
+
+.content_pc {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-height: 340 / @rate;
+    padding: 10 / @rate 30 / @rate 0;
+    background: url("../../pages/leishen_pc/images/home_bg.png") no-repeat;
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    top: 0;
+}
+
+.content_pc_top{
+    margin-top: 55/@rate;
+}
+
+.activity_list {
+    width: 100%;
+    height: 130 / @rate;
+    margin-bottom: 10 / @rate;
+}
+
+.notify_list {
+    width: 100%;
+    height: 120 / @rate;
+}
+
+.news {
+    margin-top: 9 / @rate;
+    min-height: 111 / @rate;
+    align-items: flex-start;
+}
+
+.news_title {
+    font-size: 14/@rate;
+    font-weight: 600;
+}
+
+.new {
+    width: 50%;
+    padding: 0 5 / @rate;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+// 定位的图标样式 ********
+.box_cell {
+    width: 100%;
+    border-radius: 6 / @rate;
+    height: 24 / @rate;
+    line-height: 24 / @rate;
+    background: @white;
+    cursor: pointer;
+}
+
+/**
+  end 顶部用户信息导航样式, 尽量做成组件样式
+ */
+
+/**
+  start 资讯页面
+ */
+
+.news_pc {
+    width: 100%;
+    max-width: 3000 / @rate;
+    margin: 0 auto;
+    background: #eee;
+}
+
+.news_box {
+    &:extend(.content_pc);
+    height: auto;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 13 / @rate 37 / @rate 0;
+    box-sizing: border-box;
+}
+
+.news_top_box {
+    &:extend(.flex_sbe, .margin10);
+    width: 100%;
+}
+
+.news_bottom_box {
+    &:extend(.box_fa, .margin10);
+}
+
+// 资讯轮播图
+.viewpager {
+    &:extend(.public_box);
+    width: 69%;
+    height: @height_img_banner;
+    padding: 0;
+    margin-right: 10 / @rate;
+}
+
+// 资讯列表
+.listview {
+    &:extend(.public_box);
+    width: 30%;
+    height: @height_img_banner;
+    overflow: hidden;
+}
+
+/**
+    游戏列表
+ */
+
+.game_img_box {
+    &:extend(.public_box, .fixed_height);
+    padding: 0;
+}
+
+.game_list_box {
+    &:extend(.flex_row_start);
+    width: 100%;
+    flex-wrap: wrap;
+    margin: 10 / @rate auto 0;
+    overflow: hidden;
+}
+
+.game_list_cell {
+    &:extend(.flex_column_center);
+    width: 20%;
+    padding: 5 / @rate;
+    box-sizing: border-box;
+}
+
+/**
+  end 资讯页面
+ */
+
+/**
+  start 客服页面
+ */
+.service_container {
+    width: 100%;
+    max-width: 3000 / @rate;
+    margin: 0 auto;
+    padding: 80 / @rate 0;
+    box-sizing: border-box;
+    background: url("../../pages/leishen_pc/images/kefu_bg.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.service_container_mac {
+    background: url("../../pages/leishen_pc/images/kf_bg.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+/**
+  end   客服页面
+ */
+
+/**
+  start 充值页面
+ */
+
+.recharge_container {
+    width: 100%;
+    max-width: 3000 / @rate;
+    margin: 0 auto;
+    padding: 14 / @rate 35 / @rate;
+    box-sizing: border-box;
+    background: @container_bg;
+}
+
+/**
+    套餐格子模块
+ */
+
+.package_box_fa {
+    &:extend(.flex_sbe, .margin10);
+    background: #222222;
+}
+
+.package_box_son {
+    &:extend(.flex_column_between);
+    width: 24.8%;
+    // height: 200/@rate;
+    background: @box_bg;
+    padding: 10 / @rate 20 / @rate;
+    box-sizing: border-box;
+    border: 1 / @rate solid transparent;
+    cursor: pointer;
+}
+
+.package_box_son:hover {
+    border: 1 / @rate solid @box_border_active;
+    box-shadow: inset 0 0 14 / @rate 0 @box_shadow_active;
+    box-sizing: border-box;
+    .package_top_cell {
+        //background: url("../../pages/leishen_pc/images/price_bg_choosed@2x.png") no-repeat center center;
+        background-size: 100% 100%;
+        .icon_anim {
+            -webkit-transform-origin: 10 / @rate 45 / @rate;
+            -ms-transform-origin: 10 / @rate 45 / @rate;
+            transform-origin: 10 / @rate 45 / @rate;
+            -webkit-animation: spin 2s ease;
+            animation: spin 2s ease;
+        }
+        //.number_font {
+        //    color: @white;
+        //}
+    }
+}
+
+//  套餐item的鼠标移上效果
+.taocan_active {
+    border: 1 / @rate solid @box_border_active;
+    box-shadow: inset 0 0 14 / @rate 0 @box_shadow_active;
+    box-sizing: border-box;
+    .package_top_cell {
+        //background: url("../../pages/leishen_pc/images/price_bg_choosed@2x.png") no-repeat center center;
+        background-size: 100% 100%;
+        .icon_anim {
+            -webkit-transform-origin: 10 / @rate 45 / @rate;
+            -ms-transform-origin: 10 / @rate 45 / @rate;
+            transform-origin: 10 / @rate 45 / @rate;
+            -webkit-animation: spin 2s ease;
+            animation: spin 2s ease;
+        }
+        //.number_font {
+        //    color: @white;
+        //}
+    }
+}
+
+.icon_anim {
+    width: 20 / @rate;
+    height: 20 / @rate;
+    position: absolute;
+    left: 50%;
+    margin-left: -10 / @rate;
+    top: 5 / @rate;
+    background: url("../../pages/leishen_pc/images/guangdian@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.package_top_cell {
+    &:extend(.flex_column_center);
+    text-align: center;
+    width: 100 / @rate;
+    height: 100 / @rate;
+    background: url("../../pages/leishen_pc/images/price_bg_normal@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+    position: relative;
+}
+
+.time_font {
+    font-size: 12 / @rate;
+    color: #ffffff;
+    letter-spacing: 0.67 / @rate;
+    text-align: center;
+}
+
+.amount_font {
+    font-size: 24 / @rate;
+    color: #ffffff;
+    letter-spacing: 0;
+    text-align: center;
+}
+
+.wrap_box {
+    &:extend(.flex_sbe);
+    width: 70%;
+    background: #222222;
+}
+
+.left_box {
+    &:extend(.package_box_son, .flex_column_center);
+    width: 64.5%;
+    height: 90 / @rate;
+}
+
+.right_box {
+    &:extend(.package_box_son, .flex_column_center);
+    width: 35.3%;
+    height: 90 / @rate;
+    cursor: default;
+}
+
+/**
+    内嵌公共input框
+ */
+.ipt_radius {
+    height: 32 / @rate;
+    text-indent: 1em;
+    border: none;
+    outline: none;
+    background: #4a4a4a;
+    border-radius: 5/@rate;
+}
+
+.ipt_radius::placeholder {
+    color: @white;
+}
+
+.check_box {
+    &:extend(.package_box_son, .flex_column_center);
+    width: 28%;
+    height: 90 / @rate;
+    padding: 10 / @rate 8 / @rate;
+    box-sizing: border-box;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.protocol_box {
+    &:extend(.flex_row_around);
+    margin: 10 / @rate auto 0;
+    width: 100%;
+}
+
+/**
+    支付方式模块
+ */
+.coin_font {
+    &:extend(.pay_font);
+    font-size: 14 / @rate !important;
+}
+
+.pay_font {
+    font-weight: Bold;
+    font-size: 28 / @rate;
+    color: @pay_font;
+    text-align: center;
+}
+
+.com_pay {
+    width: 42 / @rate;
+    height: 42 / @rate;
+}
+
+.a_palpel {
+    &:extend(.com_pay);
+    background: url("../../pages/leishen_pc/images/paypal_normal@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.a_palpel:hover {
+    background: url("../../pages/leishen_pc/images/paypal_choosed@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.payapl_hover {
+    background: url("../../pages/leishen_pc/images/paypal_choosed@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.a_alipay {
+    &:extend(.com_pay);
+    background: url("../../pages/leishen_pc/images/alipay_normal@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.a_alipay:hover {
+    background: url("../../pages/leishen_pc/images/alipay_choosed@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.ali_hover {
+    background: url("../../pages/leishen_pc/images/alipay_choosed@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.a_wechat {
+    &:extend(.com_pay);
+    background: url("../../pages/leishen_pc/images/wechat_normal@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.a_wechat:hover {
+    background: url("../../pages/leishen_pc/images/wechat_choosed@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.wechat_hover {
+    background: url("../../pages/leishen_pc/images/wechat_choosed@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.a_qqpay {
+    &:extend(.com_pay);
+    background: url("../../pages/leishen_pc/images/qq_normal@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.a_qqpay:hover {
+    background: url("../../pages/leishen_pc/images/qq_choosed@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.qqpay_hover {
+    background: url("../../pages/leishen_pc/images/qq_choosed@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+/**
+    点击支付模块
+ */
+.ipt_box {
+    width: 15 / @rate;
+    height: 15 / @rate;
+    text-align: center;
+    margin-right: 4 / @rate;
+    background: url("../../pages/leishen_pc/images/checkbox_normal@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.protocol_font {
+    font-size: 12 / @rate;
+    color: #35a2d6;
+    text-align: center;
+}
+
+.service_agreen {
+    background: url("../../pages/leishen_pc/images/checkbox_choosed@2x.png");
+    background-size: 100% 100%;
+}
+
+/**
+    支付弹窗组件
+ */
+.pay_shadow {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.pop {
+    width: 520 / @rate;
+    height: 280 / @rate;
+    border-radius: 4 / @rate;
+    padding: 5 / @rate 10 / @rate;
+    box-sizing: border-box;
+    position: absolute;
+    margin-left: -260 / @rate;
+    left: 50%;
+    top: 50 / @rate;
+    background: @white;
+}
+
+.cancel_icon {
+    width: 14 / @rate;
+    height: 14 / @rate;
+    background: url("../../pages/leishen_pc/images/cancel_icon.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pay_icon_box {
+    width: 90 / @rate;
+    height: 26 / @rate;
+}
+
+.erweima_box {
+    width: 100%;
+    margin: 10 / @rate auto;
+}
+
+.pay_price {
+    font-size: 24 / @rate;
+    margin: 20 / @rate 0;
+    color: #00c800;
+}
+
+.pay_result_box {
+    width: 44 / @rate;
+    height: 44 / @rate;
+    margin-top: 20 / @rate;
+    background: url("../../pages/leishen_pc/images/zhifu_chenggong@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pay_order_info {
+    width: 50%;
+    background: #f6f6f6;
+    border: 1 / @rate solid #d8d8d8;
+    border-radius: 4 / @rate;
+}
+
+.saoyisao_box {
+    width: 30 / @rate;
+    height: 30 / @rate;
+    margin-right: 10 / @rate;
+}
+
+/**
+  end   充值页面
+ */
+
+/* 修改用户信息组件 */
+.userinfo_content {
+    width: 50%;
+}
+
+.update_avtar {
+    width: 50%;
+}
+
+/**
+    自定义动画库
+ */
+
+//  动画
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(1turn);
+        transform: rotate(1turn);
+    }
+}
+
+@keyframes spin {
+    to {
+        -webkit-transform: rotate(1turn);
+        transform: rotate(1turn);
+    }
+}
+
+.empty_img {
+    width: 40 / @rate;
+    //height: 40px;
+}
+
+.empty_txt {
+    color: #999;
+}
+
+.left_icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 15/@rate;
+    height: 15/@rate;
+    background: url('../../pages/leishen_pc/images/left_1.png') center center no-repeat;
+    background-size: 15/@rate 15/@rate;
+}
+
+.left_icon:hover {
+    background: url('../../pages/leishen_pc/images/left_2.png') center center no-repeat;
+    background-size: 15/@rate 15/@rate;
+}
+
+.right_icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 15/@rate;
+    height: 15/@rate;
+    background: url('../../pages/leishen_pc/images/right_1.png') center center no-repeat;
+    background-size: 15/@rate 15/@rate;
+}
+
+.right_icon:hover {
+    background: url('../../pages/leishen_pc/images/right_2.png') center center no-repeat;
+    background-size: 15/@rate 15/@rate;
+}
+
+/****** 第三方绑定 *****/
+.bind_type_nav {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 30/@rate;
+}
+
+.pcbind_box {
+    position: relative;
+}
+
+.back_icon {
+    position: absolute;
+    left: 10%;
+    top: 10/@rate;
+    text-indent: 10/@rate;
+}
+
+.bind_type_nav_li {
+    color: @orange;
+}
+
+.pc_check_input {
+    text-indent: 1em;
+    outline: none;
+    border: none;
+}
+
+.pc_input_box {
+    width: 80%;
+    margin: 0 auto;
+    background: @white;
+    border-radius: 5/@rate;
+    height: 30/@rate;
+    text-indent: 1em;
+    border: 1/@rate solid #dcdfe6;
+    outline: none;
+    margin-bottom: 12/@rate;
+    box-sizing: border-box;
+}
+
+.pc_bind_btn {
+    display: block;
+    color: #fff;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/****** 第三方绑定 *****/
+
+/***** 恢复暂停提示 ******/
+.time_tip {
+    padding: 10/@rate 10/@rate;
+    color: #fff;
+    background-color: #2C8AE8;
+    border-radius: 5/@rate;
+    position: absolute;
+    right: 30/@rate;
+    bottom: -30/@rate;
+    -webkit-animation: pc_up_down 3s linear infinite;
+	animation: pc_up_down 3s linear infinite;
+	-webkit-animation-delay: 1.2s;
+	animation-delay: 1.2s;
+}
+
+.time_tip_jiao {
+    position: absolute;
+    top: -5/@rate;
+    right: 40/@rate;
+    width: 9/@rate;
+    height: 5/@rate;
+    background: url('../../pages/leishen_pc/images/arrow_icon.png') center center no-repeat;
+    background-size: contain;
+}
+
+.time_tip_close {
+    display: inline-block;
+    width: 12/@rate;
+    height: 12/@rate;
+    vertical-align: middle;
+    background: url('../../pages/leishen_pc/images/time_tip_normal.png') center center no-repeat;
+    background-size: contain;
+}
+
+.time_tip_close:hover {
+    background: url('../../pages/leishen_pc/images/time_tip_hover.png') center center no-repeat;
+    background-size: contain;
+}
+
+/***** 恢复暂停提示 ******/
+
+/**
+    自定义动画库
+ */
+
+@-webkit-keyframes pc_up_down {
+	0% {
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+	}
+	50% {
+		-webkit-transform: translate3d(0, 8 / @rate, 0);
+		transform: translate3d(0, 8 / @rate, 0);
+	}
+	100% {
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+	}
+}
+
+.guanwang {
+    color: #35a2d6;
+}
+@keyframes pc_up_down {
+	0% {
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+	}
+	50% {
+		-webkit-transform: translate3d(0, 8 / @rate, 0);
+		transform: translate3d(0, 8 / @rate, 0);
+	}
+	100% {
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+	}
+}

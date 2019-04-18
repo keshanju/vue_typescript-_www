@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="p:domain_verify" content="1840b2cd5dae2761392f23daff8540f5" />
+    <script src="https://hm.baidu.com/hm.js?9513e0c1768e0f11b637a3b4be7d9131"></script>
+    <!-- Google Tag Manager -->
+    <script>(
+            function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(), event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0];
+                var j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-WT2CCTQ');
+    </script>
+    <!-- End Google Tag Manager -->
+    <title>活动</title>
+    <meta name="keywords" content="a1">
+    <meta name="description" content="a1">
+</head>
+
+<body>
+    <div id="app" style="background-color: #fff;">
+        <div class="wrap_of_header bg_com2">
+            <div class="notify_bgc_bh">
+                <head-nav v-on:changelanguage="onChangeLanguage"></head-nav>
+            </div>
+        </div>
+        <div class="wrap_of_notify_bh">
+            <div class="top_mod_activity">
+                <h1 class="new_gonggao_bh">{{$t("notify.y4")}}</h1>
+            </div>
+            <div class="main_mod_activity">
+                <div class="activity_list">
+                    <ul class="wrap_of_notify_list_bh clearfix_a" v-show="activityList.length > 0">
+                        <li class="item_activity_bh" v-for="(item , index) in activityList" :key="index" @click="goActivityDetail(item)">
+                            <div class="item_activity_img">
+                                <img :src="imageHeadUrl + item.image" alt="" class="img_filter">
+                            </div>
+                            <div class="item_activity_content">
+                                <div class="item_activity_title_box clearfix_a">
+                                    <div class="item_activity_time_on" v-if="item.time_status == 1">进行中</div>
+                                    <div class="item_activity_time_end" v-if="item.time_status == 0">已结束</div>
+                                    <h3 class="item_activity_title">{{item.title}}</h3>
+                                </div>
+                                <p class="item_activity_msg">
+                                    {{item.summary}}
+                                </p>
+                                <p class="item_activity_time">{{item.start_time}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="empty_box" v-show="activityList.length == 0">
+                        <img class="empty_img" src="images/empty_event.png" alt="">
+                        <p class="empty_msg">{{$t("puser.r10")}}</p>
+                    </div>
+                    <el-pagination background @prev-click="getActivityList" @next-click="getActivityList"
+                        @current-change="getActivityList" layout="prev, pager, next" :page-size="page_size" :total="totle"
+                        v-show="activityList.length > 0">
+                    </el-pagination>
+                </div>
+                <div class="download_news">
+                    <div class="download_box">
+                        <h3 class="activity_download_title">{{$t("foot.c12")}}</h3>
+                        <ul style="width:100%;margin: 20px 0;;overflow: hidden;">
+                            <li class="download_li" @click="windowsDownload">
+                                <i class="foot_icon activity_windows_icon"></i>
+                                <p>Windows</p>
+                            </li>
+                            <li class="download_li">
+                                <el-tooltip class="item" effect="dark" placement="bottom">
+                                    <div slot="content">
+                                        <download-box :phonetype="'android'"></download-box>
+                                    </div>
+                                    <a class="show_bh">
+                                        <i class="foot_icon activity_android_icon"></i>
+                                        <p>Android</p>
+                                    </a>
+                                </el-tooltip>
+                            </li>
+                            <li class="download_li">
+                                <a class="show_bh">
+                                    <i class="foot_icon activity_mac_icon"></i>
+                                    <p>Mac</p>
+                                </a>
+                            </li>
+                            <li class="download_li">
+                                <el-tooltip class="item" effect="dark" placement="bottom">
+                                    <div slot="content">
+                                        <download-box :phonetype="'ios'"></download-box>
+                                    </div>
+                                    <a class="show_bh">
+                                        <i class="foot_icon activity_ios_icon"></i>
+                                        <p>iPhone/iPad</p>
+                                    </a>
+                                </el-tooltip>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="activity_news">
+                        <div class="activity_news_title_box">
+                            <h3 class="activity_news_title">资讯</h3>
+                            <span class="activity_news_more" @click="goNews">more+</span>
+                        </div>
+                        <ul class="activity_news_list">
+                            <li class="activity_new" v-for="(item,index) in hotNewList" :key="index" @click="gonewsdetail(item.id)">{{item.title}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 底部导航 -->
+        <div class="wrap_of_footer">
+            <foot-nav v-on:ondownloadconfig="onDownloadConfig"></foot-nav>
+        </div>
+    </div>
+</body>
+</html>

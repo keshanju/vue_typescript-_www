@@ -1,0 +1,54 @@
+{
+    "bohe":{
+        "windows":{
+            "download_url":"//www.bohe.com/soft/win/BOHESetup.1.0.1.6.exe"
+        },
+        "mac":{
+            "download_url": ""
+        },
+        "pay": {
+            "is_show_wx": 1,
+            "is_show_zfb": 0,
+            "is_show_paypal": 1
+        },
+        "register": {
+            "is_email": 1
+        },
+        "down_platform": {
+            "baidu": {
+                "windows":{
+                    "download_url":"//www.bohe.com/soft/win/BOHESetup.1.0.1.6.exe"
+                },
+                "mac":{
+                    "download_url": ""
+                }
+            },
+            "360": {
+                "windows":{
+                    "download_url":"//www.bohe.com/soft/win/BOHESetup.1.0.1.6.exe"
+                },
+                "mac":{
+                    "download_url": ""
+                }
+            },
+            "guanwang": {
+                "windows":{
+                    "download_url":"//www.bohe.com/soft/win/BOHESetup.1.0.1.6.exe"
+                },
+                "mac":{
+                    "download_url": ""
+                }
+            }
+        },
+        "0": {
+            "register": {
+                "is_email": 1
+            }
+        },
+        "1": {
+            "register": {
+                "is_email": 1
+            }
+        }
+    }
+}

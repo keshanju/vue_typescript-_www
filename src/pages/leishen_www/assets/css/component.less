@@ -1,0 +1,708 @@
+/**
+    项目封装组件样式，命名使用BEM命名规范，例如： .block-modifier_element，块中含块的话就依次嵌套，循环递进命名
+ */
+
+//  一般公用样式
+
+.center_auto {
+    width: 1200px !important;
+    margin: 20px auto;
+    background-color: #eee;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 5px #333;
+}
+
+//  盒子背景色和圆角
+.white_box_radius {
+    background: #fff;
+    border-radius: 5px;
+}
+
+//  start距离位置调整样式，t代表top，b代表bottom， l代表left，r代表right， h代表横向水平Horizon， v代表vertical，按需要添加对应的类，类的命名参照如下例子
+
+//margin5
+.mar_t5 {
+    margin-top: 5px;
+}
+
+.mar_b5 {
+    margin-bottom: 5px;
+}
+
+.mar_l5 {
+    margin-left: 5px;
+}
+
+.mar_r5 {
+    margin-right: 5px;
+}
+
+.mar_h5 {
+    margin: 0 5px;
+}
+
+.mar_v5 {
+    margin: 5px 0;
+}
+
+//margin10
+.mar_t10 {
+    margin-top: 10px;
+}
+
+.mar_b10 {
+    margin-bottom: 10px;
+}
+
+.mar_l10 {
+    margin-left: 10px;
+}
+
+.mar_r10 {
+    margin-right: 10px;
+}
+
+.mar_h10 {
+    margin: 0 10px;
+}
+
+.mar_v10 {
+    margin: 10px 0;
+}
+
+//  margin15
+.mar_t15 {
+    margin-top: 15px;
+}
+
+.mar_b15 {
+    margin-bottom: 15px;
+}
+
+.mar_l15 {
+    margin-left: 15px;
+}
+
+.mar_r15 {
+    margin-right: 15px;
+}
+
+.mar_h15 {
+    margin: 0 15px;
+}
+
+.mar_v15 {
+    margin: 15px 0;
+}
+
+//  margin20
+.mar_t20 {
+    margin-top: 20px;
+}
+
+.mar_b20 {
+    margin-bottom: 20px;
+}
+
+.mar_l20 {
+    margin-left: 20px;
+}
+
+.mar_r20 {
+    margin-right: 20px;
+}
+
+.mar_h20 {
+    margin: 0 20px;
+}
+
+.mar_v20 {
+    margin: 20px 0;
+}
+
+//  margin25
+.mar_t25 {
+    margin-top: 25px;
+}
+
+.mar_b25 {
+    margin-bottom: 25px;
+}
+
+.mar_l25 {
+    margin-left: 25px;
+}
+
+.mar_r25 {
+    margin-right: 25px;
+}
+
+//  margin30
+.mar_t30 {
+    margin-top: 30px;
+}
+
+.mar_l30 {
+    margin-left: 30px;
+}
+
+//  margin40
+.mar_t40 {
+    margin-top: 40px;
+}
+
+.mar_l40 {
+    margin-left: 40px;
+}
+
+//  margin45
+.mar_t45 {
+    margin-top: 45px;
+}
+
+.mar_l45 {
+    margin-left: 45px;
+}
+
+//  margin50
+.mar_t50 {
+    margin-top: 50px;
+}
+
+.mar_b50 {
+    margin-bottom: 50px;
+}
+
+//  margin60
+.mar_t60 {
+    margin-top: 60px;
+}
+
+//  padding10
+.pad_h10 {
+    padding: 0 10px;
+}
+
+.pad_v10 {
+    padding: 10px 0;
+}
+
+//  padding15
+.pad_v15 {
+    padding: 15px 0;
+}
+
+.pad_h15 {
+    padding: 0 15px;
+}
+
+//  padding20
+.pad_v20 {
+    padding: 20px 0;
+}
+
+.pad_h20 {
+    padding: 0 20px;
+}
+
+//  padding30
+.pad_h30 {
+    padding: 0 30px;
+}
+
+.pad_v30 {
+    padding: 30px 0;
+}
+
+//  padding40
+.pad_v40 {
+    padding: 40px 0;
+}
+
+//  padding60
+.pad_v60 {
+    padding: 60px 0;
+}
+
+.pad_h65 {
+    padding: 0 65px;
+}
+
+//  padding95
+.pad_h95 {
+    padding: 0 95px;
+}
+
+//  end距离位置调整样式
+
+//  start盒子内外边距,  v标识垂直，h表示水平，w标识全部
+.grid-w10_cell {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.grid-w20_cell {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.grid-w25_cell {
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+.grid-w30_cell {
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.grid-w75_cell {
+    padding: 75px;
+    box-sizing: border-box;
+}
+
+.grid-v100_h10_cell {
+    padding: 100px 10px;
+    box-sizing: border-box;
+}
+
+.grid-v40_h5_cell {
+    padding: 40px 5px;
+    box-sizing: border-box;
+}
+
+.grid-v25_h40_cell {
+    padding: 25px 40px;
+    box-sizing: border-box;
+}
+
+.grid-v45_h65_cell {
+    padding: 45px 65px;
+    box-sizing: border-box;
+}
+
+.grid-v65_h70_cell {
+    padding: 65px 70px;
+}
+
+.grid-v50_h40_cell {
+    padding: 50px 40px;
+    box-sizing: border-box;
+}
+
+//  end盒子内外边距
+
+//  start   常规的左中右和左右布局+最外层盒子按此规范命名
+.rowbox {
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.rowbox-cell {
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.rowbox-cell-txt {
+    font-size: 16px;
+    color: #fff;
+}
+
+.rowbox-cell-img {
+    &:extend(.img_filter);
+}
+
+//  可继续补充相关的类名，如.rowbox-cell_icon，.rowbox-cell_tag等等
+//  end 常规的左中右和左右布局
+
+//  start列表项内的布局，纯文字展示--参照官网首页公告列表
+.listbox {
+    margin: 6px auto;
+}
+
+.listbox-cell {
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.listbox-cell .title a {
+    display: block;
+    font-size: 16px;
+    color: #000;
+    font-weight: 500;
+}
+
+.listbox-cell .time {
+    color: #777;
+    font-size: 12px;
+}
+
+.listbox-l-cell {
+    border-radius: 5px 0 0 5px;
+    &:extend(.listbox-cell);
+}
+
+.listbox-l-cell p:first-child {
+    font-size: 16px;
+    color: #000;
+}
+
+.listbox-l-cell p:nth-child(2) {
+    font-size: 12px;
+    color: #000;
+}
+
+.listbox-r-cell {
+    border-radius: 0 5px 5px 0;
+    &:extend(.listbox-cell);
+}
+
+.listbox-cell_txt {
+    width: 100%;
+}
+
+.listbox-cell_txt a {
+    display: block;
+    text-align: left;
+    font-size: 16px;
+    color: #000;
+    cursor: pointer;
+    font-weight: lighter;
+}
+
+.listbox-cell_txt p {
+    &:extend(.words_flow);
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-size: 12px;
+    color: #b0afaf;
+}
+
+//  end列表项内的布局--参照官网首页公告列表
+
+//  start图片+描述，上下布局--参照官网首页资讯列表
+.graphicbox {
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+
+.graphicbox:hover {
+    -webkit-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    transform: translateY(-2px);
+    -webkit-box-shadow: 0 1px 4px 2px #E2DDD2;
+    box-shadow: 0 1px 4px 2px #E2DDD2;
+}
+
+.graphicbox > a {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.graphicbox-cell .graphicbox-cell_txt {
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.graphicbox-cell .graphicbox-cell_txt a {
+    font-size: 16px;
+    color: #fff;
+    font-weight: lighter;
+}
+
+.graphicbox-cell .graphicbox-cell_txt p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    color: #b0afaf;
+}
+
+//  展示图片
+.graphicbox-cell_img {
+
+}
+
+//  内置icon
+.graphicbox-l_icon {
+
+}
+
+
+//  end图片+描述，上下布局--参照官网首页资讯列表
+
+//  start小图标+时间+文字描述（大小标题），左右布局
+.imglistboxes {
+    width: 1120px;
+    /*min-height: 800px;*/
+    padding: 20px 10px;
+    box-sizing: border-box;
+    margin: 0 auto 20px;
+    background-color: #fff;
+}
+
+.imglistbox {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.imglistbox-l-cell {
+    width: 70px;
+    height: 75px;
+    position: relative;
+}
+
+.imglistbox-l-cell img {
+    width: 70px;
+    height: 75px;
+}
+
+.imglistbox-l-cell .l_inner_box {
+    width: 70px;
+    height: 75px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+}
+
+.imglistbox-l-cell .l_inner_box .top_txt {
+    font-weight: bold;
+    font-size: 12px;
+    color: #fff;
+    margin: 5px auto;
+}
+
+.imglistbox-l-cell .l_inner_box .bottom_txt {
+    font-size: 24px;
+    color: #ffc713;
+    font-weight: 700;
+}
+
+.imglistbox-r-cell {
+    width: 900px;
+    margin-left: 30px;
+    border-bottom: 1px solid #ececec;
+    padding-bottom: 15px;
+}
+
+.imglistbox-r-cell a {
+    font-size: 18px;
+    color: #333;
+    font-weight: 700;
+    max-width: 700px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.imglistbox-r-cell p {
+    color: #777;
+    line-height: 20px;
+    margin-top: 15px;
+    max-height: 40px;
+    font-weight: 700;
+    overflow: hidden;
+    word-break: normal;
+}
+
+//  end小图标+时间+文字描述（大小标题），左右布局
+
+//  start文字靠左排版，从上至下排布
+.text-l-box {
+    width: 680px;
+    margin: 0 auto;
+    background-color: #0e0c0b;
+    padding: 20px 10px;
+    box-sizing: border-box;
+}
+
+.text-l-box > p:nth-child(1) {
+    font-size: 16px;
+    color: #ffc713;
+}
+
+.text-l-box > p:nth-child(2) {
+    font-weight: 700;
+    font-size: 44px;
+    color: #fff;
+}
+
+.text-l-box > p:nth-child(3) {
+    font-size: 28px;
+    color: #fff;
+}
+
+.text-l-box > .inner_l_txt p {
+    font-size: 12px;
+    color: #b0afaf;
+}
+
+//  end文字靠左排版，从上至下排布
+
+//  start下载列表
+.downbox {
+    width: 100%;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    background-color: #eee;
+    overflow: hidden;
+}
+
+.downbox-cell {
+    width: 142px;
+    margin-left: 15px;
+    float: left;
+    overflow: hidden;
+    padding: 13px 15px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background: #ffd33e;
+    cursor: pointer;
+}
+
+.downbox-cell:first-child {
+    margin-left: 0;
+}
+
+.downbox-cell_img {
+    float: left;
+    margin: 0 5px 0 0;
+}
+
+.downbox-cell_txt {
+    display: block;
+    float: left;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+}
+
+//  end下载列表
+
+//  start   图+文展示模块（此模块已在PC客户端内嵌页面应用，修改这里的属性实现告知相关人员，谢谢^_^）
+.newsviewbox {
+    width: 100%;
+}
+
+.newsviewbox-cell {
+    background-color: #fff;
+    position: relative;
+    box-shadow: 2px 1px 1px #d0d0d0;
+}
+
+.newsviewbox-cell .tag {
+    font-size: 14px;
+    background: #C2A661;
+    color: #FFF;
+    position: absolute;
+    left: 0;
+    top: 6px;
+}
+
+.newsviewbox-cell:first-child {
+    margin-left: 0;
+}
+
+.newsviewbox-cell .txtbox {
+    position: absolute;
+    left: 50%;
+    margin-left: -50%;
+}
+
+.newsviewbox-cell_img {
+    position: relative;
+}
+
+.newsviewbox-cell_head {
+    border-radius: 0 2px 2px 0;
+    position: relative;
+    background-color: #fff;
+}
+
+.newsviewbox-cell_head h3 a {
+    font-size: 22px;
+    color: #414141;
+}
+
+.newsviewbox-cell_main {
+    box-sizing: border-box;
+}
+
+.newsviewbox-cell_main p {
+    width: 100%;
+    font-size: 14px;
+    color: #818181;
+}
+
+.newsviewbox-cell_foot {
+    position: relative;
+}
+
+.newsviewbox-cell_foot p {
+    font-size: 12px;
+    position: relative;
+    color: #999;
+}
+
+//  end 图文展示模块，上中下
+
+//  start   公用弹出框样式
+.pub_dialogbox {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow: auto;
+    z-index: 10;
+}
+
+.pub_dialogbox-cell {
+    background-color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+}
+
+.pub_dialogbox-head {
+    padding: 20px 20px 10px;
+}
+
+.pub_dialogbox-body {
+    padding: 30px 20px;
+    color: #606266;
+    font-size: 14px;
+}
+
+.pub_dialogbox-foot {
+    padding: 20px 20px 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+//  提示弹窗
+.pub_dialog_out {
+    position: absolute;
+    left: 50%;
+    top: 180px;
+    opacity: 0;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+//  关闭弹窗
+.pub_dialog_in {
+    top: 200px;
+    opacity: 1;
+}
+
+//  end公用弹出框

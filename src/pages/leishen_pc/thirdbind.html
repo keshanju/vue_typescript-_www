@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app" class="pcbind_box">
+        <!-- <div class="back_icon cursor" @click="windowBack" v-show="bindUrlType == 0" style="display:none;">返回</div> -->
+        <ul class="flex_row_around bind_type_nav">
+            <li v-show="bindUrlType != 0" style="display:none;">
+                <a :class="{'bind_type_nav_li' : resignType == 4}" @click="changeRegisterType(4)">{{$t("public.share60")}}</a>
+            </li>
+            <li v-show="bindUrlType != 0 && isShowEmail" style="display:none;">
+                <a :class="{'bind_type_nav_li' : resignType == 5}" @click="changeRegisterType(5)">
+                    {{$t("public.share61")}}
+                </a>
+            </li>
+            <li v-show="bindUrlType == 0" style="display:none;">
+                <a class="bind_type_nav_li">
+                    {{$t("public.share8")}}
+                </a>
+            </li>
+        </ul>
+        <!--用户绑定填写框-->
+        <div style="margin-top: 0.2rem;">
+            <ul v-show="resignType == 4 && bindUrlType != 0" style="min-height: 1.2rem;display: none;">
+                <li class="flex_sbe" style="align-items: flex-start;width: 80%;margin: 0 auto;">
+                    <el-select @change="onSelectCountryCode" filterable v-model="countryCode" :placeholder="$t('public.share25')"
+                        style="width:30%;">
+                        <el-option v-for="(val,key,index) in areaCodeList" :key="index" :label="'+'+val" :value="val">
+                        </el-option>
+                    </el-select>
+                    <label class="pc_input_box flex_row_between" for="">
+                        <input style="width: 60%;" v-model="phone" type="text" class="pc_check_input" :placeholder="$t('public.share2')">
+                    </label>
+                </li>
+                <li v-show="isimgVerification" style="display:none;">
+                    <label class="pc_input_box flex_row_between" for="">
+                        <input style="width: 60%;" v-model="imgCaptchaCode" class="pc_check_input" type="text"
+                            :placeholder="$t('public.share5')">
+                        <div style="width: 40%;height: 100%;" class="flex_row_around web_protocol_font" @click="getCaptcha">
+                            <img :src="imgCaptchaM.img" class="img_filter" alt="">
+                        </div>
+                    </label>
+                </li>
+                <li>
+                    <label class="pc_input_box flex_row_between" for="">
+                        <input style="width: 50%;" v-model="smscode" class="pc_check_input" type="text" :placeholder="$t('public.share48')">
+                        <div style="margin-right: 8px;" class="flex_row_center web_protocol_font">
+                            <a @click="onSmsCode" v-show="smsCountDownNum <= 0" style="display:none;">{{$t("public.share6")}}</a>
+                            <span v-show="smsCountDownNum <= 0" style="display:none;">|</span>
+                            <a @click="onVoiceCode" v-show="smsCountDownNum <= 0" style="display:none;">{{$t("public.share7")}}</a>
+                            <span style="margin-right: 10px;display: none" v-show="smsCountDownNum > 0">{{smsCountDownNum}}s</span>
+                        </div>
+                    </label>
+                </li>
+                <li style="width: 80%;margin: 0 auto;display: none;" v-show="bind_status == 4">
+                    <input style="width: 100%;" v-model="phonePassword" class="pc_input_box" type="password"
+                        :placeholder="$t('public.share40')">
+                </li>
+            </ul>
+            <ul v-show="resignType == 5 && bindUrlType != 0" style="min-height: 1.2rem;display: none;">
+                <li style="width: 80%;margin: 0 auto;">
+                    <input style="width: 100%;" v-model="email" class="pc_input_box" type="text" :placeholder="$t('public.share63')">
+                </li>
+                <li v-show="isimgVerification" style="display:none;">
+                    <label class="pc_input_box flex_row_between" for="">
+                        <input style="width: 60%;" v-model="imgCaptchaCode" class="pc_check_input" type="text"
+                            :placeholder="$t('public.share5')">
+                        <div style="width: 40%;height: 100%;" class="flex_row_around web_protocol_font" @click="getCaptcha">
+                            <img :src="imgCaptchaM.img" class="img_filter" alt="">
+                        </div>
+                    </label>
+                </li>
+                <li>
+                    <label class="pc_input_box flex_row_between" for="">
+                        <input style="width: 60%;" v-model="emailcode" class="pc_check_input" type="text" :placeholder="$t('public.share49')">
+                        <div style="margin-right: 8px;" class="flex_row_center web_protocol_font">
+                            <a @click="onEmailCode" v-show="emailCountDownNum <= 0" style="display:none;">{{$t("public.share42")}}</a>
+                            <span style="margin-right: 10px;display:none;" v-show="emailCountDownNum > 0">{{emailCountDownNum}}s</span>
+                        </div>
+                    </label>
+                </li>
+                <li style="width: 80%;margin: 0 auto;display: none;" v-show="bind_status == 4">
+                    <input style="width: 100%;" v-model="emailPassword" class="pc_input_box" type="password"
+                        :placeholder="$t('public.share40')">
+                </li>
+            </ul>
+            <ul v-show="bindUrlType == 0" style="display:none;">
+                <li>
+                    <label class="pc_input_box flex_row_between" for="">
+                        <input style="width: 70%;" v-model="verify_code" class="pc_check_input" type="text"
+                            :placeholder="$t('public.share4')">
+                        <div style="margin-right: 8px;" class="flex_row_center web_protocol_font">
+                            <a @click="sendVerifyCode" v-show="verifyCountDownNum <= 0" style="display:none;">{{$t("public.share21")}}</a>
+                            <span style="margin-right: 10px;display: none;" v-show="verifyCountDownNum > 0">{{verifyCountDownNum}}s</span>
+                        </div>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!-- 推荐码 -->
+        <div style="width: 80%;margin: 0 auto;display: none;" class="flex_row_start" v-show="bind_status == 4">
+            <input class="pc_input_box" v-model="referCode" type="text" :placeholder="$t('public.share59')" style="width: 100%;">
+        </div>
+        <!--会员服务条款-->
+        <div style="width: 100%;display: none;margin: 0 auto;" class="flex_row_start" v-show="bind_status == 4">
+            <input class="pc_check_input pos_download_list" v-model="agreementChceked" type="checkbox">
+            <span class="h5_font14_white" @click="agreementChceked = !agreementChceked">{{$t("public.share43")}}</span>
+            <a class="web_protocol_font">{{$t("public.share44")}}</a>
+        </div>
+        <a class="pc_bind_btn public_btn" style="width: 80%;display: none;margin-top: 0.1rem;" @click="clickBind"
+            v-show="bindUrlType != 0">
+            {{bind_status == 4 ? $t('public.share62') : $t('public.share8')}}</a>
+        <a class="pc_bind_btn public_btn" style="width: 80%;display: none;margin-top: 0.1rem;" @click="bindDefaultAccount"
+            v-show="bindUrlType == 0">
+            {{$t('public.share8')}}</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="p:domain_verify" content="1840b2cd5dae2761392f23daff8540f5" />
+    <script src="https://hm.baidu.com/hm.js?9513e0c1768e0f11b637a3b4be7d9131"></script>
+    <!-- Google Tag Manager -->
+    <script>(
+            function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(), event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0];
+                var j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-WT2CCTQ');
+    </script>
+    <!-- End Google Tag Manager -->
+    <title>绑定</title>
+    <meta name="keywords" content="a1">
+    <meta name="description" content="a1">
+</head>
+
+<body>
+    <div id="app" class="wrap_of_login_bh">
+        <div class=" rlf_com">
+
+            <!-- 薄荷logo -->
+            <div class="logo_register_bh">
+                <a @click="goHome"><img src="./images/logo.png" alt=""></a>
+            </div>
+            <div class="main_content_register_bh">
+                <div class="wrap_of_register_ways_bh" v-loading="isLoading" :element-loading-text="loadingMsg">
+                    <!-- 注册方式选择，手机或者邮箱 -->
+                    <div class="register_ways_of_bh">
+                        <ul class="list_of_register_ways clearfix_a">
+                            <li class="item_of_register" @click="changeRegisterType(4)" :class="{active_bh:resignType == 4,mobileBind:isShowEmail != 1}"><a
+                                    class="font_s18">{{$t("bindmobile.bd1")}}</a></li>
+                            <li style="display: none;" v-show="isShowEmail == 1" class="item_of_register" @click="changeRegisterType(5)" :class="{active_bh:resignType == 5}"><a
+                                    class="font_s18">{{$t("bindmobile.bd2")}}</a></li>
+                        </ul>
+                    </div>
+                    <!-- 手机 -->
+                    <div class="wrap_of_mobile_bh" style="display: none;" v-show="resignType == 4">
+                        <!-- 手机号 -->
+                        <div class="mobile_phone_res_bh">
+                            <el-select @change="onSelectCountryCode" filterable v-model="countryCode" :placeholder="$t('login.l3')">
+                                <el-option v-for="(val,key,index) in areaCodeList" :key="index" :label="'+'+val" :value="val">
+                                </el-option>
+                            </el-select>
+                            <input v-model="phone" type="text" :placeholder="$t('login.l4')">
+                        </div>
+                        <!-- 图形验证码 -->
+                        <div class="img_code_res_bh common_width_res pos_r" style="display: none;" v-show="isimgVerification == 1">
+                            <input v-model="imgCaptchaCode" type="text" :placeholder="$t('login.l8')">
+
+                            <div class="verificatioPic" @click="getCaptcha">
+                                <img v-show="imgCaptchaM.img != null" class="verificatioImg" :src="imgCaptchaM.img" alt="">
+                            </div>
+                        </div>
+                        <!-- 短信验证码 -->
+                        <div class="msg_code_res_bh common_width_res pos_r">
+                            <input v-model="smscode" type="text" :placeholder="$t('login.l5')">
+
+                            <div class="post_msg_code_bh font_s24">
+                                <span @click="onSmsCode" v-show="smsCountDownNum <= 0">{{$t("login.l17")}}</span>
+                                <span v-show="smsCountDownNum <= 0 && countryCode == 86">|</span>
+                                <span style="display: none;" @click="onVoiceCode" v-show="smsCountDownNum <= 0 && countryCode == 86">{{$t("login.l18")}}</span>
+                                <span style="display: none;" v-show="smsCountDownNum > 0">({{smsCountDownNum}}s)</span>
+                            </div>
+                        </div>
+                        <!-- 密码设置 -->
+                        <div class="pwd_res_bh common_width_res" v-show="bind_status == 4">
+                            <input v-model="phonePassword" type="password" :placeholder="$t('login.l6')">
+                        </div>
+                    </div>
+                    <!-- 邮箱 -->
+                    <div class="wrap_of_email_bh" style="display: none;" v-show="resignType == 5">
+                        <!-- 邮箱 -->
+                        <div class="email_num_res_bh common_width_res">
+                            <input v-model="email" type="text" :placeholder="$t('login.l9')">
+                        </div>
+                        <!-- 图形验证码 -->
+                        <div class="img_code_res_bh common_width_res pos_r" style="display: none;" v-show="isimgVerification == 1">
+                            <input v-model="imgCaptchaCode" type="text" :placeholder="$t('login.l8')">
+
+                            <div class="verificatioPic" @click="getCaptcha">
+                                <img v-show="imgCaptchaM.img != null" class="verificatioImg" :src="imgCaptchaM.img" alt="">
+                            </div>
+                        </div>
+                        <!-- 邮箱验证码 -->
+                        <div class="email_code_res_bh common_width_res pos_r">
+                            <input v-model="emailcode" type="text" :placeholder="$t('login.l10')">
+
+                            <div class="post_msg_code_bh font_s24">
+                                <span @click="onEmailCode" v-show="emailCountDownNum <= 0">{{$t("login.l19")}}</span>
+                                <span style="display: none;" v-show="emailCountDownNum > 0">({{emailCountDownNum}}s)</span>
+                            </div>
+                        </div>
+                        <!-- 密码设置 -->
+                        <div class="pwd_res_bh common_width_res" v-show="bind_status == 4">
+                            <input v-model="emailPassword" type="password" :placeholder="$t('login.l6')">
+                        </div>
+                    </div>
+                    <!-- 登录注册按钮 -->
+                    <div class="btn_to_reslogin_bh">
+                        <div class="register_now_bh">
+                            <a @keyup.enter="clickBind" @click="clickBind" class="words_col0 show_bh">{{$t("bindmobile.bd3")}}</a>
+                        </div>
+                        <div class="login_bh">
+                            <a href="login.html" class="words_col2 show_bh">{{$t("login.l28")}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <foot-nav-two></foot-nav-two>
+    </div>
+</body>
+</html>

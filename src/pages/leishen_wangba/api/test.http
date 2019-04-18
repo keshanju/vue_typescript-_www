@@ -1,0 +1,8 @@
+POST http://sandboxie-user.leigod.com/api.aspx?op=get_userinfo HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+token=MTE5Ljk4LjYyLjIzNnwxMjA4NzEwMzl8MjAxOC8xMi83IDEzOjUzOjIwfDNjOTBiMWNhZWY4OThlZjQxYzVlMzE4YzQ3NmQ2MWUw
+
+# GET http://sandboxie-user.leigod.com/api.aspx?op=get_checkcode HTTP/1.1
+
+

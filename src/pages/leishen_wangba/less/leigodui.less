@@ -1,0 +1,416 @@
+// 重置浏览器样式
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+p,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+form,
+fieldset,
+legend,
+button,
+submit,
+input,
+textarea,
+select,
+table,
+tr,
+th,
+td,
+hr,
+pre,
+sup,
+address,
+cite,
+dfn,
+em,
+var,
+blockquote {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+html {
+    min-height: 100%;
+    border: none 0;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    font: 14px/1.5 "Microsoft YaHei", "Hiragino Sans GB", arial, simsun, sans-serif;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow-x: hidden; // -webkit-font-smoothing: antialiased;
+}
+
+ul,
+ol {
+    list-style-type: none;
+}
+
+button,
+submit,
+input,
+select,
+textarea {
+    font: 14px/1.5 Tahoma, "Microsoft YaHei", arial, simsun, sans-serif;
+    outline: none;
+    border: none;
+}
+
+button,
+submit,
+input,
+select {
+    vertical-align: middle;
+}
+
+button,
+submit {
+    cursor: pointer;
+}
+
+textarea {
+    resize: none;
+    outline: none;
+}
+
+button::-moz-focus-inner,
+submit::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="file"]>input[type="button"]::-moz-focus-inner {
+    padding: 0;
+    border: none;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+th,
+td {
+    text-align: left;
+}
+
+address,
+cite,
+dfn,
+em,
+var {
+    font-style: normal;
+}
+
+img {
+    border: none;
+    vertical-align: middle;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+.cursor{
+    cursor: pointer;
+}
+a:link,
+a:visited {
+    text-decoration: none;
+    outline: none;
+}
+
+a:hover,
+a:active {
+    outline: none;
+}
+
+iframe {
+    vertical-align: top;
+}
+
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #b4b3b3;
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #b4b3b3;
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #b4b3b3;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #b4b3b3;
+}
+
+// 公用样式 函数变量区
+@fontcolor: #666; //字体颜色
+@themecolor: #01a9d6; //主题颜色
+@contentWidth: 1200px; //内容区宽度
+@headerH: 60px; //顶部高度
+/*函数*/
+
+.flex(@direction: row;
+@align: center;
+@vertical: center) {
+    display: flex;
+    flex-direction: @direction;
+    justify-content: @align;
+    align-items: @vertical
+}
+
+.btn(@padding: 10px;
+@bgcolor: @themecolor;
+@radius: 3px;
+) {
+    padding: @padding;
+    background: @bgcolor;
+    border-radius: @radius;
+}
+
+//头像图片
+.portraits(@w;
+@h) {
+    width: @w;
+    height: @h;
+    border-radius: 50%;
+}
+
+//loginBox 宽度
+.loginBoxW(@w) {
+    width: @w;
+    margin: auto;
+}
+
+//下划线
+.leigod_borderbottom {
+    border-bottom: 1px solid #eee;
+}
+
+//虚线分割线
+.leigod_dashedbottom {
+    border-bottom: 1px dashed #ddd;
+}
+
+//公共样式
+.leigod_clear:after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0;
+    overflow: hidden;
+}
+
+.leigod_hide {
+    display: none;
+}
+
+.leigod_container {
+    overflow: hidden;
+}
+
+.leigod_ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.leigod_text_center {
+    text-align: center;
+}
+
+.leigod_text-indent {
+    text-indent: 2rem;
+}
+
+/*弹性布局*/
+
+.leigod_flex {
+    .flex
+}
+
+.leigod_flex_vertify {
+    .flex(column)
+}
+
+.leigod_flex_left {
+    .flex('', flex-start)
+}
+
+.leigod_flex_right {
+    .flex('', flex-end)
+}
+
+.leigod_flex_around {
+    .flex('', space-around)
+}
+
+.leigod_flex_between {
+    .flex('', space-between)
+}
+
+.leigod_mobileable {
+    width: 100%;
+    min-width: @contentWidth;
+}
+
+.leigod_flexwrap {
+    flex-wrap: wrap;
+}
+
+.leigod_flex_lefttop {
+    .leigod_flex_left;
+    align-items: flex-start;
+}
+
+/*按钮*/
+
+.leigod_backlink {
+    color: @themecolor;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.leigod_defaultbtn {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 2px 10px;
+    display: inline-block;
+    &:hover {
+        opacity: .8;
+    }
+}
+
+/*常用的margin 和padding*/
+
+.leigod_pb5 {
+    padding-bottom: 5px;
+}
+
+.leigod_pb10 {
+    padding-bottom: 10px;
+}
+
+.leigod_pb15 {
+    padding-bottom: 15px;
+}
+
+.leigod_pb20 {
+    padding-bottom: 20px;
+}
+
+.leigod_pb25 {
+    padding-bottom: 25px;
+}
+
+.leigod_pb30 {
+    padding-bottom: 30px;
+}
+
+.leigod_mt5 {
+    margin-top: 5px;
+}
+
+.leigod_mt10 {
+    margin-top: 10px;
+}
+
+.leigod_mt15 {
+    margin-top: 15px;
+}
+
+.leigod_mt20 {
+    margin-top: 20px;
+}
+
+.leigod_mt25 {
+    margin-top: 25px;
+}
+
+.leigod_mt30 {
+    margin-top: 30px;
+}
+
+.leigod_mb5 {
+    margin-bottom: 5px;
+}
+
+.leigod_mb10 {
+    margin-bottom: 10px;
+}
+
+.leigod_mb15 {
+    margin-bottom: 15px;
+}
+
+.leigod_mb20 {
+    margin-bottom: 20px;
+}
+
+.leigod_mb25 {
+    margin-bottom: 25px;
+}
+
+.leigod_mb30 {
+    margin-bottom: 30px;
+}
+
+.leigod_ml5 {
+    margin-left: 5px;
+}
+
+.leigod_ml10 {
+    margin-left: 10px;
+}
+
+.leigod_ml15 {
+    margin-left: 15px;
+}
+
+.leigod_ml20 {
+    margin-left: 20px;
+}
+
+.leigod_ml25 {
+    margin-left: 25px;
+}
+
+.leigod_ml30 {
+    margin-left: 30px;
+}
+
+// 颜色集
+.orange {
+    color: #fe9a0a;
+}
+
+// 背景
+.whitebg {
+    background: #fff;
+}
+
+body {
+    color: @fontcolor;
+}

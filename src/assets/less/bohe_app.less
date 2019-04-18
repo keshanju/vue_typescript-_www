@@ -1,0 +1,498 @@
+@import "leishen_common.less"; //导入公共样式文件
+
+/**
+    颜色集
+ */
+@main_bgc: #383838; //页面背景主色调
+@check_bgc: #2e2e2e; //支付模块背景
+@protocol_bgc: #383838; //协议盒子背景
+@main_font: #ffc713; //支付主色调
+@container_bgc: #363437;
+
+/**
+    字体集
+ */
+
+.public_font {
+	font-size: 10px;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.big_pack_font {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 20px;
+	color: @white;
+}
+
+.big_am_font {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 36px;
+	color: @white;
+}
+
+.amount_font {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 24px;
+	color: @main_font;
+}
+
+.simbol_font {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 14px;
+	color: @main_font;
+	align-self: flex-end;
+	margin-bottom: 2px;
+}
+
+.top_amount_font {
+	&:extend(.amount_font);
+	color: @white;
+}
+
+.top_simbol_font {
+	&:extend(.simbol_font);
+	color: @white;
+}
+
+.detail_font {
+	font-size: 14px;
+	color: @main_font;
+}
+
+.app_warm_tips {
+	font-size: 14px;
+	color: #e1e1e1;
+}
+
+.app_protitle_font {
+	font-size: 14px;
+	color: #eee;
+	margin: 15px auto;
+}
+
+.agree_font {
+	font-size: 12px;
+	color: @white;
+}
+
+.app_package_font {
+	font-size: 14px;
+	color: #ffffff;
+}
+
+.app_main_font {
+	font-size: 12px;
+	color: #999999;
+	letter-spacing: 0;
+	text-align: justify;
+}
+
+.pop_font {
+	font-size: 14px;
+	color: @black;
+}
+
+/**
+    距离集
+ */
+.pos_container {
+	.margin_fn(10px, 10px, 10px, 10px);
+}
+
+.pos_example {
+	.margin_fn(50px, 0, 50px, 0);
+}
+
+.pos_detail_time {
+	.margin_fn(10px, 0, 10px, 0);
+}
+
+.pos_game_cell {
+	.margin_fn(10px, 10px, 10px, 10px);
+}
+
+.pos_game_wrap {
+	.margin_fn(50px, 0, 30px, 0);
+}
+
+/**
+    start   充值页
+ */
+.app_container {
+	background: @main_bgc;
+	&:extend(.public_font); //该页面主体文字样式
+}
+
+.app_content {
+	&:extend(.pos_container);
+}
+
+.app_package_top {
+	&:extend(.flex_row_between, .app_top_box);
+	position: relative;
+}
+
+.app_package_bottom {
+	&:extend(.flex_row_start);
+}
+
+/**
+    套餐盒子
+ */
+.app_top_box {
+	background: url("../../pages/leishen_app/images/app_main_bg.png") no-repeat center center;
+	background-size: 100% 100%;
+	border-radius: 2px;
+	padding: 14px 20px;
+}
+
+.app_bottom_box {
+	&:extend(.flex_column_center);
+	width: 33%;
+	background-image: linear-gradient(-164deg, #61cdfa 5%, #3eb0f4 100%);
+	position: relative;
+	border-radius: 2px;
+	padding: 10px 30px;
+	margin: 5px 5px 5px 0;
+}
+
+.app_bottom_box:last-child {
+	margin-right: 0;
+}
+
+/**
+    固定底部盒子
+ */
+.fixed_box {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+}
+
+/**
+    协议盒子
+ */
+.app_protocol_box {
+	&:extend(.flex_row_between);
+	box-shadow: 0 -2px 4px 0 #282828;
+	background: @protocol_bgc;
+	padding: 12px 10px;
+}
+
+/**
+    支付盒子
+ */
+.app_check_box {
+	&:extend(.flex_row_between);
+	background: @check_bgc;
+	padding: 0 0 0 10px;
+}
+
+/**
+    套餐金额
+ */
+.app_amount_box {
+	&:extend(.flex_row_end);
+	margin-left: 15px;
+}
+
+/**
+    支付button
+ */
+.app_check_btn {
+	&:extend(.public_btn);
+	padding: 15px 40px;
+	font-size: 16px;
+	color: #413e3e;
+	border-radius: 0;
+}
+
+.hide_ipt {
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+
+.app_normal_ipt {
+	width: 18px;
+	height: 18px;
+	margin-right: 4px;
+	border: none;
+	outline: none;
+	background: url("../../pages/leishen_app/images/checkbox_nomral@2x.png") no-repeat center center;
+	background-size: 100% 100%;
+}
+
+// .app_normal_ipt:hover {
+// 	background: url("../../pages/leishen_app/images/checkbox_choosed@2x.png") no-repeat center center;
+// 	background-size: 100% 100%;
+// }
+.hide_ipt_checked {
+	background: url("../../pages/leishen_app/images/checkbox_choosed@2x.png") no-repeat center center;
+	background-size: 100% 100%;
+}
+.choosed_package {
+	width: 32px;
+	height: 29px;
+	background: url("../../pages/leishen_app/images/choosed@2x.png") no-repeat center center;
+	background-size: 100% 100%;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+/**
+    蒙版层样式
+ */
+.check_pop_box {
+	&:extend(.flex_column_center, .pop_font);
+	padding: 20px 45px;
+}
+
+.app_payment_box {
+	&:extend(.flex_row_between, .pop_font);
+	width: 100%;
+	margin: 30px 0;
+}
+
+/**
+    end   充值页
+ */
+
+/**
+    start   帮助中心页
+ */
+.app_help {
+	background: #363437;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+/**
+    组件样式
+ */
+
+.van-collapse-item {
+	background: #464447;
+	box-shadow: 0 2px 4px 0 #2d2d2d !important;
+	border-radius: 4px !important;
+	margin-bottom: 15px;
+}
+
+.van-cell__title {
+	font-size: 16px;
+	color: #ffffff;
+	background: #464447;
+	border-top: 0;
+}
+
+.van-collapse-item .van-cell {
+	font-size: 16px;
+	color: #ffffff;
+	background: #464447;
+}
+
+.van-hairline--top-bottom::after {
+	border-width: 0 !important;
+}
+
+.van-hairline--top::after {
+	border-top-width: 0px !important;
+}
+
+.van-collapse-item .van-cell::after {
+	display: none !important;
+}
+
+.van-collapse-item__wrapper .van-collapse-item__content {
+	background: #464447;
+	box-shadow: 0 2px 4px 0 #2d2d2d !important;
+	border-radius: 4px !important;
+	font-size: 14px;
+	color: #cccccc;
+}
+
+/**
+    start 会员服务条款
+ */
+.app_pro_container {
+	padding: 10px 15px;
+	box-sizing: border-box;
+}
+
+.pro_content_font {
+	&:extend(.text_indent);
+	color: @white;
+	font-size: 14px;
+	line-height: 22px;
+	font-family: MicrosoftYaHeiLight;
+}
+
+/**
+    end 会员服务条款
+ */
+
+/**
+    start 公告详情
+ */
+
+.app_detail_container {
+	padding: 20px 10px;
+	box-sizing: border-box;
+	background: @container_bgc;
+}
+
+.detail_title_font {
+	&:extend(.words_flow);
+	font-size: 18px;
+	color: #ffffff;
+}
+
+.detail_pubtime_font {
+	&:extend(.words_flow);
+	font-size: 12px;
+	color: #929292;
+}
+
+.detail_content_font {
+	font-family: MicrosoftYaHeiLight;
+	font-size: 14px;
+	color: #c2c2c2;
+	letter-spacing: 0;
+	text-align: justify;
+	line-height: 24px;
+	p{
+		color: #fff;
+	}
+}
+
+.app_solid_line {
+	&:extend(.solid_line);
+	border-bottom: 1px solid #555;
+}
+
+/**
+    end 公告详情
+ */
+
+/**
+    公告列表
+ */
+.app_notify_box {
+	&:extend(.flex_row_start);
+	background: #464447;
+	border-radius: 4px;
+	margin: 15px auto;
+	padding: 15px 35px 20px 10px;
+	box-sizing: border-box;
+}
+
+/**
+    start 客户端下载页面
+ */
+.app_top_logo {
+	width: 100%;
+	padding: 12px 13px;
+	box-sizing: border-box;
+}
+
+.links_title_font {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 28px;
+	color: #ffffff;
+	letter-spacing: 1.75px;
+	text-align: center;
+}
+
+.app_links_bg {
+	width: 100%;
+	height: 349px;
+	background: #141414 url("../../pages/leishen_app/images/main_banner.png") no-repeat center center;
+	background-size: 100% 100%;
+}
+
+.links_container {
+	width: 100%;
+	margin: 0 auto;
+	padding: 20px 38px;
+	box-sizing: border-box;
+	&:extend(.app_package_font);
+}
+
+.download_appbtn {
+	&:extend(.public_btn, .flex_row_center);
+	padding: 10px 0px;
+	font-weight: Bold;
+	font-size: 15px;
+	color: #413e3e;
+	margin-bottom: 15px;
+}
+
+.download_pcbtn {
+	&:extend(.download_appbtn);
+	border: 1px solid #979797;
+	border-radius: 4px;
+	background: #141414;
+}
+
+.download_pc_font {
+	font-family: MicrosoftYaHei-Bold;
+	font-size: 15px;
+	color: #ffffff;
+}
+
+.download_details {
+	font-size: 12px;
+	color: #999999;
+	text-align: center;
+}
+
+.app_gamelist_box {
+	&:extend(.flex_row_center);
+	width: 100%;
+	margin: 15px auto;
+	flex-wrap: wrap;
+}
+
+.app_gamelist_cell {
+	&:extend(.flex_column_center, .pos_game_cell);
+}
+
+.links_des_box {
+	margin: 20px auto;
+	padding: 13px 0;
+	box-sizing: border-box;
+	background: #2a2a2a;
+	border-radius: 3px;
+}
+
+.game_dsc_font {
+	&:extend(.words_flow);
+	font-size: 12px;
+	color: #ffffff;
+}
+
+.shadow {
+	display: none;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	opacity: 0.8;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+.shadow img {
+	float: right;
+	display: block;
+	width: 50%;
+	margin-right: 3%;
+}
+.van-toast--middle {
+	font-size: 14px;
+}
+/**
+    start 客户端下载页面
+ */

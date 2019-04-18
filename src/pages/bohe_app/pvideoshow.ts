@@ -1,0 +1,93 @@
+import "@/assets/css/bohe_app.css";
+import "leigod-lib-flexible";
+import { Component, Vue } from "vue-property-decorator";
+import HttpClient from "@/ts/net/HttpClient";
+import AppParamModel from "@/ts/models/AppModel";
+import GlobalConfig from "./global.config";
+import { IdataModel } from "@/ts/models/IdataModel";
+import { LanguageConfig } from "@/ts/utils/Language";
+import { ExtrnalFactory } from "@/ts/factory/ExtrnalFactory";
+import "babel-polyfill";
+import VueI18n from "vue-i18n";
+
+Vue.config.productionTip = false;
+
+//语言包
+Vue.use(VueI18n);
+const appParam: AppParamModel = AppParamModel.getInstace();
+let lang = LanguageConfig.getInstance();
+lang.initNoRefresh();
+const i18n = new VueI18n(lang);
+
+@Component
+class VideoShow extends Vue {
+    public appParam: AppParamModel = AppParamModel.getInstace();
+    public bgImg: string = "images/bg_img.jpg";
+    public imageHeadUrl: string = "";
+    public isOpen: number = 1;
+
+    //////////公共参数
+    public http = new HttpClient();
+    public backData: IdataModel<any> | undefined;
+
+    //////////END
+
+    public created() {
+        this.setBaseUrl(GlobalConfig.getBaseUrl());
+        this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
+    }
+
+    public mounted() {
+        this.changeBg();
+    }
+
+    /**
+     * 切换语言
+     */
+    public onChangeLanguage(ln: string) {
+        lang.changeLanguage(ln, false);
+        i18n.locale = lang.locale;
+        GlobalConfig.log("切换语言:" + lang.locale);
+    }
+
+    /**
+     * 设置根地址
+     */
+    public setBaseUrl(url: string): void {
+        this.http.setBaseUrl(url);
+    }
+
+    /**
+     * 动态更换背景
+     */
+    public changeBg() {
+        const factory = ExtrnalFactory.getInstance().getFactory(
+            this.appParam.platform
+        );
+        const img = factory.getbackground(3);
+        if (img != "") {
+            this.bgImg = img;
+        }
+    }
+
+    /**
+     * 点击加速,根据地区判断显示弹框
+     */
+    public isShowThis() {
+        // if (appParam.region_code == 1) {
+        //     this.isOpen = 0;
+        // }
+        this.isOpen = 0;
+    }
+
+    /**
+     * 点击关闭弹框
+     */
+    public closeFrame() {
+        this.isOpen = 1;
+    }
+}
+
+new VideoShow({
+    i18n
+}).$mount("#app");

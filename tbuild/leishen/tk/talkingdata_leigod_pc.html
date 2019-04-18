@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://jic.talkingdata.com/app/h5/v1?appid=5E1654E4412A46E8A1B2CB0392958FF3&vn=v1.0.0"></script>
+    <!--<script src="http://sdk.talkingdata.com/app/h5/v1?appid=5E1654E4412A46E8A1B2CB0392958FF3&vn=v1.0.0"></script>-->
+    <title>H5 SDK</title>
+</head>
+<body>
+<script>
+    /**
+     * 发送自定义事件
+     */
+    function onTdEvetn(EventId, Label, MapKv) {
+        if (Label == null) Label = '';
+        if (MapKv == null) MapKv = '';
+        TDAPP.onEvent(EventId, Label, MapKv);
+    }
+</script>
+</body>
+</html>

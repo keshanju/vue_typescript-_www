@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>会员中心</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	</head>
+
+	<body style="padding-bottom: 50px;">
+		<div class="mui-content" id="app">
+			<loading v-show="isLoading"></loading>
+			<div v-show="!isLoading" style="display:none;">
+				<div class="mine_top" style="position:relative;">
+					<div style="text-align:right;">
+						<span v-show="userInfo.region_code!=1" class="huiyuanleave">{{ package_name }}</span>
+						<header-nav @changelanguage="onChangeLanguage"></header-nav>
+					</div>
+					<div :class="{'mine_portrait':true}" style="padding: 0px 15px 30px;">
+						<img :src="userInfo.avatar" v-if="userInfo.avatar!=='./images/default_avatar.png'" class="mui-pull-left touxiang" />
+						<img src="./images/default_avatar.png" v-if="userInfo.avatar==='./images/default_avatar.png'" class="mui-pull-left touxiang" />
+						<a href="#" style="float: left;margin-top: 2px;"> 
+						<img src="./images/mycenterclass.png" width="16" height="17" /> </a>
+						<div class="mui-pull-left mine_center_info">
+							<div class="mine_center_info_tit">
+								<h4 class="mui-ellipsis" style="line-height:1.1;">{{ userInfo.nickname }}</h4>
+							</div>
+							<h5 v-show="userInfo.region_code!=1" style="margin-top:20px;color:#fff">{{ $t("puser.r5") }}{{ userInfo.expiry_time }}</h5>
+							<span class="huiyuanleave" v-show="userInfo.region_code==1">{{ $t("index.b22") }}</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="my_center_list">
+					<ul class="mui-table-view my_center_cell">
+						<li class="mui-table-view-cell" v-if="showCharge">
+						<!-- <li class="mui-table-view-cell"> -->
+							<a class="mui-navigate-right" @click="gotoRecharge"> <i class="ls icon-goumai"></i> {{ $t("foot.c6") }} </a>
+						</li>
+					</ul>
+
+					<ul class="mui-table-view my_center_cell">
+						<li class="mui-table-view-cell">
+							<!-- 官方公告 -->
+							<a class="mui-navigate-right" @click="gotoNotify"> <i class="ls icon-shengyin"></i> {{ $t("foot.c5") }} </a>
+						</li>
+						<li class="mui-table-view-cell">
+							<!-- 用户资料 -->
+							<a class="mui-navigate-right" @click="gotouserOperate(1)"> <i class="ls icon-shirenrenzheng"></i> {{ $t("user.z43") }} </a>
+						</li>
+						<!-- <li class="mui-table-view-cell">
+							<a class="mui-navigate-right" href="useroperate.html?pageIndex=2"> <i class="ls icon-zhangdan"></i> 卡密充值 </a>
+						</li> -->
+						<!-- <li class="mui-table-view-cell"> -->
+						<li class="mui-table-view-cell" v-if="showCharge">
+							<!-- 订单管理 -->
+							<a class="mui-navigate-right" @click="gotouserOperate(3)"> <i class="ls icon-wendang"></i> {{ $t("user.z9") }} </a>
+						</li>
+						<li class="mui-table-view-cell">
+							<!-- 用户协议 -->
+							<a class="mui-navigate-right" @click="gotoAgreement"> <i class="ls icon-wendangxiugai"></i> {{ $t("agreement.header") }} </a>
+						</li>
+					</ul>
+					<ul class="mui-table-view my_center_cell">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" @click="gotouserOperate(4)"> <i class="ls icon-shezhi"></i> {{ $t("user.z10") }} </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

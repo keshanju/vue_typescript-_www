@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>雷神网吧版-首页</title>
+    <meta name="keywords" content="雷神网吧版">
+    <meta name="description" content="雷神网吧版">
+</head>
+
+<body>
+    <div id="index" v-cloak>
+        <div class="leigod_container">
+            <!-- 头部 -->
+            <header-nav></header-nav>
+
+            <!-- banner -->
+            <div class="leigod_bannerBox">
+                <div class="leigod_banner">
+                    <img src="./images//wangbabanner.png" class="leigod_center" alt="" srcset="">
+                    <div class="leigod_bannerCon">
+                        <div class="leigod_DownloadBtn">
+                            <a href="./reg.html" class="leigod_btn">网吧入驻</a>
+                            <a :href="wangbaDownloadUrl" class="leigod_btn">下载客户端</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- content -->
+            <div class="leigod_contentBox">
+                <div class="leigod_content">
+                    <!-- 选择我们 -->
+                    <div class="leigod_chooseUs">
+                        <h4 class="leigod_title">选择我们</h4>
+                        <h5 class="leigod_subtit">专业电竞线路支持，客户端完美兼容各种网吧模式</h5>
+                        <ul class="leigod_chooseusBox leigod_flex_around">
+                            <li class="leigod_chooseus_cell">
+                                <img src="./images/icon_team.png" class="leigod_chooseus_cellImg" alt="">
+                                <h5 class="leigod_chooseus_cellTit">专业运维团队</h5>
+                                <h6 class="leigod_chooseus_cellInfo">强大的运营团队，全面的技术支持<br>8:00-24:00（全年无休）</h6>
+                            </li>
+                            <li class="leigod_chooseus_cell">
+                                <img src="./images/icon_line.png" class="leigod_chooseus_cellImg" alt="">
+                                <h5 class="leigod_chooseus_cellTit">电竞专线</h5>
+                                <h6 class="leigod_chooseus_cellInfo">顶级金融专线支持<br>覆盖国内上千节点，极速体验</h6>
+                            </li>
+                            <li class="leigod_chooseus_cell">
+                                <img src="./images/iconjiedian.png" class="leigod_chooseus_cellImg" alt="">
+                                <h5 class="leigod_chooseus_cellTit">覆盖全国网吧</h5>
+                                <h6 class="leigod_chooseus_cellInfo">雷神加速覆盖全国5000多家网吧<br>支持规模庞大</h6>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 免费使用  网吧商家量身打造 -->
+                    <div class="leigod_wangba_introduceBox">
+                        <div class="leigod_wangba_introduceCell leigod_flex_between">
+                            <img src="./images/wangbaintroduce1.png" alt="">
+                            <dl class="leigod_wangba_introduceList">
+                                <dt class="leigod_wangba_introduceList_tit">免费使用 网吧商家量身打造</dt>
+                                <dd class="leigod_wangba_introduceList_cell">覆盖全国网吧</dd>
+                                <dd class="leigod_wangba_introduceList_cell">自助注册后台极速审核，完美体验免费加速</dd>
+                                <dd class="leigod_wangba_introduceList_cell">设定后台雷神壁纸即可免费使用</dd>
+                            </dl>
+                        </div>
+                        <div class="leigod_wangba_introduceCell leigod_flex_between">
+
+                            <dl class="leigod_wangba_introduceList">
+                                <dt class="leigod_wangba_introduceList_tit">网吧IP绑定 免账密一键登录</dt>
+                                <dd class="leigod_wangba_introduceList_cell">网吧系统后台安全绑定网吧IP,专属网吧范围机器使用</dd>
+                                <dd class="leigod_wangba_introduceList_cell">无需账号密码，绑定网吧IP机器自动识别一键登录，<br>即可加速游戏</dd>
+                            </dl>
+                            <img src="./images/wangbaintroduce2.png" alt="">
+                        </div>
+                        <div class="leigod_wangba_introduceCell leigod_flex_between">
+                            <img src="./images/wangbaintroduce3.png" alt="">
+                            <dl class="leigod_wangba_introduceList">
+                                <dt class="leigod_wangba_introduceList_tit">多功能后台</dt>
+                                <dd class="leigod_wangba_introduceList_cell">一键启动全服支持，易于操作</dd>
+                                <dd class="leigod_wangba_introduceList_cell">随时查看账号当前状态、提醒次数、当前在线电脑<br>数量等信息</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- 网吧入驻 -->
+                <div class="leigod_wangba_enter">
+                    <a href="./reg.html" class="leigod_wangba_enterBtn">网吧入驻</a>
+                </div>
+            </div>
+
+            <!-- foot -->
+            <footer-nav></footer-nav>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

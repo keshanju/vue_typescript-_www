@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>忘记密码</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="robots" content="noindex">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+</head>
+
+<body>
+    <div id="app" v-cloak>
+ <div class="mui-content regBox">
+
+        <van-tabs type="card" v-model="tabactive"  color="#9F9F9F" :swipeable=true animated  @change="changeResignType" >
+            <van-tab>
+                <div slot="title">手机重置</div>
+                <!-- 超级会员 -->
+                <form class="mui-input-group nobg">
+                    <div class="login"  style="height:225px;">
+                        <div class="mui-input-row login_user">
+                            <i class="ls icon-zhanghao"></i>
+                            <div @click="changeAreaCode" class="leigod_flex_left" style="width:80px;">
+                                +<span v-text="countryCode"></span>
+                                <span class="mui-icon mui-icon-arrowdown" style="font-size:14px;"></span>
+                            </div>
+                            <input type="text" v-model="phone" class="mui-input-clear" placeholder="手机号" id="iphone">
+                        </div>
+
+                        <div class="mui-input-row login_user leigod_flex_between" style="display:block;" v-show="isimgVerification">
+                            <i class="ls icon-tuxingyanzhengma"></i>
+                            <input type="text" class="txyzm_input" v-model="imgCaptchaCode" placeholder="图形验证码">
+                            <img alt="雷神加速器" @click="getCaptcha" :src="imgCaptchaM.img" width="78" class="txyzm" />
+                        </div>
+
+                        <div class="mui-input-row login_user leigod_flex_between"  v-show="showVioceCode==0">
+                            <div style="width:50%;">
+                                <i class="ls icon-duanxinyanzhengma"></i>
+                                <input type="text" v-model="smscode" class="txyzm_input" placeholder="短信验证码" >   
+                            </div>
+                            <button type="button" class="get_dxyzm" @click="onSmsCode" v-show="smsCountDownNum <= 0">发短信</button>
+                            <a class="get_dxyzm" style="color:#999;" v-show="smsCountDownNum > 0">已发送{{smsCountDownNum}}s</a>
+                        </div>
+                        <div class="mui-input-row login_user leigod_flex_between" v-show="showVioceCode==1">
+                            <div style="width:50%;">
+                                <i class="ls icon-duanxinyanzhengma"></i>
+                                <input type="text" v-model="smscode" class="txyzm_input" placeholder="短信验证码">    
+                            </div>
+                           
+                            <div v-show="smsCountDownNum <= 0" class="leigod_flex">
+                                <a class="get_dxyzm" @click="onSmsCode">发短信</a>
+                                <div>|</div>
+                                <a class="get_dxyzm leigod_ml5" @click="onVoiceCode">发语音</a>
+                            </div>
+                            <a class="get_dxyzm" style="color:#999;" v-show="smsCountDownNum > 0">已发送{{smsCountDownNum}}s</a>
+                        </div>
+
+                        <div class="mui-input-row login_user mui-password">
+                            <i class="ls icon-mima"></i>
+                            <input type="password" class="mui-input-password" placeholder="密码" v-model="phonePassword">
+                        </div>
+                        <div class="mui-input-row login_user mui-password">
+                            <i class="ls icon-mima"></i>
+                            <input type="password" class="mui-input-password" placeholder="再次输入密码" v-model="phonePasswordTwo">
+                        </div>
+                    </div>
+                </form>
+            </van-tab>
+
+            <van-tab>
+                <div slot="title">邮箱重置</div>
+                <!-- 海外会员 -->
+                <form class="mui-input-group nobg">
+
+                    <div class="login" style="height:225px;">
+                        <div class="mui-input-row login_user">
+                            <img src="./images/email.png" class="new_email" alt="">
+                            <input type="text" class="mui-input-clear" v-model="email" placeholder="邮箱">
+                        </div>
+
+                        <div class="mui-input-row login_user leigod_flex_between"  v-show="isimgVerification">
+                            <div>
+                               <i class="ls icon-tuxingyanzhengma"></i>
+                               <input type="text" class="txyzm_input" v-model="imgCaptchaCode" placeholder="图形验证码">  
+                            </div>
+                           
+                            <img alt="雷神加速器" @click="getCaptcha" :src="imgCaptchaM.img" width="78" class="txyzm" />
+                        </div>
+                        <div class="mui-input-row login_user leigod_flex_between">
+                            <div>
+                                <i class="ls icon-duanxinyanzhengma"></i>
+                                <input type="text" v-model="emailcode" class="txyzm_input" placeholder="邮箱验证码">    
+                            </div>
+                            
+                            <button type="button" class="get_dxyzm" @click="onEmailCode" v-show="emailCountDownNum <= 0">发送邮件</button>
+                            <a class="get_dxyzm" style="color:#999;" v-show="emailCountDownNum > 0">已发送{{emailCountDownNum}}s</a>
+                        </div>
+
+                        <div class="mui-input-row login_user mui-password">
+                            <i class="ls icon-mima"></i>
+                            <input type="password" class="mui-input-password" placeholder="密码" v-model="emailPassword">
+                        </div>
+                        <div class="mui-input-row login_user mui-password">
+                            <i class="ls icon-mima"></i>
+                            <input type="password" class="mui-input-password" placeholder="请再次确认密码" v-model="emailPasswordTwo">
+                        </div>
+                    </div>
+
+                </form>
+
+            </van-tab>
+        </van-tabs>
+
+        <button class="btn login_btn" type="button" @click="clickFindPassword">确认修改</button>
+        <a @click="gotologin" class="login_reg_link">返回登录</a>
+
+        <van-actionsheet v-model="AreaCodeshow">
+            <van-picker show-toolbar title="区号选择" :columns="areaCodeListArr" @confirm="onCheckAreaCode"  @cancel="cancleAreaCode" />
+        </van-actionsheet>
+
+    </div>
+
+    <!-- loading -->
+    <load :isloading="isLoading"></load>
+    </div>
+   
+
+
+
+</body>
+
+</html>
