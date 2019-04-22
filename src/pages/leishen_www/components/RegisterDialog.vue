@@ -89,7 +89,7 @@
                     <a class="f_left">《会员服务条款》</a>
                 </label>
             </div>
-            <div class="mar_t20 public_enter_btn" @click="clickRegister">
+            <div class="mar_t20 public_enter_btn" :class="{notAgreementChceked:!agreementChceked}" @click="clickRegister">
                 立即注册
             </div>
             <div class="mar_t15 text_center clear_fix">

@@ -1,46 +1,36 @@
-import '../assets/css/leishen.less';
-import "babel-polyfill";
-import {Vue, Component} from "vue-property-decorator";
-import WebParamModel from "@/ts/models/WebModel";
-import {TdappModel} from "@/ts/models/TdappModel";
-import JumpWebUtil from "@/ts/utils/JumpWebUtil";
-import HttpClient from "@/ts/net/HttpClient";
-import GlobalConfig from "../global.config";
-import {Notification, Option, Select, OptionGroup} from "element-ui";
-import {TipsMsgUtil} from "@/ts/utils/TipsMsgUtil";
-import CheckUtil from "@/ts/utils/CheckUtil";
-import Util from "@/ts/utils/Util";
-import {FindpwdProxy} from "@/ts/proxy/FindpwdProxy";
+import 'babel-polyfill';
+import { Vue, Component } from 'vue-property-decorator';
+import { Loading, Notification, Option, Select, OptionGroup } from 'element-ui';
+import { FindpwdProxy } from '@/ts/proxy/FindpwdProxy';
+import GlobalConfig from '../global.config';
+import { TipsMsgUtil } from '@/ts/utils/TipsMsgUtil';
+import CheckUtil from '@/ts/utils/CheckUtil';
+import Util from '@/ts/utils/Util';
+import AppParamModel from "@/ts/models/AppModel";
 
 Vue.prototype.$notify = Notification;
-@Component({
-    components: {
-        'el-select': Select,
-        'el-option': Option,
-        'el-option-group': OptionGroup
-    }
-})
-class Forgetpwd extends FindpwdProxy {
-    public imageHeadUrl: string = '';
-
-    public webParam = WebParamModel.getInstace();
-    public browserModel = new TdappModel();
-    public isDeviceWx = JumpWebUtil.isDeviceWx();
-    public isDeviceAndroid = JumpWebUtil.isDeviceAndroid();
-    public isDeviceIos = JumpWebUtil.isDeviceIos();
-    public http: HttpClient = new HttpClient();
-
-    public setBaseUrl(url: string): void {
-        this.http.setBaseUrl(url);
-    }
-
+Vue.use(Select);
+Vue.use(Option);
+Vue.use(OptionGroup);
+Vue.use(Loading);
+Vue.config.productionTip = false;
+@Component
+export default  class ForgetPwd extends FindpwdProxy {
     public created() {
         this.setBaseUrl(GlobalConfig.getBaseUrl());
         this.changeResignType(2);
-        this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
         this.init();
     }
 
+    /**
+     * 切换找回密码方式
+     */
+    public changeResignType(type: number) {
+        this.onChangeRegisterType(type);
+    }
+    public toLogin(){
+        this.$emit('tologin')
+    }
     /**
      * 改变手机区号
      */
@@ -55,7 +45,12 @@ class Forgetpwd extends FindpwdProxy {
     public getCaptcha() {
         this.onGetCaptcha();
     }
-
+    /**
+     * 跳转到登陆
+     */
+    goLogin(){
+        this.$emit('tologin')
+    }
     /**
      * 获取短信验证码
      */
@@ -107,6 +102,47 @@ class Forgetpwd extends FindpwdProxy {
     }
 
     /**
+     * 获取语音
+     */
+    public onVoiceCode() {
+        let flag = true;
+        let tipMsg = '';
+        if (this.countryCode == '86') {
+            //验证手机号
+            if (!CheckUtil.checkPhone(this.phone) && flag) {
+                tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_PHONE_ERROR);
+                flag = false;
+                if (this.phone == '') {
+                    tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_PHONE_EMPTY);
+                    flag = false;
+                }
+            }
+        }
+
+        //验证图形验证码
+        if (this.isimgVerification == 1) {
+            if (!CheckUtil.checkimgVerificatioCode(this.imgCaptchaCode) && flag) {
+                tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_IMGCAPTCHACODE_ERROR);
+                flag = false;
+                if (this.imgCaptchaCode == '') {
+                    tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_IMGCAPTCHACODE_EMPTY);
+                    flag = false;
+                }
+            }
+        }
+
+        if (!flag) {
+            this.$notify({
+                title: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_ERROR_TITLE),
+                message: tipMsg,
+                type: 'warning'
+            });
+            return;
+        }
+        this.onGetSmscode(1, 1);
+    }
+
+    /**
      * 获取短信验证码成功
      * TODO... 此方法可以重写，处理短信获取成功后的ui逻辑
      */
@@ -136,7 +172,7 @@ class Forgetpwd extends FindpwdProxy {
     }
 
     /**
-     * 获取邮件验证码
+     * 获取邮件
      */
     public onEmailCode() {
         let flag = true;
@@ -295,7 +331,6 @@ class Forgetpwd extends FindpwdProxy {
             });
             return;
         }
-
         this.onPhoneFindPassword();
     }
 
@@ -378,11 +413,7 @@ class Forgetpwd extends FindpwdProxy {
             message: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_FINDPWD),
             type: 'success'
         });
-        let self = this;
-        setTimeout(() => {
-            self.isLoading = false;
-            JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_LOGIN);
-        }, 1500);
+        this.goLogin()
     }
 
     /**
@@ -396,33 +427,4 @@ class Forgetpwd extends FindpwdProxy {
             type: 'warning'
         });
     }
-
-    /**
-     * 切换找回密码方式
-     */
-    public changeResignType(type: number) {
-        this.onChangeRegisterType(type);
-    }
-
-    /**
-     * 跳转忘记密码
-     */
-    public goForgetPwd() {
-        JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_FORGETPWD);
-    }
-
-    /**
-     * 跳转注册
-     */
-    public goRegister() {
-        JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_REGISTER);
-    }
-
-    /**
-     * 跳转登录
-     */
-    public goLogin() {
-        JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_LOGIN);
-    }
 }
-export default Forgetpwd

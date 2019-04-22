@@ -34,13 +34,53 @@ class Index extends Vue {
     public isDeviceAndroid = JumpWebUtil.isDeviceAndroid();
     public isDeviceIos = JumpWebUtil.isDeviceIos();
     public http: HttpClient = new HttpClient();
-
+    public showType: number = 3; // showType:1登陆，2：注册3：忘记密码，
     public setBaseUrl(url: string): void {
         this.http.setBaseUrl(url);
     }
 
     public created() {
         this.setBaseUrl(GlobalConfig.getBaseUrl());
+    }
+    /**
+     * 设置组件的名字
+     */
+    get usercomponent() {
+        switch (this.showType) {
+            case 1:
+                return 'login-dialog'
+                break;
+            case 2:
+                return 'register-dialog'
+                break;
+            case 3:
+                return 'forget-pwd'
+                break;
+        }
+    }
+    /**
+     * 跳转到登录界面
+     */
+    toLogin(){
+        this.showType=1
+    }
+    /**
+     * 跳转到注册界面
+     */
+    toRegister(){
+        this.showType=2
+    }
+    /**
+     * 跳转到忘记密码界面
+     */
+    toforgetPass(){
+        this.showType=3
+    }
+    /**
+     * 登陆成功
+     */
+    logined() {
+
     }
 }
 

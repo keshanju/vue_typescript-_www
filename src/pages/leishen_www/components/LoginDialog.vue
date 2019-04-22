@@ -57,15 +57,8 @@
                 注册雷神, 免费体验3小时
             </div>
             <div class="mar_t25 third_party">
-                <p>第三方登录</p>
-                <div class="mar_t10">
-                    <i class="iconfont icon-weixin"></i>
-                    <i class="iconfont icon-QQ mar_l20"></i>
-                    <i class="iconfont icon-weibo mar_l20"></i>
-                    <i class="iconfont icon-Facebook mar_l20"></i>
-                    <i class="iconfont icon-Twitter mar_l20"></i>
-                    <i class="iconfont icon-google mar_l20"></i>
-                </div>
+                <oauth-login @setbindurltype="setBindUrlTYype"
+                             v-on:set-loading-statuas="setLoadingStatuas"></oauth-login>
             </div>
             <i class="iconfont icon-cha"></i>
         </div>

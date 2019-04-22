@@ -1,44 +1,37 @@
-import '../assets/css/leishen.less';
-import "babel-polyfill";
-import {Vue, Component} from "vue-property-decorator";
-import WebParamModel from "@/ts/models/WebModel";
-import {TdappModel} from "@/ts/models/TdappModel";
-import JumpWebUtil from "@/ts/utils/JumpWebUtil";
-import HttpClient from "@/ts/net/HttpClient";
-import GlobalConfig from "../global.config";
-import {Notification, Option, Select, OptionGroup} from "element-ui";
-import {LoginProxy} from "@/ts/proxy/LoginProxy";
-import {TipsMsgUtil} from "@/ts/utils/TipsMsgUtil";
-import CheckUtil from "@/ts/utils/CheckUtil";
-import Util from "@/ts/utils/Util";
-
+import {Component, Vue} from 'vue-property-decorator';
+import OauthLogin from './OauthLogin.vue';
+import {Loading, Notification, Option, Select, OptionGroup} from 'element-ui';
+import {LoginProxy} from '@/ts/proxy/LoginProxy';
+import GlobalConfig from '../global.config';
+import {TipsMsgUtil} from '@/ts/utils/TipsMsgUtil';
+import CheckUtil from '@/ts/utils/CheckUtil';
+import {ActivityPictureModel} from '@/ts/models/NewsModel';
+import LocalStorageUtil from '@/ts/utils/LocalStorageUtil';
 Vue.prototype.$notify = Notification;
+Vue.use(Select);
+Vue.use(Option);
+Vue.use(OptionGroup);
+Vue.use(Loading);
+
 @Component({
     components: {
-        'el-select': Select,
-        'el-option': Option,
-        'el-option-group': OptionGroup
+        'oauth-login': OauthLogin
     }
 })
-class Logingdialog extends LoginProxy {
+export default  class Login extends LoginProxy {
+    public activityInfo: ActivityPictureModel = new ActivityPictureModel();
+    public bannerImg: string = ''; //活动banner图片
+    public activeLink: string = ''; //活动URL链接
     public imageHeadUrl: string = '';
 
-    public webParam = WebParamModel.getInstace();
-    public browserModel = new TdappModel();
-    public isDeviceWx = JumpWebUtil.isDeviceWx();
-    public isDeviceAndroid = JumpWebUtil.isDeviceAndroid();
-    public isDeviceIos = JumpWebUtil.isDeviceIos();
-    public http: HttpClient = new HttpClient();
-
-    public setBaseUrl(url: string): void {
-        this.http.setBaseUrl(url);
-    }
-
     public created() {
+        GlobalConfig.log('注册log');
+        LocalStorageUtil.saveParam();
         this.setBaseUrl(GlobalConfig.getBaseUrl());
         this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
         this.init();
     }
+
 
     /**
      * 改变手机区号
@@ -47,15 +40,19 @@ class Logingdialog extends LoginProxy {
         this.countryCode = value;
         this.country_code = value.code;
     }
-
     /**
-     * 改变密码
+     * 跳转忘记密码
      */
-    public passwordInput(type: number) {
-        //TODO...需要验证输入
-        this.onPasswordInput(type);
+    public goForgetPwd() {
+        this.$emit('toforget')
     }
 
+    /**
+     * 跳转注册
+     */
+    public goRegister() {
+        this.$emit('toregister')
+    }
     /**
      * 点击登录
      */
@@ -144,7 +141,6 @@ class Logingdialog extends LoginProxy {
         }
     }
 
-
     /**
      * 登录成功
      * TODO... 此方法可以重写，处理登录成功后的ui逻辑
@@ -155,27 +151,8 @@ class Logingdialog extends LoginProxy {
             message: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_LOGIN),
             type: 'success'
         });
-        let self = this;
-        this.isLoading = true;
-        //读取to参数跳转到对应的页面
-        const toHtml = Util.getUrlParam('to');
-        if (toHtml != '') {
-            //跳转到指定页面
-            const page = parseInt(Util.getUrlParam('page'));
-            const tid = parseInt(Util.getUrlParam('id'));
-            setTimeout(() => {
-                JumpWebUtil.toPage(toHtml, page, tid);
-            }, 1000);
-        } else {
-            setTimeout(() => {
-                if(window.location.href.indexOf('localhost:')>-1){
-                    let url=window.location.protocol+'//'+window.location.host
-                    JumpWebUtil.wapJump(url, JumpWebUtil.HTML_NAME_USER);
-                }else{
-                    JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_USER);
-                }
-            }, 1000);
-        }
+        //成功完成支付
+        this.$emit('logined')
     }
 
     /**
@@ -192,6 +169,13 @@ class Logingdialog extends LoginProxy {
         });
     }
 
+    /**
+     * 改变密码
+     */
+    public passwordInput(type: number) {
+        //TODO...需要验证输入
+        this.onPasswordInput(type);
+    }
 
     /**
      * 设置loading状态
@@ -202,17 +186,9 @@ class Logingdialog extends LoginProxy {
     }
 
     /**
-     * 跳转忘记密码
+     * 设置第三方绑定来源类型
      */
-    public goForgetPwd() {
-        JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_FORGETPWD);
-    }
-
-    /**
-     * 跳转注册
-     */
-    public goRegister() {
-        JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_REGISTER);
+    public setBindUrlTYype() {
+        LocalStorageUtil.addthreeBindSource('1')
     }
 }
-export default Logingdialog

@@ -1,57 +1,87 @@
-import '../assets/css/leishen.less';
-import "babel-polyfill";
-import {Vue, Component} from "vue-property-decorator";
-import WebParamModel from "@/ts/models/WebModel";
-import {TdappModel} from "@/ts/models/TdappModel";
-import JumpWebUtil from "@/ts/utils/JumpWebUtil";
-import HttpClient from "@/ts/net/HttpClient";
-import GlobalConfig from "../global.config";
-import {Notification, Option, Select, OptionGroup} from "element-ui";
+import {Component, Vue} from 'vue-property-decorator';
+import {Loading, Notification, Option, Select, OptionGroup} from 'element-ui';
+import {RegisterProxy} from '@/ts/proxy/RegisterProxy';
+import GlobalConfig from '../global.config';
+import {TipsMsgUtil} from '@/ts/utils/TipsMsgUtil';
+import CheckUtil from '@/ts/utils/CheckUtil';
+import Util from '@/ts/utils/Util';
+import {LoginModel, LoginRequestModel} from '@/ts/models/UserModel';
+import HttpClient from '@/ts/net/HttpClient';
+import LocalStorageUtil from '@/ts/utils/LocalStorageUtil';
 import {Md5} from "ts-md5";
-import {TipsMsgUtil} from "@/ts/utils/TipsMsgUtil";
-import CheckUtil from "@/ts/utils/CheckUtil";
-import Util from "@/ts/utils/Util";
-import {RegisterProxy} from "@/ts/proxy/RegisterProxy";
-import {LoginModel, LoginRequestModel} from "@/ts/models/UserModel";
-import LocalStorageUtil from "@/ts/utils/LocalStorageUtil";
+import ConfigUtil from '@/ts/utils/ConfigUtil';
 
 Vue.prototype.$notify = Notification;
-@Component({
-    components: {
-        'el-select': Select,
-        'el-option': Option,
-        'el-option-group': OptionGroup
-    }
-})
-class Registerdialog extends RegisterProxy {
-    public imageHeadUrl: string = '';
+Vue.use(Select);
+Vue.use(Option);
+Vue.use(OptionGroup);
+Vue.use(Loading);
+
+@Component
+export default class Register extends RegisterProxy {
     public voiceShow: boolean = false;//发送语音是否显示
-    public checkReferCode: boolean = false;//是否勾选推荐码
-
-    public webParam = WebParamModel.getInstace();
-    public browserModel = new TdappModel();
-    public isDeviceWx = JumpWebUtil.isDeviceWx();
-    public isDeviceAndroid = JumpWebUtil.isDeviceAndroid();
-    public isDeviceIos = JumpWebUtil.isDeviceIos();
-    public http: HttpClient = new HttpClient();
-
-    public setBaseUrl(url: string): void {
-        this.http.setBaseUrl(url);
-    }
 
     public created() {
         this.setBaseUrl(GlobalConfig.getBaseUrl());
         this.changeResignType(0);
-        this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
+        //读取配置文件
+        this.getDownloadUrl();
+        // this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
+        // this.getActivityInfo();
         this.init();
     }
 
     public init(): void {
         this.referCode = Util.getUrlParam('refer_code');
+        this.checkReferCode=(this.referCode!='')
         this.getAreaCodeList();
         this.getAreaCodeInfoList();
         this.onGetPackage(1);
     }
+
+    /**
+     * 获取配置文件
+     * @param url
+     */
+    public async getDownloadUrl() {
+        const jsonConfig = await ConfigUtil.getInstance().download();
+        const region_code = LocalStorageUtil.getRegionCodes();
+        const language = LocalStorageUtil.getLanguage();
+        if (jsonConfig != null) {
+            const regConfig = jsonConfig.leigod[region_code].register;
+            this.isShowEmail = Number(regConfig.is_email);
+        }
+    }
+    /**
+     * 跳转首页
+     */
+    public goHome() {
+        // JumpWebUtil.userGotoWeb(GlobalConfig.getWebBaseUrl(), JumpWebUtil.HTML_NAME_INDEX);
+    }
+
+    /**
+     * 跳转会员服务条款
+     */
+    public goUserServer() {
+        // JumpWebUtil.userGotoWeb(GlobalConfig.getWebBaseUrl(), JumpWebUtil.HTML_NAME_USERSERVER);
+    }
+
+    /**
+     * 跳转到登录
+     */
+    public toLogin() {
+        this.$emit('tologin')
+        // JumpWebUtil.userGotoWeb(GlobalConfig.getWebBaseUrl(), JumpWebUtil.HTML_NAME_USERSERVER);
+    }
+
+    /**
+     * 跳转登录
+     */
+    public goLogin() {
+        this.$emit('tologin')
+        // JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_LOGIN);
+    }
+
 
     /**
      * 切换注册方式
@@ -173,6 +203,7 @@ class Registerdialog extends RegisterProxy {
             return;
         }
         //验证邮箱
+        debugger
         if (!CheckUtil.checkEmail(this.email) && flag) {
             tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_EMAIL_ERROR);
             flag = false;
@@ -234,6 +265,47 @@ class Registerdialog extends RegisterProxy {
             message: data.msg,
             type: 'warning'
         });
+    }
+
+    /**
+     * 获取语音
+     */
+    public onVoiceCode() {
+        let flag = true;
+        let tipMsg = '';
+        if (this.countryCode == '86') {
+            //验证手机号
+            if (!CheckUtil.checkPhone(this.phone) && flag) {
+                tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_PHONE_ERROR);
+                flag = false;
+                if (this.phone == "") {
+                    tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_PHONE_EMPTY);
+                    flag = false;
+                }
+            }
+        }
+
+        //验证图形验证码
+        if (this.isimgVerification == 1) {
+            if (!CheckUtil.checkimgVerificatioCode(this.imgCaptchaCode) && flag) {
+                tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_IMGCAPTCHACODE_ERROR);
+                flag = false;
+                if (this.imgCaptchaCode == "") {
+                    tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_IMGCAPTCHACODE_EMPTY);
+                    flag = false;
+                }
+            }
+        }
+
+        if (!flag) {
+            this.$notify({
+                title: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_ERROR_TITLE),
+                message: tipMsg,
+                type: 'warning'
+            });
+            return;
+        }
+        this.onGetSmscode(1, 2);
     }
 
     /**
@@ -411,7 +483,11 @@ class Registerdialog extends RegisterProxy {
         this.notifType = "success";
         this.notifMessage = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_REGISTER);
         this.notifCount++;
-        // 自动登录
+        this.$notify({
+            title:this.notifTitle.toString(),
+            message:this.notifMessage.toString(),
+            type:"success"
+        })
         this.isLoading = true;
         this.loadingMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_AUTO_LOGIN);
         switch (this.resignType) {
@@ -422,18 +498,6 @@ class Registerdialog extends RegisterProxy {
                 this.autoLogin(this.email, this.emailPassword);
                 break;
         }
-    }
-
-    /**
-     * 注册失败
-     */
-    public onRegisterFaild(data: any) {
-        // 错误返回
-        this.$notify({
-            title: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_ERROR_TITLE),
-            message: data.msg,
-            type: 'warning'
-        });
     }
 
     /**
@@ -453,24 +517,26 @@ class Registerdialog extends RegisterProxy {
             const loginM: LoginModel = this.backData.data;
             LocalStorageUtil.addUserToken(loginM.login_info);
             LocalStorageUtil.addUserInfo(loginM.user_info);
-            JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_USER);
+            this.$notify({
+                title: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_SUCCESS_TITLE),
+                message: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_LOGIN),
+                type: 'success'
+            });
+            this.$emit('logined')
         } else {
+            this.$emit('toLogin')
         }
     }
 
     /**
-     * 跳转忘记密码
+     * 注册失败
      */
-    public goForgetPwd() {
-        JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_FORGETPWD);
-    }
-
-    /**
-     * 跳转登录
-     */
-    public goLogin() {
-        JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_LOGIN);
+    public onRegisterFaild(data: any) {
+        // 错误返回
+        this.$notify({
+            title: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_ERROR_TITLE),
+            message: data.msg,
+            type: 'warning'
+        });
     }
 }
-
-export default Registerdialog

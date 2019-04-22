@@ -1,0 +1,105 @@
+{
+    "leigod": {
+        "windows": {
+            "download_url": "//www.leigod.com/soft/win/4.0.0.9/LeiGodSetup.4.0.0.9.exe"
+        },
+        "mac": {
+            "download_url": ""
+        },
+        "head_default_img_url":[
+            "images/default_avatar.png",
+            "images/avatar_01.png",
+            "images/avatar_02.png",
+            "images/avatar_03.png",
+            "images/avatar_04.png",
+            "images/avatar_05.png",
+            "images/avatar_06.png",
+            "images/avatar_07.png",
+            "images/avatar_08.png",
+            "images/avatar_09.png",
+            "images/avatar_10.png",
+            "images/avatar_11.png",
+            "images/avatar_12.png",
+            "images/avatar_13.png",
+            "images/avatar_14.png",
+            "images/avatar_15.png",
+            "images/avatar_16.png",
+            "images/avatar_17.png",
+            "images/avatar_18.png",
+            "images/avatar_19.png",
+            "images/avatar_20.png",
+            "images/avatar_21.png",
+            "images/avatar_22.png",
+            "images/avatar_23.png",
+            "images/avatar_24.png",
+            "images/avatar_25.png",
+            "images/avatar_26.png"
+        ],
+        "down_platform": {
+            "baidu": {
+                "windows":{
+                    "download_url":"//www.leigod.com/soft/win/4.0.0.9/LeiGodSetup.4.0.0.9.exe"
+                },
+                "mac":{
+                    "download_url": ""
+                }
+            },
+            "360": {
+                "windows":{
+                    "download_url":"//www.leigod.com/soft/win/4.0.0.9/LeiGodSetup.4.0.0.9.exe"
+                },
+                "mac":{
+                    "download_url": ""
+                }
+            },
+            "guanwang": {
+                "windows":{
+                    "download_url":"//www.leigod.com/soft/win/4.0.0.9/LeiGodSetup.4.0.0.9.exe"
+                },
+                "mac":{
+                    "download_url": ""
+                }
+            }
+        },
+        "0": {
+            "register": {
+                "is_email": 1
+            },
+            "zh_CN": {
+                "index_news":{
+                    "new_url":"https://www.leigod.com/index.html?region_code=0&language=zh_CN",
+                    "img_url":"/images/avatar_07.png"
+                }
+            },
+            "en": {
+                "index_news":{
+                    "new_url":"https://www.leigod.com/index.html?region_code=0&language=en",
+                    "img_url":"/images/avatar_07.png"
+                }
+            }
+        },
+        "1": {
+            "register": {
+                "is_email": 0
+            },
+            "zh_CN": {
+                "index_news":{
+                    "new_url":"https://www.leigod.com/index.html?region_code=1&language=zh_CN",
+                    "img_url":"/images/avatar_07.png"
+                }
+            },
+            "en": {
+                "index_news":{
+                    "new_url":"https://www.leigod.com/index.html?region_code=1&language=en",
+                    "img_url":"/images/avatar_07.png"
+                }
+            }
+        },
+        "is_show_xianshi_activity":{
+            "is_show":true,
+            "show_msg":"APEX英雄限时特惠",
+            "start_time":"2019-3-22 09:00:00",
+            "end_time":"2019-3-31 23:59:59"
+        }
+    }
+}
