@@ -1,4 +1,5 @@
 import '@/assets/less/leishen_app.less';
+import "../css/wap.less";
 import './assets/less/wuyi.less';
 import 'babel-polyfill';
 import {Component, Vue} from 'vue-property-decorator';
@@ -11,8 +12,10 @@ import ActivityFactory from "@/ts/factory/activity.factory";
 import AppParamModel from "@/ts/models/AppModel";
 import JumpWeiXin from "@/pages/leishen_app/util/jump";
 import JumpWebUtil from "@/ts/utils/JumpWebUtil";
-import LoginDialog from "./components/LoginDialog.vue";
-import RechargeDialog from "./components/RechargeDialog.vue";
+import LoginDialog from "./components/LoginDialog";
+import RegisterDialog from "./components/RegisterDialog";
+import ForgetDialog from "./components/ForgetDialog";
+import RechargeDialog from "./components/RechargeDialog";
 
 import {Popup } from "vant";
 Vue.use(Popup );
@@ -24,6 +27,8 @@ const appParam: AppParamModel = AppParamModel.getInstace(Util.REGION_CODE_1, Uti
 @Component({
     components: {
         "login-dialog": LoginDialog,
+        "register-dialog": RegisterDialog,
+        "forget-dialog": ForgetDialog,
         "recharge-dialog": RechargeDialog
     }
 })
@@ -33,10 +38,11 @@ class activityModel extends ActivityProxy {
     public appParam = AppParamModel.getInstace(); // 浏览器参数
 
     //  新增参数
-    public show_login: boolean = false;//登录弹框
+    public show_dialog: boolean = false;//登录弹框
     public show_recharge: boolean = false;//支付弹窗
     public price_id:number = 10;//价格id
-    public package_id:number = 2;//套餐id
+    public package_id: number = 2;//套餐id
+    public showType: number = 1;//组件显示次序
 
     public created() {
         this.activityJson = this.activity_json;
@@ -47,7 +53,7 @@ class activityModel extends ActivityProxy {
         this.getReferActivitys();
         this.checkEnvironment();//获取当前设备环境
         if (this.account_token == '') {
-            this.show_login = true;
+            this.show_dialog = true;
             this.refer_code = '请先登录!';
             this.refer_code_link = '请先登录!';
         }
@@ -60,6 +66,54 @@ class activityModel extends ActivityProxy {
         if (now_time >= end_time) {
             this.dialog_msg = '活动已过期!';
             this.dialog_error = true;
+        }
+    }
+
+    /**
+     * 去登录
+     */
+    public toLogin() {
+        this.showType = 1;
+    }
+    
+    /**
+     * 登录成功
+     */
+    public isLogin(data) {
+        if (data == 0) {
+            // 关闭登录弹窗
+            this.show_dialog = false;
+            //需要重新刷新页面，重新获取用户信息，以及对应的活动积分
+            document.execCommand("Refresh");
+            // window.location.reload();
+        }
+    }
+
+    /**
+     * 去注册
+     */
+    public toRegister() {
+        this.showType = 2;
+    }
+
+    /**
+     * 忘记密码
+     */
+    public toForgetpwd() {
+        this.showType = 3;
+    }
+    
+    /**
+     * 设置组件的名字
+     */
+    get activComponent() {
+        switch (this.showType) {
+            case 1:
+                return 'login-dialog';
+                break
+            case 2:
+                return 'register-dialog';
+                break
         }
     }
 
@@ -112,7 +166,7 @@ class activityModel extends ActivityProxy {
      */
     public gotoRecord() {
         if (this.account_token == '') {
-            this.show_login = true;
+            this.show_dialog = true;
         } else {
             let param = "platform=" + this.appParam.platform + "&pageIndex=5";
             JumpWeiXin.gotoCenter(param);
@@ -123,23 +177,9 @@ class activityModel extends ActivityProxy {
      * 登录
      */
     public gotoLogin() {
-        this.show_login = true;
+        this.show_dialog = true;
         this.dialog_no_login = false;
         $('body').removeClass('body_fixed');
-    }
-
-    /**
-     * 登录成功，父组件事件
-     * @param data
-     */
-    public alreadyLogin(data) {
-        if (data == 0) {
-            // 关闭登录弹窗
-            this.show_login = false;
-            //需要重新刷新页面，重新获取用户信息，以及对应的活动积分
-            // document.execCommand("Refresh");
-            window.location.reload();
-        }
     }
 
     /**
@@ -148,7 +188,7 @@ class activityModel extends ActivityProxy {
     public gotoRecharge() {
         if (this.account_token == '') {
             // 提示登录
-            this.show_login = true;
+            this.show_dialog = true;
         } else {
             //  如果不是微信环境，直接走原先的移动端充值逻辑
             if (this.appParam.platform != 4) {
@@ -177,7 +217,7 @@ class activityModel extends ActivityProxy {
         LocalStorageUtil.loginOut();
         this.account_token = '';
         this.userInfo = null;
-        this.show_login = true;
+        this.show_dialog = true;
     }
 
 }

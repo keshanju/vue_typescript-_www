@@ -14,7 +14,9 @@ import {TipsMsgUtil} from "@/ts/utils/TipsMsgUtil";
 import HttpClient from "@/ts/net/HttpClient";
 import {LoginRequestModel} from "@/ts/models/UserModel";
 import JumpWeiXin from "@/pages/leishen_app/util/jump";
-import {Field, Toast, Loading, Icon, Button} from "vant";
+import { Field, Toast, Loading, Icon, Button } from "vant";
+import Load from "../../components/Loading.vue";
+import Countries from '../../components/Country.vue';
 Vue.use(Field);
 Vue.use(Toast);
 Vue.use(Loading);
@@ -24,7 +26,10 @@ Vue.use(Button);
 const appParam: AppParamModel = AppParamModel.getInstace(Util.REGION_CODE_1, Util.ZH_CN);
 
 @Component({
-    components: {}
+    components: {
+        'load': Load,
+        'country-item': Countries
+    }
 })
 export default class LoginDialog extends LoginProxy {
     public show: boolean = true;//登录弹框
@@ -62,6 +67,20 @@ export default class LoginDialog extends LoginProxy {
     }
 
     public mounted() {
+    }
+
+    /**
+     * 去登录
+     */
+    public toRegister() {
+        this.$emit("toregister");
+    }
+
+    /**
+     * 去登录
+     */
+    public toForgetpwd() {
+        this.$emit("toforgetpwd");
     }
 
     //   获取regincode
@@ -270,51 +289,5 @@ export default class LoginDialog extends LoginProxy {
         localStorage.setItem(LocalStorageUtil.STORAGES_EMAIL_PW, password);
         localStorage.setItem(LocalStorageUtil.STORAGES_PW, password);
         this.loginIn(url, param);
-    }
-
-    //   去注册
-    public gotoReg() {
-        let param = "";
-        if (this.logincode) {
-            param =
-                "platform=" +
-                appParam.platform +
-                "&code=" +
-                this.logincode +
-                "&state_html=" +
-                this.state_html;
-        } else {
-            param = "platform=" + appParam.platform;
-        }
-        JumpWeiXin.gotoReg(param);
-    }
-
-    // 忘记密码
-    public gotoforget() {
-        let param = "";
-        if (this.logincode) {
-            param =
-                "platform=" +
-                appParam.platform +
-                "&code=" +
-                this.logincode +
-                "&state_html=" +
-                this.state_html;
-        } else {
-            param = "platform=" + appParam.platform;
-        }
-        JumpWeiXin.gotoforget(param);
-    }
-
-    // 去用户列表
-    public gotoNavlist() {
-        let param = "platform=" + appParam.platform;
-        JumpWeiXin.gotoNavlist(param);
-    }
-
-    // 去活动
-    public gotoActives(activehtml) {
-        let param = "platform=" + appParam.platform;
-        JumpWeiXin.gotoActive(activehtml, param);
     }
 }

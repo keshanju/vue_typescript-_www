@@ -201,8 +201,12 @@
     </div>
 
     <!--登录PopUp-->
-    <van-popup position="bottom" v-model="show_login">
-        <login-dialog ref="to_login" @is-login="alreadyLogin"></login-dialog>
+    <van-popup position="right" style="width: 100%;height: 100%;background-color: #f2f2f2;" v-model="show_dialog">
+        <keep-alive>
+            <component :is="activComponent" @tologin="toLogin" @toregister="toRegister" @toforgetpwd="toForgetpwd" @is-login="isLogin">
+
+            </component>
+        </keep-alive>
     </van-popup >
 
     <!--充值PopUp-->
