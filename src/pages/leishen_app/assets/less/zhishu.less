@@ -1,0 +1,349 @@
+/******     活动背景色       ******/
+//  春节
+.cj_container_bgc {
+    width: 100%;
+    margin: 0 auto;
+    background-color: rgba(246, 220, 193, 1);
+}
+//  寒假
+.kx_container_bgc {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #5475ff;
+}
+//  。。。
+/******     活动背景色       ******/
+
+.activity_main_banner {
+    display: block;
+    position: relative;
+    left: 50%;
+    margin-left: -1500px;
+}
+
+.activity_model_content {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.model_left_content {
+    width: 1200px;
+}
+
+/**
+    构建页面每一个部分的最外层盒子，主要是帮助实现定位样式
+ */
+.model_container {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.model_left_container {
+    text-align: left;
+}
+
+/**
+    套餐列表部分,水平居中对齐，对齐方式讲更具不同的活动页面进行变化
+ */
+.package_row_box {
+    width: 1200px;
+    position: absolute;
+    top: 50%;
+    margin-top: -120px;
+    left: 50%;
+    margin-left: -600px;
+}
+
+/**
+    活动公共内容区的外层盒子
+ */
+.model_outside_box {
+    width: 1200px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -600px;
+}
+
+.model_left_outside_box {
+    width: 1028px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.activity_dialog {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+
+.activity_share_box {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 150px;
+    height: 463px;
+}
+
+.fixed_share {
+    position: fixed !important;
+    top: 2% !important;
+}
+
+//提示弹窗
+.activity_dialog_notice_out {
+    position: absolute;
+    left: 50%;
+    top: 180px;
+    margin-left: -187px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.activity_dialog_notice_in {
+    top: 200px;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.vshide{
+    visibility: hidden;
+}
+
+.activity_dialog_title_box {
+    width: 100%;
+    position: absolute;
+    top: -25px;
+    text-align: center;
+}
+
+.activity_dialog_title {
+    position: absolute;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    font-size: 24px;
+    color: #fff;
+}
+
+.activity_dialog_content {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.activity_dialog_notice_msg {
+    margin-top: 120px;
+}
+
+.activity_dialog_close {
+    position: absolute;
+    cursor: pointer;
+}
+
+/******************  手机端活动模板 *********************/
+.mobile_model_container {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.mobile_model_outside_box {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+
+.mobile_activity_main_banner {
+    width: 100%;
+}
+
+.mobile_package_row_box {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 40px;
+}
+
+.mobile_dialog_notice_out {
+    position: absolute;
+    top: 80px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.mobile_dialog_notice_in {
+    top: 100px;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.mobile_dialog_title_box {
+    width: 80%;
+    position: absolute;
+    left: 10%;
+    top: -25px;
+    text-align: center;
+}
+
+.mobile_dialog_content {
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 10%;
+}
+
+.mobile_dialog_close {
+    position: absolute;
+    top: -20px;
+    right: 10%;
+    margin-right: -20px;
+}
+
+/***** 抽奖模块 *****/
+.prize_active {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.active .prize_active{
+    display: block;
+}
+
+
+/******* 活动样式模板 ********/
+.pub_mbacktime_box {
+    width: 40%;
+    margin-left: 26%;
+    text-align: left;
+    font-size: 16px;
+    color:#fcf744;
+    font-weight: bold;
+}
+
+.pub_back_font {
+    display: inline-block;
+    width: 17%;
+    text-align: center;
+}
+
+.app_pub_prize_list {
+    width: 100%;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+.pub_prize {
+    width: 32%;
+    margin-left: 4px;
+    margin-top: 4px;
+}
+
+.app_pub_prize_control {
+    padding: 0 5px;
+    margin-top: 10px;
+}
+
+.app_pub_btn,.app_pub_start {
+    width: 32%;
+}
+
+.app_pub_zjjl_list {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.hj_jilu_font {
+    font-size: 12px;
+    color: #FFF;
+    line-height: 21px;
+}
+
+.pub_copy_links {
+    width: 95%;
+    height: 20px;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    text-indent: 2em;
+    font-weight: bold;
+    color: #969285;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: left;
+}
+
+.pub_copy_btn {
+    width: 30%;
+}
+
+.pub_dialog_btn {
+    width: 30%;
+}
+
+.pub_dialog_info {
+    width: 100%;
+    height: 50%;
+    margin-top: 15%;
+    padding: 0 20px;
+    text-align: left;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+.pub_dialog_info::-webkit-scrollbar {
+    display:none
+}
+
+.pub_prize_li {
+    width: 90%;
+    padding: 5px 0;
+    margin: 0 auto 10px;
+    box-sizing: border-box;
+    border-bottom: 1px #FFF dashed;
+}
+
+.pos_pub_wenzi {
+    font-size: 14px;
+    color: #FFF;
+    line-height: 25px;
+    font-weight: bold;
+}
+
+.pos_pub_con {
+    font-size: 12px!important;
+    color: #FFF;
+}
+.pos_pub_con p{
+    font-size: 12px!important;
+    color: #FFF;
+}
+
+.pub_prize_name {
+    font-size: 12px;
+    color: #FFF;
+}
+
+.pub_prize_time {
+    font-size: 14px;
+    color: #FFF;
+}

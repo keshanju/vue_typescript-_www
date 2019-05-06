@@ -11,7 +11,6 @@ import AppParamModel from "@/ts/models/AppModel";
 import { LanguageConfig } from "@/ts/utils/Language";
 import { TipsMsgUtil } from "@/ts/utils/TipsMsgUtil";
 import { Toast } from "vant";
-import loading from './components/Loading.vue'
 import {ExtrnalFactory} from '@/ts/factory/ExtrnalFactory';
 import JumpWebUtil from "@/ts/utils/JumpWebUtil";
 //语言包
@@ -23,8 +22,7 @@ const i18n = new VueI18n(lang);
 @Component({
 	components: {
 		navlist: NavList,
-		"header-nav": headerNav,
-		loading:loading
+		"header-nav": headerNav
 	}
 })
 class User extends UserProxy {
@@ -34,14 +32,12 @@ class User extends UserProxy {
 	public showCharge: boolean = false;
 	public actions: Array<Object> = [];
 	public showLang: boolean = false;
-	public isLoading:boolean=true
 	public appParam: AppParamModel = AppParamModel.getInstace(1);
 
 	async created() {
 		this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
 		this.setBaseUrl(GlobalConfig.getBaseUrl());
 		this.init();
-		this.isLoading=false
 		if (this.region_code !== 1) {
 			this.showCharge = true;
 		}
@@ -98,9 +94,9 @@ class User extends UserProxy {
 	public getUserinfoFail() {
 		let tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_LOGIN_FAILURE);
 		Toast(tipMsg);
-		// setTimeout(() => {
-		// 	JumpWebUtil.wapJump(window.location.origin, "login.html");
-		// }, 3000);
+		setTimeout(() => {
+			JumpWebUtil.wapJump(window.location.origin, "login.html");
+		}, 3000);
 	}
 
 	// 切换用户中心页面

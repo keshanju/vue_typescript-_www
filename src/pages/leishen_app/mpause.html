@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="min-height: 100%; background: #252525;">
+<html style="min-height: 100%;">
 
 <head>
   <meta charset="UTF-8" />
@@ -11,43 +11,38 @@
   <meta http-equiv="Expires" content="0" />
 </head>
 
-<body>
+<body style="min-height: 100%;">
   <div class="mui-content pauseBtnBox" v-cloak id="app">
-    <div class="pauseBtnBox_tx">
-      <a @click="gotonavlist" class="clearTop">
-        <img alt="雷神加速器" :src="userInfo.avatar_new" class="img_circle" width="40" height="40" />
-        <img alt="雷神加速器" src="./images/dataclearpic.png" class="img_class" width="11" height="12" />
-      </a>
-      <h4 class="mui-ellipsis clear_yhm">{{ userInfo.nickname }}</h4>
+    <ul class="leigod_flex_right leigod_mt10">
+      <li @click="showTips">
+        <img src="./images/problemlogs.png" width="24" alt="">
+      </li>
+      <li class="leigod_ml25 leigod_mr15"  @click="gotologs">
+        <img src="./images/pauselogs.png" width="24" alt="">
+      </li>
+    </ul>
+    <div class="wx_jishiqi" >
+      <img src="./images/jishiqi@2x.png" width="304" alt="">
+      <img src="./images/clockdot.png" width="14" class="clockdot" alt="">
+      <img src="./images/zhizhen@2x.png" width="2" class="pause_point" :class="{start_animate:startAnimal==1}" alt="">
     </div>
 
-    <div class="pauseBtnBox_mid" style="margin-top: 2rem;">
-      <h5 style="color: #D8D8D8;">您的剩余加速时间</h5>
-      <h4 style="font-size: 2.3rem;line-height: 25px;">
+    <div class="pauseBtnBox_mid">
+      <h4 style="font-size: 2.3rem;line-height: 25px;position: relative;" :class="{'showtips':showRechargeBtn}">
         <span id="hour">{{ hours }}</span>
-        <small style="color: #9E9E9E;">小时</small>
-        <span id="minute">{{ minutes }}</span>
-        <small style="color: #9E9E9E;">分</small>
+        <small>小时</small>
+        <span>{{ minutes }}</span>
+        <small>分</small>
+        <span >{{ seconds }}</span>
+        <small>秒</small>
+        <a class="pauserecharge" @click="gotoRecharge" v-show="showRechargeBtn">去充值</a>
       </h4>
-      <div class="pause_btn zantingBtn" :class="{pause_btn_hf:pauseState==1}" @click="changePauseState"></div>
-      <h6 class="pauseBtnBox_pause_info" v-if="pauseState==0" style="color: #D8D8D8;">
-        点击“暂停”, 即可永久暂停时间
-      </h6>
-      <h6 class="pauseBtnBox_restore_info" v-if="pauseState==1" style="color: #D8D8D8;">
-        点击“恢复”, 即可恢复加速器使用时间
-      </h6>
+      <div class="pause_btn zantingBtn" @click="changePauseState" v-if="pauseState==0" >暂停时间</div>
+      <div class="pause_btn pause_btn_hf"v-if="pauseState==1" @click="changePauseState">恢复时间</div>
     </div>
 
-    <div style="font-size: 12px;color: #999999;letter-spacing: -0.1px;line-height: 18px; width: 305px; margin:30px auto; overflow: hidden;">
-      <img src="./images/worning.png" width="13" height="12" style="margin-top: 3px; float: left;" />
-      <span style="margin-left: 3px; text-align: justify;float: left;width: 94%;">若您在使用微信公众号提供的时间“暂停/恢复”功能后，客户端中出现“暂停/恢复”按钮状态没有跟微信端同步，您只需重启客户端即可恢复正常显示。</span>
-    </div>
-
-    <!-- 查看全部日志 -->
-    <div class="pause_alllog" style="background: #292929;display: flex;">
-      <a @click="gotologs">查看日志</a>
-    </div>
-
+    <!-- 底部导航 -->
+    <navlist></navlist>
   </div>
 </body>
 

@@ -9,7 +9,6 @@ import AppParamModel from "@/ts/models/AppModel";
 import { IdataModel } from "@/ts/models/IdataModel";
 import RechargeProxy from "@/ts/proxy/RechargeProxy";
 import { Dialog, Popup, Toast, Field, CellGroup } from "vant";
-import loading from './components/Loading.vue'
 
 import { UserInfo, PayConfigModel } from "@/ts/models/UserModel";
 import JumpWebUtil from "@/ts/utils/JumpWebUtil";
@@ -34,11 +33,7 @@ lang.initNoRefresh();
 const i18n = new VueI18n(lang);
 
 Vue.use(Popup);
-@Component({
-    components:{
-        loading:loading
-    }
-})
+@Component
 class Recharge extends RechargeProxy {
 	public appParam: AppParamModel = AppParamModel.getInstace();
 	public imageHeadUrl: string = "";
@@ -48,7 +43,6 @@ class Recharge extends RechargeProxy {
 	//////////公共参数
 	public http = new HttpClient();
 	public backData: IdataModel<any> | undefined;
-	public isLoading:boolean=true
 
 	//////////END
 
@@ -57,7 +51,6 @@ class Recharge extends RechargeProxy {
 		this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
 		this.getUserInfo();
 		this.checkEnvironment()
-		this.isLoading=false
 	}
 	public checkEnvironment() {
 		const self = this;

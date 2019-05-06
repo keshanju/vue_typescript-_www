@@ -4,13 +4,15 @@
         <p class="list_font pos_warm_txt">{{$t("public.share37")}}</p>
         <ul class="flex_row_around" style="width: 240px;margin: 0 auto;">
             <li @click="setbindurltype">
-                <a :href="'https://open.weixin.qq.com/connect/qrconnect?appid=wx99a90917c0647828&redirect_uri=https://webapi.leigod.com/api/auth/open/wx&response_type=code&scope=snsapi_login&state='+webParam.region_code+'_0_'+languageType+'_2'+'&connect_redirect=1#wechat_redirect'" class="binding_wechat"></a>
+                <a :href="'https://open.weixin.qq.com/connect/qrconnect?appid=wx99a90917c0647828&redirect_uri=https://webapi.leigod.com/api/auth/open/wx&response_type=code&scope=snsapi_login&state='+webParam.region_code+'_0_'+languageType+'_2'+'&connect_redirect=1#wechat_redirect'"
+                   class="binding_wechat"></a>
             </li>
             <li @click="setbindurltype">
-                <a :href="'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101523719&redirect_uri=https://webapi.leigod.com/api/auth/open/qq&state='+webParam.region_code+'_0_'+languageType+'_2'+'&scope=get_user_info'" class="binding_qq"></a>
+                <a :href="qq_url" class="binding_qq"></a>
             </li>
             <li @click="setbindurltype">
-                <a :href="'https://api.weibo.com/oauth2/authorize?client_id=825933425&response_type=code&redirect_uri=https://webapi.leigod.com/api/auth/open/sina&state='+webParam.region_code+'_0_'+languageType+'_2'" class="binding_weibo"></a>
+                <a :href="'https://api.weibo.com/oauth2/authorize?client_id=825933425&response_type=code&redirect_uri=https://webapi.leigod.com/api/auth/open/sina&state='+webParam.region_code+'_0_'+languageType+'_2'"
+                   class="binding_weibo"></a>
             </li>
             <!-- <li v-if="webParam.region_code == 0" @click="setbindurltype">
                 <a class="binding_facebook" @click="onClickOpenFacebook"></a>
@@ -27,8 +29,7 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import WebParamModel from "../../../ts/models/WebModel";
+    import {Component} from "vue-property-decorator";
     import {ForeignLoginRequestModel} from "../../../ts/models/OauthModel";
     import OauthProxy from "../../../ts/proxy/OauthProxy";
     import GlobalConfig from "../global.config";
@@ -44,6 +45,7 @@
         public base_url: string = '';
         public languageType: string = '';
 
+        public qq_url = '';
         /**
          * facebook的appId
          */
@@ -65,20 +67,22 @@
             this.languageType = Util.getLanguageType(this.webParam.language)
             this.setBaseUrl(GlobalConfig.getBaseUrl());
             this.base_url = GlobalConfig.getBaseUrl();
-            
+
             //
-            if(this.webParam.region_code == Util.REGION_CODE_0) {
+            if (this.webParam.region_code == Util.REGION_CODE_0) {
                 // this.initFaceBookSdk(this.facebook_appId);
                 // this.initTwitterSdk(this.twitter_appId, this.twitter_secret);
                 // this.initGoogleSdk(this.google_appId);
             }
+            //
+            this.qq_url = 'https://graph.qq.com/oauth2.0/show?which=Login&display=pc&response_type=code&client_id=101523719&redirect_uri=https://webapi.leigod.com/api/auth/open/qq&state=' + this.webParam.region_code + '_0_' + this.languageType + '_2' + '&scope=get_user_info';
         }
 
         /**
          * 打开facebook登录
          */
         public onClickOpenFacebook() {
-            if(!this.facebookIsInit) return;
+            if (!this.facebookIsInit) return;
             // this.$emit("set-loading-statuas", true);
             this.onOpenFacebook();
         }
@@ -92,8 +96,8 @@
         /**
          * 第三方登录成功
          */
-        public loginSuccess(userId: string,type: number) {
-            if(userId == '' || userId == null) {
+        public loginSuccess(userId: string, type: number) {
+            if (userId == '' || userId == null) {
                 alert('authorization failed!!');
                 return;
             }
@@ -104,7 +108,7 @@
             param.open_type = type;
             param.state = this.webParam.region_code + '_0'
             let url = GlobalConfig.getBaseUrl() + HttpClient.URL_AUTH_FOREIGN_LOGIN;
-            this.autoForeignlogin(url,param);
+            this.autoForeignlogin(url, param);
         }
 
         /**

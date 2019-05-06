@@ -53,6 +53,17 @@ export default class ConfigUtil {
      */
     public static REGIONCODE = "/geoip2/index.php";
     private regioncode = null;
+    /**
+     * 获取国家地区代码
+     */
+    public static COUNTRYCODELIST = "/geoip2/country_codes.json";
+    private configCountryCode = null;
+
+    /**
+     * 获取路由器列表
+     */
+    public static ROUTER_LIST = "routerlists.json";
+    private routerlist = null;
 
     //
     private static instance: ConfigUtil = null;
@@ -109,6 +120,26 @@ export default class ConfigUtil {
             }
         } else {
             return this.configProvince;
+        }
+    }
+
+    /**
+     * 读官网下面 各国地区的json文件
+     *
+     */
+    public async getCounteyCode(rootUrl:string) {
+        if (this.configProvince == null) {
+            let url =  rootUrl + ConfigUtil.COUNTRYCODELIST;
+            let param = {};
+            //
+            try {
+                this.configCountryCode = await this.httpC.get(url, param);
+                return this.configCountryCode;
+            } catch (e) {
+                return null;
+            }
+        } else {
+            return this.configCountryCode;
         }
     }
 
@@ -356,14 +387,32 @@ export default class ConfigUtil {
     }
 
     /**
-     * 获取regincode
+     * 获取regincode 信息
      */
-    public async getRegincode() {
-        // let url = window.location.origin + "/" + ConfigUtil.REGIONCODE;
-        let url = `http://dev-www.leigod.com${ConfigUtil.REGIONCODE}`;
+    public async getRegincode(rootUrl?:string) {
+        let url = rootUrl+ ConfigUtil.REGIONCODE;
+        // let url = `http://dev-www.leigod.com${ConfigUtil.REGIONCODE}`;
         let param = {};
         let data = await this.httpC.get<GetRegincodeModel>(url, param);
-        let region_code = data.data.region_code;
-        return region_code;
+        let region_infos = data.data;
+        return region_infos;
     }
+
+
+    public async getRouterList(){
+        if (this.routerlist == null) {
+            let url = window.location.origin + "/" + ConfigUtil.ROUTER_LIST;
+            let param = {};
+            //
+            try {
+                this.routerlist = await this.httpC.get(url, param);
+                return this.routerlist;
+            } catch (e) {
+                return null;
+            }
+        } else {
+            return this.routerlist;
+        }
+    }
+
 }

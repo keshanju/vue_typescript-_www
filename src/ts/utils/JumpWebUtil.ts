@@ -48,7 +48,7 @@ export default class JumpWebUtil {
      * 返回到首页
      */
     public static backHome() {
-        window.location.href = JumpWebUtil.HTML_NAME_INDEX;
+        window.location.href =  Util.getOrigin() + '/' + window.location.search;
     }
 
     /**
@@ -87,42 +87,42 @@ export default class JumpWebUtil {
      * 返回到资讯
      */
     public static backNews() {
-        window.location.href = JumpWebUtil.HTML_NAME_NEWS + window.location.search;
+        window.location.href = Util.getOrigin() + '/' + JumpWebUtil.HTML_NAME_NEWS + window.location.search;
     }
 
     /**
      * 返回到公告
      */
     public static backNotice() {
-        window.location.href = JumpWebUtil.HTML_NAME_NOTIFY + window.location.search;
+        window.location.href = Util.getOrigin() + '/' + JumpWebUtil.HTML_NAME_NOTIFY + window.location.search;
     }
 
     /**
      * 返回到活动
      */
     public static backActivity() {
-        window.location.href = JumpWebUtil.HTML_NAME_ACTIVITY + window.location.search;
+        window.location.href = Util.getOrigin() + '/' + JumpWebUtil.HTML_NAME_ACTIVITY + window.location.search;
     }
 
     /**
      * 返回到帮助
      */
     public static backHelp() {
-        window.location.href = JumpWebUtil.HTML_NAME_HELP + window.location.search;
+        window.location.href = Util.getOrigin() + '/' + JumpWebUtil.HTML_NAME_HELP + window.location.search;
     }
 
     /**
      * 返回套餐
      */
     public static backRecharge() {
-        window.location.href = JumpWebUtil.HTML_NAME_RECHARGE + window.location.search;
+        window.location.href = Util.getOrigin() + '/' + JumpWebUtil.HTML_NAME_RECHARGE + window.location.search;
     }
 
     /**
      * 返回关于我们
      */
     public static backAbout() {
-        window.location.href = JumpWebUtil.HTML_NAME_ABOUT;
+        window.location.href = Util.getOrigin() + '/' + JumpWebUtil.HTML_NAME_ABOUT;
     }
 
     /**
@@ -140,7 +140,7 @@ export default class JumpWebUtil {
     public static gotoNoticeDetails(id: number) {
         if (id == 0 || id == null) return;
         // window.location.href = JumpWebUtil.HTML_NAME_DETAILS_NOTICE + id + '.html';
-        window.open(JumpWebUtil.HTML_NAME_DETAILS_NOTICE + id + '.html');
+        window.open( Util.getOrigin() + '/' + JumpWebUtil.HTML_NAME_DETAILS_NOTICE + id + '.html');
     }
 
     /**
@@ -151,7 +151,7 @@ export default class JumpWebUtil {
         if (id == 0 || id == null) return;
         // window.location.href = JumpWebUtil.HTML_NAME_DETAILS_ACTIVITY + id + '.html';
         // window.location.href = JumpWebUtil.HTML_NAME_DETAILS_ACTIVITY_NEW + '?id=' + id;
-        window.open(JumpWebUtil.HTML_NAME_DETAILS_ACTIVITY_NEW + '?id=' + id);
+        window.open( Util.getOrigin() + '/' + JumpWebUtil.HTML_NAME_DETAILS_ACTIVITY_NEW + '?id=' + id);
     }
 
     /**

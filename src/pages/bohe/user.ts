@@ -2,6 +2,7 @@ import '@/assets/less/bohe.less';
 import HeadNav from './components/HeadNav.vue';
 import FootNav from './components/FootNav.vue';
 import UserAgreement from './components/UserAgreement.vue';
+import shareTo from './components/shareTo.vue';
 import UserSafety from './components/UserSafety.vue';
 import UserOrder from './components/UserOrder.vue';
 import UserPrize from './components/ActiveRecord.vue';
@@ -26,11 +27,13 @@ import {
 } from '@/ts/models/UserModel';
 import {TipsMsgUtil} from "@/ts/utils/TipsMsgUtil";
 import WebParamModel from "@/ts/models/WebModel";
+import {TdappModel} from '@/ts/models/TdappModel.ts'
 import Util from "@/ts/utils/Util";
 import LocalStorageUtil from '@/ts/utils/LocalStorageUtil';
 import JumpWebUtil from '@/ts/utils/JumpWebUtil';
 import VueI18n from "vue-i18n";
 import UchatUtil, {UchatModels} from "@/ts/utils/UchatUtil";
+import {userInfo} from "os";
 
 Vue.prototype.$notify = Notification;
 Vue.prototype.$confirm = MessageBox;
@@ -62,13 +65,18 @@ const i18n = new VueI18n(lang);
         "user-free-down": UserFreeDown,
         "user-paydialog": PayDialog,
         "user-edit-avatar": UserAvatarEidt,
+        "share-to":shareTo
     }
 })
 class UserCenter extends UserProxy {
 
     public webParam = WebParamModel.getInstace(); // 浏览器参数
     public payShowConfig: PayConfigModel = new PayConfigModel();
-
+    public checkBroserVersion=new TdappModel();
+    public  divLeft:String='';
+    public  divTop:String='400px';
+    public  wxImgSrc:String=''
+    public showChart:boolean=false
     /**
      * vue初始化完成
      */
@@ -76,8 +84,14 @@ class UserCenter extends UserProxy {
         this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
         this.setBaseUrl(GlobalConfig.getBaseUrl());
         this.init();
+        this.divLeft=(document.body.clientWidth-280)/2+'px'
     }
-
+    //显示微信分享的二维码
+    showWxImg(url:string,clientY:number){
+        this.showChart=true;
+        this.divTop=clientY+'px';
+        this.wxImgSrc=url;
+    }
     /**
      * token过期的处理
      */
@@ -267,9 +281,27 @@ class UserCenter extends UserProxy {
      * 修改用户昵称
      */
     public saveUserNickname() {
-        this.onSaveUserInfo(this.newNickname);
+        if(this.newNickname.length<2){
+            this.$notify({
+                title: '提示',
+                message: '新昵称的长度不能小于2!',
+                type: 'warning'
+            });
+        }else{
+            this.onSaveUserInfo(this.newNickname);
+        }
     }
-
+    /**
+     * 修改用户昵称失败
+     */
+    public onSaveUserInfoError(backData){
+        //这里提示要改为中英文翻译的；
+        this.$notify({
+            title: '提示',
+            message: backData.error.nickname,
+            type: 'warning'
+        });
+    }
     /**
      * 修改用户昵称成功
      */
@@ -303,7 +335,27 @@ class UserCenter extends UserProxy {
      * 修改用户头像
      */
     public onEditAvatar() {
-        this.editAvatarVisible = true;
+        if(this.checkBroserVersion.isLowVersion()){
+            //这里提示要改为中英文翻译的；
+            this.$notify({
+                title: '您使用的浏览器版本过低',
+                message: 'IE版本不能低于IE10，或者使用谷歌/火狐浏览器',
+                type: 'warning'
+            });
+        }else{
+            this.editAvatarVisible = true;
+            this.$nextTick(()=>{
+                //@ts-ignore
+                this.$refs.userEditAvatar.cropperImg(this.userInfo.avatar)
+            })
+        }
+    }
+    /**
+     * 修改用户头像
+     */
+    closedAvatarDailog(){
+        //@ts-ignore
+        this.$refs.userEditAvatar.destroyCropper()
     }
 
     /**
@@ -312,7 +364,13 @@ class UserCenter extends UserProxy {
     public onUploadAvatar(avatarData: string) {
         this.uploadAvatar(avatarData);
     }
-
+    /**
+     * 上传头像-成功-回调
+     */
+    public  uploadAvatarSuccess(){
+        (this.$refs.head as any).checkLogin();
+        // window.location.reload()
+    }
     /**
      * 聊天
      */

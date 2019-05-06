@@ -29,12 +29,16 @@ export default class HttpClient implements IHttp {
     public static URL_CODE_MAIL = "/tools/mailcode";
     public static URL_GONGGAO_LIST = "/tools/news";
     public static URL_AUTH_COUNTRY = "/tools/auth_country";
-    public static URL_TOOL_COUNTRY_CODES = "/tools/country_codes";
+    public static URL_TOOL_COUNTRY_CODES = "/tools/country_codes";//获取国家地区代码
     public static URL_IS_CAPTCHA_LIST = "/tools/is_captcha/list";
     public static URL_TOOL_SYSTEM_TIME = "/tools/system_time"; //获取系统时间
+
+
+
     // user
     public static URL_USER_INFO = "/api/user/info";
     public static URL_USER_PACKAGE = "/api/user/package";
+    public static URL_USER_DISCOUNT = "/api/user/discount";
     public static URL_USER_PACKAGE_BUY = "/api/user/package/buy";
     public static URL_USER_INVOICE_STATE = "/api/user/invoice/state";
     public static URL_USER_INVOICE = "/api/user/invoice";
@@ -76,10 +80,12 @@ export default class HttpClient implements IHttp {
     public static URL_ACTIVITY_DETAIL = "/api/activity/"; //获取活动详情+id
     public static URL_ACTIVITY_PRESENT_LIST = "/api/activity/present"; //获取活动已中奖列表
     public static URL_ACTIVITY_PICTURE_LIST = "/api/activity/picture/list"; // 获取活动图片列表
-    public static URL_ACTIVITY_REFER_LIST = "/api/user/refer/lists"; // 获取活动图片列表
+    public static URL_ACTIVITY_REFER_LIST = "/api/user/refer/lists"; // 获取用户已推荐列表
     // 活动
     public static URL_ACTIVITY_DRAW = "/api/activity/draw"; // 用户活动抽奖
     public static URL_PRESENT_INFO = "/api/present"; // 根据活动id获取活动奖品列表
+    //支持游戏
+    public static URL_GAME = "/api/game";//获取游戏列表
 
     // 微信相关
     public static URL_WAP_WX_SIGN = "/wap/sign"; //微信sign

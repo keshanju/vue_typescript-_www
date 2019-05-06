@@ -2,11 +2,11 @@
     <div class="foot">
         <div class="foot_content">
             <!--foot-one-->
-            <div class="flex_col_item_left pos_foot_txt1">
-                <div class="cursor">
-                    <img src="../images/foot_logo.png" alt="" width="200">
+            <div class="row-fluid pos_foot_txt1">
+                <div class="cursor span3">
+                    <img src="../images/foot_logo.png" alt="雷神加速器" width="150" style="width: 150px;">
                 </div>
-                <div>
+                <div class="span2">
                     <ul class="flex_column_around">
                         <li>
                             <a class="h5_font_no_hover pos_foot_txt0">{{$t("nav.navlist10")}}</a>
@@ -15,24 +15,24 @@
                             <a class="list_font pos_foot_txt3" @click="goRecharge">{{$t("nav.navlist11")}}</a>
                         </li>
                         <li>
-                            <a class="list_font pos_foot_txt3" href="activity.html">{{$t("nav.navlist12")}}</a>
+                            <a class="list_font pos_foot_txt3" :href="page_activity">{{$t("nav.navlist12")}}</a>
                         </li>
                     </ul>
                 </div>
-                <div>
+                <div class="span2">
                     <ul class="flex_column_around">
                         <li>
                             <a class="h5_font_no_hover pos_foot_txt0">{{$t("nav.navlist13")}}</a>
                         </li>
                         <li>
-                            <a class="list_font pos_foot_txt3" href="help.html">{{$t("nav.navlist14")}}</a>
+                            <a class="list_font pos_foot_txt3" :href="page_help">{{$t("nav.navlist14")}}</a>
                         </li>
                         <li>
-                            <a class="list_font pos_foot_txt3" href="userserver.html">{{$t("nav.navlist15")}}</a>
+                            <a class="list_font pos_foot_txt3" :href="page_userserver">{{$t("nav.navlist15")}}</a>
                         </li>
                     </ul>
                 </div>
-                <div>
+                <div class="span2">
                     <ul class="flex_column_around">
                         <li>
                             <a class="h5_font_no_hover pos_foot_txt0">{{$t("nav.navlist16")}}</a>
@@ -56,7 +56,7 @@
                         </li>
                     </ul>
                 </div>
-                <div>
+                <div class="span3 f_right">
                     <ul v-if="webParam.region_code == 1" class="flex_column_center">
                         <li class="kefu_box newmodal">
                             <img src="../images/qq_kfu@2x.png" alt="" width="16">
@@ -79,8 +79,8 @@
             </div>
             <div class="solid_line"></div>
             <!--foot-two-->
-            <div class="flex_row_between pos_foot_txt2">
-                <div>
+            <div class="clear_fix pos_foot_txt2">
+                <div class="f_left">
                     <ul>
                         <!--<li class="pos_foot_txt3">-->
                             <!--<span class="h5_font12_white">{{$t("nav.navlist21")}}</span>-->
@@ -95,22 +95,22 @@
                         </li>
                     </ul>
                 </div>
-                <div>
-                    <ul class="flex_row_between">
-                        <li class="pos_foot_img">
+                <div class="f_right">
+                    <ul class="clear_fix">
+                        <li class="pos_foot_img f_left">
                             <a id="_pingansec_bottomimagesmall_brand"
                                href="http://si.trustutn.org/info?sn=544171218031154034526&certType=1">
                                 <img src="https://v.trustutn.org/images/cert/brand_bottom_small.jpg">
                             </a>
                         </li>
-                        <li class="pos_foot_img">
+                        <li class="pos_foot_img f_left">
                             <a
                                 key="5a15257a0c909623245ac96b"
                                 href="http://www.cn-ecusc.org.cn/cert/aqkx/site/?site=www.leigod.com">
                                 <img src="//static.anquan.org/static/outer/image/aqkx_124x47.png?id=www.leigod.com?t=79">
                             </a>
                         </li>
-                        <li class="pos_foot_img">
+                        <li class="pos_foot_img f_left">
                             <a
                                 key="5a15257a0c909623245ac96b"
                                 logo_size="124x47"
@@ -145,6 +145,9 @@
     })
     export default class FootNav extends Vue {
         public webParam = WebParamModel.getInstace();
+        public page_activity = Util.getOrigin() + '/activity.html' + window.location.search;
+        public page_help = Util.getOrigin() + '/help.html' + window.location.search;
+        public page_userserver = Util.getOrigin() + '/userserver.html' + window.location.search;
 
         /**
          * 跳转套餐页
@@ -154,7 +157,7 @@
             if(token) {
                 JumpWebUtil.webGotoUser(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_USER,'page=1');
             }else {
-                JumpWebUtil.backRecharge();
+                window.location.href = Util.getOrigin() + '/recharge.html' + window.location.search;
             }
         }
     }

@@ -27,7 +27,7 @@ export default class Shopinfo extends Vue {
     this.business_status = this.localUserInfo.business_status;
     this.my_onlines = this.localUserInfo.my_onlines;
     this.my_alerts = this.localUserInfo.my_alerts;
-    this.isBohuiInfo = '驳回原因:'+this.localUserInfo.business_check_info;
+    this.isBohuiInfo = '驳回原因:'+(this.localUserInfo.business_check_info||'');
 
     // 审核状态
     switch (this.business_status) {

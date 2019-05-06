@@ -110,14 +110,14 @@ class ReplaceMeta:
 			dir0_cn = baseDir + '/temp_copy/cn'
 			copyP.copy(copyDir,dir0_cn)
 			parseM.onParse(dir0_cn,meta_json['0']['cn'],lang_json['zh_CN'])
-			#国内英文版本
-			dir1_en = baseDir + '/temp_copy/1'
-			copyP.copy(copyDir,dir1_en)
-			parseM.onParse(dir1_en,meta_json['1']['en'],lang_json['en'])
 			#国内中文版本
-			dir1_cn = baseDir + '/temp_copy/1/cn'
+			dir1_cn = baseDir + '/temp_copy/1'
 			copyP.copy(copyDir,dir1_cn)
 			parseM.onParse(dir1_cn,meta_json['1']['cn'],lang_json['zh_CN'])
+			#国内英文版本
+			dir1_en = baseDir + '/temp_copy/1/en'
+			copyP.copy(copyDir,dir1_en)
+			parseM.onParse(dir1_en,meta_json['1']['en'],lang_json['en'])
 			#删除bohe目录，并将bohe_copy目录更名为bohe
 			shutil.rmtree(copyDir,True)
 			os.rename(dir0_en,copyDir)

@@ -1,0 +1,165 @@
+//  主内容区
+.app-act_content {
+    width: 100%;
+    margin: 0 auto;
+}
+
+//  banner区
+.app-act_banner {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.app-backtime {
+
+}
+
+.app-backtime_font {
+    font-size: 16px;
+    color: #fcf744;
+    font-weight: bold;
+}
+
+.app-present {
+    width: 100%;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+.app-present_cell {
+    width: 32%;
+    margin-left: 4px;
+    margin-top: 4px;
+}
+
+.app-present_active {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.active .app-present_active {
+    display: block;
+}
+
+.app-record {
+    width: 80%;
+    height: 40px;
+    box-sizing: border-box;
+    margin: 18px auto 0;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    overflow: hidden;
+}
+
+.app-record_font span {
+    font-size: 14px;
+    color: #FFF;
+}
+
+.app-copy_link {
+    height: 40px;
+    line-height: 40px;
+    background-color: #b8c6ff;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 10px;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.app-copy_btn {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #f0433f;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+//  弹框
+.app_dialog {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+
+.app-hidden {
+    visibility: hidden;
+}
+
+.app-dialog_out {
+    position: absolute;
+    top: 80px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.app-dialog_in {
+    top: 100px;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.app-dialog_head {
+    width: 80%;
+    position: absolute;
+    left: 10%;
+    top: -25px;
+    text-align: center;
+}
+
+.app-dialog_title {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    
+}
+
+.app-dialog_content {
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 10%;
+}
+
+.app-dialog_close {
+    position: absolute;
+    top: -20px;
+    right: 10%;
+    margin-right: -20px;
+}
+
+.app-dialog_info {
+    width: 100%;
+    height: 80%;
+    margin-top: 10%;
+    padding: 0 8px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+.app-dialog_info::-webkit-scrollbar {
+    display:none
+}
+
+.app-present_list {
+    width: 90%;
+    padding: 5px 0;
+    margin: 10px auto 0;
+    box-sizing: border-box;
+    border-bottom: 1px #101859 dashed;
+}

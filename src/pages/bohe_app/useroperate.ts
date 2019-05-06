@@ -7,7 +7,6 @@ import Util from "@/ts/utils/Util";
 import UserInfo from "./components/UserInfo.vue";
 import UserCardpas from "./components/UserCardpas.vue";
 import UserSetting from "./components/UserSetting.vue";
-import loading from './components/Loading.vue'
 
 import UserOrder from "./components/UserOrder.vue";
 import VueI18n from "vue-i18n";
@@ -25,13 +24,11 @@ const i18n = new VueI18n(lang);
 		"user-info": UserInfo,
 		"user-cardpsw": UserCardpas,
 		"user-setting": UserSetting,
-		"user-orders": UserOrder,
-		loading:loading
+		"user-orders": UserOrder
 	}
 })
 class User extends UserProxy {
 	public showIndex: string = Util.getUrlParam("pageIndex"); //用户中心显示索引
-	public isLoading:boolean=true
 	/**
 	 * 切换语言
 	 */
@@ -40,11 +37,7 @@ class User extends UserProxy {
 		// 页面再次加载即可
 		i18n.locale = lang.locale;
 	}
-	mounted(){
-		this.$nextTick(()=>{
-			this.isLoading=false
-		})
-	}
+
 }
 //
 let vueC = new User({

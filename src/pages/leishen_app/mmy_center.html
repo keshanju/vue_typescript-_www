@@ -17,7 +17,7 @@
 	</head>
 
 	<body style="padding-bottom: 50px;">
-		<div class="mui-content" id="app" v-cloak>
+		<div class="mui-content" id="app" style="overflow: hidden;" v-cloak>
 			<!-- 用户资料 -->
 			<user-info v-if="showIndex==1"></user-info>
 
@@ -30,8 +30,8 @@
 			<!-- 设置 -->
 			<user-setting v-if="showIndex==4"></user-setting>
 
-			<!-- 导航 -->
-			<navlist></navlist>
+			<!-- 活动 -->
+			<user-activity v-if="showIndex==5"></user-activity>
 		</div>
 	</body>
 </html>

@@ -2,30 +2,45 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <meta name="robots" content="noindex">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
     <title>公告列表</title>
 </head>
 
-<body style="background:#363437;">
-    <div id="app" class="app_help" v-cloak>
-        <ls-loading v-show="isLoading"></ls-loading>
-        <div>
-            <div class="app_notify_box" style="width:100%;display: none" v-show="newsList.length > 0"
-                 v-for="item in newsList" :key="item.id" @click="getDetail(item)">
-                <img src="./images/futou_icon.png" alt="" width="36" />
-                <div class="flex_content_left" style="margin-left: 10px; width:calc(100% - 46px)">
-                    <p style="margin-bottom: 10px; width:100%;" class="detail_title_font words_flow" :title="item.title">{{item.title }}</p>
-                    <p class="detail_pubtime_font">{{ item.create_time.replace(/-/g,'.') }}</p>
+<body>
+<div id="app" class="app_help gametab" v-cloak>
+    <div class="notify_mask" v-show="showmask"></div>
+    <div>
+        <van-tabs swipeable v-model="listIndex" color="#34475e">
+
+            <van-tab :title="item.label"  v-for="(item,index) in gameList" :key="item.label">
+                <div v-show="!item.showNoPic">
+                    <van-list
+                            v-model="loading"
+                            :finished="item.finish"
+                            finished-text="没有更多了"
+                            @load="loadList(index)"
+                    >
+                        <van-cell v-for="cell in item.list" :key="cell.id" @click="getDetail(cell)" is-link
+                                  :title="cell.title" :value="cell.publish_time_month+'.'+cell.publish_time_day"/>
+
+                    </van-list>
                 </div>
-            </div>
-        </div>
+                <div v-show="item.showNoPic" class="leigod_text_center" style="margin-top: 15vh;display: none;">
+                    <img src="./images/gonggao@2x.png" width="88" alt="">
+                    <h5 class="leigod_mt20">暂无公告</h5>
+                </div>
+            </van-tab>
+
+        </van-tabs>
     </div>
+</div>
 </body>
 
 </html>

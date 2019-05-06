@@ -1,8 +1,6 @@
-import "../css/mui.min0125.css";
-import "../css/ls2.css";
 import "../css/wap.less";
 import { Vue, Component } from "vue-property-decorator";
-import { Uploader, Toast, Dialog, Loading } from "vant";
+import { Uploader, Toast, Dialog, Loading,Cell, CellGroup,Button } from "vant";
 import UserProxy from "@/ts/proxy/UserProxy";
 import GlobalConfig from "../global.config";
 import { TipsMsgUtil } from "@/ts/utils/TipsMsgUtil";
@@ -24,6 +22,9 @@ lang.initNoRefresh();
 const i18n = new VueI18n(lang);
 Vue.use(Uploader);
 Vue.use(Loading);
+Vue.use(Cell);
+Vue.use(CellGroup);
+Vue.use(Button);
 @Component({
   components: {
     load: Load

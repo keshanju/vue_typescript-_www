@@ -10,6 +10,7 @@ import UserOrder from "./components/UserOrder.vue";
 import UserCard from "./components/UserCard.vue";
 import UserInfo from "./components/UserInfo.vue";
 import PayDialog from "./components/PayDialog.vue";
+import DownloadBox from "./components/DownloadBox.vue";
 import ActiveRecord from "./components/ActiveRecord.vue";
 import UserRecharge from "./components/UserRecharge.vue";
 import {Carousel, CarouselItem, Dialog, Loading, MessageBox, Notification, Tooltip} from "element-ui";
@@ -40,10 +41,6 @@ Vue.use(Dialog);
 Vue.use(Tooltip);
 Vue.use(Loading);
 
-//判断是否跳转到suser站点
-const jumpUrl = GlobalConfig.getSuserBaseUrl() + '/' + JumpWebUtil.HTML_NAME_USER;
-JumpWebUtil.checkLowBrowser(jumpUrl);
-
 //语言包
 Vue.use(VueI18n);
 const webParam = AppParamModel.getInstace(Util.REGION_CODE_1, Util.ZH_CN);
@@ -67,7 +64,8 @@ const i18n = new VueI18n(lang);
         "pay-dialog": PayDialog,
         "el-dialog": Dialog,
         "el-tooltip": Tooltip,
-        "active-record": ActiveRecord
+        "active-record": ActiveRecord,
+        "download-box":DownloadBox
     }
 })
 class User extends UserProxy {
@@ -80,7 +78,9 @@ class User extends UserProxy {
     public isInit: boolean = true; //是否初次获取用户信息
     public getUserInfoCount: number = 0;//刷新用户信息倒计时
     public timer: any = null;//倒计时计时器
-
+    public xianshi_activity_info = null;
+    public timeFontRed: boolean = false;//时间字体是否变红
+    public cardTabName:string='first'//默认是第cdkey兑换，second是卡密充值
     /**
      * vue初始化完成
      */
@@ -89,6 +89,7 @@ class User extends UserProxy {
         this.setBaseUrl(GlobalConfig.getBaseUrl());
         this.init();
         this.getDownloadUrl();
+
         let thirdBindError = localStorage.getItem('third_bind_error');
         if (thirdBindError == '1'){
             this.$confirm(TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_THIRDBIND_FAILD), "", {
@@ -96,7 +97,7 @@ class User extends UserProxy {
                 type: "warning",
                 showCancelButton: false
             }).then(() => {
-                
+
             });
             localStorage.removeItem('third_bind_error');
         }
@@ -111,8 +112,15 @@ class User extends UserProxy {
         const downConfig = jsonConfig.leigod.down_platform[this.webParam.from];
         this.windowsDownloadUrl = downConfig.windows.download_url;
         this.macDownloadUrl = downConfig.mac.download_url;
+        this.xianshi_activity_info = jsonConfig.leigod.is_show_xianshi_activity;
     }
-
+    public showTip(title:string,msg:string){
+        this.$notify({
+            title: this.$i18n.t(title).toString(),
+            message: this.$i18n.t(msg).toString(),
+            type : 'warning'
+        })
+    }
     /**
      * 下载windows客户端
      * @param ln
@@ -151,6 +159,13 @@ class User extends UserProxy {
         i18n.locale = lang.locale;
         this.getUserInfo()
         GlobalConfig.log("切换语言:" + lang.locale);
+        //修复由于中英文切换导致套餐的折扣的语言不能切换的bug
+        if(this.pageIndex==1){
+            //@ts-ignore
+            this.$refs.recharge.isInit=false
+            //@ts-ignore
+            this.$refs.recharge.initA()
+        }
     }
 
     /**
@@ -166,7 +181,7 @@ class User extends UserProxy {
 	 */
 	public getUserinfoSuccess() {
 		const page = parseInt(Util.getUrlParam("page"));
-		if (!isNaN(page)) {
+		if (!isNaN(page) && this.isInit) {
 			this.changePage(page);
 		} else {
 			this.changePage(this.pageIndex);
@@ -177,10 +192,21 @@ class User extends UserProxy {
 		}
         if ((this.userInfo.master_account == 0 && this.userInfo.mobile == "" && this.isInit) || (this.userInfo.master_account == 1 && this.userInfo.email == "" && this.isInit)) {
 			(this.$refs.safety as any).bindAccountShow();
-			this.isInit = false;
+        };
+        if(this.userInfo.expiry_time_samp < 0) {
+            this.userInfo.expiry_time_samp = 0;
         }
-        this.remainTimer(this.userInfo.expiry_time_samp);
-		this.formatTime(this.userInfo.expiry_time_samp);
+        let allTimes = this.userInfo.expiry_time_samp + this.userInfo.experience_time;
+        this.isInit = false;
+        if(this.userInfo.is_pay_user == 0 && allTimes <= 1800) {
+            this.timeFontRed = true;
+        } else if(this.userInfo.is_pay_user == 1 && allTimes <= 72000) {
+            this.timeFontRed = true;
+        } else {
+            this.timeFontRed = false;
+        };
+        this.formatTime(this.userInfo.expiry_time_samp + this.userInfo.experience_time);
+        this.remainTimer(this.userInfo.expiry_time_samp + this.userInfo.experience_time);
     }
 
     // /**
@@ -204,12 +230,16 @@ class User extends UserProxy {
             sefl.getUserInfoCount = n;
         });
     }
-
+    /**
+     * 更改cdkey充值的tab框的时候
+     */
+    userCardChangeTab(val:string){
+        this.cardTabName=val
+    }
     /**
      * 剩余时间倒计时
      */
     public remainTimer(time: number) {
-        if (this.userInfo.pause_status_id != 0) return;
         if (time <= 0 || time == null || isNaN(time)) {
             this.timeHours = 0;
             this.timeMinutes = 0;
@@ -217,6 +247,7 @@ class User extends UserProxy {
             return;
         }
         if (this.timer != null) clearInterval(this.timer);
+        if (this.userInfo.pause_status_id != 0) return;
         this.timer = setInterval(() => {
             time--;
             if (time == 0) {
@@ -224,6 +255,17 @@ class User extends UserProxy {
                 return;
             }
             this.formatTime(time);
+            let now_date = new Date().getTime();
+            let date = new Date(this.userInfo.experience_expiry_time).getTime();
+            if(now_date >= date && this.userInfo.experience_time != 0) {
+                this.getUserInfo();
+            };
+            if(this.userInfo.is_pay_user == 0 && time <= 1800) {
+                this.timeFontRed = true;
+            };
+            if(this.userInfo.is_pay_user == 1 && time <= 72000) {
+                this.timeFontRed = true;
+            };
         }, 1000)
     }
 
@@ -306,6 +348,9 @@ class User extends UserProxy {
 			case 2:
 				(this.$refs.userinfo as any).init();
 				break;
+            case 3:
+                (this.$refs.userRechergeCard as any).getInit();
+                break;
 			case 4:
 				(this.$refs.orderList as any).initA();
 				break;
@@ -340,6 +385,7 @@ class User extends UserProxy {
      */
     public onClosePyaDialog() {
         this.payDialogVisible = false;
+        this.payObj = new PayModel();
         (this.$refs.payDialogCom as any).onClose();
         this.getUserInfo();
     }
@@ -402,7 +448,7 @@ class User extends UserProxy {
      */
     public onUploadUserInfo(data: UpdateInfos) {
         if (data.nickname) this.updateInfos.nickname = data.nickname;
-        if (data.address) this.updateInfos.address = data.address;
+        this.updateInfos.address = data.address;
         if (data.sex) this.updateInfos.sex = data.sex;
         if (data.birthday) this.updateInfos.birthday = data.birthday;
         if (data.user_url != "") {

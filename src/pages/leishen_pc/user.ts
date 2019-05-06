@@ -14,13 +14,13 @@ import {Carousel, CarouselItem, Dialog, Loading, Message, MessageBox, Option, Se
 import NewsConfigModel, {
     ActivityPictureModel,
     ActivityRequestPictureModel,
-    NewModel,
+    NewModel, NewRequestModel,
     NewsModel
 } from '@/ts/models/NewsModel';
 import HttpClient from '@/ts/net/HttpClient';
 import Util from '@/ts/utils/Util';
 import GlobalConfig from './global.config';
-import {NewResetpwdRequestModel, SendVerificationCodeRequestModel, UpdateInfos} from '@/ts/models/UserModel';
+import {NewResetpwdRequestModel, SendVerificationCodeRequestModel, UpdateInfos, UserInfo} from '@/ts/models/UserModel';
 import ConfigUtil from "@/ts/utils/ConfigUtil";
 import {ExtrnalFactory} from '@/ts/factory/ExtrnalFactory';
 import JumpWebUtil from '@/ts/utils/JumpWebUtil';
@@ -61,7 +61,7 @@ class User extends UserProxy {
     public bgImg: string = 'images/bg_img.jpg';
     public notifyList: Array<NewModel> = [];
     public bannerList: Array<ActivityPictureModel> = [];
-    public newList = [];
+    public newList = null;
     public newPage: number = 1;
     public total: number = 0;//资讯总条数
     public user_url: string = ''; // 用户中心的url
@@ -80,10 +80,13 @@ class User extends UserProxy {
     public bannerImg: string = ''; //活动banner图片
     public windowsDownloadUrl: string = '';//windows客户端下载配置
     public macDownloadUrl: string = '';//mac客户端下载配置
-    public version: number = 0;//客户端版本 0 旧版本  1 最新版
+    public version: number = 2;//客户端版本 0 旧版本  1 最新版
     public headShow: boolean = false;//头部是否显示
     public avatarReset: boolean = false;//用户是否修改了头像
     public nicknameReset: boolean = false;//用户是否修改了昵称
+    public userinfoCount: number = 0;//获取用户信息成功改变
+    public account_out: boolean = false;//未登录或者token失效
+    public timer_step: number = 0;//刷新公告定时器间隔时间
 
     /**
      * 页面初始化，获取地址栏参数，设置根地址，初始化调用接口
@@ -94,11 +97,16 @@ class User extends UserProxy {
         this.setBaseUrl(GlobalConfig.getBaseUrl());
         this.timeTipShow = parseInt(localStorage.getItem(LocalStorageUtil.STORAGES_TIME_TIP));
         //
-        this.init();
         this.getDownloadUrl();
         this.getNotifyList();
         this.getActivityInfo();
-        this.onGetNewList(this.newPage);
+        if(Util.getUrlParam("account_token") == '' || Util.getUrlParam("account_token") == undefined){
+            this.account_out = true;
+            return;
+        }
+        this.init();
+
+        // this.onGetNewList(this.newPage);
     }
 
     public mounted() {
@@ -113,7 +121,15 @@ class User extends UserProxy {
      */
     public async getDownloadUrl() {
         const jsonConfig = await ConfigUtil.getInstance().download(false);
+        const region_code = LocalStorageUtil.getRegionCodes();
+        const language = LocalStorageUtil.getLanguage();
         this.windowsDownloadUrl = jsonConfig.leigod.windows.download_url;
+        this.newList = jsonConfig.leigod[region_code][language].index_news;
+        this.timer_step = jsonConfig.leigod.timer_step;
+        const that = this;
+        setInterval(function(){
+            that.getNotifyList();
+        },this.timer_step)
         //
         const factory = ExtrnalFactory.getInstance().getFactory(this.appParam.platform);
         this.version = factory.checkversion('');
@@ -129,6 +145,8 @@ class User extends UserProxy {
         //屏蔽剩余时间功能
         this.remainTimer(this.userInfo.expiry_time_samp);
         this.formatTime(this.userInfo.expiry_time_samp);
+        this.tabIndex = 0;
+        this.userinfoCount++;
         //屏蔽老用户绑定账号提示
         // if (this.userInfo.master_account == 0 && this.userInfo.mobile == '' && this.isInit) {
         //     (this.$refs.safety as any).bindAccountShow();
@@ -323,14 +341,18 @@ class User extends UserProxy {
      * 获取公告列表
      */
     public async getNotifyList() {
-        let param = new NewsConfigModel();
-        param.baseUrl = GlobalConfig.getStafUrl();
+        let url = HttpClient.URL_NEWS;
+        let param = new NewRequestModel();
         param.page = 1;
         param.size = 5;
+        param.class_type = 0;
         param.support_type = 3;
         param.region_code = this.appParam.region_code;
-        const model: NewsModel = await ConfigUtil.getInstance().getNotifyList(param);
-        this.notifyList = model.list;
+        this.backData = await this.http.get(url, param);
+        if (this.backData.code == HttpClient.HTTP_SUCCESS_NET_CODE) {
+            this.notifyList = this.backData.data.list;
+        } else {
+        }
     }
 
     /**
@@ -357,16 +379,20 @@ class User extends UserProxy {
      * 获取资讯列表
      */
     public async onGetNewList(page: number = 1, size: number = 2) {
-        let param = new NewsConfigModel();
-        param.baseUrl = GlobalConfig.getStafUrl();
+        let url = HttpClient.URL_NEWS;
+        let param = new NewRequestModel();
+        param.class_type = 2;
         param.page = page;
         param.size = 2;
         param.support_type = 3;
         param.label = Util.NEWS_HOT;
         param.region_code = this.appParam.region_code;
-        const model: NewsModel = await ConfigUtil.getInstance().getNewsClassifyList(param);
-        this.newList = model.list;
-        this.total = model.total;
+        this.backData = await this.http.get(url, param);
+        if (this.backData.code == HttpClient.HTTP_SUCCESS_NET_CODE) {
+            this.newList = this.backData.data.list;
+            this.total = this.backData.data.total;
+        } else {
+        }
     }
 
     /**
@@ -438,6 +464,8 @@ class User extends UserProxy {
      * 修改密码成功
      */
     public onResetPasswordSuccess(data: any) {
+        const factory = ExtrnalFactory.getInstance().getFactory(this.appParam.platform);
+        factory.updatepassword();
         (this.$refs.safety as any).resetPwdBack(data);
     }
 
@@ -479,12 +507,10 @@ class User extends UserProxy {
     }
 
     /**
-     * 跳转资讯详情
+     * 跳转配置页面
      */
-    public goNewsDetail(id: number) {
+    public goNewsDetail(url: string) {
         const factory = ExtrnalFactory.getInstance().getFactory(this.appParam.platform);
-        let url = GlobalConfig.getWebBaseUrl() + '/' + JumpWebUtil.HTML_NAME_DETAILS_NEWS;
-        url = url + id + '.html';
         factory.jumpUrl(url);
     }
 

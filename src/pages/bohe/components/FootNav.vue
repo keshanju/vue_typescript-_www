@@ -71,7 +71,8 @@
                     </li>
                 </ul>
                 <div class="right_bh">
-                    <a target="_blank" href="https://v.yunaq.com/certificate?domain=www.bohe.com&from=label&code=90030"><img style="width: 110px;height: 40px;" src="https://aqyzmedia.yunaq.com/labels/label_sm_90030.png"></a>
+                    <a target="_blank" style="margin-right: 20px;" :href="'https://v.anquan.org/cert/site/?site='+(webParam.region_code===1?'cn.bohe.com':'www.bohe.com')"><img style="width: 110px;height: 40px;" src="https://static.miandei.com/cloud/images//common/hy_124x47.png"></a>
+                    <a target="_blank" :href="'https://v.yunaq.com/certificate?domain='+(webParam.region_code===1?'cn.bohe.com':'www.bohe.com')+'&from=label&code=90030'"><img style="width: 110px;height: 40px;" src="https://aqyzmedia.yunaq.com/labels/label_sm_90030.png"></a>
                     <a style="margin-left: 20px;" target="_blank" id="_pingansec_bottomimagesmall_brand" href="http://si.trustutn.org/info?sn=856181109037266429071&certType=1"><img style="width: 110px;height: 40px;" src="https://v.trustutn.org/images/cert/brand_bottom_small.jpg" /></a>
                 </div>
                 <div class="beian_num_box right_bh">
@@ -82,6 +83,8 @@
                         </a>
                     </div>
                     <p class="beian_num_bh">{{$t("foot.c13")}}</p>
+                    <p class="beian_num_bh" v-show="webParam.region_code == 1"><span>{{$t("foot.c16")}}</span><span>027-86951781</span></p>
+                    <p class="beian_num_bh" v-show="webParam.region_code == 1"><span>{{$t("foot.c17")}}</span><span>{{$t("foot.c18")}}</span></p>
                 </div>
             </div>
 
@@ -95,8 +98,6 @@ import DownloadBox from "@/pages/bohe/components/DownloadBox.vue";
 import { Tooltip } from "element-ui";
 import JumpWebUtil from "@/ts/utils/JumpWebUtil";
 import GlobalConfig from "@/pages/bohe/global.config";
-import Util from "@/ts/utils/Util";
-import HttpClient from "@/ts/net/HttpClient";
 import { IdataModel } from "@/ts/models/IdataModel";
 import WebParamModel from "@/ts/models/WebModel";
 import ConfigUtil from "@/ts/utils/ConfigUtil";

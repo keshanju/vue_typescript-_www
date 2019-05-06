@@ -39,13 +39,24 @@ package-lock.json
 
 test/**/config.json
 test/**/*.plist
+test/**/test.*
+test/**/activitymodel.*
 
 tbuild/**/config.json
 tbuild/**/*.plist
+tbuild/**/test.*
+tbuild/**/activitymodel.*
 
 vfbuild/**/config.json
 vfbuild/**/*.plist
+vfbuild/**/test.*
+vfbuild/**/activitymodel.*
 
 dev/leishen_pc
 dev/leishen的副本
 dev/test_copy
+/src/pages/leishen_wangba/netbarFee.html
+/src/pages/leishen_wangba/netbarFee.ts
+/src/pages/leishen_wangba/netbarFee.html
+/src/pages/leishen_wangba/netbarFee.ts
+leigod_extend/leigod-com-lib/dist

@@ -6,7 +6,6 @@ import {EmailFindPwdRequestModel, FindUserIsExistModel, PhoneFindPwdRequestModel
 import {Md5} from 'ts-md5';
 import {TipsMsgUtil} from '../utils/TipsMsgUtil';
 import LocalStorageUtil from '../utils/LocalStorageUtil';
-import Util from "@/ts/utils/Util";
 
 /**
  * 找回密码proxy
@@ -20,11 +19,6 @@ export class FindpwdProxy extends RegisterProxy {
 
     // 确认账户存在显示下一步 0 不显示  1显示
     public checkUserValue = 0;
-
-    public init(): void {
-        this.getAreaCodeList();
-        this.getAreaCodeInfoList();
-    }
 
     /**
      * 手机号码找回密码

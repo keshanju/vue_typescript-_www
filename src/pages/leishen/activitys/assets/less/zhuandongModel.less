@@ -1,0 +1,508 @@
+@ACTBGURL: '../../../images'; // 活动页面图片根地址
+
+.activity_main_banner {
+    display: block;
+    position: relative;
+    left: 50%;
+    margin-left: -1500px;
+}
+
+.activity_model_content {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.model_left_content {
+    width: 1200px;
+}
+
+/**
+    构建页面每一个部分的最外层盒子，主要是帮助实现定位样式
+ */
+.model_container {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.model_left_container {
+    text-align: left;
+}
+
+/**
+    套餐列表部分,水平居中对齐，对齐方式讲更具不同的活动页面进行变化
+ */
+.package_row_box {
+    width: 1200px;
+    position: absolute;
+    top: 50%;
+    margin-top: -120px;
+    left: 50%;
+    margin-left: -600px;
+}
+
+/**
+    活动公共内容区的外层盒子
+ */
+.model_outside_box {
+    width: 1200px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -600px;
+}
+
+.model_left_outside_box {
+    width: 1028px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.activity_dialog {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+
+.activity_share_box {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 150px;
+    height: 463px;
+}
+
+.fixed_share {
+    position: fixed !important;
+    top: 2% !important;
+}
+
+//提示弹窗
+.activity_dialog_notice_out {
+    position: absolute;
+    left: 50%;
+    top: 180px;
+    margin-left: -187px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.activity_dialog_notice_in {
+    top: 200px;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.vshide{
+    visibility: hidden;
+}
+
+.activity_dialog_title_box {
+    width: 100%;
+    position: absolute;
+    top: -25px;
+    text-align: center;
+}
+
+.activity_dialog_title {
+    position: absolute;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    font-size: 24px;
+    color: #fff;
+}
+
+.activity_dialog_content {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.activity_dialog_notice_msg {
+    margin-top: 120px;
+}
+
+.activity_dialog_close {
+    position: absolute;
+    cursor: pointer;
+}
+
+/***** 抽奖模块 *****/
+.prize_active {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.active .prize_active{
+    display: block;
+}
+.pos_pub_wenzi {
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #101859;
+    margin-right: 29px;
+    float: left;
+}
+
+.pos_pub_con {
+    width: 740px;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #101859;
+    float: left;
+}
+
+.kaixue_ewm {
+    position: absolute;
+    width: 148px;
+    bottom: 50px;
+    right: 75px;
+}
+
+.pub_side_box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+.pub_share_login_font {
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #101859;
+}
+
+.pub_share_username {
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #101859;
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.pub_copy_links {
+    display: inline-block;
+    text-indent: 20px;
+    width: 651px;
+    height: 46px;
+    line-height: 46px;
+    background-color: #b8c6ff;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #ffffff;
+    vertical-align: middle;
+}
+
+.pub_copy_btn {
+    display: inline-block;
+    width: 134px;
+    height: 54px;
+    vertical-align: middle;
+    background: url("@{ACTBGURL}/kaixue/btn_copy.png");
+}
+
+.pub_copy_btn:hover {
+    background: url("@{ACTBGURL}/kaixue/btn_copy_on.png");
+}
+
+.pub_prize_list {
+    width: 880px;
+    height: 300px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.pub_prize {
+    width: 258px;
+    height: 120px;
+    margin-left: 18px;
+    margin-top: 18px;
+    float: left;
+}
+
+.pub_hdgz {
+    width: 263px;
+    height: 101px;
+    float: left;
+    background: url("@{ACTBGURL}/kaixue/btn_rules.png") center center no-repeat;
+    cursor: pointer;
+    margin-left: 18px;
+}
+
+.pub_hdgz:hover {
+    background: url("@{ACTBGURL}/kaixue/btn_rules_on.png") center center no-repeat;
+}
+
+.pub_start {
+    width: 263px;
+    height: 101px;
+    float: left;
+    background: url("@{ACTBGURL}/kaixue/btn_start.png") center center no-repeat;
+    cursor: pointer;
+    margin-left: 18px;
+}
+
+.pub_start:hover {
+    background: url("@{ACTBGURL}/kaixue/btn_start_on.png") center center no-repeat;
+}
+
+.pub_zjjl {
+    width: 263px;
+    height: 101px;
+    float: left;
+    background: url("@{ACTBGURL}/kaixue/btn_zj.png") center center no-repeat;
+    cursor: pointer;
+    margin-left: 18px;
+}
+
+.pub_zjjl:hover {
+    background: url("@{ACTBGURL}/kaixue/btn_zj_on.png") center center no-repeat;
+}
+
+.pub_prize_control {
+    margin-top: 20px;
+    width: 880px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.pub_zjjl_list {
+    width: 837px;
+    height: 54px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    margin-top: 33px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    overflow: hidden;
+}
+
+.pub_package_box {
+    margin-top: -170px;
+}
+
+.pub_buy_btn {
+    width: 124px;
+    height: 51px;
+    position: absolute;
+    right: 44px;
+    bottom: 18px;
+    background: url("@{ACTBGURL}/kaixue/btn_buy.png");
+}
+
+.pub_buy_btn:hover {
+    background: url("@{ACTBGURL}/kaixue/btn_buy_on.png");
+}
+
+.pub_mbacktime_box {
+    width: 300px;
+    height: 50px;
+    margin-left: 520px;
+    text-align: left;
+}
+
+.pub_back_font {
+    display: inline-block;
+    width: 45px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 35px;
+    color: #fcf744;
+}
+
+.pub_dialog_btn {
+    display: inline-block;
+    width: 172px;
+    height: 67px;
+    background: url("@{ACTBGURL}/kaixue/btn_sure.jpg");
+}
+
+.pub_dialog_btn:hover {
+    background: url("@{ACTBGURL}/kaixue/btn_sure_on.jpg");
+}
+
+.pub_recharge_btn {
+    display: inline-block;
+    width: 172px;
+    height: 67px;
+    background: url("@{ACTBGURL}/kaixue/btn_buy01.png");
+}
+
+.pub_recharge_btn:hover {
+    background: url("@{ACTBGURL}/kaixue/btn_buy01_on.png");
+}
+
+.pub_login_btn {
+    display: inline-block;
+    width: 172px;
+    height: 67px;
+    background: url("@{ACTBGURL}/kaixue/btn_login.png");
+}
+
+.pub_login_btn:hover {
+    background: url("@{ACTBGURL}/kaixue/btn_login_on.png");
+}
+
+.pub_activityinfo {
+    width: 100%;
+    height: 55%;
+    margin-top: 10%;
+    padding: 0 20px;
+    text-align: left;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+.pub_activityinfo::-webkit-scrollbar {
+    display:none
+}
+
+.pub_prize_li {
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px 0;
+    border-bottom: dashed 1px #101859;
+    box-sizing: border-box;
+    margin-bottom: 3px;
+    overflow: hidden;
+}
+
+.pub_prize_ul {
+    width: 100%;
+    height: 55%;
+    margin-top: 10%;
+    overflow-y: scroll;
+}
+
+.pub_prize_ul::-webkit-scrollbar {
+    display:none
+}
+
+.pub_prize_jilu {
+    color: #101859;
+    font-size: 18px;
+    float: left;
+}
+
+.pub_prize_dj {
+    float: right;
+    padding: 5px;
+    font-size: 16px;
+    background-color: #ff78df;
+    border-radius: 3px;
+    cursor: pointer;
+    min-width: 80px;
+    text-align: center;
+    color: #FFF;
+}
+
+.pub_prize_ydj {
+    background-color: #9a9a9a;
+}
+
+.pub_jxcj_btn {
+    display: inline-block;
+    width: 172px;
+    height: 67px;
+    background: url("@{ACTBGURL}/kaixue/btn_goon.png");
+}
+
+.pub_jxcj_btn:hover {
+    background: url("@{ACTBGURL}/kaixue/btn_goon_on.png");
+}
+
+.pub_dj_btn {
+    display: inline-block;
+    width: 172px;
+    height: 67px;
+    background: url("@{ACTBGURL}/kaixue/btn_qdj.png");
+    background-size: 100% 100%;
+}
+
+.pub_dj_btn:hover {
+    background: url("@{ACTBGURL}/kaixue/btn_qdj_on.png");
+    background-size: 100% 100%;
+}
+
+.sharemodelbox .weibo_bg {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url('@{ACTBGURL}/share_weibo.png') center center no-repeat;
+    background-size: contain;
+    background-position: 0 0 !important;
+    margin: 0;
+    padding-left: 0;
+}
+
+.sharemodelbox .qq_bg {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url('@{ACTBGURL}/share_qqzone.png') center center no-repeat;
+    background-size: contain;
+    background-position: 0 0 !important;
+    margin: 0;
+    padding-left: 0;
+    margin-top: 5px;
+}
+
+.sharemodelbox .tieba_bg {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url('@{ACTBGURL}/tieba_normal.png') center center no-repeat;
+    background-size: 32px 32px;
+    background-position: center center !important;
+    margin: 0;
+    padding-left: 0;
+    margin-top: 5px;
+}
+
+.sharemodelbox .weixin_bg {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url('@{ACTBGURL}/share_qq.png') center center no-repeat;
+    background-size: contain;
+    background-position: 0 0 !important;
+    margin: 0;
+    padding-left: 0;
+    margin-top: 5px;
+}

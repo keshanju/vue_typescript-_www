@@ -271,6 +271,22 @@ export class UserRechargeInfo {
 }
 
 /**
+ * 用户套餐信息请求成功服务端返回
+ */
+export class UserDiscountList {
+    public id: number = 0;//私有折扣码ID
+    public picture_url: string = '';//折扣码名称
+    public title: string = ""; // 折扣码图片
+    public status: string = ''; // 折扣码状态
+    public discount_code: string = ""; // 折扣码
+    public discount_id: number = 0; // 折扣码定义ID
+    public expired_time: string = ''; //折扣码过期时间
+    public price_ids: Array<number> = [];//适用的价格id列表
+    public discount_type: number = 1;//优惠券类型
+    public discount_value: number = 0;//优惠券金额
+}
+
+/**
  * 价格列表
  */
 export class PriceList {
@@ -487,7 +503,7 @@ export class UploadAvatarRequestModel {
     public account_token = "";
     public filename = "";
     public nickname = "";
-    public folder_name = "bohe";
+    public folder_name = "leigod";
 }
 
 /**

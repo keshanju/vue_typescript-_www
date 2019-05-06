@@ -73,7 +73,7 @@
             <div id="user_info" class="userinfo" v-show="serviceShow">
                 <div class="tab_nav">
                     <!--老用户-->
-                    <li class="tab_nav_li cursor" v-show="userInfo.master_account == 0 && userInfo.mobile == ''" @click="changeTabIndex(3)"
+                    <li class="tab_nav_li cursor" v-if="userInfo.master_account == 0 && userInfo.mobile == ''" @click="changeTabIndex(3)"
                         :class="{'tab_nav_li_active': tabIndex == 3}">{{$t("public.share10")}}
                     </li>
                     <li class="tab_nav_li cursor" @click="changeTabIndex(0)" :class="{'tab_nav_li_active': tabIndex == 0}">
@@ -89,7 +89,7 @@
                 </div>
 
                 <reset-userinfo ref="resetuserinfo" v-show="tabIndex == 0" @on-upload-userinfo="onUploadUserInfo"
-                    @closeservice="onCloseService" :userinfo="userInfo">
+                    @closeservice="onCloseService" :userinfo="userInfo" :userinfocount="userinfoCount">
                 </reset-userinfo>
 
                 <user-safety ref="safety" v-show="tabIndex == 1" :userinfo="userInfo" @refreshuserinfo="getUserInfo"
@@ -98,7 +98,7 @@
 
                 <three-bind v-show="tabIndex == 2" @closeservice="onCloseService"></three-bind>
 
-                <bind-mobile v-show="tabIndex == 3" @closeservice="onCloseService"></bind-mobile>
+                <bind-mobile v-show="tabIndex == 3" @closeservice="onCloseService" @refreshuserinfo="getUserInfo"></bind-mobile>
             </div>
             <div class="pull_btn" @click="onServiceShow" v-if="version < 2">
                 <div class="pull_icon" :class="{'pull_up_icon': serviceShow}"></div>
@@ -112,19 +112,21 @@
                 <el-carousel height="1.30rem">
                     <el-carousel-item v-for="(item,index) in bannerList" :key="index">
                         <img :src="imageHeadUrl + item.imgUrl" @click="goActivityDetail(item)" class="img_filter cursor"
-                            alt="" style="border-radius: 0.05rem;" />
+                            alt="" style="border-radius: 0.05rem;" v-if="item.imgUrl" />
+                        <!--<img src="./images/banner.png" @click="goActivityDetail(item)" class="img_filter cursor"-->
+                             <!--alt="" style="border-radius: 0.05rem;" v-if="!item.imgUrl" />-->
                     </el-carousel-item>
                 </el-carousel>
             </div>
             <div class="flex_row_between">
                 <div class="box_son">
-                    <div class="flex_row_between">
+                    <div class="flex_row_between" style="height: 0.2rem;">
                         <span class="news_title">{{$t("user.b6")}}</span>
-                        <p class="cursor more_style" @click="goNotifys">more+</p>
+                        <p class="cursor more_style" @click="goNotifys" style="font-size: 0.12rem;">{{$t("news.d7")}}</p>
                     </div>
-                    <ul class="notify_list">
+                    <ul class="notify_list" style="height: 1.11rem">
                         <li class="box_cell flex_row_between lists_font" v-for="(item,index) in notifyList" :key="index"
-                            @click="goNoticeDetail(item.id)" style="margin: 0;">
+                            @click="goNoticeDetail(item.id)" style="margin: 0;height: 0.21rem;line-height: 0.21rem">
                             <p class="lists_font" style="width:80%;margin: 0;">{{item.title}}</p>
                             <p class="lists_font" style="width:20%;text-align: right;margin: 0;">{{item.publish_time_month
                                 + '-' + item.publish_time_day}}</p>
@@ -137,25 +139,22 @@
                     </ul>
                 </div>
                 <div class="box_son">
-                    <div class="flex_row_between">
-                        <span class="news_title">{{$t("user.b7")}}</span>
-                        <div class="icon">
-                            <i class="left_icon cursor" @click="changeNewListIndex(newPage-1)"></i>
-                            <i class="right_icon cursor" @click="changeNewListIndex(newPage+1)"></i>
-                            <span class="cursor more_style" style="margin-left:0.05rem;" @click="goNews">
-                                more+
-                            </span>
-                        </div>
-                    </div>
+                    <!--<div class="flex_row_between">-->
+                        <!--<span class="news_title">{{$t("user.b7")}}</span>-->
+                        <!--<div class="icon">-->
+                            <!--<i class="left_icon cursor" @click="changeNewListIndex(newPage-1)"></i>-->
+                            <!--<i class="right_icon cursor" @click="changeNewListIndex(newPage+1)"></i>-->
+                            <!--<span class="cursor more_style" style="margin-left:0.05rem;" @click="goNews">-->
+                                <!--more+-->
+                            <!--</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <ul class="flex_row_between news">
-                        <li class="new" v-for="(item,index) in newList" :key="index" @click="goNewsDetail(item.id)">
-                            <div class="fixed_height">
-                                <img class="img_filter" style="border-radius: 0.05rem;" :src="imageHeadUrl+item.image_url"
+                        <li class="new" v-for="(item,index) in newList" :key="index" @click="goNewsDetail(item.new_url)" v-show="newList != null">
+                                <img class="img_filter" style="border-radius: 0.05rem;" :src="item.img_url"
                                     alt="">
-                            </div>
-                            <p class="lists_font">{{item.title}}</p>
                         </li>
-                        <li style="display: none;width: 100%;" v-show="newList.length == 0" class="flex_column_center">
+                        <li style="display: none;width: 100%;" v-show="newList == null" class="flex_column_center">
                             <p style="margin-top: 0.2rem;"></p>
                             <img class="empty_img" src="./images/empty.png" alt="" style="width:0.2rem;">
                             <p class="empty_txt" style="margin-top: 0.05rem;">{{$t("news.d2")}}</p>
@@ -179,7 +178,7 @@
                 <div class="box_son">
                     <div class="flex_row_between">
                         <span class="news_title">{{$t("user.b6")}}</span>
-                        <p class="cursor more_style">more+</p>
+                        <p class="cursor more_style" style="font-size: 0.12rem;">{{$t("news.d7")}}</p>
                     </div>
                     <ul class="notify_list">
                         <li class="box_cell flex_row_between lists_font" v-for="(item,index) in notifyList" :key="index"

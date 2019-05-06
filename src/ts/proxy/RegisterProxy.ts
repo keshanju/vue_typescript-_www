@@ -14,6 +14,8 @@ import Util from "@/ts/utils/Util";
 import { PhoneRegisterRequestModel, EmailRegisterRequestModel, BindRequestModel, LoginModel, SendVerificationCodeRequestModel, SendVerificationCodeModel } from "@/ts/models/UserModel";
 import { Md5 } from 'ts-md5';
 import LocalStorageUtil from "@/ts/utils/LocalStorageUtil";
+import {GetRegincodeModel} from "@/ts/models/NewsModel";
+import ConfigUtil from "@/ts/utils/ConfigUtil";
 
 /**
  * 注册proxy
@@ -79,8 +81,6 @@ export class RegisterProxy extends Vue implements IProxy {
 
     public init(): void {
         this.referCode = Util.getUrlParam('refer_code');
-        this.getAreaCodeList();
-        this.getAreaCodeInfoList();
         this.onGetPackage();
     }
 
@@ -114,22 +114,25 @@ export class RegisterProxy extends Vue implements IProxy {
 
     /**
      * 获取手机区号
+     * @param webUrl 官网路径
      */
-    public async getAreaCodeInfoList() {
-        const url = HttpClient.URL_TOOL_COUNTRY_CODES;
-        const param = {};
-
-        this.backData = await this.http.get<areaCodeCaptchaModel>(url, param);
+    public async getAreaCodeInfoList(webUrl:string) {
+        let regionInfos:GetRegincodeModel =await ConfigUtil.getInstance().getRegincode(webUrl);
+        this.backData = await ConfigUtil.getInstance().getCounteyCode(webUrl);
         if (this.backData.code == HttpClient.HTTP_SUCCESS_NET_CODE) {
-            this.countryCode = this.backData.data.now_country.code;
-            this.country_code = this.backData.data.now_country;
+            this.country_code = this.backData.data.list_country.filter((item)=>{
+                return item.code == regionInfos.mobile_code;
+            })[0];
+
+            console.log(this.countryCode);
+
             let country_code = localStorage.getItem(LocalStorageUtil.STORAGES_PHONE_REGION);
-            if (country_code != null && country_code != undefined) {
-                this.countryCode = country_code;
+            if (country_code != null && country_code != 'undefined') {
                 this.country_code = this.backData.data.list_country.filter((item)=>{
                     return item.code == country_code;
                 })[0];
             };
+            this.countryCode = this.country_code.code;
             this.areaCodeListArr = this.backData.data.list_country;
             let n = 0;
             let list = [];
@@ -267,7 +270,7 @@ export class RegisterProxy extends Vue implements IProxy {
         }
     }
 
-   
+
 
     /**
      * 获取短信/语音验证码

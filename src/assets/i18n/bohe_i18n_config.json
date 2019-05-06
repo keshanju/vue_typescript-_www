@@ -71,9 +71,13 @@
 			"c10": "关注BOHE官方微博",
 			"c11": "如果您在使用中遇到任何问题,请及时联系我们!",
 			"c12": "下载客户端",
-			"c13": "鄂ICP备18023477号@薄荷科技有限公司",
+			"c13": "鄂ICP备18023477号@武汉薄荷科技有限公司",
 			"c14": "我们将为您提供更加完善的服务。",
-			"c15": "薄荷加速器海外交流群：697340774"
+			"c15": "薄荷加速器海外交流群：697340774",
+			"c16": "联系电话: ",
+			"c17": "详细地址: ",
+			"c18": "湖北省武汉市洪山区花山大道软件新城A2栋4楼"
+
 		},
 		"user": {
 			"z1": "编辑头像",
@@ -121,38 +125,35 @@
 			"z43": "用户资料",
 			"z44": "QQ账号",
 			"z45": "住址信息",
-			"z46":"兑奖列表"
+			"z46":"兑奖列表",
+			"z47":"长度不能小于1"
 		},
 		"notify": {
 			"y1": "BOHE公告",
 			"y2": "阅读详情",
             "y3": "查看更多公告",
 			"y4": "BOHE活动",
-			"y5": "邀请好友注册，获",
+			"y5": "邀请好友注册，最多获",
 			"y5_1": "天加速时长",
 			"y6": "每成功邀请1名好友，你可获得15天加速时长",
-			"y7": "Hey，我正在用Bohe加速器，解锁加速全球网络游戏/视频/音乐/应用。现在注册就送15天免费加速时长，快来注册,马上领取！",
-			"y7_1":"请您先登录,登陆成功后,刷新当前页面即可获取邀请码！",
+			"y7": "Hey，我正在用Bohe加速器，解锁加速全球网络游戏/视频/音乐/应用。",
 			"y7_2":"【注册邀请码：",
+			"y7_3": "现在注册就送15天免费加速时长，快来注册,马上领取！",
 			"y8": "复制邀请码",
 			"y9": "复制成功,分享给你的好友吧！",
 			"y10": "活动说明",
 			"y11": "本次活动，个人邀请可获时长上限为30天",
 			"y12": "受邀的好友只有通过邀请码注册时，邀请者才能获得相应免费奖励时长。此邀请码仅限本次活动使用",
 			"y13": "本次活动奖励可与其他活动奖励累加，详情见个人中心",
-			"y14": "本次邀请活动有效期为 2018.1.16 - 2018.2.16",
+			"y14": "本次邀请活动有效期为 2019.1.25 - 2019.2.25",
 			"y15": "活动最终解释权归武汉薄荷科技有限公司所有",
 			"y16": "邀请好友，赢30天加速时长",
 			"y17": "免费加速15天   现在注册！",
-			"y18": "活动时间：2019/1/16-2/16",
+			"y18": "活动时间：2019年1月25日-2月25日",
 			"y19": "邀请好友通过邀请码注册薄荷",
 			"y20": "",
-			"y21":"",
-			"y22":"薄荷加速器海外版",
-			"y23":"盛大内测送好礼",
-			"y24":"注册即享免费全球加速15天", 
 			"y25":"立即注册", 
-			"y26":"活动时间：2019/1/16-2/16", 
+			"y26":"活动时间：2019年1月25日-2月25日", 
 			"y27":"邀请好友注册，获30天加速时长!", 
 			"y28":"立马查看",
 			"y29":"复制成功",
@@ -266,7 +267,7 @@
 			"l28": "返回登录",
 			"l29": "绑定微信账号",
 			"l30": "解除绑定",
-			"l31": "推荐码"
+			"l31": "推荐码(选填)"
 		},
 		"bindmobile": {
 			"bd1": "绑定手机",
@@ -280,18 +281,18 @@
 			"ab3": "免费加速",
 			"ab4": "海量游戏",
 			"ab5": "完美解决用户玩国际服游戏时遇到延迟、 掉线、卡顿等问题",
-			"ab6": "搭载海外顶级国际金融专线, 全球上百个节点智能支持",
+			"ab6": "搭载海外顶级国际金融专线, 上百个节点智能支持",
 			"ab7": "薄荷免费加速, 市面上唯一一款全免费的加速器",
 			"ab8": "支持加速绝地求生、彩虹六号、英雄联盟、 GTA5、 CSGO、 DOTA2、H1Z1等海量游戏",
 			"ab9": "专业游戏加速",
-			"ab10": "薄荷加速器专注游戏加速服务，全球部署上百节点，能够有效解决游戏中遇到的延时高、登录卡顿、掉帧、瞬移等游戏问题。薄荷加速支持上百款游戏加速，让你畅快玩国际服外服游戏。"
+			"ab10": "薄荷加速器专注游戏加速服务，部署上百节点，能够有效解决游戏中遇到的延时高、登录卡顿、掉帧、瞬移等游戏问题。薄荷加速支持上百款游戏加速，让你畅快玩国际服外服游戏。"
 		},
 		"agreement": {
 			"header": "用户协议",
-			"title1": "1本服务条款是用户与薄荷科技有限公司（下称薄荷）之间的协议。薄荷网站由薄荷或其关联公司所运行的各个网站和网页构成。“用户”或“您”是指通过薄荷提供的获取软件授权和号码注册的途径获得软件产品及号码授权许可的个人或单一实体。",
+			"title1": "1、本服务条款是用户与薄荷科技有限公司（下称薄荷）之间的协议。薄荷网站由薄荷或其关联公司所运行的各个网站和网页构成。“用户”或“您”是指通过薄荷提供的获取软件授权和号码注册的途径获得软件产品及号码授权许可的个人或单一实体。",
 			"t1_p1": "1.1 重要须知：薄荷在此特别提醒，用户欲访问和使用薄荷网站，必须事先认真阅读本服务条款中各条款,包括免除或者限制薄荷责任的免责条款及对用户的权利限制。 请您审阅并接受或不接受本服务条款（ 未成年人审阅时应得到法定监护人的陪同）。 如您不同意本服务条款及 / 或随时对其的修改， 您应不使用或主动取消薄荷公司提供的服务。 您的使用行为将被视为您对本服务条款全部的完全接受， 包括接受薄荷对服务条款随时所做的任何修改。 ",
 			"t1_p2": "1.2 这些条款可由薄荷随时更新，且毋须另行通知。薄荷服务条款(以下简称“服务条款”)一旦发生变更,薄荷将在网页上公布修改内容。 修改后的服务一旦在网页上公布即有效代替原来的服务条款。 您可随时登录薄荷网站查阅最新版服务条款。 ",
-			"title2": "2 用户使用规则：",
+			"title2": "2、 用户使用规则：",
 			"t2_p1": "2.1用户必须自行配备上网和使用电信增值业务所需的设备， 自行负担个人上网或第三方（ 包括但不限于电信或移动通信提供商） 收取的通讯费、 信息费等有关费用。 如涉及电信增值服务的， 我们建议您与您的电信增值服务提供商确认相关的费用问题。 ",
 			"t2_p2": "2.2 不得发送任何妨碍社会治安或非法、虚假、骚扰性、侮辱性、恐吓性、伤害性、破坏性、挑衅性、庸俗性、淫秽色情性等内容的信息。",
 			"t2_p3": "2.3保证自己在使用各服务时用户身份的真实性和正确性及完整性， 如果资料发生变化， 您应及时更改。 在完成本服务的登记后， 您应维持密码及帐号的机密安全。 您应对任何人利用您的密码及帐号所进行的活动负完全的责任， 薄荷公司无法对非法或未经您授权使用您帐号及密码的行为作出甄别， 因此薄荷公司不承担任何责任。 在此， 您同意并承诺做到∶ ",
@@ -313,7 +314,7 @@
 			"t2_p7_p3": "2.7.3 付费账号出租：用户注册账号使用付费服务，然后通过第三方平台进行账号出租或其他操作进行牟利，薄荷公司保留对用户所注册账号暂停服务等权力",
 			"t2_p8": "2.8遵守国家的有关法律、法规和行政规章制度，相关法律、法规和制度。",
 			"t2_p9": "2.9如用户违反国家法律法规或本服务条款，本公司和合作公司将有权停止向用户提供服务而不需承担任何责任，如导致薄荷或合作公司遭受任何损害或遭受任何来自第三方的纠纷、诉讼、索赔要求等，用户须向本公司或合作公司赔偿相应的损失，用户并需对其违反服务条款所产生的一切后果负全部法律责任。",
-			"title3": "3 服务风险及免责声明",
+			"title3": "3、 服务风险及免责声明",
 			"t3_p1": "3.1用户须明白， 本服务仅依其当前所呈现的状况提供， 本服务涉及到互联网及移动通讯等服务， 可能会受到各个环节不稳定因素的影响。 因此服务存在因上述不可抗力、 计算机病毒或黑客攻击、 系统不稳定、 用户所在位置、 用户关机、 GSM网络、 互联网络、 通信线路原因等造成的服务中断或不能满足用户要求的风险。 开通服务的用户须承担以上风险， 本公司和合作公司对服务之及时性、 安全性、 准确性不作担保， 对因此导致用户不能发送和接受阅读消息、 或传递错误， 个人设定之时效、 未予储存或其他问题不承担任何责任。 ",
 			"t3_p2": "3.2如本公司的系统发生故障影响到本服务的正常运行， 本公司承诺在第一时间内与相关单位配合， 及时处理进行修复。 但用户因此而产生的经济损失， 本公司和合作公司不承担责任。 此外， 薄荷保留不经事先通知为维修保养、 升级或其他目的暂停本服务任何部分的权利。 ",
 			"t3_p3": "3.3薄荷公司在此郑重提请您注意， 任何经由本服务以上载、 张贴、 发送即时信息、 电子邮件或任何其他方式传送的资讯、 资料、 文字、 软件、 音乐、 音讯、 照片、 图形、 视讯、 信息、 用户的登记资料或其他资料（ 以下简称“ 内容”）， 无论系公开还是私下传送， 均由内容提供者承担责任。 薄荷公司无法控制经由本服务传送之内容， 也无法对用户的使用行为进行全面控制， 因此不保证内容的合法性、 正确性、 完整性、 真实性或品质； 您已预知使用本服务时， 可能会接触到令人不快、 不适当或令人厌恶之内容， 并同意将自行加以判断并承担所有风险， 而不依赖于薄荷公司。 但在任何情况下， 薄荷公司有权依法停止传输任何前述内容并采取相应行动， 包括但不限于暂停用户使用本服务的全部或部分， 保存有关记录， 并向有关机关报告。 但薄荷公司有权(但无义务) 依其自行之考量， 拒绝和删除可经由本服务提供之违反本条款的或其他引起薄荷公司或其他用户反感的任何内容。 ",
@@ -431,7 +432,8 @@
 			"w11": "WIN+MAC+移动端  支持更多使用场景",
 			"w12": "BOHE推出了Windows、Mac、iPhone、iPad、Android客户端,全方位满足您的加速需求。让您的生活更精彩更便捷。BOHE不断用最新最稳定的技术,让产品更加具有竞争力, 让您使用得更放心。",
 			"w13": "专业的技术保障  贴心的客服咨询服务",
-			"w14": "BOHE成立专业的运维团队, 时刻监控产品动态, 发现问题能够在第一时间去解决,最大限度减少对用户的影响。同时, 我们还有贴心的客服咨询服务, 不管是售前咨询, 还是售后服务, 我们都会用一颗真诚并充满热情的心，解决您的烦恼。"
+			"w14": "BOHE成立专业的运维团队, 时刻监控产品动态, 发现问题能够在第一时间去解决,最大限度减少对用户的影响。同时, 我们还有贴心的客服咨询服务, 不管是售前咨询, 还是售后服务, 我们都会用一颗真诚并充满热情的心，解决您的烦恼。",
+			"w15": "武汉薄荷科技有限公司 是一家新型互联网科技公司，成立于2018年。公司旗下拳头产品“薄荷加速器”是一款专为提升跨地域网页浏览，音乐欣赏，视频观看的网络加速软件，“薄荷加速器”通过专业核心技术及骨干网络专线能有效降低网络访问延迟。我们通过不断拓展互联网业务领域，致力于将薄荷加速器打造成一款为千万用户服务的优质加速软件。"
 		},
 		"mcontactus": {
 			"k1": "BOHE客服 竭诚为您服务",
@@ -540,9 +542,12 @@
 			"c10": "Follow BOHE on Weibo",
 			"c11": "Please send us an email if you have any difficulty",
 			"c12": "Download App",
-			"c13": "No. 18023477, ICP e @Bohe network technology co. LTD",
+			"c13": "No. 18023477, ICP e @Wuhan Bohe network technology co. LTD",
 			"c14": "We will reply as soon as possible",
-			"c15": ""
+			"c15": "",
+			"c16": "Tele: ",
+			"c17": "Address: ",
+			"c18": "4th floor,building A2,software new town of huashan,hongshan,wuhan,hubei province"
 		},
 		"user": {
 			"z1": "Edit Image",
@@ -590,7 +595,8 @@
 			"z43": "User Profile",
 			"z44": "QQ Account",
 			"z45": "Address information",
-			"z46": "Prize List"
+			"z46": "Prize List",
+			"z47":"should not be less than 1 letter"
 		},
 		"notify": {
 			"y1": "BOHE Announcements",
@@ -600,28 +606,24 @@
 			"y5": "Invite 2 friends，Get",
 			"y5_1":"days!",
 			"y6": "You'll get 15 days for every friend you invite.",
-			"y7": "Have I told you about Bohe Accelerator yet? Sign up Bohe and enjoy free 15 days to accelerate & unblock global videos, music, games, apps etc. Get It Now:  ",
-			"y7_1": "Please Login First ",
+			"y7": "Have I told you about Bohe Accelerator yet? Sign up Bohe and enjoy ",
 			"y7_2": "【Invite Code: ",
+			"y7_3": "free 15 days to accelerate & unblock global videos, music, games, apps etc. Get It Now:",
 			"y8": "Get code",
 			"y9": "Copied, Share with your friends!",
 			"y10": "Instructions",
 			"y11": "One can get 30 days at most for each Bohe account.",
 			"y12": "The free acceleration time can only be granted from registered with invite code during valid time",
 			"y13": "The free acceleration time can be combined with those granted from other events, please check it in Member Center",
-			"y14": "This promotion is valid from Jan 16 to Feb 16, 2019",
+			"y14": "This promotion is valid from Jan 25 to Feb 25, 2019",
 			"y15": "Wuhan Bohe Technology. Co., Ltd. reserves the right of final interpretation",
 			"y16": "Refer 2 friends，Get 30 days！",
 			"y17": "FREE Trial 15 DAY,Signup Now!" ,
-			"y18": "Valid from Jan 16 to Feb 16",
+			"y18": "Valid from Jan 25 to Feb 25",
 			"y19": "Wanna more days with Bohe? ",
 			"y20": "Refer friends to signup Bohe with invite code" ,
-			"y21":"BOHE",
-			"y22":"",
-			"y23":"Global Acceleration",
-			"y24":"Signup for 15-day FREE trial", 
 			"y25":"Get It Now！", 
-			"y26":"Valid from Jan 16 to Feb 16", 
+			"y26":"Valid from Jan 25 to Feb 25", 
 			"y27":"Invite 2 friends，Get 30 days!", 
 			"y28":"Go",
 			"y29":"Copied Successfully",
@@ -735,7 +737,7 @@
 			"l28": "Back login",
 			"l29": "Binding Wechat",
 			"l30": "Unbind",
-			"l31": "Invite Code"
+			"l31": "Invite Code(Optional)"
 		},
 		"bindmobile": {
 			"bd1": "Bind mobile",
@@ -757,10 +759,10 @@
 		},
 		"agreement": {
 			"header": "User Agreement",
-			"title1": "1 This user agreement is the agreement between the user and Bohe Technology Co., LTD. (hereinafter referred to as Bohe). The Bohe site consists of various sites and pages operated by Bohe or its affiliates. “User” or “you” means an individual or a single entity that obtains the software product and license through the access to the software license and number registration provided by Bohe.",
+			"title1": "1、 This user agreement is the agreement between the user and Bohe Technology Co., LTD. (hereinafter referred to as Bohe). The Bohe site consists of various sites and pages operated by Bohe or its affiliates. “User” or “you” means an individual or a single entity that obtains the software product and license through the access to the software license and number registration provided by Bohe.",
 			"t1_p1": "1.1 Notice: If you wish to visit and use the Bohe site, you must carefully read this user agreement (hereinafter referred to as “user agreement” or “terms of service”), including the exemption clauses on Bohe and restrictions on users. Please review this user agreement (minors should be accompanied by legal guardian). If you do not agree to the terms and conditions of service and/or changes on them at any time, you shall not use or cancel the services provided by Bohe by yourself. Your use will be deemed to be your full acceptance of the user agreement, including acceptance of any changes made by Bohe from time to time.",
 			"t1_p2": "1.2 These terms may be updated at any time by Bohe without prior notice. Bohe User agreement will be published on Bohe site in case of any change. The revised service will effectively replace the original user agreement once published on the web page. You can visit Bohe site at any time to find the latest version of the user agreement.",
-			"title2": "2 Rules of use:",
+			"title2": "2、 Rules of use:",
 			"t2_p1": "2.1 Users must prepare their own equipment for Internet access and value-added telecom services, and bear their own communication expenses and information fees charged by individuals or third parties (including but not limited to telecommunications or Mobile communication providers). If it involves telecom value-added services, you can check with your telecom value-added service provider. ",
 			"t2_p2": "2.2 No information shall be sent or post that obstructs public security or is illegal, false, harassing, insulting, threatening, hurtful, destructive, provocative, vulgar, obscene or pornographic.",
 			"t2_p3": "2.3 The authenticity, correctness and integrity of user identity must be guaranteed. If the data changes, you should change it in time. After completing the registration of this service, the confidentiality of your account and password should be maintained by yourself. You shall be solely responsible for the activities of your account. Bohe shall not be liable for any illegal or unauthorized use of your account and password. Here, you agree and promise to do:",
@@ -782,7 +784,7 @@
 			"t2_p7_p3": "2.7.3 Paid account leasing: Register accounts with paid services making profits through account leasing or other operations through third-party platforms will be suspended by Bohe.",
 			"t2_p8": "2.8 You must comply with all relevant laws and regulations, administrative rules and regulations.",
 			"t2_p9": "2.9 If users violate laws and regulations or this user agreement, Bohe and its affiliates have the right to stop providing services without any responsibility. If Bohe and its affiliates suffer any damage, disputes, litigation or claims from any third party due to the above reasons, the user must compensate accordingly on the violation of the terms of service and bear all the legal responsibility.",
-			"title3": "3 Service Risk & Disclaimer",
+			"title3": "3、Service Risk & Disclaimer",
 			"t3_p1": "3.1 Users shall understand that the service is provided only in accordance with the current situation. The service involves Internet, mobile communication and other services, and may be affected by unstable factors in various stages. Therefore, the service is at risk of interruption or failure due to the above force majeure, computer virus or hacker attack, system instability, user location, user shutdown, GSM network, Internet network, communication line, etc. Users who enjoy the service shall bear the above risks. Bohe and its affiliates shall not guarantee the timeliness, safety and accuracy of the service, and shall not be liable for any error in sending and receiving messages or transmission, time limit, storage or other issues set by the user.",
 			"t3_p2": "3.2 If Bohe’s system breakdown affects the normal operation of the service, Bohe promises to cooperate with the relevant units in the first time to deal with and repair the breakdowns timely. However, Bohe and its affiliates are not liable for the economic loss caused by the users. In addition, Bohe reserves the right to suspend any part of the service for maintenance, upgrade or other purposes without prior notice.",
 			"t3_p3": "3.3 Bohe solemnly reminds you that, any content uploaded or posted, instant message, E-mail, or news, data, text, software, music, news, photos, graphics, video messages, users’ registration data or other information (hereinafter referred to as the “content”) transmitted through Bohe’s service, whether it is transmitted publicly or privately, shall be borne by the content provider. The content transmitted through Bohe and the user’s behavior can’t be fully controlled, therefore legitimacy, correctness, integrity, authenticity or quality of the content you transmitted can’t be guaranteed. You have anticipated that you may be exposed to objectionable, inappropriate, or undesirable content when using this service, and agree to make your own judgment and take all risks without relying on Bohe. However, in any case, Bohe has the right to stop transmitting any aforementioned content and take corresponding actions according to law, including but not limited to suspending all or part of service, keeping relevant records and reporting to relevant authorities. What’s more, Bohe shall have the right (but not the obligation) to, for its own consideration, reject or delete any content which may be in violation of this provision or may be objectionable to other users.",
@@ -900,7 +902,8 @@
 			"w11": "WIN+MAC+iOS+Android",
 			"w12": "BOHE provides you apps for all platforms, including Windows, Mac, iPhone and Android. Also, BOHE will generate the most stable technology and competitive products to make itself a most trusted company.",
 			"w13": "Professional Tech team & Intimate customer service",
-			"w14": "Get help in seconds, not days. Ask us anything through live chat support or email!"
+			"w14": "Get help in seconds, not days. Ask us anything through live chat support or email!",
+			"w15": "Wuhan Bohe Technology Co., Ltd., a new Internet technology company, is founded in 2018. “Bohe Accelerator” is a network acceleration software designed to enhance cross-regional web browsing, music appreciation, and video viewing. “Bohe Accelerator” can effectively reduce network delay through professional technology and private lines. Through continuous expansion and development, we are committed to making Bohe Accelerator a premium acceleration software for millions of users."
 		},
 		"mcontactus": {
 			"k1": "Bohe will serves you at anytime, anywhere",

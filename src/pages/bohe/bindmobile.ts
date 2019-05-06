@@ -50,6 +50,7 @@ class Bindmobile extends RegisterProxy {
         this.setBaseUrl(GlobalConfig.getBaseUrl());
         this.changeRegisterType(4);
         this.init();
+
           //读取配置文件config.json,判断是否显示邮箱注册按钮
           this.ishowEmial();
     }
@@ -67,7 +68,7 @@ class Bindmobile extends RegisterProxy {
     }
     /**
      * 返回首页
-     * @param type 
+     * @param type
      */
     public goHome() {
         JumpWebUtil.backHome();

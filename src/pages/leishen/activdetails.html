@@ -37,17 +37,15 @@
                         <div style="margin-right: 10px;">{{details.create_time}}</div>
                         <div class="flex_row_start">
                             <span style="margin-right: 20px;">{{$t("news.d8")}}</span>
-                            <div class="bdsharebuttonbox">
-                                    <!-- 分享到QQ空间 -->
-                                <a href="#" class="bds_qzone" data-cmd="qzone" :title="$t('news.d8')+$t('user.b128')"></a>
-                                <!-- 分享到新浪微博 -->
-                                <a href="#" class="bds_tsina" data-cmd="tsina" :title="$t('news.d8')+$t('user.b129')"></a>
-                                <!-- 分享到腾讯微博 -->
-                                <a href="#" class="bds_tqq" data-cmd="tqq" :title="$t('news.d8')+$t('user.b130')"></a>
-                                <!-- 分享到人人网 -->
-                                <a href="#" class="bds_renren" data-cmd="renren" :title="$t('news.d8')+$t('user.b131')"></a>
-                                <!-- 分享到微信 -->
-                                <a href="#" class="bds_weixin" data-cmd="weixin" :title="$t('news.d8')+$t('user.b44')"></a>
+                            <div class="bshare-custom">
+                                <div class="bsPromo bsPromo2"></div>
+                                <a title="分享到微信" class="bshare-weixin" href="javascript:void(0);"></a>
+                                <a title="分享到QQ好友" class="bshare-qqim" href="javascript:void(0);"></a>
+                                <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+                                <a title="分享到QQ空间" class="bshare-qzone" href="javascript:void(0);"></a>
+                                <a title="分享到i贴吧" class="bshare-itieba" href="javascript:void(0);"></a>
+                                <!--<a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>-->
+                                <!--<span class="BSHARE_COUNT bshare-share-count" style="float: none;">62.9K</span>-->
                             </div>
                         </div>
                     </div>
@@ -68,22 +66,7 @@
 </body>
 <!-- 客服-->
 #include('./components/_kefu.html')
-<script>
-    window._bd_share_config = {
-        "common": {
-            "bdSnsKey": {},
-            "bdText": "",
-            "bdMini": "2",
-            "bdMiniList": false,
-            "bdPic": "",
-            "bdStyle": "0",
-            "bdSize": "16"
-        },
-        "share": {}
-    };
-    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src =
-        '/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)
-    ];
-</script>
+<script type="text/javascript" charset="utf-8" src="/static/bshare_css.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/sharejs.js"></script>
 
 </html>

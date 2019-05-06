@@ -50,10 +50,24 @@ class ThreeSuccess extends Vue {
             const loginM: LoginModel = backData.data;
             LocalStorageUtil.addUserToken(loginM.login_info);
             LocalStorageUtil.addUserInfo(loginM.user_info);
-            JumpWebUtil.webGotoUser(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_USER);
+            //
+            const paramArr = LocalStorageUtil.getParam(true);
+            const toHtml = paramArr[0] + '';
+            const page = paramArr[1] as number;
+            const tid = paramArr[2] as number;
+            if (toHtml != '') {
+                //跳转到指定页面
+                setTimeout(() => {
+                    JumpWebUtil.toPage(toHtml, page, tid);
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_USER);
+                }, 1000);
+            }
         } else{
             localStorage.setItem('third_bind_error','1');
-            window.location.href = GlobalConfig.getUserBaseUrl() + JumpWebUtil.HTML_NAME_USER + '?region_code=' + this.webParam.region_code + '&language=' + this.webParam.language
+            JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_USER);
         }
     }
 }

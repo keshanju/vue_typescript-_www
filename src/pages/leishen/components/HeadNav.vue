@@ -1,74 +1,89 @@
 <template>
 	<div class="head">
-		<div class="head_content flex_row_center">
-			<ul class="webnav_box flex_row_between">
-				<li
-					class="webnav_font"
-					:class="{'webnav_font_active': pageName == 'index.html' }"
-					@click="goHome"
-				><a>{{$t("nav.navlist1")}}</a></li>
-				<li class="webnav_font" @click="goWangBa" :class="{'webnav_font_active': pageName == 'wangba.html' }">
-                    {{$t("nav.navlist2")}}
-                </li>
-				<li
-					class="webnav_font"
-					:class="{'webnav_font_active': pageName == 'recharge.html' }"
-					@click="goRecharge"
-				><a>{{$t("nav.navlist3")}}</a></li>
-				<li
-					class="webnav_font"
-					:class="{'webnav_font_active': pageName == 'notify.html' }"
-					@click="goNotify"
-				><a>{{$t("nav.navlist4")}}</a></li>
-				<li
-					class="webnav_font"
-					:class="{'webnav_font_active': pageName == 'activity.html' }"
-					@click="goActivity"
-				><a>{{$t("nav.navlist5")}}</a></li>
-			</ul>
-			<div class="web_logo_box">
-				<div class="logo" @click="goHome">
-					<img src="../images/nav_logo.png" alt class="nav_logo">
+		<div class="head_content">
+			<div class="row-fluid" style="position:relative;">
+				<div class="webnav_box" style="left: 0;">
+					<div class="row-fluid web-nav-cell">
+                        <div class="span2" @click="goHome">
+                            <a :class="{'webnav_font_active': pageName == 'index.html' }" class="webnav_font">{{$t("nav.navlist1")}}</a>
+                        </div>
+                        <div class="span2" style="margin: 0 20px;" @click="goWangBa">
+                            <a  :class="{'webnav_font_active': pageName == 'wangba.html' }" class="webnav_font">{{$t("nav.navlist2")}}</a>
+                        </div>
+                        <div class="span2" style="margin-left: 0;" @click="goRecharge">
+                            <a :class="{'webnav_font_active': pageName == 'recharge.html' }"  class="webnav_font">{{$t("nav.navlist3")}}</a>
+                        </div>
+                        <div class="span3" style="margin: 0 5px 0 5px;" @click="goNotify">
+                            <a class="webnav_font" :class="{'webnav_font_active': pageName == 'notify.html' }">{{$t("nav.navlist4")}}</a>
+                        </div>
+                        <div class="span3" style="margin-left: -5px;" @click="goActivity">
+							<a :class="{'webnav_font_active': pageName == 'activity.html' }" class="webnav_font">{{$t("nav.navlist5")}}</a>
+						</div>
+					</div>
 				</div>
-			</div>
-			<ul class="webnav_box flex_row_between">
-				<li class="webnav_font"
-					:class="{'webnav_font_active': pageName == 'help.html' }"
-					@click="goHelp"
-				><a>{{$t("nav.navlist6")}}</a></li>
-				<li class="webnav_font"
-					:class="{'webnav_font_active': pageName == 'news.html' }"
-					@click="goNews"
-				><a>{{$t("nav.navlist7")}}</a></li>
-				<li class="webnav_font" style="margin-right: -70px;">
-					<el-select style="width: 65px" size="small" v-model="seleteCode"  @change="onSelectLang" :placeholder="$t('public.share25')">
-						<el-option
-							v-for="item in languageList"
-							:key="item.code"
-							:label="item.name"
-							:value="item.code"
-						></el-option>
-					</el-select>
-				</li>
-				<!--登录注册按钮-->
-				<li>
-					<div class="login_register">
-						<!--未登录-->
-						<ul style="display: none;" v-show="!isLogin" class="flex_row_start">
-							<li @click="goRegister">
-								<a class="register_font web_public_btn">{{$t("public.share26")}}</a>
-							</li>
-							<li @click="goLogin" style="margin-left:10px;">
-								<a class="login_font">{{$t("public.share27")}}</a>
-							</li>
-						</ul>
-						<!--已登录-->
-						<div style="display: none;" v-show="isLogin" class="flex_row_start">
-							<div class="flex_row_between">
-								<img class="head_avatar" :src="userInfo.avatar" onerror="javascript:this.src='./images/default_avatar.png'"/>
-								<el-dropdown trigger="click" @command="onClickAvatarHand">
+				<div class="web_logo_box">
+					<div class="logo" @click="goHome">
+						<img src="../images/nav_logo.png" alt class="nav_logo">
+					</div>
+				</div>
+				<div class="webnav_box" style="right: 0">
+					<!--<div class="row-fluid web-nav-cell">-->
+                        <!--<div class="span3" style="margin-left: 0;position:relative;">-->
+                        <!--<a @click="goApex" target="_blank" :class="{'webnav_font_active': pageName == 'down.html'}" class="webnav_font">{{$t("nav.navlist28")}}</a>-->
+                        <!--<img class="nav_newest_icon" src="../images/nav_up_icon.png" alt="雷神下载站">-->
+                    <!--</div>-->
+					<div class="span3" style="margin-left: -5px;" @click="goHelp">
+						<a :class="{'webnav_font_active': pageName == 'help.html' }" class="webnav_font">{{$t("nav.navlist6")}}</a>
+					</div>
+					<div class="span3" style="margin-left: -5px;" @click="goNews">
+						<a :class="{'webnav_font_active': pageName == 'news.html' }" class="webnav_font">{{$t("nav.navlist7")}}</a>
+					</div>
+					<!--<div class="span3" style="margin-left: 30px;margin-right: -15px;">-->
+						<!--<el-dropdown trigger="click" @command="changeUrl">-->
+							<!--<span class="cursor" style="color:#fff;font-size: 16px;">-->
+								<!--<span>{{$t("nav.navlist27")}}</span>-->
+								<!--<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
+							<!--</span>-->
+							<!--<el-dropdown-menu slot="dropdown">-->
+								<!--<el-dropdown-item  command="help">-->
+									<!--{{$t("nav.navlist6")}}-->
+								<!--</el-dropdown-item>-->
+								<!--<el-dropdown-item command="news">-->
+									<!--{{$t("nav.navlist7")}}-->
+								<!--</el-dropdown-item>-->
+							<!--</el-dropdown-menu>-->
+						<!--</el-dropdown>-->
+					<!--</div>-->
+					<div class="span3" style="margin-left: 0;">
+						<div class="webnav_font">
+							<el-select style="width: 85px" size="small" v-model="seleteCode"  @change="onSelectLang" :placeholder="$t('public.share25')">
+								<el-option
+										v-for="item in languageList"
+										:key="item.code"
+										:label="item.name"
+										:value="item.code"
+								></el-option>
+							</el-select>
+						</div>
+					</div>
+					<div class="span3" style="margin-left: 20px;">
+							<!--未登录-->
+                        <ul style="margin-top: 20px;width: 155px;display: none" v-show="!isLogin" class="clear_fix">
+								<li class="f_left">
+									<a  @click="goRegister" class="register_font register_btn">{{$t("public.share26")}}</a>
+								</li>
+								<li class="f_left" style="margin-left:5px;">
+									<a  @click="goLogin" class="login_font">{{$t("public.share27")}}</a>
+								</li>
+							</ul>
+							<!--已登录-->
+							<div style="width: 150px;display: none" v-show="isLogin" class="clear_fix">
+								<div class="f_left">
+									<img class="head_avatar" :src="userInfo.avatar" onerror="javascript:this.src='/images/default_avatar.png'"/>
+								</div>
+								<el-dropdown class="f_left" trigger="click" @command="onClickAvatarHand">
 									<span class="cursor" style="color:#fff;">
-										<span class="head_nickname">{{userInfo.nickname}}</span>  
+										<span class="head_nickname words_flow" style="width: 90px">{{userInfo.nickname}}</span>
 										<i class="el-icon-arrow-down el-icon--right"></i>
 									</span>
 									<el-dropdown-menu slot="dropdown">
@@ -79,9 +94,8 @@
 							</div>
 						</div>
 					</div>
-				</li>
-			</ul>
-            <div class="nav_guang"></div>
+				<div class="nav_guang"></div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -171,15 +185,23 @@ export default class HeadNav extends HeadProxy {
 	 * 跳转首页
 	 */
 	public goHome() {
-		JumpWebUtil.backHome();
+        JumpWebUtil.backHome();
     }
-    
+
     /**
 	 * 跳转网吧专题页
 	 */
 	public goWangBa() {
-		window.open(JumpWebUtil.HTML_NAME_WANGBA)
+		window.open(JumpWebUtil.HTML_NAME_WANGBA + window.location.search)
 	}
+
+	/**
+	 * 跳转下载站
+	 */
+	public goApex() {
+		window.open(GlobalConfig.goTodownUrl() + window.location.search);
+	}
+
 
 	/**
 	 * 跳转套餐页
@@ -220,6 +242,22 @@ export default class HeadNav extends HeadProxy {
 	public goHelp() {
 		JumpWebUtil.backHelp();
 	}
+
+	/**
+     * 帮助与资讯链接跳转
+     */
+    public changeUrl(command: string) {
+        switch (command) {
+            case "help":
+                //跳转帮助页面
+                this.goHelp();
+                break;
+            case "news":
+                //跳转资讯页面
+                this.goNews();
+                break;
+        }
+    }
 
 	/**
 	 * 点击用户头像菜单

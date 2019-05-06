@@ -106,6 +106,7 @@ export class UserInfoModel extends XmlDataModel {
   public business_weixin: string = ""; //微信
   public address: string = ""; //地址
   public business_check_info: string = ""; //驳回原因
+  public business_free: string = "0"; //会员类型  0付费用户  1壁纸免费用户
 }
 
 //壁纸

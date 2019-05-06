@@ -15,6 +15,9 @@ import JumpWebUtil from '@/ts/utils/JumpWebUtil';
 import {ExtrnalFactory} from '@/ts/factory/ExtrnalFactory';
 import {TipsMsgUtil} from '@/ts/utils/TipsMsgUtil';
 import Util from "@/ts/utils/Util";
+import LocalStorageUtil from "@/ts/utils/LocalStorageUtil";
+import ConfigUtil from "@/ts/utils/ConfigUtil";
+import CdKey from './components/CdKey.vue';
 
 Vue.use(Dialog);
 Vue.prototype.$message = Message;
@@ -30,7 +33,8 @@ const i18n = new VueI18n(lang);
 @Component({
     components: {
         "pay-dialog": PayDialog,
-        'el-dialog': Dialog
+        'el-dialog': Dialog,
+        'cdkey': CdKey
     }
 })
 class Recharge extends RechargeProxy {
@@ -39,13 +43,86 @@ class Recharge extends RechargeProxy {
     public imageHeadUrl: string = "";//图片根路径
     public webUrl: string = '';//网站静态资源根地址
     public serviceAgreen: boolean = false;//是否勾选会员服务条款
+    public account_token: string = '';
+    public account_out: boolean = false;//未登录或者token失效
+    public payUserNum: number = 0;//首冲活动参与人数
+    public is_in_shouchong: boolean = true;//是否在首冲活动时间内
+    public start_time: string = '';//首单特惠开始时间
+    public end_time: string = '';//首单特惠结束时间
+    public sc_timer = null;
+    public cdKeyDialogVisible: boolean = false;//cdkey弹窗
+    public jiaobiao_obj = {};//角标显示配置
 
     public created() {
+        if(Util.getUrlParam("account_token") == '' || Util.getUrlParam("account_token") == undefined){
+            this.account_out = true;
+        };
+        this.priceIndex = Number(Util.getUrlParam('priceIndex'));
         this.setBaseUrl(GlobalConfig.getBaseUrl());
+        this.getDownloadUrl();
         this.getUserInfo();
         this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
         this.webUrl = GlobalConfig.getWebBaseUrl();
         this.onChoosePayType(2);
+    }
+
+    /**
+     * 获取首冲特惠活动时间
+     * @param url
+     */
+    public async getDownloadUrl() {
+        const jsonConfig = await ConfigUtil.getInstance().download(false);
+        this.start_time = jsonConfig.leigod.xianshi_activity.start_time;
+        this.end_time = jsonConfig.leigod.xianshi_activity.end_time;
+        this.jiaobiao_obj = jsonConfig.leigod.jiaobiao_is_show;
+        this.getSystemTime();
+    }
+
+    /**
+     * 获取系统时间成功
+     */
+    public getSystemTimeSuccess(){
+        let startDate = new Date(this.start_time).getTime();
+        let endDate = new Date(this.end_time).getTime();
+        let nowDate = new Date(this.now_time).getTime();
+        if(nowDate < startDate || nowDate > endDate) {
+            this.is_in_shouchong = false;
+            return;
+        };
+        this.payUserNum = Util.getPayUserNum(this.start_time,this.now_time,15);
+        console.log(this.start_time)
+        const that = this;
+        this.sc_timer = setInterval(()=>{
+            let num = Math.round((Math.random()*90 + 30)/60);
+            that.payUserNum += num;
+            let end = new Date(that.end_time).getTime();
+            let now = new Date().getTime();
+            if(now >= end) {
+                clearInterval(that.sc_timer)
+            }
+        },6000)
+    }
+
+    /**
+     * 套餐hover效果
+     */
+    public choosePriceIndex(index: number) {
+        this.priceHoverIndex = index;
+    }
+
+    /**
+     * 套餐hover效果
+     */
+    public restorePriceIndex() {
+        this.priceHoverIndex = this.priceIndex;
+    }
+
+    /**
+     * 未登录状态点击套餐中的立即购买
+     */
+    public clickLogin(index: number){
+        const factory = ExtrnalFactory.getInstance().getFactory(this.appParam.platform);
+        factory.openLogin(index);
     }
 
     /**
@@ -59,11 +136,11 @@ class Recharge extends RechargeProxy {
             });
             return;
         }
-        if (this.payType == 2) {
-            this.onPay(this.appParam.platform + 1, 3);
-        } else {
+        // if (this.payType == 2) {
+        //     this.onPay(this.appParam.platform + 1, 3);
+        // } else {
             this.onPay(this.appParam.platform + 1);
-        }
+        // }
     }
 
     /**
@@ -72,6 +149,21 @@ class Recharge extends RechargeProxy {
     public closePayDialog() {
         this.payDialogVisible = false;
         this.payObj.pay_url = '';
+    }
+
+    /**
+     * 打开cdkey弹窗
+     */
+    public openCdkey(){
+        this.cdKeyDialogVisible = true;
+    }
+
+    /**
+     * 关闭cdkey弹窗
+     */
+    public closeCdkey(){
+        this.cdKeyDialogVisible = false;
+        (this.$refs.cdkey as any).closeCdkeyReset();
     }
 
     /**
@@ -86,7 +178,7 @@ class Recharge extends RechargeProxy {
      */
     onBeginpaySuccess() {
         // paypal支付自动打开页面
-        if (this.payType == 5 || this.payType == 2) {
+        if (this.payType == 5) {
             const factory = ExtrnalFactory.getInstance().getFactory(this.appParam.platform);
             factory.jumpUrl(this.payObj.pay_url);
         }else {
@@ -122,10 +214,10 @@ class Recharge extends RechargeProxy {
                 this.userInfo = this.backData.data;
                 this.getUserPackage();
             } else if (this.backData.code == HttpClient.HTTP_TOKEN_EXPIRE) {
-                JumpWebUtil.backHome();
+                this.tokenExpired();
             }
         } catch (e) {
-            JumpWebUtil.backHome();
+            // JumpWebUtil.backHome();
         }
     }
 

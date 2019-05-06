@@ -23,7 +23,7 @@
                 <a class="public_btn" style="margin: 0.13rem 0 0.17rem" @click="onUchat" v-show="appParam.platform == 0">
                     {{$t("service.f3")}}
                 </a>
-                <a href="mailto:kf@leigod.com" class="title_font margin10" v-show="appParam.platform == 1">kf@leigod.com</a>
+                <a class="title_font margin10" v-show="appParam.platform == 1">kf@leigod.com</a>
                 <div class="pc_service_font" style="margin-top: .05rem">
                     <!--<p>{{$t("service.f4")}}</p>-->
                     <p>{{$t("service.f5")}}</p>
@@ -32,7 +32,8 @@
             </div>
             <!--国外显示（默认）-->
             <div v-show="appParam.region_code == 0" style="display: none;">
-                <a href="mailto:kf@leigod.com" class="title_font margin10">kf@leigod.com</a>
+                <a href="mailto:kf@leigod.com" class="title_font margin10" v-if="appParam.platform == 0">kf@leigod.com</a>
+                <a class="title_font margin10" v-if="appParam.platform == 1">kf@leigod.com</a>
                 <p class="pc_service_font">{{$t("service.f6")}}</p>
             </div>
         </div>

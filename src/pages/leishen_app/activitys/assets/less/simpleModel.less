@@ -1,0 +1,137 @@
+//  主内容区
+.app-act_content {
+    width: 100%;
+    margin: 0 auto;
+}
+
+//  banner区
+.app-act_banner {
+    width: 100%;
+    margin: 0 auto;
+}
+
+//  抽中
+.prize_active {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.active .prize_active{
+    display: block;
+}
+
+//  中奖列表
+.app-zjlb_font span{
+    font-size: 12px;
+    color: #FFF;
+    line-height: 21px;
+}
+
+//  复制按钮
+.app-copy_link {
+    width: 95%;
+    height: 20px;
+    display: block;
+    overflow: hidden;
+    margin: 0 auto 20px;
+    text-indent: 2em;
+    font-weight: bold;
+    color: #969285;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: left;
+}
+
+//  活动规则
+.app-wechat_code {
+    font-size: 14px;
+    color: #FFF;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.app-common_font {
+    color: #FFF;
+    font-size: 12px;
+}
+
+.app-common_font p{
+    font-size: 12px!important;
+    color: #FFF;
+}
+
+.app-title_font {
+    color: #FFF;
+    font-size: 14px;
+}
+
+//  中奖纪录
+.app-prize_li {
+    width: 90%;
+    padding: 5px 0;
+    margin: 0 auto 10px;
+    box-sizing: border-box;
+    border-bottom: 1px #FFF dashed;
+}
+
+.app-prize_name {
+    font-size: 12px;
+    color: #FFF;
+}
+
+.app-prize_time {
+    font-size: 14px;
+    color: #FFF;
+}
+
+//  弹窗区
+.app_dialog {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+
+.app-hidden{
+    visibility: hidden;
+}
+
+.app-dialog_out {
+    position: relative;
+    top: 80px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.app-dialog_in {
+    top: 100px;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.app-dialog_content {
+    width: 80%;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.app-dialog_info {
+    width: 100%;
+    margin: 0 auto;
+    height: 50%;
+    padding: 0 20px;
+    text-align: left;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+.app-dialog_info::-webkit-scrollbar {
+    display:none
+}

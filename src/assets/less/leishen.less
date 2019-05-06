@@ -1,53 +1,11 @@
 @import "leishen_pc.less"; //导入pc样式文件
+@import "bootstrap.less"; //导入IE兼容样式文件
 @rate: 1px;
-@main_width: 1280px; // 首页以及其他页面（除去用户中心内容宽度）
-@user_width: 1200px; // 用户中心内容宽度
 
 /** 引入剩余时间字体 **/
 @font-face {
 	font-family: "web_time_font";
 	src: url("../../pages/leishen_user/font/quartzef.ttf") format("truetype");
-}
-
-/**
-    公共常量
- */
-
-//  颜色变量
-@headnav_bg: #363437; //  顶部导航底色
-@nav_hover: #ffc713;
-@logo_font: #ffc713; //  雷神主题色
-@box_radius_bg: #2d2d2d; // 圆角边框背景色
-@footnav_bg: #141414; //  底部导航底色
-@user_bg: #ebebeb; //    用户中心界面背景颜色
-@public_color: #b0afaf; // 12px大小的文字公共颜色
-@warm_font: #666666; // 温馨提示的字体颜色
-@btn_bg: #ffd33e; //按钮背景色
-@btn_bg_hover: #ffdc67; //按钮hover背景色
-@orange: #ffc713; //橙黄色
-@package_number: #ffc713; //套餐的数字颜色
-@box_border_active: #ffc713; //hover的盒子边框颜色
-@box_shadow_active: #ffc713; //hover的盒子阴影颜色
-
-/**
-    盒子边框
- */
-.box_radius {
-	background: @box_radius_bg;
-	border-radius: 5px;
-}
-
-.input_radius {
-	background: @white;
-	border-radius: 5px;
-}
-
-/**
-    盒子模型
- */
-.box_model {
-	&:extend(.box_radius);
-	padding: 10px 15px;
 }
 
 /**
@@ -308,8 +266,8 @@
 .login_font {
 	font-size: 16px;
 	color: @white;
-	cursor: pointer;
 	padding: 4px 12px;
+	cursor: pointer;
 	font-weight: lighter;
 }
 
@@ -505,7 +463,7 @@
     上一页下一页文字样式
  */
 .lg_page_font {
-    font-size: 12px;
+    font-size: 14px;
     color: #666666;
 }
 
@@ -545,6 +503,10 @@
 	font-weight: Bold;
 	font-size: 28px;
 	color: @package_number;
+}
+
+.package_activity_font {
+	color:#FE6637;
 }
 
 /**
@@ -627,6 +589,7 @@
 	letter-spacing: 1px;
 	color: @black;
 	text-align: justify;
+	word-break: keep-all;
 }
 
 /**
@@ -639,6 +602,10 @@
 	font-size: 36px;
 	color: #ffb600;
 	text-align: center;
+}
+
+.web_time_red_font {
+	color: #FF5656;
 }
 
 .web_status_font {
@@ -698,14 +665,48 @@ body {
 	padding-right: 0;
 }
 
+.head .el-select .el-input .el-select__caret.is-reverse {
+	transform: rotate(180deg);
+}
+
+.head .el-select .el-input .el-select__caret {
+	font-size: 16px;
+	color: #FFF;
+}
+
+.el-dropdown-menu .el-popper[x-placement^=bottom] {
+	margin-top: 0!important;
+}
+
+.el-dropdown-menu .el-dropdown-menu__item {
+	line-height: 29px;
+	padding: 0 26px;
+}
+
 .login_box .el-select .el-input__inner,
-.register_box .el-select .el-input__inner {
+.register_box .el-select .el-input__inner,
+.dialog_form .el-select .el-input__inner{
 	background: #fff;
 	border-radius: 5px;
 	color: #333;
 	font-size: 16px;
 	text-align: center;
 	cursor: pointer;
+	border: 1px solid transparent;
+	padding: 0 10px;
+}
+
+.dialog_form .el-select:hover .el-input__inner {
+	border-color: transparent;
+}
+
+.login_box .el-select:hover .el-input__inner {
+	border-color: transparent;
+}
+
+.select_box .el-select .el-input.is-focus .el-input__inner {
+	background-color: transparent;
+	border-color: transparent;
 }
 
 .slideshow_box .el-carousel {
@@ -741,6 +742,10 @@ body {
 .el-dialog__wrapper .el-dialog {
     margin: 0 auto !important;
     margin-top: 200px !important;
+}
+
+.el-dialog .country_code_width .el-input__inner{
+	width: 100px;
 }
 
 /**
@@ -789,6 +794,18 @@ body {
     background-image: linear-gradient(-134deg, #ffd33e 0%, #ffc713 100%);
     border-radius: 5px;
     border: 1px solid transparent;
+}
+
+.register_btn {
+	color: @headnav_bg !important;
+	padding: 4px 12px;
+	background-color: #ffd33e;
+	border-radius: 100px;
+	text-align: center;
+}
+
+.register_btn:hover {
+	background-color: #ffd33e;
 }
 
 /**
@@ -841,6 +858,8 @@ body {
 	width: 100%;
 	margin: 0 auto;
 	height: 65px;
+	line-height: 65px;
+	text-align: center;
 	background: @headnav_bg url("../../pages/leishen/images/wenli_nav.png");
 }
 
@@ -861,10 +880,20 @@ body {
 	margin-right: 5px;
 }
 
+//  www站点导航
 .webnav_box {
 	width: 44%;
 	height: 65px;
 	z-index: 999;
+	position: absolute;
+	top: 0;
+}
+
+//  user站点导航
+.user_webnav_box {
+    width: 55%;
+    height: 65px;
+    z-index: 999;
 }
 
 /**
@@ -883,18 +912,27 @@ body {
 }
 
 .web_logo_box {
-	//width: 12%;
+	width: 12%;
 	height: 65px;
-	margin: 0;
+	position: absolute;
+	left: 50%;
+	margin-left: -6%;
 	text-align: center;
 	cursor: pointer;
+}
+
+/**
+    组件样式
+ */
+.web-nav-cell  > .span3 {
+	height: 65px;
 }
 
 .logo {
 	width: 83px;
 	height: 85px;
 	position: relative;
-	padding: 19px 80px 8px;
+	padding: 19px 36px 8px;
 	line-height: 0;
 	background: url("../../pages/leishen/images/logo_bg.png") no-repeat bottom center;
 	z-index: 999;
@@ -919,6 +957,15 @@ body {
 	margin-left: -42px;
 	bottom: 8px;
 	z-index: 999;
+}
+
+//  最新内容突出显示
+.nav_newest_icon {
+    position: absolute;
+    right: -30px;
+    top: 5px;
+    -webkit-animation: up_down 3s linear infinite;
+    animation: up_down 3s linear infinite;
 }
 
 /**
@@ -1312,6 +1359,11 @@ body {
     z-index: 999;
 }
 
+.select_box {
+	background-color: #fff;
+	border-radius: 5px;
+}
+
 .login_content {
 	&:extend(.pos_login_contend);
 	box-sizing: border-box;
@@ -1503,7 +1555,7 @@ body {
 
 .user_right_cell {
 	&:extend(.flex_sbe);
-	width: 1003px;
+	width: 1030px;
 	height: 94px;
 	align-self: flex-start;
 }
@@ -1701,7 +1753,7 @@ body {
 .user_notice_cell {
 	&:extend(.flex_column_center, .box_radius);
 	width: 78px;
-	padding: 12px 15px;
+	padding: 12px 10px;
 	box-sizing: border-box;
 	background-image: linear-gradient(-150deg, #fff7d8 0%, #feecaf 100%);
 	border-radius: 5px 0 0 5px;
@@ -1965,7 +2017,15 @@ body {
 	&:extend(.input_box);
 	width: 240px;
 	margin: 0 30px 0;
-	background: @user_bg;
+	border: 1px solid #dcdfe6;
+}
+
+#myTabBar .el-tabs__nav-wrap::after {
+	background-color: transparent;
+}
+
+#myTabBar .el-tabs__nav .el-tabs__active-bar {
+	background: #ffd33e !important;
 }
 
 /** end 用户中心顶部导航组件样式 **/
@@ -2030,7 +2090,7 @@ body {
 	&:extend(.flex_column_between);
 	width: 24.9%;
 	background: @white;
-	padding: 40px 50px;
+	padding: 60px 50px 40px;
 	box-sizing: border-box;
 	cursor: pointer;
 	position: relative;
@@ -2045,6 +2105,13 @@ body {
 	background: url("../../pages/leishen/images/price_bg_1.png") no-repeat center center;
 	background-size: 100% 100%;
 	position: relative;
+}
+
+.xianshi_activity {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 84px;
 }
 
 /**
@@ -2313,11 +2380,12 @@ body {
 	&:extend(update_type_upload);
 	width: 197px;
 	width: 197px;
+	position: relative;
 }
 
 .web_avtar_preview {
 	padding-top: 85px;
-	width: 70px;
+	width: 60px;
 	margin-left: 20px;
 	min-height: 215px;
 }
@@ -2942,6 +3010,194 @@ body {
 
 /********** 资讯end **********/
 
+/******* start 游戏支持gamesup *********/
+.gamesup_banner_content {
+	width: 1280px;
+	margin: 0 auto;
+	background: #ebebeb;
+	padding: 54px 0;
+}
+
+.gamesup_box {
+	width: 100%;
+	min-height: 700px;
+	margin: 30px auto 0;
+	overflow: hidden;
+	background: #FFFFFF;
+	border-radius: 6px;
+	padding: 50px 40px 80px;
+	box-sizing: border-box;
+	position: relative;
+	.icon-shiliangzhinengduixiang {
+		cursor: pointer;
+		position: absolute;
+		right: 18px;
+		top: 8px;
+		color: #666;
+	}
+}
+
+.gamesup_cell {
+	width: 200px;
+	height: 38px;
+	line-height: 38px;
+	padding: 0 10px 0 0;
+	box-sizing: border-box;
+	a {
+		&:extend(.words_flow);
+		width: 140px;
+		font-size: 14px;
+		color: #666666;
+	}
+	.icon-hot {
+		font-size: 18px;
+		color: #F70869;
+	}
+	.icon-new {
+		font-size: 18px;
+		color: #0DCB72;
+	}
+}
+
+.icon-shangbao {
+	width: 50px;
+	height: 57px;
+	font-size: 48px;
+	margin-bottom: -20px;
+}
+
+.icon-zanwu {
+	width: 100px;
+	height: 112px;
+	font-size: 80px;
+	color: #838383;
+	margin-bottom: -40px;
+}
+
+.gamelist_title_font {
+	a {
+		font-size: 18px;
+		color: #FFFFFF;
+	}
+	i {
+		font-size: 30px;
+		color: #FFF;
+	}
+}
+
+.gamelist_items {
+	opacity: 0.77;
+	background: #2D2D2D;
+	border-radius: 5px;
+}
+
+.gamelist_items_one {
+	width: 340px;
+}
+
+.gamelist_item_one {
+	width: 168px;
+	height: 38px;
+	line-height: 38px;
+	padding: 0 10px 0 0;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+	a {
+		&:extend(.words_flow);
+		width: 80px;
+		font-size: 14px;
+		color: #CCCCCC;
+	}
+	.icon-hot {
+		font-size: 18px;
+		color: #F70869;
+	}
+	.icon-new {
+		font-size: 18px;
+		color: #0DCB72;
+	}
+}
+
+.gamelist_items_two {
+	width: 180px;
+}
+
+.gamelist_item_two {
+	width: 180px;
+	height: 38px;
+	line-height: 38px;
+	overflow: hidden;
+	padding: 0 10px 0 0;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+	a {
+		&:extend(.words_flow);
+		width: 90px;
+		font-size: 14px;
+		color: #CCCCCC;
+	}
+	.icon-hot {
+		font-size: 18px;
+		color: #F70869;
+	}
+	.icon-new {
+		font-size: 18px;
+		color: #0DCB72;
+	}
+}
+
+.gamesup_title_font {
+	font-weight: bold;
+	font-size: 24px;
+	color: #666666;
+}
+
+.gamesup_jianjie_font {
+	font-size: 14px;
+	color: #999999;
+}
+
+.gamesup_tab_item {
+	font-size: 18px;
+	line-height: 32px;
+	color: #888888;
+	margin-right: 30px;
+	position: relative;
+	cursor: pointer;
+}
+
+.gamesup_tab_active {
+	font-size: 18px;
+	color: #333333;
+	.tag {
+		width: 36px;
+		height: 6px;
+		border-radius: 6px;
+		background-color: #FFD33E;
+		position: absolute;
+		left: 50%;
+		margin-left: -18px;
+		bottom: 1px;
+	}
+}
+
+.game_search_ipt {
+	width: 207px;
+	height: 32px;
+	line-height: 32px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	background: #FFFFFF;
+	border: 1px solid #D8D8D8;
+	border-radius: 18.5px;
+	outline: none;
+}
+
+input.game_search_ipt::placeholder{
+	font-size: 12px;
+	color: #999999;
+}
+
 /********** 帮助 ************/
 .help_banner {
 	width: 100%;
@@ -3145,11 +3401,13 @@ body {
 		font-size: 16px;
 	}
 	.inputLabel {
-		width: 50px;
+		width: 110px;
 		display: inline-block;
 	}
 	.inputSel {
 		margin-right: 10px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
 		input {
 			width: 70px;
 			height: 30px;
@@ -3451,7 +3709,7 @@ body {
 
 .notify_detail_box {
 	border-bottom: 1px solid #ececec;
-	padding-bottom: 32px;
+	padding-bottom: 10px;
 }
 
 .notify_detail_title {
@@ -4997,7 +5255,7 @@ video::-webkit-media-controls{
 
 
 /***** 双蛋活动分享按钮样式 *******/
-.bdsharebuttonbox .weibo_bg {
+.bshare-custom .bshare-sinaminiblog.weibo_bg {
     display: block;
     width: 40px;
     height: 40px;
@@ -5008,7 +5266,7 @@ video::-webkit-media-controls{
     padding-left: 0;
 }
 
-.bdsharebuttonbox .qq_bg {
+.bshare-custom .bshare-qzone.qq_bg {
     display: block;
     width: 40px;
     height: 40px;
@@ -5020,7 +5278,7 @@ video::-webkit-media-controls{
     margin-top: 5px;
 }
 
-.bdsharebuttonbox .tieba_bg {
+.bshare-custom .bshare-itieba.tieba_bg {
     display: block;
     width: 40px;
     height: 40px;
@@ -5032,7 +5290,7 @@ video::-webkit-media-controls{
     margin-top: 5px;
 }
 
-.bdsharebuttonbox .weixin_bg {
+.bshare-custom .bshare-qqim.weixin_bg {
     display: block;
     width: 40px;
     height: 40px;
@@ -5622,7 +5880,7 @@ video::-webkit-media-controls{
     font-stretch: normal;
     margin-top: 22px;
 	letter-spacing: 0px;
-	color: #ffffff;
+	color: #555;
 }
 
 .hj_jilu_box {
@@ -5639,3 +5897,1188 @@ video::-webkit-media-controls{
 }
 
 /****** 1-9活动 ******/
+
+/**
+	春节活动
+ */
+.cj_container {
+	width: 100%;
+	margin: 0 auto;
+	background-color: rgba(246, 220, 193, 1);
+}
+
+.cj_main_banner {
+	width: 3000px;
+	text-align: center;
+	height: auto;
+	position: relative;
+	left: 50%;
+	margin-left: -1500px;
+}
+
+.cj_box_container {
+	width: 1466px;
+	text-align: center;
+	height: auto;
+	position: relative;
+	left: 50%;
+	margin-left: -733px;
+	margin-top: 25px;
+}
+
+.cj_bottom_box {
+	width: 1110px;
+	position: relative;
+	left: 50%;
+	margin-left: -548px;
+	margin-top: 25px;
+	margin-bottom: 50px;
+}
+
+.cj_backtime_box {
+	width: 606px;
+	height: 68px;
+	position: absolute;
+	left: 50%;
+	bottom: 293px;
+	margin-left: -303px;
+	font-size: 34px;
+	color: #f04440;
+	font-weight: bold;
+    text-align: left;
+}
+
+.cj_backtime_cell {
+    position: absolute;
+    top: 8px;
+    width: 55px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.cj_abs_box {
+	width: 1110px;
+	height: 240px;
+	text-align: left;
+	position: absolute;
+	left: 50%;
+	bottom: 40px;
+	margin-left: -555px;
+}
+
+.cj_abs_container {
+	width: 1060px;
+	padding: 30px;
+	box-sizing: border-box;
+	position: absolute;
+	top: 233px;
+	left: 50%;
+	margin-left: -530px;
+}
+
+.cj_abs_codebox {
+	width: 1060px;
+	padding: 0 35px;
+	box-sizing: border-box;
+	height: 251px;
+	position: absolute;
+	bottom: 20px;
+	left: 50%;
+	margin-left: -530px;
+	text-align: center;
+}
+
+.cj_tab_box {
+	width: 100%;
+	height: 450px;
+}
+
+.cj_tab_cell {
+	height: 392px;
+	text-align: left;
+	padding: 0 20px;
+	box-sizing: border-box;
+	font-size: 14px;
+	color: #9a5e1c;
+	overflow-y: scroll;
+}
+
+//隐藏滚动条
+/**
+    chrome 和Safari
+ */
+.cj_tab_cell::-webkit-scrollbar {
+	display:none
+}
+
+/**
+    IE 10+
+ */
+.cj_tab_cell {
+	-ms-overflow-style: none;
+}
+
+/**
+    Firefox
+ */
+.cj_tab_cell {
+	overflow: -moz-scrollbars-none;
+}
+
+.cj_history_box {
+    height: 200px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+}
+
+.cj_history_box::-webkit-scrollbar {
+    display:none
+}
+
+.cj_history_cell {
+	line-height: 45px;
+	font-size: 14px;
+	color: #9a5e1c;
+	padding-bottom: 8px;
+	border-bottom: 1px dotted #f2c89b;
+}
+
+.cj_exchange_btn {
+	display: block;
+	width: 69px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #f0433f;
+	border-radius: 6px;
+	font-size: 14px;
+	color: #ffffff;
+	margin-top: 10px;
+}
+
+.cj_focus_box {
+	width: 434px;
+	height: 160px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	background-color: #fff0df;
+	border-radius: 3px;
+	position: absolute;
+	left: -10px;
+	bottom: 0;
+}
+
+.cj_scroll_cell {
+    width: 460px;
+	line-height: 60px;
+	font-size: 16px;
+	color: #FFF;
+    margin-right: 20px;
+    text-align: left;
+    &:extend(.words_flow);
+}
+
+/**
+	默认福袋
+ */
+.cj_redpack_box {
+	width: 476px;
+	height: 450px;
+	margin-left: 60px;
+	background: url("../../pages/leishen/images/chunjie_fudai01.png") no-repeat center 40px;
+    background-size: 100% 100%;
+    position: relative;
+}
+/**
+	抽中后的福袋
+ */
+.cj_redpack_box_burn {
+	background: url("../../pages/leishen/images/chunjie_fudai02.png") no-repeat center center;
+	background-size: 100% 100%;
+}
+
+.cj_tab_list {
+	width: 454px;
+	float: left;
+	background-color: #fbd9b4;
+	border-radius: 6px;
+	border: solid 3px #f5bd71;
+	position: relative;
+	padding-bottom: 10px;
+}
+
+.cj_tab_item {
+	width: 151px;
+	height: 47px;
+	line-height: 42px;
+	text-align: center;
+	font-size: 16px;
+	color: #ffffff;
+	background: url("../../pages/leishen/images/chunjie_btn_tit.png") no-repeat center center;
+	background-size: 100% 100%;
+	cursor: pointer;
+}
+
+.cj_tab_item_active {
+	background: url("../../pages/leishen/images/chunjie_btn_tit_on.png") no-repeat center center;
+	background-size: 100% 100%;
+}
+
+/**
+	福袋列表项
+ */
+.cj_fudai_cell {
+	width: 156px;
+	line-height: 222px;
+	height: 187px;
+	margin-left: 20px;
+	margin-bottom: 15px;
+	text-align: center;
+	background: url("../../pages/leishen/images/chunjie_dai.png") no-repeat center center;
+	background-size: 100% 100%;
+	font-size: 36px;
+	color: #ffffd9;
+    position: relative;
+}
+
+.cj_fudai_font {
+	color:#c6a1a3;
+}
+
+.cj_dot_cell {
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    border-radius: 50%;
+    background: #f0433f;
+    font-size: 16px;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 15px;
+}
+
+.cj_fudai_cell_active {
+	background: url("../../pages/leishen/images/chunjie_dai_on.png") no-repeat center center;
+	background-size: 100% 100%;
+}
+
+.cj_copy_links {
+	width: 789px;
+	float: left;
+	padding: 12px 0 12px 25px;
+	box-sizing: border-box;
+	background-color: #f6dcc1;
+	border-radius: 3px;
+	color: #141412;
+	font-size: 18px;
+	margin-right: 10px;
+}
+
+.cj_copy_btn {
+	width: 146px;
+	padding: 12px 10px 12px 10px;
+	float: left;
+	text-align: center;
+	background-color: #f0433f;
+	border-radius: 6px;
+	color: #ffffff;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+.cj_buy_btn {
+	position: absolute;
+	bottom: 20px;
+	padding: 4px 35px;
+	background-color: #ffffd9;
+	border-radius: 6px;
+	font-size: 24px;
+	text-align: center;
+	color: #f0433f;
+}
+
+.cj_buy_btn:hover {
+	background-color: #FFF;
+}
+
+.open_bag {
+    font-size: 27px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 1px;
+    color: #fff7b2;
+    margin-top: 245px;
+    margin-left: 105px;
+    padding: 10px 42px;
+    background-color: #e80e3f;
+    border-radius: 39px;
+}
+
+.open_bag_again {
+    margin-top: 10px;
+    margin-left: 140px;
+    font-size: 20px;
+    padding: 6px 32px;
+}
+
+.zj_font {
+    width: 100%;
+    margin-left: -25px;
+    color: #f04440;
+    text-align: center;
+    font-size: 20px;
+}
+
+.cj_dialog_notice {
+    width: 472px;
+    height: 338px;
+    background: url(../../pages/leishen/images/cj/bg_tips.png) center center no-repeat;
+    position: fixed;
+    top: 200px;
+    left: 50%;
+    margin-left: -236px;
+}
+
+.cj_dialog_title {
+    width: 266px;
+    height: 64px;
+    background: url(../../pages/leishen/images/cj/tips_tit.png) center center no-repeat;
+    position: absolute;
+    top: -32px;
+    left: 50%;
+    margin-left: -133px;
+    line-height: 64px;
+    font-size: 31px;
+    color: #fff;
+}
+
+.cj_dialog_close {
+    width: 53px;
+    height: 53px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
+    background: url(../../pages/leishen/images/cj/x.png) center center no-repeat;
+}
+
+.cj_dialog_notice_msg {
+    font-size: 16px;
+    color: #333;
+    margin-top: 120px;
+    width: 100%;
+    padding: 0 60px;
+    box-sizing: border-box;
+}
+
+.cj_dialog_btn {
+    padding: 5px 30px;
+    font-size: 24px;
+    color: #ffffd9;
+    background-color: #b31b1a;
+    border-radius: 5px;
+}
+
+.cj_zjjl_empty {
+    margin-top: 25px;
+}
+
+.prize_hidden {
+    width: 90%;
+    position: absolute;
+    top: 300px;
+    text-align: center;
+    visibility: hidden;
+}
+
+.prize_iphone_hidden {
+    position: absolute;
+    top: 300px;
+    left: 50%;
+    margin-left: -50px;
+    visibility: hidden;
+}
+
+.prize_show {
+    top: 50px;
+    transition: 1s;
+    visibility: visible;
+}
+
+/******** 开学季活动*********/
+.pos_kx_wenzi {
+	font-size: 18px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #101859;
+	margin-right: 29px;
+	float: left;
+}
+
+.pos_kx_con {
+	width: 740px;
+	font-size: 16px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #101859;
+	float: left;
+}
+
+.kaixue_ewm {
+	position: absolute;
+	width: 148px;
+	bottom: 50px;
+	right: 75px;
+}
+
+.kx_side_box {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+}
+
+.kx_share_login_font {
+	font-size: 18px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #101859;
+}
+
+.kx_share_username {
+	font-size: 18px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #101859;
+	display: block;
+	width: 100%;
+	text-align: center;
+	box-sizing: border-box;
+	padding: 0 10px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.kx_copy_links {
+	display: inline-block;
+	text-indent: 20px;
+	width: 651px;
+	height: 46px;
+	line-height: 46px;
+	background-color: #b8c6ff;
+	border-radius: 4px;
+	font-size: 14px;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0px;
+	color: #ffffff;
+	vertical-align: middle;
+}
+
+.kx_copy_btn {
+	display: inline-block;
+	width: 134px;
+	height: 54px;
+	vertical-align: middle;
+	background: url("../../pages/leishen/images/kaixue/btn_copy.png");
+}
+
+.kx_copy_btn:hover {
+	background: url("../../pages/leishen/images/kaixue/btn_copy_on.png");
+}
+
+.kx_prize_list {
+	width: 880px;
+	height: 300px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.kx_prize {
+	width: 258px;
+	height: 120px;
+	margin-left: 18px;
+	margin-top: 18px;
+	float: left;
+}
+
+.kx_hdgz {
+	width: 263px;
+	height: 101px;
+	float: left;
+	background: url("../../pages/leishen/images/kaixue/btn_rules.png") center center no-repeat;
+	cursor: pointer;
+	margin-left: 18px;
+}
+
+.kx_hdgz:hover {
+	background: url("../../pages/leishen/images/kaixue/btn_rules_on.png") center center no-repeat;
+}
+
+.kx_start {
+	width: 263px;
+	height: 101px;
+	float: left;
+	background: url("../../pages/leishen/images/kaixue/btn_start.png") center center no-repeat;
+	cursor: pointer;
+	margin-left: 18px;
+}
+
+.kx_start:hover {
+	background: url("../../pages/leishen/images/kaixue/btn_start_on.png") center center no-repeat;
+}
+
+.kx_zjjl {
+	width: 263px;
+	height: 101px;
+	float: left;
+	background: url("../../pages/leishen/images/kaixue/btn_zj.png") center center no-repeat;
+	cursor: pointer;
+	margin-left: 18px;
+}
+
+.kx_zjjl:hover {
+	background: url("../../pages/leishen/images/kaixue/btn_zj_on.png") center center no-repeat;
+}
+
+.kx_prize_control {
+	margin-top: 20px;
+	width: 880px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.kx_zjjl_list {
+	width: 837px;
+	height: 54px;
+	box-sizing: border-box;
+	margin: 0 auto;
+	margin-top: 33px;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	align-content: flex-start;
+	overflow: hidden;
+}
+
+.kx_package_box {
+	margin-top: -170px;
+}
+
+.kx_buy_btn {
+	width: 124px;
+	height: 51px;
+	position: absolute;
+	right: 44px;
+	bottom: 18px;
+	background: url("../../pages/leishen/images/kaixue/btn_buy.png");
+}
+
+.kx_buy_btn:hover {
+	background: url("../../pages/leishen/images/kaixue/btn_buy_on.png");
+}
+
+.kx_mbacktime_box {
+	width: 300px;
+	height: 50px;
+	margin-left: 520px;
+	text-align: left;
+}
+
+.kx_back_font {
+	display: inline-block;
+	width: 45px;
+	text-align: center;
+	line-height: 50px;
+	font-size: 35px;
+	color: #fcf744;
+}
+
+.kx_dialog_btn {
+	display: inline-block;
+	width: 172px;
+	height: 67px;
+	background: url("../../pages/leishen/images/kaixue/btn_sure.jpg");
+}
+
+.kx_dialog_btn:hover {
+	background: url("../../pages/leishen/images/kaixue/btn_sure_on.jpg");
+}
+
+.kx_recharge_btn {
+	display: inline-block;
+	width: 172px;
+	height: 67px;
+	background: url("../../pages/leishen/images/kaixue/btn_buy01.png");
+}
+
+.kx_recharge_btn:hover {
+	background: url("../../pages/leishen/images/kaixue/btn_buy01_on.png");
+}
+
+.kx_login_btn {
+	display: inline-block;
+	width: 172px;
+	height: 67px;
+	background: url("../../pages/leishen/images/kaixue/btn_login.png");
+}
+
+.kx_login_btn:hover {
+	background: url("../../pages/leishen/images/kaixue/btn_login_on.png");
+}
+
+.kx_activityinfo {
+	width: 100%;
+	height: 55%;
+	margin-top: 10%;
+	padding: 0 20px;
+	text-align: left;
+	box-sizing: border-box;
+	overflow-y: scroll;
+}
+
+.kx_activityinfo::-webkit-scrollbar {
+	display:none
+}
+
+.kx_prize_li {
+	width: 80%;
+	margin: 0 auto;
+	padding: 10px 0;
+	border-bottom: dashed 1px #101859;
+	box-sizing: border-box;
+	margin-bottom: 3px;
+	overflow: hidden;
+}
+
+.kx_prize_ul {
+	width: 100%;
+	height: 55%;
+	margin-top: 10%;
+	overflow-y: scroll;
+}
+
+.kx_prize_ul::-webkit-scrollbar {
+	display:none
+}
+
+.kx_prize_jilu {
+	color: #101859;
+	font-size: 18px;
+	float: left;
+}
+
+.kx_prize_dj {
+	float: right;
+	padding: 5px;
+	font-size: 16px;
+	background-color: #ff78df;
+	border-radius: 3px;
+	cursor: pointer;
+	min-width: 80px;
+	text-align: center;
+	color: @white;
+}
+
+.kx_prize_ydj {
+	background-color: #9a9a9a;
+}
+
+.kx_jxcj_btn {
+	display: inline-block;
+	width: 172px;
+	height: 67px;
+	background: url("../../pages/leishen/images/kaixue/btn_goon.png");
+}
+
+.kx_jxcj_btn:hover {
+	background: url("../../pages/leishen/images/kaixue/btn_goon_on.png");
+}
+
+.kx_dj_btn {
+	display: inline-block;
+	width: 172px;
+	height: 67px;
+	background: url("../../pages/leishen/images/kaixue/btn_qdj.png");
+	background-size: 100% 100%;
+}
+
+.kx_dj_btn:hover {
+	background: url("../../pages/leishen/images/kaixue/btn_qdj_on.png");
+	background-size: 100% 100%;
+}
+#myTabBar .el-tabs__active-bar{
+	background: #afc1d4 !important;
+}
+#myTabBar .is-active{
+ color:#000000 !important;
+}
+#myTabBar .el-tabs__item{
+	color:#999;
+}
+
+/******* 5.0活动 ********/
+.content_box {
+	width: 100%;
+	height: 2086px;
+	background: url("../../pages/leishen/images/version5_0/bg_1.png") center 0 no-repeat,
+				url("../../pages/leishen/images/version5_0/bg_2.png") center 745px no-repeat,
+				url("../../pages/leishen/images/version5_0/bg_3.png") center 1528px no-repeat;
+}
+
+.model_right_outside_box {
+	width: 1000px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-align: center;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.version_buy_box {
+	width: 1000px;
+	text-align: center;
+	margin-top: 53px;
+}
+
+.buy_800_now {
+	position: absolute;
+	top: 215px;
+	left: 225px;
+	cursor: pointer;
+}
+
+.buy_9000_now {
+	position: absolute;
+	top: 215px;
+	left: 595px;
+	cursor: pointer;
+}
+
+.buy_800_now:hover,.buy_9000_now:hover {
+	top:210px;
+}
+
+.version_buy_btn {
+	display: inline-block;
+	width: 245px;
+	height: 63px;
+	background-color: #ec453d;
+	background: url("../../pages/leishen/images/version5_0/version_buy_bg.png");
+	background-size: 100% 100%;
+	line-height: 63px;
+	font-size: 22px;
+	color: #ffffff;
+}
+
+.version_buy_btn:hover {
+	margin-top: -8px;
+}
+
+.version_prize{
+	background-color: rgba(45,32,75,0.4);
+	border-radius: 4px;
+	width: 913px;
+	height: 197px;
+	margin-left: 44px;
+	margin-top: 58px;
+	padding-top: 24px;
+	box-sizing: border-box;
+}
+
+.version_prize_user {
+	width: 650px;
+	height: 100px;
+	background-color: rgba(45,32,75,0.4);
+	border-radius: 4px;
+	margin-top: 37px;
+	margin-left: 179px;
+	padding: 20px 10px;
+	box-sizing: border-box;
+}
+
+.version_zjjl_list {
+	overflow: hidden;
+	height: 60px;
+}
+
+.version_info_font {
+	width: 100%;
+	padding-left: 66px;
+	box-sizing: border-box;
+	font-size: 14px;
+	color: #b09ddc;
+	text-align: left;
+}
+
+.version_prize_roll_box {
+	width: 282px;
+	height: 379px;
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+}
+
+.version_prize_roll_box:hover {
+	-webkit-animation: swing 1s linear;
+	animation: swing 1s linear;
+}
+
+.version_normal_open_box {
+	width: 94px;
+	height: 94px;
+	position: absolute;
+	top: 133px;
+	left: 94px;
+	cursor: pointer;
+	.normal_open {
+		display: block;
+	}
+	.gold_open {
+		display: none;
+	}
+}
+
+.version_normal_open_box:hover {
+	.normal_open {
+		display: none;
+	}
+	.gold_open {
+		display: block;
+	}
+}
+
+.version_gold_open_box {
+	width: 94px;
+	height: 94px;
+	position: absolute;
+	top: 133px;
+	left: 95px;
+	cursor: pointer;
+	.normal_open {
+		display: block;
+	}
+	.gold_open {
+		display: none;
+	}
+}
+
+.version_gold_open_box:hover {
+	.normal_open {
+		display: none;
+	}
+	.gold_open {
+		display: block;
+	}
+}
+
+.version_dialog_form {
+	width: 510px;
+	height: 179px;
+	margin: 0 auto;
+	margin-top: 13px;
+	background-color: rgba(115,51,219,0.4);
+	border-radius: 4px;
+}
+
+.version_dialog_input_box {
+	margin-top: 20px;
+	text-align: left;
+}
+
+.version_dialog_input {
+	width: 208px;
+	height: 32px;
+	background-color: #9134d2;
+	border: 1px solid #9134d2;
+	border-radius: 4px;
+}
+
+.version_dialog_btn {
+	width: 150px;
+	height: 39px;
+	line-height: 39px;
+	color: #fff;
+	text-align: center;
+	background: url("../../pages/leishen/images/version5_0/version_dialog_btn.png");
+}
+
+.version_dialog_cdkey {
+	width: 273px;
+	height: 45px;
+	background-color: rgba(115,51,219,0.3);
+	border-radius: 4px;
+	line-height: 45px;
+	text-align: left;
+	text-indent: 5px;
+}
+
+.version_copy {
+	width: 60px;
+	height: 45px;
+	background: rgba(75,40,125,0.3);
+	float: right;
+	text-align: center;
+	color: #ffcd7f;
+	cursor: pointer;
+}
+
+/***** 雷神5.0专题页 ******/
+.leishen_5_0_bg1 {
+	width: 100%;
+	height: 360px;
+	background: url("../../pages/leishen/images/leishen_5.0_bg1.png") center center no-repeat;
+}
+
+.leishen_5_0_bg2 {
+	width: 100%;
+	height: 309px;
+	background: url("../../pages/leishen/images/leishen_5.0_bg2.png") center center no-repeat;
+}
+
+.leishen_5_0_bg3 {
+	width: 100%;
+	height: 437px;
+	background: url("../../pages/leishen/images/leishen_5.0_bg3.png") center center no-repeat;
+}
+
+.leishen_5_0_bg4 {
+	width: 100%;
+	height: 223px;
+	background: url("../../pages/leishen/images/leishen_5.0_bg4.png") center center no-repeat;
+}
+
+.leishen_5_0_bannerbox {
+	width: 1200px;
+	height: 100%;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.leishen_5_0_title {
+	width: 517px;
+	margin-top: 87px;
+	animation: scale 3s linear infinite;
+}
+
+.leishen_5_0_don {
+	margin-top: 30px;
+	cursor: pointer;
+	transition: all .5s;
+}
+
+.leishen_5_0_don:hover {
+	margin-top: 25px;
+	transition: all .5s;
+}
+
+.leishen_5_0_contentbox {
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+	padding: 2px 6px 7px 5px;
+	box-sizing: border-box;
+}
+
+.leishen_5_0_li {
+	width: 25%;
+	height: 100%;
+	float: left;
+	text-align: center;
+}
+
+.leishen_5_0_rechargebox {
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.leishen_5_0_recharge_left {
+	width: 582px;
+	height: 147px;
+	margin-top: 37px;
+	float: left;
+	background: url("../../pages/leishen/images/leishen_5_0_rechargebg.png") center center no-repeat;
+}
+
+.leishen_5_0_recharge_right {
+	width: 582px;
+	height: 147px;
+	margin-top: 37px;
+	float: right;
+	background: url("../../pages/leishen/images/leishen_5_0_rechargebg.png") center center no-repeat;
+}
+
+.leishen_5_0_buybtn {
+	float: left;
+	margin-left: 97px;
+	margin-top: 52px;
+	cursor: pointer;
+	transition: all .5s;
+}
+
+.leishen_5_0_buybtn:hover {
+	margin-top: 47px;
+	transition: all .5s;
+}
+
+@-webkit-keyframes scale {
+	0% {
+		-webkit-transform: scale(1,1);
+		transform: scale(1,1);
+	}
+	50% {
+		-webkit-transform: scale(1.2,1.2);
+		transform: scale(1.2,1.2);
+	}
+	100% {
+		-webkit-transform: scale(1,1);
+		transform: scale(1,1);
+	}
+}
+
+@keyframes scale {
+	0% {
+		-webkit-transform: scale(1,1);
+		transform: scale(1,1);
+	}
+	50% {
+		-webkit-transform: scale(1.2,1.2);
+		transform: scale(1.2,1.2);
+	}
+	100% {
+		-webkit-transform: scale(1,1);
+		transform: scale(1,1);
+	}
+}
+
+/**
+	雷神主机加速专题
+ */
+.host_accelerate {
+	width: 1200px;
+	position: absolute;
+	left: 50%;
+	margin-left: -600px;
+	top: 150px;
+}
+
+.host_title_font {
+	font-size: 66px;
+	color: #FFF;
+}
+
+.host_sub_title {
+	margin-top: 8px;
+	font-size: 32px;
+	color: #FFF;
+	font-weight: bold;
+}
+
+.host_info_desc {
+	margin-top: 30px;
+	color: #58739f;
+	font-size: 20px;
+	p {
+		color: #58739f;
+		font-size: 20px;
+	}
+	em {
+		color: #afc8e1;
+		font-size: 30px;
+		margin-right: 20px;
+		margin-top: 20px;
+	}
+}
+
+.host_free_btn {
+	margin-top: 55px;
+	width: 358px;
+	height: 94px;
+	line-height: 94px;
+	font-size: 30px;
+	color: #fefefe;
+	text-align: center;
+	background-color: #3b77ff;
+	border-radius: 47px;
+}
+
+.host_free_btn:hover {
+	background-color: #376ce4;
+}
+
+.host_course_list {
+	width: 220px;
+	float: left;
+	text-align: center;
+	border-radius: 10px;
+	border: solid 3px #3b77ff;
+	margin-right: 84px;
+	cursor: pointer;
+	a  {
+		display: block;
+		padding: 35px 0;
+	}
+}
+
+.host_course_list:hover {
+	background-color: #0e224f;
+	.host_course_font {
+		color: #FFF;
+	}
+}
+
+.host_game_font {
+	font-size: 26px;
+	color: #FFF;
+	em {
+		font-size: 22px;
+		color: #FFF;
+		margin-right: 5px;
+		margin-top: 10px;
+	}
+	.icon-PS {
+		font-size: 26px;
+	}
+	.icon-xbox {
+		font-size: 24px;
+		margin-top: 11px;
+	}
+	.icon-shouji {
+		font-size: 28px;
+		margin-top: 13px;
+	}
+}
+
+.host_course_font {
+	color: #3b77ff;
+	font-size: 18px;
+	margin-top: 5px;
+}
+
+.host_course_list:last-child {
+	margin-right: 0;
+}
+
+.host_content {
+	width: 1280px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.position_zhuji_img {
+	width: 1920px;
+	display: block;
+	position: relative;
+	left: 50%;
+	margin-left: -960px;
+}

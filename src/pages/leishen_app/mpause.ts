@@ -1,5 +1,3 @@
-import "./css/mui.min0125.css";
-import "./css/ls2.css";
 import "./css/wap.less";
 import {Component, Vue} from "vue-property-decorator";
 import UserProxy from "@/ts/proxy/UserProxy";
@@ -35,7 +33,13 @@ class Pause extends UserProxy {
     public allTimes: number = 0; //总时间
     public hours: number = 0; //小时
     public minutes: number = 0; //分钟
-    public pauseState: number = 0; //0 是运行  1是暂停
+    public seconds: number = 0; //秒
+    public pauseState: number = 1; //0 是运行  1是暂停
+    public startAnimal: number = 1; //0关闭  1是开始
+    private timer: any;
+    private flag = true;//体验时间到期 定时器里面就重置为false，避免一直调用用户信息接口。
+    private showRechargeBtn = false;//付费用户低于20小时显示去充值按钮  非付费用户低于30分钟显示去充值按钮  同时变色
+
 
     public created() {
         this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
@@ -46,18 +50,117 @@ class Pause extends UserProxy {
     public getUserinfoSuccess() {
         this.SecondsConverse();
         this.pauseState = this.userInfo.pause_status_id;
+        if (this.pauseState == 0) {
+            this.startAnimal = 1;
+            clearInterval(this.timer);
+            this.cutdownTime()
+        } else {
+            this.startAnimal = 0;
+            clearInterval(this.timer)
+        }
+        if (this.allTimes <= 0) {
+            this.startAnimal = 0;
+            clearInterval(this.timer)
+        }
     }
+
+    //呼出温馨提示弹窗
+    private showTips() {
+        Dialog.alert({
+            title: '温馨提示',
+            confirmButtonText: "朕知道了",
+            message: '若您在使用微信公众号提供的时间”暂停/恢复”功能后，客户端中的”暂停/恢复”按钮状态出现不同步的情况，您只需重启客户端即可恢复正常。'
+        }).then(() => {
+            // on close
+        });
+    }
+
 
     //   秒数转小时和分钟
     public SecondsConverse() {
-        this.allTimes = this.userInfo.expiry_time_samp;
-        if (this.allTimes <= 0) {
-            this.hours == 0;
-            this.minutes == 0;
-            return false;
+        if (this.userInfo.expiry_time_samp <= 0) {
+            this.userInfo.expiry_time_samp = 0
         }
-        this.hours = Math.floor(this.allTimes / 3600);
-        this.minutes = Math.floor((this.allTimes / 60) % 60);
+        this.allTimes = this.userInfo.expiry_time_samp + this.userInfo.experience_time;
+        this.IspayUser()
+        if (this.allTimes <= 0) {
+            this.hours = 0;
+            this.minutes = 0;
+            this.seconds = 0;
+            this.startAnimal = 0;
+            clearInterval(this.timer);
+            return false;
+        } else {
+            this.hours = Math.floor(this.allTimes / 3600);
+            this.minutes = Math.floor((this.allTimes / 60) % 60);
+            this.seconds = this.allTimes - this.hours * 3600 - this.minutes * 60;
+
+        }
+    }
+
+    //判断是否为付费用户 是则低于20小时 给提示  不是则低于30分钟给提示
+    private IspayUser() {
+        if (this.userInfo.is_pay_user == 1 && this.allTimes < 72000) {
+            this.showRechargeBtn = true;
+        } else {
+            if (this.allTimes < 1800) {
+                this.showRechargeBtn = true;
+            } else {
+                this.showRechargeBtn = false;
+            }
+        }
+    }
+
+    /**
+     * 目标时间是否过期
+     * @param time
+     * @constructor
+     */
+    private IsExperience(time): boolean {
+        let nowTime = new Date().getTime();
+        let targetTime = new Date(time).getTime();
+        if (targetTime - nowTime > 0) {
+            console.log('未过期')
+            return false;
+        } else {
+            return true;
+            console.log('过期')
+        }
+
+    }
+
+    /**
+     * 倒计时
+     */
+    private cutdownTime() {
+        this.timer = setInterval(() => {
+            if (this.IsExperience(this.userInfo.experience_expiry_time) && this.flag) {
+                this.getUserInfo();
+                this.flag = false;
+            }
+
+            this.allTimes--;
+            if (!this.showRechargeBtn) {
+                this.IspayUser()
+            }
+            this.seconds--;
+            if (this.seconds <= 0) {
+                this.seconds = 59;
+                this.minutes--;
+            }
+            if (this.minutes < 0) {
+                this.minutes = 59
+                this.hours--;
+            }
+            if (this.hours < 0) {
+                this.hours = 0;
+                this.minutes = 0;
+                this.seconds = 0;
+                this.startAnimal = 0;
+                clearInterval(this.timer);
+            }
+        }, 1000)
+
     }
 
     //点击暂停恢复
@@ -68,8 +171,8 @@ class Pause extends UserProxy {
                 message: "您确定要暂停使用时间吗?",
                 confirmButtonText: "确认暂停"
             }).then(() => {
-                    this.onTimeSuspended();
-                })
+                this.onTimeSuspended();
+            })
                 .catch(() => {
                     // on cancel
                 });
@@ -93,7 +196,9 @@ class Pause extends UserProxy {
     onTimeSuspendedSuccess() {
         let tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_PAUSE_SUCCESS);
         Toast(tipMsg);
-        this.pauseState = 0;
+        this.pauseState = 1;
+        this.startAnimal = 0;
+        clearInterval(this.timer)
     }
 
     //暂停失败
@@ -108,7 +213,11 @@ class Pause extends UserProxy {
     public onTimeRestoreSuccess() {
         let tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_RESTORE_SUCCESS);
         Toast(tipMsg);
-        this.pauseState = 1;
+        this.pauseState = 0;
+        clearInterval(this.timer);
+        this.cutdownTime();
+        this.startAnimal = 1;
+
     }
 
     /**
@@ -145,11 +254,20 @@ class Pause extends UserProxy {
     }
 
     /**
-     * 去日志
+     * 去导航
      * */
     public gotonavlist() {
         let param = "platform=" + appParam.platform + '&pageIndex=' + 4;
         JumpWeiXin.gotoNavlist(param);
+    }
+
+    /**
+     * 去充值
+     *  */
+
+    public gotoRecharge() {
+        let param = "platform=" + appParam.platform;
+        JumpWeiXin.gotoRecharge(param);
     }
 }
 

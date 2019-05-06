@@ -1,13 +1,13 @@
 {
     "leigod": {
         "windows": {
-            "download_url": "//www.bohe.com/soft/win/BOHESetup.1.0.0.0.exe"
+            "download_url": ""
         },
         "mac": {
             "download_url": ""
         },
         "wangba": {
-            "download_url": "//www.leigod.com/soft/netbar/leigod_netbar_V3.8.3.5.exe"
+            "download_url": "//update.leigod.com/soft/netbar/leigod_netbar_V3.8.3.5.exe"
         },
         "pay": {
             "is_show_wx": 1,

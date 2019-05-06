@@ -4,7 +4,6 @@ import "./css/wap.less";
 import "babel-polyfill";
 import { Component, Vue } from "vue-property-decorator";
 import { Actionsheet, Checkbox, Picker, Tab, Tabs, Toast } from "vant";
-import loading from './components/Loading.vue'
 import VueI18n from "vue-i18n";
 import { FindpwdProxy } from "@/ts/proxy/FindpwdProxy";
 import { TipsMsgUtil } from "@/ts/utils/TipsMsgUtil";
@@ -28,25 +27,19 @@ lang.initNoRefresh();
 const i18n = new VueI18n(lang);
 
 
-@Component({
-    components:{
-        loading:loading
-    }
-})
+@Component
 class ForgetPwd extends FindpwdProxy {
 	public AreaCodeshow: boolean = false; //区域列表是否显示
 	public appParam: AppParamModel = AppParamModel.getInstace();
 	public regtype: number = 2; //默认通过手机号找回密码
 	public showVioceCode = 0; //是否显示语音验证码 0 不显示  1显示
 	public langWidth:string='100px'
-	public isLoading:boolean=true
 
 	public created() {
 		this.setBaseUrl(GlobalConfig.getBaseUrl());
 		this.init();
 		this.registerIsCaptcha();
 		this.changeResignType(0);
-		this.isLoading=false
 		if(this.appParam.language!=='en'){
 			this.langWidth='240px'
 		}
@@ -404,7 +397,6 @@ class ForgetPwd extends FindpwdProxy {
 		Toast(TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_FINDPWD));
 		let self = this;
 		setTimeout(() => {
-			self.isLoading = false;
 			JumpWebUtil.wapJump(window.location.origin, "login.html");
 		}, 1500);
 	}

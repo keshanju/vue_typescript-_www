@@ -8,7 +8,7 @@
                         <img v-show="payobj.payType == 2" src="../images/alipay_logo@2x.png" alt="" class="img_filter">
                     </div>
                     <div class="erweima_box">
-                        <iframe frameborder="0" height="156px;" width="156px;" scrolling="no" :src="payobj.pay_url"></iframe>
+                        <iframe frameborder="0" height="166px;" width="166px;" scrolling="no" :src="payobj.pay_url"></iframe>
                     </div>
                     <p class="">{{$t("recharge.c7")}}</p>
                 </div>

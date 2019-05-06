@@ -69,7 +69,6 @@ class Notify extends Vue {
     );
     this.newsList = model.list;
     this.isLoading = false;
-    console.log(this.newsList);
   }
   /**
    * 点击公告的时候，进行的跳转

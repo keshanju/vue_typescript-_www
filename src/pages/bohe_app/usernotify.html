@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>公告列表</title>
-	</head>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>公告列表</title>
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
 
-	<body style="background:#363437;">
-		<div id="app" class="app_help">
-			<ls-loading v-show="isLoading"></ls-loading>
-			<div v-show="!isLoading" style="display:none;">
-				<div class="app_notify_box" style="width:100%;" v-for="item in newsList" :key="item.id" @click="getDetail(item)">
-					<img src="./images/futou_icon.png" alt="" width="36" />
-					<div class="flex_content_left" style="margin-left: 10px; width:calc(100% - 46px)">
-						<p style="margin-bottom: 10px; width:100%;" class="detail_title_font words_flow" :title="item.title">{{ item.title }}</p>
-						<p class="detail_pubtime_font">{{ item.create_time?item.create_time.replace(/-/g,'.'):'' }}</p>
-					</div>
-				</div>
-				<!--
-					<div class="app_notify_box" v-for="item in newsList">
-					    <img src="./images/futou_icon.png" alt="" width="36">
-					    <div class="flex_content_left" style="margin-left: 10px;">
-					        <p style="margin-bottom: 10px;" class="detail_title_font">雷神加速器使用时间暂停和恢复说明</p>
-					        <p class="detail_pubtime_font">2018.12.23 12:22:34</p>
-					    </div>
-					</div>
-					<div class="app_notify_box">
-					    <img src="./images/futou_icon.png" alt="" width="36">
-					    <div class="flex_content_left" style="margin-left: 10px;">
-					        <p style="margin-bottom: 10px;" class="detail_title_font">雷神加速器使用时间暂停和恢复说明</p>
-					        <p class="detail_pubtime_font">2018.12.23 12:22:34</p>
-					    </div>
-					</div>
-				-->
-			</div>
-		</div>
-	</body>
+<body style="background:#363437;">
+<div id="app" class="app_help" v-cloak>
+    <div class="app_notify_box" style="width:100%;" v-for="item in newsList" :key="item.id" @click="getDetail(item)">
+        <img src="./images/futou_icon.png" alt="" width="36"/>
+        <div class="flex_content_left" style="margin-left: 10px; width:calc(100% - 46px)">
+            <p style="margin-bottom: 10px; width:100%;" class="detail_title_font words_flow" :title="item.title">{{
+                item.title }}</p>
+            <p class="detail_pubtime_font">{{ item.create_time?item.create_time.replace(/-/g,'.'):'' }}</p>
+        </div>
+    </div>
+    <!--
+        <div class="app_notify_box" v-for="item in newsList">
+            <img src="./images/futou_icon.png" alt="" width="36">
+            <div class="flex_content_left" style="margin-left: 10px;">
+                <p style="margin-bottom: 10px;" class="detail_title_font">雷神加速器使用时间暂停和恢复说明</p>
+                <p class="detail_pubtime_font">2018.12.23 12:22:34</p>
+            </div>
+        </div>
+        <div class="app_notify_box">
+            <img src="./images/futou_icon.png" alt="" width="36">
+            <div class="flex_content_left" style="margin-left: 10px;">
+                <p style="margin-bottom: 10px;" class="detail_title_font">雷神加速器使用时间暂停和恢复说明</p>
+                <p class="detail_pubtime_font">2018.12.23 12:22:34</p>
+            </div>
+        </div>
+    -->
+</div>
+</body>
 </html>

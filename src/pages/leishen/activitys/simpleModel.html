@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://hm.baidu.com/hm.js?0eb4303e084ff5791f2a25e3df421cea"></script>
+    <title>雷神植树节-PC端模板</title>
+</head>
+
+<body>
+<div id="app" style="background-color:#49184f;">
+
+    <!--顶部导航-->
+    <head-nav ref="head" v-on:changelanguage="onChangeLanguage"></head-nav>
+
+    <!--banner-->
+    <div class="model_container">
+        <img :src="activity_json.banner_bg_top" alt="雷神加速器" class="activity_main_banner">
+    </div>
+    <!--套餐购买推荐-->
+    <div class="model_container">
+        <img :src="activity_json.package_bg" alt="雷神加速器" class="activity_main_banner">
+        <img :src="activity_json.banner_bg_bottom" alt="雷神加速器" class="activity_main_banner">
+        <div class="package_row_box" style="margin-left: -400px;margin-top: -150px;">
+            <!--立即充值按钮-->
+            <a class="pub_buy_btn" @click="gotoRecharge"></a>
+            <p style="color: #FFF;font-size: 20px">充值720小时套餐 送1次抽奖机会</p>
+            <p style="color: #FFF;font-size: 20px">充值8760小时套餐 送3次抽奖机会</p>
+        </div>
+    </div>
+
+    <!--主内容区-->
+    <div class="activity_model_content" :class="{'model_left_content' : activity_json.joinLeft}">
+        <!--抽奖模块-->
+        <div style="top: -132px;" class="model_container" :class="{'model_left_container' : activity_json.joinLeft}">
+            <img :src="activity_json.choujiang_bg" alt="雷神、植树节、专题活动">
+            <div :class="{'model_left_outside_box' : activity_json.joinLeft,'model_outside_box' : !activity_json.joinLeft}">
+                <div class="clear_fix">
+                    <!--抽奖区-->
+                    <div class="f_left" style="margin: 50px 0 0 0;width: 600px;">
+                        <p style="font-size: 26px;color: #FFF;text-align: center;">
+                            您还可以抽{{aCount}}次
+                        </p>
+                        <!--点击区-->
+                        <div>
+                            <img :src="activity_json.draw_img_win" alt="" v-if="isWin">
+                            <img :src="activity_json.draw_img_normal" alt="" v-else>
+                        </div>
+                        <!--tab点击弹框-->
+                        <ul class="pub_prize_control">
+                            <li class="f_left pub_hdgz" @click="onClickGuize"></li>
+                            <li class="f_left pub_start" @click="onClickDraw"></li>
+                            <li class="f_left pub_zjjl" @click="onClickAward"></li>
+                        </ul>
+                        <!--中奖名单列表-->
+                        <div style="height: 100px;overflow: hidden;margin-top: 20px;">
+                            <ul class="pub_zjjl_list" id="jilu_box">
+                                <li v-for="(item, index) in awardList" :key="index"
+                                    style="text-align: center;margin-bottom: 5px;">
+                                    <p style="color: #fff;text-align: center;font-size: 14px;line-height: 21px;">
+                                        <span>恭喜</span>
+                                        <span>{{item.nickname || item.mobile_num || item.mail}}</span>
+                                        <span>获得</span>
+                                        <span>{{item.title}}</span>
+                                        <span>{{item.create_time}}</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--奖品区-->
+                    <div class="f_right" style="margin: 50px 45px 0 0;">
+                        <p style="font-size: 26px;color: #FFF;text-align: center">奖品</p>
+                        <!--奖品列表-->
+                        <ul id="prize">
+                            <li style="position: relative;margin-top: 26px;">
+                                <img :src="activity_json.prize_list[0]" alt="雷神加速器" style="">
+                                <img :src="activity_json.prize_active_img[0]" alt="雷神加速器" class="prize_active">
+                            </li>
+                            <li style="position: relative;margin-top: 16px;">
+                                <img :src="activity_json.prize_list[1]" alt="雷神加速器" style="">
+                                <img :src="activity_json.prize_active_img[0]" alt="雷神加速器" class="prize_active">
+                            </li>
+                            <li style="position: relative;margin-top: 16px;">
+                                <img :src="activity_json.prize_list[2]" alt="雷神加速器" style="">
+                                <img :src="activity_json.prize_active_img[1]" alt="雷神加速器" class="prize_active">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--推荐好友注册充值-->
+        <div class="model_container" :class="{'model_left_container' : activity_json.joinLeft}"
+             style="margin-top: -100px;" v-if="activity_json.tuijian_model_bg">
+            <img :src="activity_json.tuijian_model_bg" alt="雷神加速器">
+            <div :class="{'model_left_outside_box' : activity_json.joinLeft,'model_outside_box' : !activity_json.joinLeft}"
+                 style="padding-left: 20px;">
+                <div class="clear_fix" style="margin-top: 60px;;text-align: left;padding-left: 150px;">
+                    <div class="pub_copy_links f_left" v-text="refer_code_link" id="spanCopyRefercodeLink"></div>
+                    <div class="pub_copy_btn f_left" @click="copyRefercodeLink" id="copyRefercodeLink"></div>
+                    <p class="f_left"
+                       style="color: #fff;font-size: 18px;margin-top: 18px;font-weight: bold;text-align: left;margin-left: 10px;">
+                        邀请好友注册充值获得同等抽奖机会</p>
+                </div>
+            </div>
+        </div>
+        <!--微信公众号-->
+        <div class="model_container" :class="{'model_left_container' : activity_json.joinLeft}"
+             style="margin-top: 20px;" v-if="activity_json.weixin_model_bg">
+            <img :src="activity_json.weixin_model_bg" alt="雷神加速器">
+        </div>
+        <!--活动规则-->
+        <div class="model_container" :class="{'model_left_container' : activity_json.joinLeft}"
+             style="margin-top: 20px;" v-if="activity_json.activity_info_bg">
+            <img :src="activity_json.activity_info_bg" alt="雷神加速器">
+            <div :class="{'model_left_outside_box' : activity_json.joinLeft,'model_outside_box' : !activity_json.joinLeft}"
+                 style="text-align: left;padding-left: 40px;width: 725px;margin-top: 30px;">
+                <p style="font-size: 38px;color: #fff;font-weight: bold">活动规则</p>
+                <ul style="list-style: circle inside;margin-top: 20px;">
+                    <li style="margin-bottom: 15px;" class="clear_fix">
+                        <span class="pos_pub_wenzi">活动时间：</span>
+                        <span class="pos_pub_con">2019年3月11日15:30~2019年4月11日15:30</span>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <p class="pos_pub_wenzi">如何抽奖：</p>
+                        <div class="pos_pub_con">
+                            <p>1、购买8760小时套餐可获得3次抽奖机会，购买其他任意套餐获得1次抽奖机会。邀请好友注册充值获得同等抽奖机会，奖品数量有限，先到先得。</p>
+                            <p>2、抽奖一次消耗1次抽奖机会，每次抽奖后可随机获得奖励。<br>最高奖励apex英雄11500币。</p>
+                        </div>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <p class="pos_pub_wenzi">奖品发放：</p>
+                        <div class="pos_pub_con">
+                            <p>1、活动期间，抽中apex英雄币的用户请您根据中奖提示添加发奖客服微信 <b>（微信号： service6000）</b> 领取奖品</p>
+                            <p style="margin-top: 5px;">2、官网页面抽中时长卡用户，直接在官网"个人中心-活动记录"页面进行兑换。</p>
+                            <p style="margin-top: 5px;">3、App和微信公众号中活动页面抽中时长卡用户，请访问雷神加速器PC官网(www.leigod.com
+                                )"个人中心--活动记录“页面进行兑换。</p>
+                            <p style="margin-top: 5px;">4、活动积分抽奖机会截止时间为本次活动结束时间（2019年4月11日15：30），逾期清空作废；</p>
+                            <p style="margin-top: 5px;">5、时长卡兑换截止时间为2019年4月11日18：00；</p>
+                        </div>
+                    </li>
+                    <li class="clear_fix">
+                        <p class="pos_pub_wenzi ">注意事项：</p>
+                        <div class="pos_pub_con">
+                            <p>1、此活动只针对于雷神超级会员，海外会员不在此活动范围内</p>
+                            <p style="margin-top: 5px;">2、参与活动前请仔细阅读活动规则</p>
+                            <p style="margin-top: 5px;">3、请扫描添加发奖客服微信</p>
+                        </div>
+                    </li>
+                </ul>
+                <img :src="activity_json.activity_info_ewm" alt="" class="pub_ewm">
+            </div>
+        </div>
+        <!--解释权文字-->
+        <div style="width: 1000px;color:#fff;font-size: 14px;margin: -10px auto 20px;text-align: center;">
+            本次活动的最终解释权归上海雷神网络科技有限公司所有
+        </div>
+        <!--分享部分-->
+        <div style="width: 150px;z-index: 1;margin-left: 447px;top: -132px;" :class="{'fixed_share':joinleftfix==1}"
+             class="activity_share_box" v-if="activity_json.joinLeft">
+            <img :src="activity_json.activity_share_bg" alt="" class="img_filter">
+            <div class="pub_side_box" style="width: 150px;z-index: 1">
+                <!--未登录-->
+                <div @click="gotoLogin" v-if="userInfo == null"
+                     style="margin-top: 20px;height: 120px;text-align: center;">
+                    <div style="text-align: center;">
+                        <img src="../images/nav_logo.png" style="margin-bottom: 10px;cursor: pointer;" alt=""
+                             width="70">
+                    </div>
+                    <a class="pub_share_font">请登录</a>
+                </div>
+                <!--已登录-->
+                <div v-if="userInfo != null" style="margin-top: 20px;height: 150px;text-align: center;">
+                    <div @click="gotoRecharge" style="text-align: center;">
+                        <img style="border-radius: 50%;margin-bottom: 10px;cursor: pointer;" :src="userInfo.avatar"
+                             onerror="javascript:this.src='../images/default_avatar.png'" width="70">
+                    </div>
+                    <a class="pub_share_username">{{userInfo.nickname}}</a>
+                </div>
+                <div class="pub_share_line"></div>
+                <p style="color: #FFF;font-size: 12px;text-align: center">分享快乐</p>
+                <div class="bdsharebuttonbox" style="margin-top: 25px;width: 100%;">
+                    <a href="#" class="bds_tsina weibo_bg" data-cmd="tsina"
+                       style="display: block;margin: 15px auto 0;float: none;"></a>
+                    <a href="#" class="bds_sqq qq_bg" data-cmd="sqq"
+                       style="display: block;margin: 15px auto 0;float: none;"></a>
+                    <a href="#" class="bds_qzone qzone" data-cmd="qzone"
+                       style="display: block;margin: 15px auto 0;float: none;padding-left: 0;"></a>
+                    <a href="#" class="bds_tieba tieba_bg" data-cmd="tieba"
+                       style="display: block;margin: 15px auto 0;float: none;"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--中奖成功弹窗-->
+    <div class="activity_dialog" :class="{'vshide':!dialog_win}" v-if="activity_json.cj_success_type">
+        <div class="activity_dialog_notice_out" :class="{'activity_dialog_notice_in':dialog_win}"
+             style="text-align: center;">
+            <img :src="activity_json.choujiang_success_bg" alt="雷神加速器">
+            <div class="activity_dialog_content">
+                <div class="flex_column_center" style="font-size: 16px;color: #FFF;">
+                    <p class="activity_dialog_notice_msg" style="margin-top: 70px;padding: 0 20px;font-size: 16px;">
+                        恭喜您获得：</p>
+                    <p class="activity_dialog_notice_msg"
+                       style="color: #ffda58;font-size:24px;height:24px;margin-top: 0px;margin-left: 60px;">
+                        {{prize_name}}</p>
+                    <span slot="footer" class="dialog-footer" style="margin-top: 25px;">
+                        <a @click="closeDialog" class="pub_jxcj_btn"></a>
+                        <a class="pub_dj_btn" @click="gotoDuijiang"></a>
+                    </span>
+                </div>
+            </div>
+            <div class="activity_dialog_close" @click="closeDialog"
+                 style="width: 20px;height: 20px;top: 15px;right: 15px;">
+                <img :src="activity_json.dialog_close_bg" alt="">
+            </div>
+        </div>
+    </div>
+    <!--错误提示-->
+    <div class="activity_dialog" :class="{'vshide':!dialog_error}">
+        <div class="activity_dialog_notice_out" :class="{'activity_dialog_notice_in':dialog_error}"
+             style="text-align: center;">
+            <img :src="activity_json.dialog_notice_bg" alt="雷神加速器">
+            <div class="activity_dialog_title_box">
+                <p class="activity_dialog_title" style="font-size: 26px;color: #FFF;margin-top: 50px;">温馨提示</p>
+            </div>
+            <div class="activity_dialog_content">
+                <!--请求失败+复制链接提示文字-->
+                <p class="activity_dialog_notice_msg"
+                   style="font-size: 16px;color: #FFF;padding: 0 50px;margin: 100px auto 20px;">{{dialog_msg}}</p>
+                <img @click="closeDialog" src="../images/zhishu/btn_sure.png" style="cursor: pointer">
+            </div>
+            <div class="activity_dialog_close" @click="closeDialog"
+                 style="top: 15px;right: 15px;width: 20px;height: 20px;">
+                <img :src="activity_json.dialog_close_bg" alt="">
+            </div>
+        </div>
+    </div>
+    <!--提示充值-->
+    <div class="activity_dialog" :class="{'vshide':!dialog_recharge}">
+        <div class="activity_dialog_notice_out" :class="{'activity_dialog_notice_in':dialog_recharge}"
+             style="text-align: center">
+            <img :src="activity_json.dialog_notice_bg" alt="雷神加速器">
+            <div class="activity_dialog_content">
+                <div class="flex_column_center">
+                    <p style="font-size: 26px;color: #FFF;margin-top: 20px;">温馨提示</p>
+                    <p class="activity_dialog_notice_msg" style="font-size: 16px;color: #FFF;margin: 50px auto;">
+                        您还未购买抽奖套餐，暂不能参与抽奖 !</p>
+                    <p slot="footer" class="dialog-footer">
+                        <a @click="gotoRecharge" class="pub_recharge_btn"></a>
+                    </p>
+                </div>
+            </div>
+            <div class="activity_dialog_close" @click="onCloseRecharge"
+                 style="top: 15px;right: 15px;width: 20px;height: 20px;">
+                <img :src="activity_json.dialog_close_bg" alt="">
+            </div>
+        </div>
+    </div>
+    <!--未登录提醒-->
+    <div class="activity_dialog" :class="{'vshide':!dialog_no_login}">
+        <div class="activity_dialog_notice_out" :class="{'activity_dialog_notice_in':dialog_no_login}"
+             style="text-align: center;">
+            <img :src="activity_json.dialog_notice_bg" alt="雷神加速器">
+            <div class="activity_dialog_content">
+                <p style="font-size: 26px;color: #FFF;margin-top: 20px;">温馨提示</p>
+                <p class="activity_dialog_notice_msg" style="font-size: 16px;color: #FFF;margin: 50px auto;">您还未登录<br/>请登录后再参与活动,
+                    谢谢</p>
+                <div slot="footer" class="dialog-footer">
+                    <a @click="gotoLogin" class="pub_login_btn"></a>
+                </div>
+            </div>
+            <div class="activity_dialog_close" @click="onCloseNologin"
+                 style="top: 15px;right: 15px;width: 20px;height: 20px;">
+                <img :src="activity_json.dialog_close_bg" alt="">
+            </div>
+        </div>
+    </div>
+    <!--活动规则弹窗-->
+    <div class="activity_dialog" :class="{'vshide':!dialog_guize}" v-if="activity_json.guizejilutype == 1">
+        <div class="activity_dialog_notice_out" :class="{'activity_dialog_notice_in':dialog_guize}"
+             style="text-align: center;">
+            <img :src="activity_json.dialog_guize_bg" alt="雷神加速器">
+            <!--<div class="activity_dialog_title_box">-->
+            <!--<img :src="activity_json.dialog_title_bg" alt="雷神加速器">-->
+            <!--<p class="activity_dialog_title" style="line-height: 59px;font-size: 26px;color: #101859;">活动规则</p>-->
+            <!--</div>-->
+            <div class="activity_dialog_content">
+                <div class="pub_activityinfo" style="margin-top: 15%;height: 46%;padding: 0 30px;">
+                    <ul style="list-style: circle inside;margin-top: 20px;">
+                        <li style="margin-bottom: 15px;">
+                            <p class="pos_pub_wenzi">活动时间</p>
+                            <p class="pos_pub_con" style="width: 100%">2019年3月11日15:30~2019年4月11日15:30</p>
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <p class="pos_pub_wenzi">如何抽奖：</p>
+                            <div class="pos_pub_con" style="width: 100%">
+                                <p>1、购买8760小时套餐可获得3次抽奖机会，购买其他任意套餐获得1次抽奖机会。邀请好友注册充值获得同等抽奖机会，奖品数量有限，先到先得。</p>
+                                <p>2、抽奖一次消耗1次抽奖机会，每次抽奖后可随机获得奖励。<br>最高奖励apex英雄11500币。</p>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <p class="pos_pub_wenzi">奖品发放：</p>
+                            <div class="pos_pub_con" style="width: 100%">
+                                <p>1、活动期间，抽中apex英雄币的用户请您根据中奖提示添加发奖客服微信 （微信号： service6000）领取奖品</p>
+                                <p style="margin-top: 10px;">2、官网页面抽中时长卡用户，直接在官网"个人中心-活动记录"页面进行兑换。</p>
+                                <p style="margin-top: 10px;">3、App和微信公众号中活动页面抽中时长卡用户，请访问雷神加速器PC官网(www.leigod.com
+                                    )"个人中心--活动记录“页面进行兑换。</p>
+                                <p style="margin-top: 10px;">4、活动积分抽奖机会截止时间为本次活动结束时间（2019年4月11日15：30），逾期清空作废；</p>
+                                <p style="margin-top: 10px;">5、时长卡兑换截止时间为2019年4月11日18：00；</p>
+                                <p style="margin-top: 10px;">6、本次活动的最终解释权归上海雷神网络科技有限公司所有。</p>
+                            </div>
+                        </li>
+                        <li>
+                            <p class="pos_pub_wenzi">注意事项：</p>
+                            <div class="pos_pub_con" style="width: 100%">
+                                <p>1、此活动只针对于雷神超级会员，海外会员不在此活动范围内</p>
+                                <p style="margin-top: 10px;">2、参与活动前请仔细阅读活动规则</p>
+                                <p style="margin-top: 10px;">3、请扫描添加发奖客服微信</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="activity_dialog_close" @click="onCloseGuize"
+                 style="top: 10px;right: 10px;width: 20px;height: 20px;">
+                <img :src="activity_json.dialog_close_bg" alt="">
+            </div>
+        </div>
+    </div>
+    <!--中奖纪录弹窗-->
+    <div class="activity_dialog" :class="{'vshide':!dialog_award}" v-if="activity_json.guizejilutype == 1">
+        <div class="activity_dialog_notice_out" :class="{'activity_dialog_notice_in':dialog_award}"
+             style="text-align: center;">
+            <img :src="activity_json.dialog_award_bg" alt="雷神加速器">
+            <!--<div class="activity_dialog_title_box">-->
+            <!--<img :src="activity_json.dialog_title_bg" alt="雷神加速器">-->
+            <!--<p class="activity_dialog_title" style="line-height: 59px;font-size: 26px;color: #101859;">中奖纪录</p>-->
+            <!--</div>-->
+            <div class="activity_dialog_content">
+                <div style="height: 100%;">
+                    <ul class="pub_prize_ul" v-show="awardRecordList.length > 0 && account_token != ''"
+                        style="display: none;">
+                        <li class="pub_prize_li" v-for="(item, index) in awardRecordList" :key="index">
+                            <p class="f_left words_flow"
+                               style="width: 75%;color: #FFF;font-size: 16px;height: 31px;line-height: 31px;">
+                                <!--<p style="font-size: 16px;">抽中</p>-->
+                                <span>{{item.present_title}}</span>
+                                <span>{{item.create_time}}</span>
+                            </p>
+                            <div class="pub_prize_dj f_right" :class="{'pub_prize_ydj':item.status == 3}"
+                                 @click="gotoDuijiang(item.status)">{{item.status == 0 ? '立即兑换' : item.status_title}}
+                            </div>
+                        </li>
+                    </ul>
+                    <div style="display: none;" v-show="awardRecordList.length == 0 && account_token != ''">
+                        <img style="margin-top: 75px;" src="../images/zhishu/no_present.png" alt="">
+                        <p class="zjjl_empty_msg" style="color: #FFF;margin-top: 0;">您暂无中奖记录</p>
+                    </div>
+                </div>
+            </div>
+            <div class="activity_dialog_close" @click="closeDialog"
+                 style="top: 10px;right: 10px;width: 20px;height: 20px;">
+                <img :src="activity_json.dialog_close_bg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!--底部导航-->
+    <foot-nav class="other_foot_nav"></foot-nav>
+
+</div>
+</body>
+<!-- 客服-->
+#include('../components/_kefu.html')
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "2",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "0",
+            "bdSize": "16"
+        },
+        "share": {}
+    };
+    with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src =
+        '/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)
+        ];
+</script>
+
+</html>

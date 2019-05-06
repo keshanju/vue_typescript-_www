@@ -1,52 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>会员中心</title>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="robots" content="noindex" />
-	</head>
+<head>
+    <meta charset="UTF-8"/>
+    <title>会员中心</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="robots" content="noindex"/>
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
 
-	<body>
-		<div id="app" class="userservice">
-			<loading v-show="isLoading"></loading>
-			<div v-show="!isLoading" style="display:none;">
-				<div class="app_pro_container" style="padding:0;">
-					<p class="pro_content_font" style="margin-bottom:0px;">{{ $t("agreement.header") }}</p>
-				</div>
-				<div class="content_of_protocol" style="margin:16px;">
-					<h4 class="app_protitle_font">{{ $t("agreement.title1") }}</h4>
-					<p class="font_s21">{{ $t("agreement.t1_p1") }}</p>
-					<p class="font_s21">{{ $t("agreement.t1_p2") }}</p>
-					<h4 class="font_s20 app_protitle_font">{{ $t("agreement.title2") }}</h4>
-					<p class="font_s21">{{ $t("agreement.t2_p1") }}</p>
-					<p class="font_s21">{{ $t("agreement.t2_p2") }}</p>
-					<p class="font_s21">{{ $t("agreement.t2_p3") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p3_p1") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p3_p2") }}</p>
-					<p class="font_s21">{{ $t("agreement.t2_p4") }}</p>
-					<p class="font_s21">{{ $t("agreement.t2_p5") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p5_p1") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p5_p2") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p5_p3") }}</p>
-					<p class="font_s21">{{ $t("agreement.t2_p6") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p6_p1") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p6_p2") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p6_p3") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p6_p4") }}</p>
-					<p class="font_s21">{{ $t("agreement.t2_p7") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p7_p1") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p7_p2") }}</p>
-					<p class="font_s22">{{ $t("agreement.t2_p7_p3") }}</p>
-					<p class="font_s21">{{ $t("agreement.t2_p8") }}</p>
-					<p class="font_s21">{{ $t("agreement.t2_p9") }}</p>
-					<h4 class="font_s20 app_protitle_font">{{ $t("agreement.title3") }}</h4>
-					<p class="font_s21">{{ $t("agreement.t3_p1") }}</p>
-					<p class="font_s21">{{ $t("agreement.t3_p2") }}</p>
-					<p class="font_s21">{{ $t("agreement.t3_p3") }}</p>
-					<p class="font_s21">{{ $t("agreement.t3_p4") }}</p>
-				</div>
-			</div>
-		</div>
-	</body>
+<body>
+<div id="app" class="userservice" v-cloak>
+
+    <div class="app_pro_container" style="padding:0;">
+        <p class="pro_content_font" style="    margin-bottom: 0px;font-size: 20px;font-weight: bold;text-indent: 0;">{{
+            $t("agreement.header") }}</p>
+    </div>
+    <div class="content_of_protocol" style="margin:16px;">
+        <h4 class="app_protitle_font" style="text-indent:0;line-height: 24px;">{{ $t("agreement.title1") }}</h4>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t1_p1") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t1_p2") }}</p>
+        <h4 class="font_s20 app_protitle_font" style="text-indent:0;line-height: 24px;">{{ $t("agreement.title2")
+            }}</h4>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t2_p1") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t2_p2") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t2_p3") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p3_p1") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p3_p2") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t2_p4") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t2_p5") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p5_p1") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p5_p2") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p5_p3") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t2_p6") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p6_p1") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p6_p2") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p6_p3") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p6_p4") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t2_p7") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p7_p1") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p7_p2") }}</p>
+        <p class="font_s22" style="font-size: 14px;text-indent: 4rem;">{{ $t("agreement.t2_p7_p3") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t2_p8") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t2_p9") }}</p>
+        <h4 class="font_s20 app_protitle_font" style="text-indent:0;line-height: 24px;">{{ $t("agreement.title3")
+            }}</h4>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t3_p1") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t3_p2") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t3_p3") }}</p>
+        <p class="font_s21" style="font-size: 14px;text-indent: 2rem;">{{ $t("agreement.t3_p4") }}</p>
+    </div>
+</div>
+</body>
 </html>

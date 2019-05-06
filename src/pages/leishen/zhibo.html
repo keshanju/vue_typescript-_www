@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div class="zhibo_roll">
+        <p style="width: 200px;height: 30px;line-height: 30px;border: 1px #000 solid;">{{zhibo_zj}}</p>
+        <a @click="clickRoll" v-if="!rolling">抽奖</a>
+        <a @click="clickStop" v-else>停止</a>
+    </div>
+    <el-dialog
+            :visible.sync="zjDialogVisible"
+            width="60%"
+            center>
+        <p>恭喜您</p>
+        <p>{{zhibo_zj}}</p>
+    </el-dialog>
+</div>
+</body>
+</html>

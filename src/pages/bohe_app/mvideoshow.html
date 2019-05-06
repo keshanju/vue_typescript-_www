@@ -12,9 +12,14 @@
     <meta name="keywords" content="a1">
     <meta name="description" content="a1">
     <title>Title</title>
+    <style>
+        [v-cloak] {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
-<div class="wrap_of_mvideoshow" id="app">
+<div class="wrap_of_mvideoshow" id="app" v-cloak>
     <p class="font_s33">
         <span>
             {{$t("pvideoshow.v1")}}

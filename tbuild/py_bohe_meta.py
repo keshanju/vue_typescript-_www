@@ -4,8 +4,6 @@ import sys
 sys.path.append('../')
 import py_meta
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
 print('#####开始编译 开发环境#####')
 print('')
 replaceM = py_meta.ReplaceMeta()

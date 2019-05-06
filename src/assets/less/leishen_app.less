@@ -3,93 +3,103 @@
     颜色集
  */
 
-@main_bgc: #383838; //页面背景主色调
+@main_bgc: #f2f2f2; //页面背景主色调
 @check_bgc: #2e2e2e; //支付模块背景
 @protocol_bgc: #383838; //协议盒子背景
 @main_font: #ffc713; //支付主色调
 @container_bgc: #363437;
-
+@font_color: #2F3967; //字体主题色
 /**
     字体集
  */
 
 .public_font {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.7);
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .big_pack_font {
-  font-family: MicrosoftYaHei-Bold;
-  font-size: 20px;
-  color: @white;
+    font-weight: bold;
+    font-size: 20px;
+    color: @font_color;
 }
 
 .big_am_font {
-  font-family: MicrosoftYaHei-Bold;
-  font-size: 36px;
-  color: @white;
+    font-weight: bold;
+    font-size: 20px;
+    color: @font_color;
+    letter-spacing: 0;
+}
+
+.big_sc_color {
+    color: #FE6637;
 }
 
 .amount_font {
-  font-family: MicrosoftYaHei-Bold;
-  font-size: 24px;
-  color: @main_font;
+    font-weight: bold;
+    font-size: 24px;
+    color: @main_font;
+    letter-spacing: 0;
 }
 
 .simbol_font {
-  font-family: MicrosoftYaHei-Bold;
-  font-size: 14px;
-  color: @main_font;
-  align-self: flex-end;
-  margin-bottom: 2px;
+    font-weight: bold;
+    font-size: 14px;
+    color: @main_font;
+    align-self: flex-end;
+    margin-bottom: 2px;
 }
 
 .top_amount_font {
-  &:extend(.amount_font);
-  color: @white;
+    color: @font_color;
+    font-size: 14px;
 }
 
 .top_simbol_font {
-  &:extend(.simbol_font);
-  color: @white;
+    &:extend(.simbol_font);
+    color: @font_color;
+    font-weight: normal;
 }
 
 .detail_font {
-  font-size: 14px;
-  color: @main_font;
+    font-size: 14px;
+    color: @main_font;
 }
 
 .app_warm_tips {
-  font-size: 14px;
-  color: #e1e1e1;
+    font-size: 14px;
+    color: #34475E;
+    letter-spacing: 0;
 }
 
 .app_protitle_font {
-  font-size: 14px;
-  color: #eee;
-  margin: 15px auto;
+    font-size: 14px;
+    color: #eee;
+    margin: 15px auto;
 }
 
 .agree_font {
-  font-size: 12px;
-  color: @white;
+    font-size: 12px;
+    color: #34475E;
 }
 
 .app_package_font {
-  font-size: 14px;
-  color: #ffffff;
+    font-size: 12px;
+    color: #999FBC;
+    letter-spacing: 0;
 }
 
-.app_main_font {
-  font-size: 12px;
-  color: #999999;
-  letter-spacing: 0;
-  text-align: justify;
+.app_main_font p{
+    font-size: 12px;
+    letter-spacing: 0;
+    text-align: justify;
+    color: #999FBC;
+    line-height: 18px;
 }
 
 .pop_font {
-  font-size: 14px;
-  color: @black;
+    font-size: 14px;
+    color: @black;
 }
 
 /**
@@ -97,23 +107,30 @@
  */
 
 .pos_container {
-  .margin_fn(10px, 10px, 10px, 10px);
+    .margin_fn(10px, 10px, 10px, 10px);
 }
 
 .pos_example {
-  .margin_fn(50px, 0, 50px, 0);
+    .margin_fn(50px, 0, 50px, 0);
 }
 
 .pos_detail_time {
-  .margin_fn(10px, 0, 10px, 0);
+    .margin_fn(10px, 0, 10px, 0);
 }
 
 .pos_game_cell {
-  .margin_fn(10px, 10px, 10px, 10px);
+    .margin_fn(10px, 10px, 10px, 10px);
 }
 
 .pos_game_wrap {
-  .margin_fn(50px, 0, 30px, 0);
+    .margin_fn(20px, 0, 30px, 0);
+}
+
+.game_subtit {
+    font-size: 14px;
+    color: #34475E;
+    letter-spacing: 0;
+    text-align: center;
 }
 
 /**
@@ -121,21 +138,21 @@
  */
 
 .app_container {
-  background: @main_bgc;
-  &:extend(.public_font); //该页面主体文字样式
+    background: @main_bgc;
+    &:extend(.public_font); //该页面主体文字样式
 }
 
 .app_content {
-  &:extend(.pos_container);
+    &:extend(.pos_container);
 }
 
 .app_package_top {
-  &:extend(.flex_row_between, .app_top_box);
-  position: relative;
+    &:extend(.flex_row_between, .app_top_box);
+    position: relative;
 }
 
 .app_package_bottom {
-  &:extend(.flex_row_start);
+    &:extend(.flex_row_center);
 }
 
 /**
@@ -143,25 +160,24 @@
  */
 
 .app_top_box {
-  background: url("../../pages/leishen_app/images/app_main_bg.png") no-repeat
-    center center;
-  background-size: 100% 100%;
-  border-radius: 2px;
-  padding: 14px 20px;
+    background: #fff;
+    background-size: 100% 100%;
+    border-radius: 2px;
+    padding: 14px 20px;
 }
 
 .app_bottom_box {
-  &:extend(.flex_column_center);
-  width: 33%;
-  background-image: linear-gradient(-164deg, #61cdfa 5%, #3eb0f4 100%);
-  position: relative;
-  border-radius: 2px;
-  padding: 10px 30px;
-  margin: 5px 5px 5px 0;
+    &:extend(.flex_column_center);
+    width: 33%;
+    background: #ffffff;
+    position: relative;
+    border-radius: 2px;
+    padding: 10px 30px;
+    margin: 5px 5px 5px 0;
 }
 
 .app_bottom_box:last-child {
-  margin-right: 0;
+    margin-right: 0;
 }
 
 /**
@@ -169,9 +185,11 @@
  */
 
 .fixed_box {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 0 4px 1px #d6d8e2;
 }
 
 /**
@@ -179,10 +197,9 @@
  */
 
 .app_protocol_box {
-  &:extend(.flex_row_between);
-  box-shadow: 0 -2px 4px 0 #282828;
-  background: @protocol_bgc;
-  padding: 12px 10px;
+    &:extend(.flex_row_between);
+    background: #fff;
+    padding: 12px 10px;
 }
 
 /**
@@ -190,9 +207,11 @@
  */
 
 .app_check_box {
-  &:extend(.flex_row_between);
-  background: @check_bgc;
-  padding: 0 0 0 10px;
+    &:extend(.flex_row_between);
+    background: @white;
+    padding: 0 0 0 10px;
+    border-top: 1px solid #eee;
+    height: 50px;
 }
 
 /**
@@ -200,8 +219,8 @@
  */
 
 .app_amount_box {
-  &:extend(.flex_row_end);
-  margin-left: 15px;
+    &:extend(.flex_row_end);
+    margin-left: 15px;
 }
 
 /**
@@ -209,28 +228,28 @@
  */
 
 .app_check_btn {
-  &:extend(.public_btn);
-  padding: 15px 40px;
-  font-size: 16px;
-  color: #413e3e;
-  border-radius: 0;
+    &:extend(.public_btn);
+    //padding: 15px 40px;
+    font-size: 16px;
+    color: #413e3e;
+    border-radius: 3px;
+    margin-right: 10px;
 }
 
 .hide_ipt {
-  width: 100%;
-  height: 100%;
-  opacity: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
 }
 
 .app_normal_ipt {
-  width: 18px;
-  height: 18px;
-  margin-right: 4px;
-  border: none;
-  outline: none;
-  background: url("../../pages/leishen_app/images/checkbox_nomral@2x.png")
-    no-repeat center center;
-  background-size: 100% 100%;
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+    border: none;
+    outline: none;
+    background: url("../../pages/leishen_app/images/checkbox_normal.png") no-repeat center center;
+    background-size: 100% 100%;
 }
 
 // .app_normal_ipt:hover {
@@ -238,20 +257,18 @@
 // 	background-size: 100% 100%;
 // }
 .hide_ipt_checked {
-  background: url("../../pages/leishen_app/images/checkbox_choosed@2x.png")
-    no-repeat center center;
-  background-size: 100% 100%;
+    background: url("../../pages/leishen_app/images/checkbox_choosed@2x.png") no-repeat center center;
+    background-size: 100% 100%;
 }
 
 .choosed_package {
-  width: 32px;
-  height: 29px;
-  background: url("../../pages/leishen_app/images/choosed@2x.png") no-repeat
-    center center;
-  background-size: 100% 100%;
-  position: absolute;
-  right: 0;
-  bottom: 0;
+    width: 42px;
+    height: 40px;
+    background: url("../../pages/leishen_app/images/group_4@2x.png") no-repeat center center;
+    background-size: 100% 100%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }
 
 /**
@@ -259,14 +276,16 @@
  */
 
 .check_pop_box {
-  &:extend(.flex_column_center, .pop_font);
-  padding: 20px 45px;
+    &:extend(.flex_column_center, .pop_font);
+    padding: 20px 45px;
 }
+
 .app_payment_box {
-  &:extend(.flex_row_between, .pop_font);
-  width: 100%;
-  margin: 30px 0;
+    &:extend(.flex_row_between, .pop_font);
+    width: 100%;
+    margin: 30px 0;
 }
+
 /**
     end   充值页
  */
@@ -274,60 +293,49 @@
     start   帮助中心页
  */
 .app_help {
-  background: #363437;
-  padding: 10px;
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 /**
     组件样式
  */
-.van-collapse-item {
-  background: #464447;
-  box-shadow: 0 2px 4px 0 #2d2d2d !important;
-  border-radius: 4px !important;
-  margin-bottom: 15px;
-}
-.van-cell__title {
-  font-size: 16px;
-  color: #ffffff;
-  background: #464447;
-  border-top: 0;
-}
-.van-collapse-item .van-cell {
-  font-size: 16px;
-  color: #ffffff;
-  background: #464447;
-}
+
 .van-hairline--top-bottom::after {
-  border-width: 0 !important;
+    border-width: 0 !important;
 }
+
 .van-hairline--top::after {
-  border-top-width: 0px !important;
+    border-top-width: 0px !important;
 }
+
 .van-collapse-item .van-cell::after {
-  display: none !important;
+    display: none !important;
 }
+
 .van-collapse-item__wrapper .van-collapse-item__content {
-  background: #464447;
-  box-shadow: 0 2px 4px 0 #2d2d2d !important;
-  border-radius: 4px !important;
-  font-size: 14px;
-  color: #cccccc;
+    background: #464447;
+    box-shadow: 0 2px 4px 0 #2d2d2d !important;
+    border-radius: 4px !important;
+    font-size: 14px;
+    color: #cccccc;
 }
+
 /**
     start 会员服务条款
  */
 .app_pro_container {
-  padding: 10px 15px;
-  box-sizing: border-box;
+    padding: 10px 15px;
+    box-sizing: border-box;
 }
+
 .pro_content_font {
-  &:extend(.text_indent);
-  color: @white;
-  font-size: 14px;
-  line-height: 22px;
-  font-family: MicrosoftYaHeiLight;
+    &:extend(.text_indent);
+    color: @white;
+    font-size: 14px;
+    line-height: 22px;
+    font-family: MicrosoftYaHeiLight;
 }
+
 /**
     end 会员服务条款
  */
@@ -335,32 +343,48 @@
     start 公告详情
  */
 .app_detail_container {
-  padding: 20px 10px;
-  box-sizing: border-box;
-  background: @container_bgc;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    background:#f2f2f2;
 }
+
 .detail_title_font {
-  &:extend(.words_flow);
-  font-size: 18px;
-  color: #ffffff;
+    &:extend(.words_flow);
+    font-size: 18px;
+    color: #2F3967;
+    font-weight: bold;
 }
+
 .detail_pubtime_font {
-  &:extend(.words_flow);
-  font-size: 12px;
-  color: #929292;
+    &:extend(.words_flow);
+    font-size: 12px;
+    color: #8A91B5;
 }
+
 .detail_content_font {
-  font-family: MicrosoftYaHeiLight;
-  font-size: 14px;
-  color: #c2c2c2;
-  letter-spacing: 0;
-  text-align: justify;
-  line-height: 24px;
+    font-size: 14px;
+    color: #2F3967;
+    letter-spacing: 0;
+    text-align: justify;
+    line-height: 24px;
 }
+
 .app_solid_line {
-  &:extend(.solid_line);
-  border-bottom: 1px solid #555;
+    &:extend(.solid_line);
+    border-bottom: 1px solid #D3D6E4;
 }
+
+.app_links_bg {
+    margin-left: 15px;
+    text-align: center;
+    margin-top: 20px;
+
+    img {
+        width: 96%;
+    }
+
+}
+
 /**
     end 公告详情
  */
@@ -368,107 +392,115 @@
     公告列表
  */
 .app_notify_box {
-  &:extend(.flex_row_start);
-  background: #464447;
-  border-radius: 4px;
-  margin: 15px auto;
-  padding: 15px 35px 20px 10px;
-  box-sizing: border-box;
+    &:extend(.flex_row_start);
+    background: #464447;
+    border-radius: 4px;
+    margin: 15px auto;
+    padding: 15px 35px 20px 10px;
+    box-sizing: border-box;
 }
+
 /**
     start 客户端下载页面
  */
 .app_top_logo {
-  width: 100%;
-  box-sizing: border-box;
-  position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
 }
-.links_title_font {
-  font-family: MicrosoftYaHei-Bold;
-  font-size: 28px;
-  color: #ffffff;
-  letter-spacing: 1.75px;
-  text-align: center;
-}
-.app_links_bg {
-  width: 100%;
-  height: 349px;
-  background: #141414 url("../../pages/leishen_app/images/main_banner.png")
-    no-repeat center center;
-  background-size: 100% 100%;
-}
-.links_container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 20px 38px;
-  box-sizing: border-box;
-  &:extend(.app_package_font);
-}
-.download_appbtn {
-  &:extend(.public_btn, .flex_row_center);
-  padding: 10px 0px;
-  font-weight: Bold;
-  font-size: 15px;
-  color: #413e3e;
-  margin-bottom: 15px;
-}
-.download_pcbtn {
-  &:extend(.download_appbtn);
-  border: 1px solid #979797;
-  border-radius: 4px;
-  background: #141414;
-}
-.download_pc_font {
-  font-family: MicrosoftYaHei-Bold;
-  font-size: 15px;
-  color: #ffffff;
-}
-.download_details {
-  font-size: 12px;
-  color: #999999;
-  text-align: center;
-}
-.app_gamelist_box {
-  &:extend(.flex_row_center);
-  width: 100%;
-  margin: 15px auto;
-  flex-wrap: wrap;
-}
-.app_gamelist_cell {
-  &:extend(.flex_column_center, .pos_game_cell);
-}
-.links_des_box {
-  margin: 20px auto;
-  padding: 13px 0;
-  box-sizing: border-box;
-  background: #2a2a2a;
-  border-radius: 3px;
-}
-.game_dsc_font {
-  &:extend(.words_flow);
 
-  font-size: 12px;
-  color: #ffffff;
+.links_title_font {
+    font-weight: bold;
+    font-size: 20px;
+    color: #34475E;
+    letter-spacing: -0.48px;
+    text-align: center;
 }
+
+
+.links_container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    &:extend(.app_package_font);
+}
+
+.download_appbtn {
+    &:extend(.public_btn, .flex_row_center);
+    padding: 15px 0px;
+    font-weight: Bold;
+    font-size: 15px;
+    color: #413e3e;
+    margin-bottom: 15px;
+}
+
+.download_pcbtn {
+    &:extend(.download_appbtn);
+    border: 1px solid #979797;
+    border-radius: 4px;
+    background: #141414;
+}
+
+.download_pc_font {
+    font-family: MicrosoftYaHei-Bold;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.download_details {
+    font-size: 12px;
+    color: #999999;
+    text-align: center;
+}
+
+.app_gamelist_box {
+    &:extend(.flex_row_center);
+    width: 100%;
+    margin: 15px auto;
+    flex-wrap: wrap;
+}
+
+.app_gamelist_cell {
+    &:extend(.flex_column_center, .pos_game_cell);
+}
+
+.links_des_box {
+    margin: 20px auto;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.game_dsc_font {
+    &:extend(.words_flow);
+    font-size: 12px;
+    color: #999FBC;
+    letter-spacing: 0;
+    text-align: center;
+    margin-top: 5px;
+}
+
 .shadow {
-  display: none;
-  width: 100%;
-  height: 100%;
-  background-color: #000;
-  opacity: 0.8;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
+
 .shadow img {
-  float: right;
-  display: block;
-  width: 50%;
-  margin-right: 3%;
+    float: right;
+    display: block;
+    width: 50%;
+    margin-right: 3%;
 }
+
 .van-toast--middle {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 /**
@@ -477,55 +509,47 @@
 /****** loading组件样式 *******/
 
 .ls_shadow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
 }
+
 .ls_loading {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  left: 50%;
-  top: 50%;
-  margin-left: -15px;
-  margin-top: -15px;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 50%;
+    top: 50%;
+    margin-left: -15px;
+    margin-top: -15px;
 }
+
 /****** loading组件样式 *******/
 .zhekouBox {
-  margin-top: 15px;
-  .zhekou_tit {
-    font-size: 15px;
-    color: #999;
-    font-weight: normal;
-  }
-  .zhekou {
+    margin-top: 15px;
 
-    margin-top: 10px;
-    background: transparent;
-    .van-cell {
-      background: #1e1e1e;
-      border-radius: 2px;
-      border: 1px solid #5a5a5a;
+    .zhekou_tit {
+        color: @font_color;
+        font-weight: normal;
+        font-size: 14px;
+        letter-spacing: -0.34px;
     }
-    .van-field__control {
-      color: #eee;
-      border: 0 !important;
-      margin: 0 !important;
-      height: auto !important;
-      padding: 0 !important;
-      width: 100% !important;
-      resize: none !important;
-      display: block !important;
-      -webkit-box-sizing: border-box !important;
-      box-sizing: border-box !important;
-      background-color: transparent !important;
+
+    .zhekou {
+
+        margin-top: 10px;
+        background: transparent;
+
+        .van-cell {
+            background: #fff;
+            border-radius: 2px;
+            border: 1px solid #fff;
+        }
     }
-  }
 }
-
 
 /**
     start   双旦活动页面
@@ -580,6 +604,7 @@
     background: url("../../pages/leishen_app/images/sd_mb_screen_box01.png") no-repeat center center;
     background-size: 100% 100%;
 }
+
 /**
     敲击中奖区域
 */
@@ -621,7 +646,7 @@
     礼品区
 */
 .pos_app_present {
-  .margin_fn(0, 0, 2%, 2%);
+    .margin_fn(0, 0, 2%, 2%);
 }
 
 /**
@@ -672,7 +697,7 @@
     border-radius: 4px;
 }
 
-.win_gift_box .van-popup{
+.win_gift_box .van-popup {
     width: 80%;
     margin: 0 auto;
     padding: 10% 0;
@@ -794,7 +819,7 @@
     bottom: 10px;
 }
 
-.app_guize_cell .van-popup{
+.app_guize_cell .van-popup {
     width: 95%;
     margin: 0 auto;
     padding: 2% 0;
@@ -829,8 +854,7 @@
     start   双旦活动页面
  */
 
-
- /**** 寒假活动 *******/
+/**** 寒假活动 *******/
 .app_hj_banner {
     width: 100%;
 }
@@ -863,16 +887,16 @@
     font-family: MicrosoftYaHei-Bold;
     text-align: center;
     font-size: 12px;
-	font-weight: bold;
-	font-stretch: normal;
-	letter-spacing: 0px;
-	color: #234f80;
-	background-color: #ffffff;
+    font-weight: bold;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #234f80;
+    background-color: #ffffff;
 }
 
 .hj_package_time {
     margin-top: 8px;
-    color:#fff;
+    color: #fff;
 }
 
 .app_hj_cj {
@@ -931,7 +955,7 @@
     height: 100%;
 }
 
-.active .prize_check{
+.active .prize_check {
     background: url(../../pages/leishen_app/images/hanjia/jp_check.png) center center no-repeat;
     background-size: 100% 100%;
 }
@@ -939,7 +963,7 @@
 .app_hj_prize_control {
     width: 100%;
     padding: 3px 2px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     margin-top: 10px;
 }
 
@@ -956,10 +980,10 @@
     height: 50px;
     background: url(../../pages/leishen_app/images/hanjia/hj_btn.png) center center no-repeat;
     background-size: 100% 100%;
-	font-size: 16px;
-	font-weight: bold;
-	font-stretch: normal;
-	letter-spacing: 0px;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    letter-spacing: 0px;
     color: #06283c;
     text-align: center;
     line-height: 50px;
@@ -968,9 +992,9 @@
 
 .app_hj_start_font {
     font-size: 16px;
-	font-weight: bold;
-	font-stretch: normal;
-	letter-spacing: 0px;
+    font-weight: bold;
+    font-stretch: normal;
+    letter-spacing: 0px;
     color: #06283c;
     text-align: center;
     margin-top: 5px;
@@ -978,9 +1002,9 @@
 
 .app_hj_times {
     font-size: 12px;
-	font-weight: bold;
-	font-stretch: normal;
-	letter-spacing: 0px;
+    font-weight: bold;
+    font-stretch: normal;
+    letter-spacing: 0px;
     color: #06283c;
     text-align: center;
 }
@@ -990,7 +1014,7 @@
     height: 105px;
     padding: 12px 5px;
     margin: 0 auto;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     margin-top: 10px;
     overflow: hidden;
     color: #fff;
@@ -1008,18 +1032,18 @@
 
 .app_hj_weibo_title {
     font-size: 20px;
-	font-weight: normal;
-	font-stretch: normal;
-	letter-spacing: 0px;
-	color: #ffffff;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #ffffff;
 }
 
 .app_hj_weibo_tip {
     font-size: 14px;
-	font-weight: normal;
-	font-stretch: normal;
-	letter-spacing: 0px;
-	color: #ffffff;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
+    color: #ffffff;
 }
 
 .app_hj_invite_box {
@@ -1055,18 +1079,18 @@
 
 .app_hj_guize_title {
     font-size: 24px;
-	font-weight: normal;
-	font-stretch: normal;
-	letter-spacing: 0px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
     color: #ffffff;
     margin-top: 15px;
 }
 
 .app_pos_hj_wenzi {
     font-size: 18px;
-	font-weight: normal;
-	font-stretch: normal;
-	letter-spacing: 0px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
     color: #ffffff;
     margin-top: 10px;
 }
@@ -1075,16 +1099,16 @@
     padding-left: 36px;
 }
 
-.app_hj_tianjia_font{
+.app_hj_tianjia_font {
     font-size: 16px;
     color: #fff601;
 }
 
 .app_hj_foot {
     font-size: 12px;
-	font-weight: normal;
-	font-stretch: normal;
-	letter-spacing: 0px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 0px;
     color: #ffffff;
     margin: 0 auto;
     padding: 10px 0;
@@ -1097,7 +1121,8 @@
     top: 0;
     bottom: 0;
     right: 0;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 99;
 }
 
 .app_hj_dialog_zj {
@@ -1107,12 +1132,18 @@
     top: 160px;
     width: 280px;
     height: 180px;
-    background: url(../../pages/leishen_app/images/hanjia/notif_dialog_bg.png) center center no-repeat;
+    background: url(../../pages/leishen_app/images/cj/bg_tips.png) center center no-repeat;
     background-size: 100% 100%;
-    color: #fff;
+    color: #333;
+    box-sizing: border-box;
 }
 
 .app_hj_dialog_title {
+    width: 40%;
+    color: #ffffd9;
+    margin: -15px auto;
+    background: url(../../pages/leishen_app/images/cj/tips_tit.png) center center no-repeat;
+    background-size: 100% 100%;
     line-height: 26px;
     font-size: 14px;
     font-weight: bold;
@@ -1120,29 +1151,28 @@
 }
 
 .hj_dialog_btn {
-    width: 30%;
-    height: 32px;
-    background: url(../../pages/leishen_app/images/hanjia/app_dialog_btn.png) center center no-repeat;
-    background-size: 100% 100%;
-	font-size: 16px;
-	font-weight: bold;
-	font-stretch: normal;
-	letter-spacing: 0px;
-    color: #06283c;
+    padding: 5px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    letter-spacing: 0px;
     text-align: center;
     line-height: 32px;
+    color: #ffffd9;
+    background-color: #b31b1a;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
 }
 
 .app_hj_dialog_close {
     width: 25px;
     height: 25px;
-    background: url(../../pages/leishen_app/images/hanjia/closed2.png) center center no-repeat;
+    background: url(../../pages/leishen_app/images/cj/x.png) center center no-repeat;
     background-size: 100% 100%;
     position: absolute;
-    top: 13px;
-    right: -25px;
+    top: -10px;
+    right: -10px;
 }
 
 .body_fixed {
@@ -1162,7 +1192,7 @@
 }
 
 .app_user_prize_list::-webkit-scrollbar {
-    display:none
+    display: none
 }
 
 .app_hdgz_dialog {
@@ -1222,3 +1252,719 @@
 }
 
 /******* 客服 ********/
+
+/******* apex专题页 ******/
+.apex_banner {
+    width: 100%;
+    height: 242px;
+    position: relative;
+}
+
+.apex_banner_container {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 198px;
+}
+
+.apex_banner_msg {
+    font-size: 14px;
+    color: @white;
+    text-align: center;
+}
+
+.apex_banner_tips {
+    width: 100%;
+    font-size: 12px;
+    color: @white;
+}
+
+.apex_sum {
+    font-size: 18px;
+    color: rgb(22,22,22);
+    text-align: center;
+    margin-top: 15px;
+}
+
+.download_cjbtn {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 15px;
+    border-radius: 4px;
+    height: 46px;
+    line-height: 46px;
+    background: rgb(226,20,20);
+    color: @white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.apex_title {
+    background: url("../../pages/leishen_app/images/apex_tit_bg.png") center center no-repeat;
+    background-size: 90% 60%;
+    margin-top: 24px;
+    text-align: center;
+    font-size: 16px;
+    color: rgb(22,22,22);
+}
+
+.apex_game_pk {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 16px;
+}
+
+.apex_games {
+    display: block;
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 16px;
+}
+
+.apex_more {
+  font-size: 14px;
+  color: #5a5957;
+  margin: 25px 0;
+  text-align: center;
+}
+
+.apex_download_banner {
+    width: 100%;
+    height: 138px;
+    position: relative;
+}
+
+.apex_download_title {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 73px;
+    text-align: center;
+}
+
+.apex_download_title_font {
+    font-size: 18px;
+    font-weight: bold;
+    fontFamily: "MicrosoftYaHei-Bold";
+    color: @white;
+}
+
+.apex_download_msg {
+    font-size: 12px;
+    color: @white;
+}
+
+.apex_download_step {
+    width: 100%;
+    align-items: flex-start;
+    margin-top: 20px;
+    padding-left: 3%;
+    box-sizing: border-box;
+}
+
+.apex_step_count {
+    width: 24px;
+    height: 24px;
+    line-height: 20px;
+    text-align: center;
+    border: rgb(22,22,22) 2px solid;
+    box-sizing: border-box;
+}
+
+.apex_step_content {
+    line-height: 24px;
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.apex_step_img {
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 5px;
+}
+
+.apex_notice {
+    width: 95%;
+    margin: 15px auto 0;
+    padding: 6px;
+    box-sizing: border-box;
+    fontFamily: "MicrosoftYaHei-Bold";
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(228,224,215);
+    background: url("../../pages/leishen_app/images/apex_7.png");
+    background-size: 100% 100%;
+}
+
+.apex_leigod {
+    width: 95%;
+    margin: 15px auto 0;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
+    color:rgb(22,22,22);
+}
+
+.apex_footer {
+    width: 100%;
+    height: 66px;
+    background: rgb(22,22,22);
+    margin-top: 20px;
+    padding-top: 12px;
+    box-sizing: border-box;
+}
+
+.apex_foot_font {
+    color:rgb(129,129,129);
+    text-align: center;
+}
+/******* apex专题页 ******/
+
+/**
+  春节活动
+ */
+.cj_banner {
+    width: 100%;
+    height: 178px;
+    background: url("../../pages/leishen_app/images/chunjie_mbanner.jpg") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.cj_banner_center {
+    width: 100%;
+    height: 320px;
+    background: url("../../pages/leishen_app/images/chunjie_mrecharge.jpg") no-repeat center center;
+    background-size: 100% 100%;
+    text-align: center;
+    position: relative;
+}
+
+.cj_banner_bottom {
+    width: 100%;
+    height: 283px;
+    background: url("../../pages/leishen_app/images/chunjie_mfriend.jpg") no-repeat center center;
+    background-size: 100% 100%;
+    padding-top: 80px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.cj_abs_mcontainer {
+    width: 90%;
+    left: 50%;
+    top: 95px;
+    margin-left: -45%;
+    position: relative;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.cj_abs_mscroll {
+    width: 100%;
+    margin: 0 auto 56px;
+    height: 24px;
+    line-height: 24px;
+    background: url("../../pages/leishen_app/images/chunjie_mbox.png") no-repeat center center;
+    background-size: 100% 100%;
+    padding: 0 15px;
+    text-align: left;
+    box-sizing: border-box;
+    color: #FFF;
+    font-size: 20px;
+    overflow: hidden;
+}
+
+.cj_mfudai_box {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 12px;
+    background-color: #fff5f5;
+    border-radius: 6px;
+}
+
+.cj_mfudai_cell {
+    width: 60px;
+    height: 70px;
+    margin-left: 6px;
+    margin-bottom: 12px;
+    line-height: 83px;
+    text-align: center;
+    font-size: 14px;
+    color: #ffffd9;
+    background: url("../../pages/leishen_app/images/chunjie_mdai.png") no-repeat center center;
+    background-size: 100% 100%;
+    position: relative;
+}
+
+.cj_mfudai_cell_active {
+    background: url("../../pages/leishen_app/images/chunjie_mdai_on.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.cj_mrule_item {
+    width: 33%;
+    height: 45px;
+    line-height: 40px;
+    float: left;
+    text-align: center;
+    background: url("../../pages/leishen_app/images/chunjie_mbtn_tit.png") no-repeat center center;
+    background-size: 100% 100%;
+    color: #FFF;
+    font-size: 14px;
+}
+
+.cj_mrule_item_active {
+    background: url("../../pages/leishen_app/images/chunjie_mbtn_tit_on.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.cj_mrule_box {
+    width: 100%;
+    padding: 20px 10px 5px;
+    height: 245px;
+    margin: 0 auto;
+    background-color: #fbd9b4;
+    border-radius: 6px;
+    box-sizing: border-box;
+    border: solid 3px #f5bd71;
+    text-align: left;
+    overflow-y: scroll;
+}
+
+.cj_mrule_box::-webkit-scrollbar {
+    display: none
+}
+
+.cj_mrule_box {
+    overflow: -moz-scrollbars-none;
+}
+
+.cj_mhistory_cell {
+    line-height: 30px;
+    font-size: 14px;
+    color: #9a5e1c;
+    padding-bottom: 4px;
+    border-bottom: 1px dotted #f2c89b;
+}
+
+.cj_tab_box {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    height: 100%;
+    padding-top: 20px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+}
+
+.cj_tab_box::-webkit-scrollbar {
+    display: none
+}
+
+.cj_mfocus_box {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+    background-color: #fff0df;
+    border-radius: 3px;
+    margin-top: 30px;
+}
+
+.cj_copy_links {
+    height: 40px;
+    line-height: 40px;
+    background-color: #f6dcc1;
+    border-radius: 3px;
+    font-weight: bold;
+    color: #141412;
+    font-size: 10px;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.cj_copy_btn {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #f0433f;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.cj_copy_box {
+    width: 90%;
+    margin: 0 auto 20px;
+}
+
+.abs_mcopy_btn {
+    width: 100px;
+    position: relative;
+    left: 50%;
+    margin-left: -50px;
+}
+
+.cj_mbacktime_box {
+    width: 85%;
+    height: 34px;
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    margin-left: -42%;
+    font-size: 14px;
+    color: #141412;
+    font-weight: bold;
+}
+
+.cj_back_font {
+    color: #f04440;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.cj_mscroll_cell {
+    line-height: 24px;
+    font-size: 12px;
+    color: #FFF;
+}
+
+/**
+	默认福袋
+ */
+.cj_redpack_box {
+    width: 90%;
+    height: 220px;
+    margin-left: 30px;
+    margin-bottom: 15px;
+    background: url("../../pages/leishen_app/images/chunjie_mfudai01.png") no-repeat center center;
+    background-size: 100% 100%;
+    position: relative;
+}
+
+/**
+	抽中后的福袋
+ */
+.cj_redpack_box_burn {
+    background: url("../../pages/leishen_app/images/chunjie_mfudai02.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.cj_detail_box {
+    width: 60%;
+    margin-left: 13%;
+    text-align: center;
+}
+
+.cj_detail_box_burn {
+    width: 60%;
+    margin-left: 16%;
+    text-align: center;
+}
+
+.zj_font {
+    width: 100%;
+    color: #f04440;
+    text-align: center;
+    font-size: 12px;
+}
+
+.prize_hidden {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    margin-left: -50px;
+    visibility: hidden;
+}
+
+.prize_show {
+    top: 25px;
+    transition: 1.5s;
+    visibility: visible;
+}
+
+.open_bag {
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    letter-spacing: 1px;
+    color: #fff7b2;
+    margin-top: 120px;
+    padding: 8px 24px;
+    background-color: #e80e3f;
+    border-radius: 39px;
+}
+
+.open_bag_again {
+    margin-top: 3px;
+    font-size: 12px;
+    padding: 4px 10px;
+}
+
+.cj_abs_bg_banner {
+    width: 100%;
+    position: relative;
+    background: url("../../pages/leishen_app/images/chunjie_mfudai.jpg") no-repeat center center;
+    background-size: 100% 100%;
+    padding-bottom: 20px;
+}
+
+.cj_mdot_cell {
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
+    background: #f0433f;
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 5px;
+}
+
+.cj_zjjl_empty {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.cj_dialog_btn {
+    padding: 5px 35px;
+    font-size: 20px;
+    color: #ffffd9;
+    background-color: #e80e3f;
+    border-radius: 5px;
+}
+.app_package_price{
+    font-size: 16px;
+    color: @font_color;
+    letter-spacing: 0;
+    font-weight: bold;
+}
+.app_price_des {
+    font-size: 10px;
+    color: #999FBC;
+    letter-spacing: 0;
+}
+/******* 开学季活动 ********/
+.kx_mbacktime_box {
+    width: 40%;
+    margin-left: 26%;
+    text-align: left;
+    font-size: 16px;
+    color:#fcf744;
+    font-weight: bold;
+}
+
+.kx_back_font {
+    display: inline-block;
+    width: 17%;
+    text-align: center;
+}
+
+.app_kx_prize_list {
+    width: 100%;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+.kx_prize {
+    width: 32%;
+    margin-left: 4px;
+    margin-top: 4px;
+}
+
+.app_kx_prize_control {
+    padding: 0 5px;
+    margin-top: 10px;
+}
+
+.app_kx_btn,.app_kx_start {
+    width: 32%;
+}
+
+.app_kx_zjjl_list {
+    width: 80%;
+    height: 40px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    margin-top: 18px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.kx_copy_links {
+    height: 40px;
+    line-height: 40px;
+    background-color: #b8c6ff;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 10px;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.kx_copy_btn {
+    width: 30%;
+}
+
+.kx_dialog_btn {
+    width: 30%;
+}
+
+.kx_dialog_info {
+    width: 100%;
+    height: 80%;
+    margin-top: 10%;
+    padding: 0 8px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+.kx_dialog_info::-webkit-scrollbar {
+    display:none
+}
+
+.kx_prize_li {
+    width: 90%;
+    padding: 5px 0;
+    margin: 0 auto;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px #101859 dashed;
+}
+#usercardRecharge .van-tabs__wrap,.van-tabs__nav{
+    height:40px;
+}
+#usercardRecharge .van-tab {
+    height:40px;
+    line-height: 40px;
+}
+#usercardRecharge .van-tabs__content{
+    padding: 0;
+}
+#userPrizeInfo {
+    .van-nav-bar__left{
+        .van-icon{
+            font-size: 20px;
+            color:#333;
+        }
+        .van-nav-bar__text{
+            font-size: 16px;
+            color:#333;
+        }
+
+    }
+    input{
+        text-align: right;
+    }
+    input::-webkit-input-placeholder
+    {
+        text-align: right;
+    }
+    input::-moz-placeholder
+    {
+        text-align: right;
+    }
+}
+
+/*** leisehn5.0专题推广页 *****/
+.leishen_5_0_content {
+    width: 100%;
+    background: url("../../pages/leishen_app/images/leishen_5_0_contentbg.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+
+.leishen_5_0_list {
+    padding: 20px 4%;
+}
+
+.leishen_5_0_li {
+    width: 50%;
+    text-align: center;
+    padding: 20px 0;
+    float: left;
+}
+
+.leishen_5_0_rechargebox {
+    width: 100%;
+    padding-bottom: 63px;
+    text-align: center;
+    background: url("../../pages/leishen_app/images/leishen_5_0_rechargebg.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+
+/**
+    路由器列表
+ */
+.router_list {
+    width: 100%;
+    background-color: #363437;
+    font-size: 12px;
+    color: #929292;
+    padding: 2.7vw;
+    box-sizing: border-box;
+    .router_info_font {
+        font-size: 14px;
+        color: #FFFFFF;
+        margin-bottom: 18px;
+    }
+    .router_title_font {
+        font-size: 14px;
+        color: #FFC713;
+        margin-bottom: 10px;
+    }
+    .router_box {
+        width: 100%;
+        max-height: 98px;
+        overflow: hidden;
+    }
+    .defalut_height {
+        max-height: none;
+    }
+    .router_cell {
+        width: 32%;
+        height: 44px;
+        line-height: 44px;
+        margin-bottom: 5px;
+        text-align: center;
+        box-sizing: border-box;
+        border: 1px solid #979797;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #FFFFFF;
+    }
+    .router_cell:hover {
+        border: 1px solid #FFC713;
+        color: #FFC713;
+    }
+    .router_cell:nth-child(3n-1) {
+        margin: 0 2%;
+    }
+    .router_cell_active {
+        border: 1px solid #FFC713;
+        color: #FFC713;
+    }
+    .mar_b25 {
+        margin-bottom: 25px;
+    }
+    .check_more {
+        width: 100%;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        border: 1px solid #979797;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #FFFFFF;
+    }
+}

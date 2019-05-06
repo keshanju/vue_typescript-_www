@@ -8,7 +8,7 @@ import CheckUtil from '@/ts/utils/CheckUtil';
 import { TipsMsgUtil } from '@/ts/utils/TipsMsgUtil';
 import "babel-polyfill";
 import VueI18n from "vue-i18n";
-import { Select, Option } from 'element-ui';
+import { Select, Option, OptionGroup } from 'element-ui';
 import { Loading, Toast } from "vant";
 import Util from '@/ts/utils/Util';
 import AppParamModel from '@/ts/models/AppModel';
@@ -30,7 +30,8 @@ const i18n = new VueI18n(lang);
 @Component({
     components: {
         'el-select': Select,
-        'el-option': Option
+        'el-option': Option,
+        'el-option-group':OptionGroup
     }
 })
 class ThirdBind extends RegisterProxy {
@@ -48,6 +49,7 @@ class ThirdBind extends RegisterProxy {
     public init(): void {
         this.referCode = Util.getUrlParam('refer_code');
         this.getAreaCodeList();
+        this.getAreaCodeInfoList(GlobalConfig.getWebBaseUrl())
         this.getDownloadUrl();
         this.onGetPackage(1);
     }
@@ -256,9 +258,9 @@ class ThirdBind extends RegisterProxy {
     /**
    * 改变手机区号
    */
-    public onSelectCountryCode(value: any) {
-        var v = value.target.value; // 选中索引
-        this.countryCode = v;
+    public onSelectCountryCode(value) {
+        this.country_code = value;
+        this.countryCode = value.code;
     }
 
     /**
@@ -295,7 +297,7 @@ class ThirdBind extends RegisterProxy {
             return;
         }
 
-        this.onBindDefaultAccount('pc')
+        this.onBindDefaultAccount('pc','0')
     }
 
     /**
@@ -389,7 +391,7 @@ class ThirdBind extends RegisterProxy {
         this.loadingMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_AUTO_LOGIN);
         setTimeout(() => {
             let code = data.data.code;
-            window.location.href = 'threeSuccess.html?code=' + code;
+            window.location.href = 'threeSuccess.html?code=' + code + '&platform=' + this.appParam.platform;
         }, 1000);
     }
 

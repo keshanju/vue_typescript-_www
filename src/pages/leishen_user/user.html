@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>会员中心</title>
     <script src="https://hm.baidu.com/hm.js?0eb4303e084ff5791f2a25e3df421cea"></script>
+    <script src="./web.js"></script>
 </head>
 
 <body style="color: #666;">
@@ -33,18 +34,18 @@
                 <div class="user_right_cell">
                     <div>
                         <p class="web_nickname_font">{{ userInfo.nickname }}</p>
-                        <p class="web_public_btn">{{ userInfo.package_title }}</p>
+                        <p class="web_public_btn">{{ userInfo.is_pay_user == 0 ? $t("user.b138") : $t("user.b137") }}</p>
                     </div>
                     <div class="flex_column_center">
                         <!-- <p class="h5_title_font" v-show="userInfo.billing_type == 1">{{ $t("user.b61") }}</p>
                         <p class="h5_title_font" v-show="userInfo.billing_type == 2">{{ $t("user.b62") }}</p> -->
                         <div class="flex_row_center">
-                            <span class="web_time_font pos_download_list" v-show="userInfo.billing_type == 2">{{                                    userInfo.expiry_time }}</span>
-                            <span class="web_time_font" v-show="userInfo.billing_type == 1">{{ timeHours }}</span>
+                            <span class="web_time_font pos_download_list" v-show="userInfo.billing_type == 2">{{userInfo.expiry_time }}</span>
+                            <span class="web_time_font" :class="{'web_time_red_font': timeFontRed}" v-show="userInfo.billing_type == 1">{{ timeHours }}</span>
                             <span v-show="userInfo.billing_type == 1">{{ $t("public.share15") }}</span>
-                            <span class="web_time_font" v-show="userInfo.billing_type == 1">{{ timeMinutes }}</span>
+                            <span class="web_time_font" :class="{'web_time_red_font': timeFontRed}" v-show="userInfo.billing_type == 1">{{ timeMinutes }}</span>
                             <span v-show="userInfo.billing_type == 1">{{ $t("public.share16") }}</span>
-                            <span class="web_time_font" v-show="userInfo.billing_type == 1">{{ timeSeconds }}</span>
+                            <span class="web_time_font" :class="{'web_time_red_font': timeFontRed}" v-show="userInfo.billing_type == 1">{{ timeSeconds }}</span>
                             <span v-show="userInfo.billing_type == 1">{{ $t("public.share17") }}</span>
                             <i style="width: 18px; height: 18px; margin-left: 10px" class="refresh_icon"
                                @click="reGetUserInfo"></i>
@@ -53,9 +54,10 @@
                             <i class="status_icon pos_download_list"></i>
                             <span class="package_time_font">{{$t("user.b63") }}</span>
                             <span class="web_status_font">{{ userInfo.pause_status }}</span>
+                            <a class="round_btn" style="margin-left: 5px;" @click="changePage(1)" v-if="timeFontRed">{{$t("wallpaper.wall11") }}</a>
                         </div>
                     </div>
-                    <div style="margin-right: 30px;width: 200px;text-align: right;">
+                    <div>
                         <a class="time_btn suspended_btn" @click="onSuspended" v-show="userInfo.pause_status_id == 0">
                             <i class="suspended_icon"></i>
                             <span>{{$t("user.b2")}}</span>
@@ -180,13 +182,13 @@
                              @loginout="loginOut">
                 </user-center>
 
-                <user-recharge ref="recharge" @onbeginpay="onBeginPay" v-show="pageIndex == 1"></user-recharge>
+                <user-recharge ref="recharge" @onbeginpay="onBeginPay" :userinfo="userInfo" :xianshiactivityinfo="xianshi_activity_info" v-show="pageIndex == 1"></user-recharge>
 
                 <user-info ref="userinfo" :userinfo="userInfo" v-show="pageIndex == 2"
                            @on-upload-userinfo="onUploadUserInfo">
                 </user-info>
 
-                <user-card v-show="pageIndex == 3" @refreshuserinfo="getUserInfo"></user-card>
+                <user-card v-show="pageIndex == 3" ref="userRechergeCard" @changetab="userCardChangeTab" @refreshuserinfo="getUserInfo"></user-card>
 
                 <user-order ref="orderList" @onbeginpay="onBeginPay" v-show="pageIndex == 4"></user-order>
 
@@ -198,8 +200,8 @@
 
                 <user-agreement v-show="pageIndex == 6"></user-agreement>
 
-                <active-record ref="activeRecordList" v-show="pageIndex == 7"
-                               @refreshuserinfo="getUserInfo">
+                <active-record ref="activeRecordList" v-show="pageIndex == 7" @gorecharge="changePage(1)"
+                               @refreshuserinfo="getUserInfo" @showtip="showTip">
                 </active-record>
                 <!-- 温馨提示 （根据不同组件进行渲染）-->
                 <div class="pos_warm_box" v-show="pageIndex == 0 || pageIndex == 1">
@@ -215,11 +217,17 @@
                     </div>
                 </div>
                 <!--卡密充值温馨提示（根据不同组件进行渲染）-->
-                <div class="pos_warm_box" v-show="pageIndex == 3">
+                <div class="pos_warm_box" v-show="pageIndex == 3&&cardTabName=='second'">
                     <h3 class="warm_tips_font">{{ $t("warmtips.tip1") }}</h3>
                     <div class="warm_detail_font">
                         <p class="pos_warm_txt">{{ $t("warmtips.tip7") }}</p>
                         <p class="pos_warm_txt">{{ $t("warmtips.tip8") }}</p>
+                    </div>
+                </div>
+                <div class="pos_warm_box" v-show="pageIndex == 3&&cardTabName=='first'">
+                    <h3 class="warm_tips_font">{{ $t("warmtips.tip1") }}</h3>
+                    <div class="warm_detail_font">
+                        <p class="pos_warm_txt">{{ $t("user.b67_11") }}</p>
                     </div>
                 </div>
                 <!-- 安全服务提示 （根据不同组件进行渲染）-->
@@ -227,7 +235,7 @@
                     <h3 class="warm_tips_font">{{ $t("warmtips.tip9") }}</h3>
                     <div class="warm_detail_font">
                         <p class="pos_warm_txt">
-                            <span>{{ $t("warmtips.tip10_1") }}</span> <a class="links_leigod_font">{{
+                            <span>{{ $t("warmtips.tip10_1") }}</span> <a class="links_leigod_font" href="https://www.leigod.com" target="_blank">{{
                             $t("warmtips.tip10_2") }}</a> <span>{{ $t("warmtips.tip10_3") }}</span>
                         </p>
                         <p class="pos_warm_txt">{{ $t("warmtips.tip11") }}</p>
@@ -242,6 +250,9 @@
                    width="40%">
             <pay-dialog ref="payDialogCom" @open="onOpenPyaDialog" :payobj="payObj"></pay-dialog>
         </el-dialog>
+
+        <!--客服悬浮窗-->
+        <download-box></download-box>
 
         <!--页面底部导航-->
         <foot-nav class="user_foot_nav"></foot-nav>

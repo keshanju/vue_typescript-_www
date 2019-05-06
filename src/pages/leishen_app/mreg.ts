@@ -1,7 +1,5 @@
 import { Component, Vue } from "vue-property-decorator";
-import { Actionsheet, Checkbox, Picker, Tab, Tabs, Toast,Loading } from "vant";
-import "./css/mui.min0125.css";
-import "./css/ls2.css";
+import { Popup, Checkbox, Picker, Tab, Tabs, Toast,Loading } from "vant";
 import "./css/wap.less";
 import { RegisterProxy } from "@/ts/proxy/RegisterProxy";
 import Util from "@/ts/utils/Util";
@@ -15,14 +13,15 @@ import JumpWeiXin from "./util/jump";
 import ConfigUtil from "@/ts/utils/ConfigUtil";
 import LocalStorageUtil from "@/ts/utils/LocalStorageUtil";
 import Load from "./components/Loading.vue";
-
+import Md5 from 'md5';
+import Countries from './components/Country.vue';
 Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(Picker);
 Vue.use(Toast);
 Vue.use(Loading);
 Vue.use(Checkbox);
-Vue.use(Actionsheet);
+Vue.use(Popup);
 
 //语言
 Vue.use(VueI18n);
@@ -36,24 +35,42 @@ const i18n = new VueI18n(lang);
 
 @Component({
   components: {
-    load: Load
+    load: Load,
+    'country-item': Countries
   }
 })
 class Register extends RegisterProxy {
   public appParam: AppParamModel = AppParamModel.getInstace();
   public AreaCodeshow: boolean = false;
   public region_code: number = 1;
+  public agreementChceked=true;
   public showVioceCode = 0; //是否显示语音验证码 0 不显示  1显示
   public state_html = Util.getUrlParam("state_html") || "";
   public logincode = Util.getUrlParam("code") || "";
+  public country: {//国家信息
+    code: string,
+    group: string,
+    ico: string,
+    iso_code: string,
+    name: string
+  } = {
+    code: '',
+    group: '',
+    ico: '',
+    iso_code: '',
+    name: ''
+  }
+
   public created() {
     this.setBaseUrl(GlobalConfig.getBaseUrl());
     this.init();
     this.registerIsCaptcha();
   }
 
-  public init(): void {
-    this.getAreaCodeList();
+  public async init() {
+    await this.getAreaCodeInfoList(GlobalConfig.getWebBaseUrl());
+    this.country=this.country_code
+    this.countryCode=this.country.code
     this.getDownloadUrl();
     this.onGetPackage(1);
     this.getReferCode();
@@ -93,12 +110,21 @@ class Register extends RegisterProxy {
     this.AreaCodeshow = false;
   }
 
+  /**
+   * 获取选中的国家信息
+   * @param data
+   */
+  public getcountry(data) {
+    this.country = data;
+    this.countryCode = data.code;
+    this.AreaCodeshow = false;
+  }
+
   //切换注册类型
   public changeResignType(index) {
     this.resignType = index;
     this.isimgVerification = 0; //切换后图形验证码还原
     this.registerIsCaptcha();
-    this.agreementChceked = false; //同意会员条款重置
   }
 
   // 选择区号
@@ -477,6 +503,16 @@ class Register extends RegisterProxy {
   public onRegisterSuccess() {
     this.notifTitle = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_REGISTER);
     Toast(this.notifTitle);
+    //存储账号和密码
+    if(this.phonePassword){
+      localStorage.setItem(LocalStorageUtil.STORAGES_PHONE, this.phone);
+      localStorage.setItem(LocalStorageUtil.STORAGES_PHONE_PW, Md5(this.phonePassword).toString());
+    }
+    if(this.emailPassword){
+      localStorage.setItem(LocalStorageUtil.STORAGES_EMAIL, this.email);
+      localStorage.setItem(LocalStorageUtil.STORAGES_EMAIL_PW, Md5(this.emailPassword).toString());
+    }
+
     setTimeout(() => {
       this.gotologin();
     }, 3000);

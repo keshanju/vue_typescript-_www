@@ -325,6 +325,7 @@ export default class Login extends UserUtil {
       let token = this.backData.token;
       LocalStorageUtil.setCookie("regToken", token);
       this.reg_step = 2; //去完善资料页面
+      this.improveInfo.tel = this.username;
     } else {
       this.isLoading = false;
       this.$message.error(this.backData.msg);

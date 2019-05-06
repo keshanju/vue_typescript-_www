@@ -79,7 +79,6 @@ class NewActivity extends ActivityProxy {
     // http://localhost:8080/shuangdan.html?id=36&region_code=1&language=zh_CN&account_token=VxHnkvLQZFN1PVvXHgBzuZFZksgKZ0Bk5WcJYox657pvSKgzcgTgUgdb0R3wdL90
     public activity_id = 170;
     public webParam = WebParamModel.getInstace(); // 浏览器参数
-    public joinleftfix: Number = 0; //加入我们页面左侧固定 0 不固定  1固定
     //
     public dialog_award: boolean = false;// 中奖纪录
     public dialog_guize: boolean = false;//  默认规则弹框

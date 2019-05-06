@@ -1,0 +1,514 @@
+@ACTBGURL: '../../../images'; // 活动页面图片根地址
+
+//  活动页面专题(pub 代表 public公用类)
+
+.activity_main_banner {
+    display: block;
+    position: relative;
+    left: 50%;
+    margin-left: -1500px;
+}
+
+.activity_model_content {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.model_left_content {
+    width: 1200px;
+}
+
+.model_container {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.model_left_container {
+    text-align: left;
+}
+
+.package_row_box {
+    width: 1200px;
+    position: absolute;
+    top: 50%;
+    margin-top: -120px;
+    left: 50%;
+    margin-left: -600px;
+}
+
+.model_outside_box {
+    width: 1200px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -600px;
+}
+
+.model_left_outside_box {
+    width: 1028px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.prize_active {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.active .prize_active {
+    display: block;
+}
+
+//  文字集
+.pos_pub_wenzi {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+    color: #fff;
+}
+
+.pos_pub_con {
+    font-size: 14px;
+    color: #fff;
+    margin: 5px 0;
+}
+
+//  start   按钮
+.pub_buy_btn {
+    width: 282px;
+    height: 98px;
+    background: url("@{ACTBGURL}/zhishu/btn_recharge_n.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pub_buy_btn:hover {
+    background: url("@{ACTBGURL}/zhishu/btn_recharge_h.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pub_copy_btn {
+    display: inline-block;
+    width: 196px;
+    height: 72px;
+    background: url("@{ACTBGURL}/zhishu/btn_copy_n.png") no-repeat center center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.pub_copy_btn:hover {
+    background: url("@{ACTBGURL}/zhishu/btn_copy_h.png") no-repeat center center;
+    background-size: 100% 100%
+}
+
+.pub_jxcj_btn {
+    display: inline-block;
+    width: 156px;
+    height: 59px;
+    background: url("@{ACTBGURL}/zhishu/btn_goon_n.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pub_jxcj_btn:hover {
+    background: url("@{ACTBGURL}/zhishu/btn_goon_h.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pub_dj_btn {
+    display: inline-block;
+    width: 156px;
+    height: 59px;
+    background: url("@{ACTBGURL}/zhishu/btn_duijiang_n.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pub_dj_btn:hover {
+    background: url("@{ACTBGURL}/zhishu/btn_duijiang_h.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pub_dialog_btn {
+    display: inline-block;
+    width: 172px;
+    height: 67px;
+    background: url("@{ACTBGURL}/kaixue/btn_sure.jpg") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pub_dialog_btn:hover {
+    background: url("@{ACTBGURL}/kaixue/btn_sure_on.jpg") no-repeat center center;
+}
+
+.pub_recharge_btn {
+    display: inline-block;
+    width: 156px;
+    height: 59px;
+    background: url("@{ACTBGURL}/zhishu/btn_buy_n.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pub_recharge_btn:hover {
+    background: url("@{ACTBGURL}/zhishu/btn_buy_h.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pub_login_btn {
+    display: inline-block;
+    width: 156px;
+    height: 59px;
+    background: url("@{ACTBGURL}/zhishu/btn_login_n.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pub_login_btn:hover {
+    background: url("@{ACTBGURL}/zhishu/btn_login_h.png") no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.pub_hdgz {
+    width: 169px;
+    height: 64px;
+    float: left;
+    background: url("@{ACTBGURL}/zhishu/btn_rule_n.png") center center no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+    margin-left: 18px;
+}
+
+.pub_hdgz:hover {
+    background: url("@{ACTBGURL}/zhishu/btn_rule_h.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+
+.pub_start {
+    width: 169px;
+    height: 64px;
+    float: left;
+    background: url("@{ACTBGURL}/zhishu/btn_draw_n.png") center center no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+    margin-left: 18px;
+}
+
+.pub_start:hover {
+    background: url("@{ACTBGURL}/zhishu/btn_draw_h.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+
+.pub_zjjl {
+    width: 169px;
+    height: 64px;
+    float: left;
+    background: url("@{ACTBGURL}/zhishu/btn_jilu_n.png") center center no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+    margin-left: 18px;
+}
+
+.pub_zjjl:hover {
+    background: url("@{ACTBGURL}/zhishu/btn_jilu_h.png") center center no-repeat;
+    background-size: 100% 100%;
+}
+
+//  end 按钮
+
+.pub_ewm {
+    position: absolute;
+    width: 148px;
+    bottom: 50px;
+    right: 75px;
+}
+
+.pub_share_line {
+    width: 80%;
+    margin: 0 auto 35px;
+    background-color: #b41c17;
+    height: 2px;
+    border-radius: 4px;
+}
+
+.pub_side_box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+.pub_share_font {
+    font-size: 18px;
+    color: #FFF;
+}
+
+.pub_share_username {
+    font-size: 18px;
+    color: #FFF;
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.pub_copy_links {
+    margin-left: 20px;
+    width: 600px;
+    font-size: 16px;
+    height: 76px;
+    line-height: 76px;
+    color: #423e31;
+    overflow: hidden;
+}
+
+.pub_prize_list {
+    width: 880px;
+    height: 300px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.pub_prize {
+    width: 258px;
+    height: 120px;
+    margin-left: 18px;
+    margin-top: 18px;
+    float: left;
+}
+
+.pub_prize_control {
+    width: 100%;
+    margin-left: 15px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.pub_zjjl_list {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.pub_mbacktime_box {
+    width: 300px;
+    height: 50px;
+    margin-left: 520px;
+    text-align: left;
+}
+
+.pub_back_font {
+    display: inline-block;
+    width: 45px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 35px;
+    color: #fcf744;
+}
+
+.pub_activityinfo {
+    width: 100%;
+    height: 55%;
+    margin-top: 10%;
+    padding: 0 20px;
+    text-align: left;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+.pub_activityinfo::-webkit-scrollbar {
+    display: none
+}
+
+.pub_prize_ul {
+    width: 100%;
+    height: 55%;
+    margin-top: 10%;
+    overflow-y: scroll;
+}
+
+.pub_prize_ul::-webkit-scrollbar {
+    display: none
+}
+
+.pub_prize_li {
+    width: 80%;
+    padding: 10px 0;
+    border-bottom: dashed 1px #FFF;
+    box-sizing: border-box;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.pub_prize_jilu {
+    color: #FFF;
+    font-size: 18px;
+    float: left;
+}
+
+.pub_prize_dj {
+    padding: 5px;
+    font-size: 16px;
+    background-color: #ffa84b;
+    border-radius: 6px;
+    cursor: pointer;
+    min-width: 60px;
+    text-align: center;
+    color: #261709;
+}
+
+.pub_prize_ydj {
+    background-color: #bfbfbf;
+}
+
+//  start   弹框
+.activity_dialog {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+
+.activity_dialog_notice_out {
+    position: absolute;
+    left: 50%;
+    top: 12%;
+    margin-left: -187px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.activity_dialog_notice_in {
+    top: 15%;
+    opacity: 1;
+    transition: all 0.3s;
+}
+
+.vshide {
+    visibility: hidden;
+}
+
+.activity_dialog_title_box {
+    width: 100%;
+    position: absolute;
+    top: -25px;
+    text-align: center;
+}
+
+.activity_dialog_title {
+    position: absolute;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    font-size: 24px;
+    color: #fff;
+}
+
+.activity_dialog_content {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.activity_dialog_notice_msg {
+    margin-top: 120px;
+}
+
+.activity_dialog_close {
+    position: absolute;
+    cursor: pointer;
+}
+
+//  end 弹框
+
+//  start   分享
+.activity_share_box {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 150px;
+    height: 463px;
+}
+
+.fixed_share {
+    position: fixed !important;
+    top: 2% !important;
+}
+
+.bdsharebuttonbox .weibo_bg {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url("@{ACTBGURL}/zhishu/weibo_n.png") center center no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 0 !important;
+}
+
+.bdsharebuttonbox .weibo_bg:hover {
+    background: url('@{ACTBGURL}/zhishu/weibo_h.png') center center no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 0 !important;
+}
+
+.bdsharebuttonbox .qq_bg {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url('@{ACTBGURL}/zhishu/qq_n.png') center center no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 0 !important;
+}
+
+.bdsharebuttonbox .qq_bg:hover {
+    background: url('@{ACTBGURL}/zhishu/qq_h.png') center center no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 0 !important;
+}
+
+.bdsharebuttonbox .tieba_bg {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url('@{ACTBGURL}/zhishu/tieba_n.png') center center no-repeat;
+    background-size: 100% 100%;
+    background-position: center center !important;
+}
+
+.bdsharebuttonbox .tieba_bg:hover {
+    background: url('@{ACTBGURL}/zhishu/tieba_h.png') center center no-repeat;
+    background-size: 100% 100%;
+    background-position: center center !important;
+}
+
+.bdsharebuttonbox .qzone {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url('@{ACTBGURL}/zhishu/qzone_n.png') center center no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 0 !important;
+}
+
+.bdsharebuttonbox .qzone:hover {
+    background: url('@{ACTBGURL}/zhishu/qzone_h.png') center center no-repeat;
+    background-size: 100% 100%;
+    background-position: 0 0 !important;
+}
+
+//  end 分享
+

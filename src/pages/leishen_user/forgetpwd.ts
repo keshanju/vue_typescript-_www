@@ -4,7 +4,7 @@ import { Vue, Component } from 'vue-property-decorator';
 import FootNavTwo from './components/FootNavTwo.vue';
 import VueI18n from 'vue-i18n';
 import WebParamModel from '@/ts/models/WebModel';
-import { Loading, Notification, Option, Select } from 'element-ui';
+import { Loading, Notification, Option, Select, OptionGroup } from 'element-ui';
 import { FindpwdProxy } from '@/ts/proxy/FindpwdProxy';
 import GlobalConfig from './global.config';
 import { TipsMsgUtil } from '@/ts/utils/TipsMsgUtil';
@@ -16,10 +16,12 @@ import {LsLanguage} from "@/pages/leishen_user/util/LsLanguage";
 import HttpClient from '@/ts/net/HttpClient';
 import { ActivityRequestModel, ActivityModel, ActivityRequestPictureModel, ActivityPictureModel } from '@/ts/models/NewsModel';
 import LocalStorageUtil from '@/ts/utils/LocalStorageUtil';
+import ConfigUtil from "@/ts/utils/ConfigUtil";
 
 Vue.prototype.$notify = Notification;
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(OptionGroup);
 Vue.use(Loading);
 Vue.config.productionTip = false;
 
@@ -49,8 +51,10 @@ class ForgetPwd extends FindpwdProxy {
 		this.setBaseUrl(GlobalConfig.getBaseUrl());
 		this.changeResignType(2);
         this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
-        this.getActivityInfo();
+        this.getDownloadUrl();
 		this.init();
+		this.getAreaCodeInfoList(GlobalConfig.getWebBaseUrl());
+
 	}
 
 	/**
@@ -59,7 +63,7 @@ class ForgetPwd extends FindpwdProxy {
 	public changeResignType(type: number) {
 		this.onChangeRegisterType(type);
     }
-    
+
     /**
    * 获取活动banner
    */
@@ -85,6 +89,18 @@ class ForgetPwd extends FindpwdProxy {
         }
     }
 
+    /**
+     * 获取配置文件
+     * @param url
+     */
+    public async getDownloadUrl() {
+        const jsonConfig = await ConfigUtil.getInstance().download();
+        const region_code = LocalStorageUtil.getRegionCodes();
+        const language = LocalStorageUtil.getLanguage();
+        this.bannerImg = jsonConfig.leigod[region_code][language].index_news.img_url;
+        this.activeLink = jsonConfig.leigod[region_code][language].index_news.new_url;
+    }
+
 	/**
      * 切换语言
      */
@@ -94,7 +110,7 @@ class ForgetPwd extends FindpwdProxy {
 		this.webParam.language = ln;
 		// GlobalConfig.log('切换语言:' + lang.locale);
     }
-    
+
     /**
      * 跳转首页
      */
@@ -123,8 +139,9 @@ class ForgetPwd extends FindpwdProxy {
 	/**
      * 改变手机区号
      */
-	public onSelectCountryCode(value: string) {
-		this.countryCode = value;
+	public onSelectCountryCode(value) {
+        this.country_code = value;
+        this.countryCode = value.code;
 	}
 
 	/**

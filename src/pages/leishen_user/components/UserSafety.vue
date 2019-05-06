@@ -84,7 +84,7 @@
                     <li class="web_list_cell">
                         <div class="flex_row_start" style="width:80%">
                             <p class="safty_font14_black pos_safty_title" style="width:15%">{{$t("user.b107")}}</p>
-                            <p style="width: 100%;" class="safty_font14_huise">雷神加速器支持Windows、Mac、ios、Android等多种版本，超级会员可同时登录2台设备，当您的账号超过允许登录的设备数量时，输入二级密码可进行设备“踢下线“处理, 以保障您当前设备的使用。如不设置此密码, 将没有安全保护, 多台设备的登录者都可以进行”踢下线”操作。</p>
+                            <p style="width: 100%;" class="safty_font14_huise">{{$t("user.b134")}}</p>
                         </div>
                         <div class="flex_sbe web_binding_box">
                             <div class="edit_cell pos_safty_bind"></div>
@@ -276,11 +276,24 @@
                     <p style="text-align:left;">{{$t("user.b113")}}</p>
                     <p style="text-align:left;">{{$t("user.b104")}}</p>
                     <div class="form_input_box flex_row_between" style="margin-top:15px;">
-                        <el-select filterable v-model="countryCode">
-                            <el-option v-for="(val,key,index) in areaCodeList" :key="index" :label="'+'+val" :value="val">
-                            </el-option>
-                        </el-select>
-                        <div class="form_input_box" style="width:65%">
+                        <div class="select_box" style="width:40%;border: 1px solid #dcdfe6;">
+                            <img :src="country_code.ico" alt="" style="margin-left: 10px;">
+                            <el-select @change="onSelectCountryCode" value=""
+                                       :placeholder="$t('public.share25')" style="width:20px;margin-left: 10px;">
+                                <el-option-group
+                                        v-for="group in country_code_list"
+                                        :key="group.label"
+                                        :label="group.label">
+                                    <el-option v-for="(val,index) in group.options" :key="index"
+                                               :value="val">
+                                        <img :src="val.ico" alt="">
+                                        <span style="color:#666;">{{val.name}}</span>
+                                    </el-option>
+                                </el-option-group>
+                            </el-select>
+                            <span style="font-size: 14px;">{{'+' + country_code.code}}</span>
+                        </div>
+                        <div class="form_input_box" style="width:55%">
                             <input v-model="phone" class="form_input" type="text" name=""
                                 :placeholder="$t('public.share2')">
                         </div>
@@ -309,7 +322,7 @@
         </el-dialog>
 
         <!-- 修改手机号 -->
-        <el-dialog :visible.sync="resetPhoneShow" :title="$t('user.b101')" @close="onbindPhoneClose" width="35%" append-to-body>
+        <el-dialog :visible.sync="resetPhoneShow" :title="$t('user.b101')" @close="onModifycClose" width="35%" append-to-body>
             <div v-loading="isLoading">
                 <ul class="flex_row_between">
                     <li class="step_box">
@@ -331,11 +344,24 @@
                     <p style="text-align:left;padding-top:20px;" v-show="stepCount == 1">{{$t("user.b57")}}{{'+' +
                         userinfo.country_code + userinfo.mobile}}</p>
                     <div class="form_input_box flex_row_between" style="margin-top:15px;" v-show="stepCount == 2">
-                        <el-select filterable v-model="countryCode">
-                            <el-option v-for="(val,key,index) in areaCodeList" :key="index" :label="'+'+val" :value="val">
-                            </el-option>
-                        </el-select>
-                        <div class="form_input_box" style="width:65%">
+                        <div class="select_box" style="width:35%;border: 1px solid #dcdfe6;">
+                            <img :src="country_code.ico" alt="" style="margin-left: 10px;">
+                            <el-select @change="onSelectCountryCode" value=""
+                                       :placeholder="$t('public.share25')" style="width:20px;margin-left: 10px;">
+                                <el-option-group
+                                        v-for="group in country_code_list"
+                                        :key="group.label"
+                                        :label="group.label">
+                                    <el-option v-for="(val,index) in group.options" :key="index"
+                                               :value="val">
+                                        <img :src="val.ico" alt="">
+                                        <span style="color:#666;">{{val.name}}</span>
+                                    </el-option>
+                                </el-option-group>
+                            </el-select>
+                            <span style="font-size: 14px;">{{'+' + country_code.code}}</span>
+                        </div>
+                        <div class="form_input_box" style="width:60%">
                             <input v-model="phone" class="form_input" type="text" name="" :placeholder="$t('user.b55')">
                         </div>
                     </div>
@@ -374,14 +400,14 @@
                 <div class="btn_control">
                     <a class="dialog_btn" v-show="stepCount == 1" @click="verifyCodeValidate">{{$t("user.b58")}}</a>
                     <a class="dialog_btn" v-show="stepCount == 2" style="margin-right:20px;" @click="goPreviousStep">{{$t("user.b59")}}</a>
-                    <a class="dialog_btn" v-show="stepCount == 2" @click="onModifyPhone">{{$t("user.b60")}}</a>
+                    <a class="dialog_btn" v-show="stepCount == 2" @click="modifyPhone">{{$t("user.b60")}}</a>
                     <a class="dialog_btn" v-show="stepCount == 3" @click="goLogin">{{$t("public.share20")}}</a>
                 </div>
                 </div>
         </el-dialog>
 
         <!-- 修改邮箱 -->
-        <el-dialog :visible.sync="resetEmailShow" :title="$t('user.b102')" width="35%" @close="onbindPhoneClose" append-to-body>
+        <el-dialog :visible.sync="resetEmailShow" :title="$t('user.b102')" width="35%" @close="onModifycClose" append-to-body>
             <div v-loading="isLoading">
                 <ul class="flex_row_between">
                     <li class="step_box">
@@ -441,7 +467,7 @@
                 <div class="btn_control">
                     <a class="dialog_btn" v-show="stepCount == 1" @click="verifyCodeValidate">{{$t("user.b58")}}</a>
                     <a class="dialog_btn" v-show="stepCount == 2" style="margin-right:20px;" @click="goPreviousStep">{{$t("user.b59")}}</a>
-                    <a class="dialog_btn" v-show="stepCount == 2" @click="onModifyEmail">{{$t("user.b60")}}</a>
+                    <a class="dialog_btn" v-show="stepCount == 2" @click="modifyEmail">{{$t("user.b60")}}</a>
                     <a class="dialog_btn" v-show="stepCount == 3" @click="goLogin">{{$t("public.share20")}}</a>
                 </div>
             </div>
@@ -451,7 +477,7 @@
 <script lang="ts">
     import {Vue, Component, Prop} from "vue-property-decorator";
     import {BindingProxy} from '@/ts/proxy/BindingProxy';
-    import {Message, Dialog, Select, Option} from 'element-ui';
+    import {Message, Dialog, Select, Option, OptionGroup} from 'element-ui';
     import {UserInfo, NewResetpwdRequestModel, SetSecondPwdRequestModel } from '@/ts/models/UserModel';
     import {TipsMsgUtil} from '@/ts/utils/TipsMsgUtil';
     import Util from '@/ts/utils/Util';
@@ -467,7 +493,8 @@
         components: {
             'el-dialog': Dialog,
             'el-select': Select,
-            'el-option': Option
+            'el-option': Option,
+            'el-option-group': OptionGroup
         }
     })
     export default class UserSafety extends BindingProxy {
@@ -498,6 +525,7 @@
         public created() {
             this.setBaseUrl(GlobalConfig.getBaseUrl());
             this.getAreaCodeList();
+            this.getAreaCodeInfoList(GlobalConfig.getWebBaseUrl());
             this.languageType = Util.getLanguageType(this.webParam.language);
             this.getThirdBindState();
         }
@@ -512,6 +540,14 @@
             }else if(region_code == 0 && this.userinfo.email == ''){
                 this.onbindEmailShow();
             }
+        }
+
+        /**
+         * 改变手机区号
+         */
+        public onSelectCountryCode(value) {
+            this.country_code = value;
+            this.countryCode = value.code;
         }
 
         /**
@@ -741,6 +777,22 @@
             this.phone = "";
             this.smscode = "";
         }
+
+        /**
+         *
+         */
+        public onModifycClose() {
+            this.resetPhoneShow = false;
+            this.resetEmailShow = false;
+            this.phone = '';
+            this.email = '';
+            this.imgCaptchaCode = '';
+            this.smscode = '';
+            this.emailcode = '';
+            this.verify_code = '';
+            this.stepCount = 1;
+        }
+
 
         /**
          * 修改登录密码
@@ -1064,6 +1116,45 @@
         }
 
         /**
+         * 修改邮箱账号
+         */
+        public modifyEmail() {
+            // 判断
+            let isNotif = false;
+            let msg = '';
+            if(!isNotif && !CheckUtil.checkEmail(this.email)) {
+                isNotif = true;
+                msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_EMAIL_ERROR);
+                if(this.email == ''){
+                    msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_EMAIL_EMPTY);
+                }
+            }
+            if(!isNotif && !CheckUtil.checkimgVerificatioCode(this.imgCaptchaCode) && this.isimgVerification == 1) {
+                isNotif = true;
+                msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_IMGCAPTCHACODE_ERROR);
+                if(this.imgCaptchaCode == ''){
+                    msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_IMGCAPTCHACODE_EMPTY);
+                }
+            }
+            if(!isNotif && !CheckUtil.checkMailcode(this.emailcode)) {
+                isNotif = true;
+                msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_EMAILCODE_ERROR);
+                if(this.emailcode == ''){
+                    msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_EMAILCODE_EMPTY);
+                }
+            }
+            if(isNotif) {
+                this.$notify({
+                    title: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_ERROR_TITLE),
+                    message: msg,
+                    type: "warning"
+                });
+                return;
+            }
+            this.onModifyEmail();
+        }
+
+        /**
          * 修改邮箱账号成功ui逻辑
          * todo 此方法需在UI逻辑文件中重写
          */
@@ -1081,6 +1172,45 @@
                 message: data.msg,
                 type: "warning"
             });
+        }
+
+        /**
+         * 修改手机账号
+         */
+        public modifyPhone() {
+            // 判断
+            let isNotif = false;
+            let msg = '';
+            if(!isNotif && !CheckUtil.checkPhone(this.phone)) {
+                isNotif = true;
+                msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_PHONE_ERROR);
+                if(this.phone == ''){
+                    msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_PHONE_EMPTY);
+                }
+            }
+            if(!isNotif && !CheckUtil.checkimgVerificatioCode(this.imgCaptchaCode) && this.isimgVerification == 1) {
+                isNotif = true;
+                msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_IMGCAPTCHACODE_ERROR);
+                if(this.imgCaptchaCode == ''){
+                    msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_IMGCAPTCHACODE_EMPTY);
+                }
+            }
+            if(!isNotif && !CheckUtil.checkSmscode(this.smscode)) {
+                isNotif = true;
+                msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_SMSCODE_ERROR);
+                if(this.smscode == ''){
+                    msg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_SMSCODE_EMPTY);
+                }
+            }
+            if(isNotif) {
+                this.$notify({
+                    title: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_ERROR_TITLE),
+                    message: msg,
+                    type: "warning"
+                });
+                return;
+            }
+            this.onModifyPhone();
         }
 
         /**
@@ -1107,7 +1237,7 @@
          * 解绑第三方账号
          */
         public thirdUntied(type: number){
-            this.$confirm(TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_REMOVEBIND_NOTIFY), '提示', {
+            this.$confirm(TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_REMOVEBIND_NOTIFY), TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF), {
                 confirmButtonText: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_YES),
                 cancelButtonText: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_NO)
             }).then(() => {
@@ -1115,7 +1245,7 @@
             }).catch(() => {
 
             });
-            
+
         }
 
         /**
@@ -1132,7 +1262,7 @@
                         this.thirdBindState.wechat = false;
                         break;
                     case 3:
-                        this.thirdBindState.QQ = false; 
+                        this.thirdBindState.QQ = false;
                         break;
                     case 4:
                         this.thirdBindState.weibo = false;

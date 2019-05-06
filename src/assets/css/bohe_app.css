@@ -1703,6 +1703,9 @@ html {
 .detail_content {
 	color: #fff;
 }
+.detail_content p {
+	color: #fff;
+}
 
 .detail_content img {
 	width: 100%;
@@ -2305,3 +2308,26 @@ html {
 [v-cloak] {
 	display: none !important;
 }
+
+/****** 版本升级提示弹窗 *******/
+.cursor {
+    cursor: pointer;
+}
+
+.dialog_msg {
+    color: #666;
+}
+
+.guanwang {
+    color: #3eb0f4;
+}
+
+.btn_control {
+    text-align: center;
+}
+
+.bh_dialog_btn {
+    padding: 5px 20px;
+    color: #fff;
+}
+/****** 版本升级提示弹窗end *******/

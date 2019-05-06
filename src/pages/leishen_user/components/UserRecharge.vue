@@ -5,6 +5,8 @@
                 <ul class="webpackage_box_fa" style="box-shadow: none;">
                     <li class="webpackage_user_box" @click="onChoosePrice(index)" v-for="(item,index) in priceList" :key="index"
                         :class="{user_webpackage_active:priceIndex == index}">
+                        <img class="xianshi_activity" :src="jiaobiao_obj.jiaobiao_url" alt="" v-show="jiaobiao_obj.is_show && item.price_is_recommend == 1">
+                        <p style="position: absolute;top: 20px;text-align: center;width: 100%;left: 0;" v-if="jiaobiao_obj.is_show && item.price_is_recommend == 1">{{jiaobiao_obj.jiaobiao_msg}}</p>
                         <div class="webpackage_top_cell">
                             <!--圆周动画的小icon-->
                             <b class="web_icon_anim"></b>
@@ -12,11 +14,16 @@
                             <p class="package_time_font">{{$t("recharge.c19")}}</p>
                         </div>
                         <div class="flex_row_start">
-                            <span class="package_symbol_font">¥</span>
-                            <span class="package_amount_font">{{item.price_num}}</span>
+                            <span class="package_symbol_font" :class="{'package_activity_font':is_change_price == 1 && item.price_is_recommend == 1}">¥</span>
+                            <span class="package_amount_font" :class="{'package_activity_font':is_change_price == 1 && item.price_is_recommend == 1}">{{item.price_num}}</span>
+                            <s style="font-size:12px;margin-left: 8px;color: #999;" v-if="is_change_price == 1 && item.price_is_recommend == 1">原价50</s>
                         </div>
-                        <div class="flex_row_around lists_font" style="text-align: center">
-                            <span v-text="item.price_short_desc" :class="{'font_red':index == 3}"></span>
+                        <div class="flex_row_around" style="text-align: center;height: 20px;color: #999;">
+                            <span v-if="is_change_price != 1 || item.price_is_recommend != 1" v-text="item.price_short_desc" :class="{'font_red':index == 3}"></span>
+                            <p v-if="is_change_price == 1 && item.price_is_recommend == 1" style="font-size: 14px;">
+                                参与人数:
+                                <span style="color:#FE6637;">{{payUserNum}}</span>
+                            </p>
                         </div>
                         <div class="user_choose_icon"></div>
                     </li>
@@ -27,7 +34,7 @@
                     <div class="web_left_box">
                         <p class="user_check_font">{{$t("recharge.c1")}}</p>
                         <div class="flex_al_center">
-                            <p class="coin_font">{{region_code == 0? '$' : '¥'}}</p>
+                            <p class="coin_font">¥</p>
                             <p class="pay_font">{{choosePrice}}</p>
                         </div>
                     </div>
@@ -49,8 +56,17 @@
                         </div>
                     </div>
                     <div class="web_right_box">
-                        <p class="user_check_font">{{$t("recharge.c29")}}</p>
-                        <input style="width: 110%;" v-model="zheCode" class="cart_input_box" type="text" :placeholder="$t('recharge.c30')">
+                        <img src="../images/off_5.png" alt="" v-if="userinfo.first_invoice_discount == 1">
+                        <p class="user_check_font" v-if="userinfo.first_invoice_discount != 1">{{$t("recharge.c29")}}</p>
+                        <el-autocomplete
+                                class="inline-input"
+                                v-model="zheCode"
+                                :fetch-suggestions="querySearch"
+                                :placeholder="$t('recharge.c30')"
+                                @select="checkDiscount"
+                                v-if="userinfo.first_invoice_discount != 1"
+                        ></el-autocomplete>
+                        <!--<input style="width: 110%;" v-model="zheCode" class="cart_input_box" type="text" :placeholder="$t('recharge.c30')" v-if="userinfo.first_invoice_discount != 1">-->
                     </div>
                 </div>
                 <div class="web_check_box">
@@ -85,24 +101,105 @@
     import RechargeProxy from "@/ts/proxy/RechargeProxy";
     import {TipsMsgUtil} from "../../../ts/utils/TipsMsgUtil";
     import GlobalConfig from "@/pages/leishen_user/global.config";
-    import { PayConfigModel } from '@/ts/models/UserModel';
+    import {PayConfigModel, UserInfo} from '@/ts/models/UserModel';
     import LocalStorageUtil from "../../../ts/utils/LocalStorageUtil";
     import JumpWebUtil from "../../../ts/utils/JumpWebUtil";
     import AppParamModel from '@/ts/models/AppModel';
+    import Util from "../../../ts/utils/Util";
+    import ConfigUtil from "../../../ts/utils/ConfigUtil";
+    import {Autocomplete} from "element-ui";
 
-    @Component
+    @Component({
+        components:{
+            'el-autocomplete': Autocomplete
+        }
+    })
     export default class UserRecharge extends RechargeProxy {
         public isInit: boolean = false;
         public serviceAgreen: boolean = false;//是否勾选会员服务条款
         public webParam = AppParamModel.getInstace(); // 浏览器参数
+        public payUserNum: number = 0;
         @Prop() public payshowobj: PayConfigModel;//支付方式显示配置
+        @Prop() public xianshiactivityinfo: any;//是否显示限时活动标题
+        @Prop() public userinfo!: UserInfo;
+        public start_time: string = '';//首单特惠开始时间
+        public end_time: string = '';//首单特惠结束时间
+        public sc_timer = null;//首冲用户定时器
+        public jiaobiao_obj = {};//角标显示配置
 
         /**
          * 初始化
          */
         public created() {
             this.setBaseUrl(GlobalConfig.getBaseUrl());
+            this.getDownloadUrl();
             this.payType = 2;
+        }
+
+        public mounted(){
+
+        }
+
+        /**
+         * 获取首冲特惠时间
+         * @param url
+         */
+        public async getDownloadUrl() {
+            const jsonConfig = await ConfigUtil.getInstance().download();
+            const downConfig = jsonConfig.leigod.is_show_xianshi_activity;
+            this.jiaobiao_obj = jsonConfig.leigod.jiaobiao_is_show;
+            this.start_time = downConfig.start_time;
+            this.end_time = downConfig.end_time;
+            this.getSystemTime();
+        }
+
+        /**
+         * 获取系统时间成功
+         */
+        public getSystemTimeSuccess(){
+            /*** 首冲特惠倒计时 ****/
+            let startDate = new Date(this.start_time).getTime();
+            let endDate = new Date(this.end_time).getTime();
+            let nowDate = new Date(this.now_time).getTime();
+            if(nowDate < startDate || nowDate > endDate) return;
+            this.payUserNum = Util.getPayUserNum(this.start_time,this.now_time,15);
+            const that = this;
+            this.sc_timer = setInterval(()=>{
+                let num = Math.round((Math.random()*90 + 30)/60);
+                that.payUserNum += num;
+                let end = new Date(that.end_time).getTime();
+                let now = new Date().getTime();
+                if(now >= end) {
+                    clearInterval(that.sc_timer)
+                }
+            },6000)
+        }
+
+        /**
+         * 处理要显示的折扣码列表
+         */
+        public querySearch(queryString, cb) {
+            let restaurants = this.discountList;
+            // let results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+            // 调用 callback 返回建议列表的数据
+            cb(restaurants);
+        }
+
+        /**
+         * 筛选折扣码方法
+         */
+        public createFilter(queryString: string) {
+            return (restaurant) => {
+                return (restaurant.discount_code.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+            };
+        }
+
+        /**
+         * 选择折扣码
+         */
+        public checkDiscount(item){
+            console.log(item);
+            this.zheCode = item.discount_code;
         }
 
         /**
@@ -119,7 +216,10 @@
          */
         public initA() {
             // 这里做缓存处理，不用每次点击都发送请求
-            if (this.isInit) return;
+            if (this.isInit) {
+                this.getUserDiscount();
+                return;
+            }
             this.isInit = true;
             this.init();
         }
@@ -188,6 +288,13 @@
                 message: msg,
                 type: "warning"
             });
+        }
+
+        /**
+         * 获取套餐成功
+         */
+        public getUserDiscountSuccess() {
+            this.onChoosePrice(this.priceIndex);
         }
 
     }

@@ -2,105 +2,111 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
     <script src="https://hm.baidu.com/hm.js?539749fa2c4ded1935537a08f9d20cd7"></script>
     <title>雷神加速器APP下载——专业游戏加速器【官方网站】</title>
-    <meta name="keywords" content="雷神加速器,雷神加速器,免费加速器,网游加速器,手游加速器" />
-    <meta name="description" content="雷神加速器行业顶尖技术,小巧简洁加速速度快免费试用，游戏加速100%使用金融级内网传输专线，让你远离延迟高，掉线、卡机等游戏问题。" />
+    <meta name="keywords" content="雷神加速器,雷神加速器,免费加速器,网游加速器,手游加速器"/>
+    <meta name="description" content="雷神加速器行业顶尖技术,小巧简洁加速速度快免费试用，游戏加速100%使用金融级内网传输专线，让你远离延迟高，掉线、卡机等游戏问题。"/>
 </head>
-<body style="background: #141414;" >
-    <div id="app" v-cloak>
-        <!--品牌logo-->
-        <div class="app_top_logo">
-            <img src="./images/wxgzh_head.png" alt="" width="100%">
-            <!-- <div class="leigod_flex_right leigod_change_lang" @click="showLangList">
-             <span>{{showlangText}}</span>
-             <img src="./images/weixinjt.png" width="20" alt="">   
-            </div> -->
-        </div>
-        <div class="flex_column_center">
-            <p class="links_title_font">畅玩国际服游戏</p>
-            <p class="app_package_font">支持手机游戏/PC游戏全球加速体验</p>
-        </div>
-        <!--banner背景-->
-        <div class="app_links_bg">
+<body style="background: #F2F2F2;">
+<div id="app" v-cloak>
 
-        </div>
-        <div class="links_container" style="padding-bottom:60px;">
-            <!--下载按钮-->
-            <a id="downBtn" herf="www.baidu.com" class="download_appbtn">
-                <img src="./images/mobile_app.png" alt="" width="36">
-                <span>Android/ios下载</span>
-            </a>
-            <div class="download_pcbtn">
-                <img src="./images/pc_app.png" alt="" width="36">
-                <a id="winDownBtn" class="flex_column_center">
-                    <p class="download_pc_font">PC客户端下载</p>
-                    <p class="download_details">仅支持电脑PC加速</p>
-                </a>
-            </div>
-            <div class="flex_column_center pos_game_wrap">
-                <p>支持上百款国内外手游加速</p>
-                <div class="app_gamelist_box">
-                    <div class="app_gamelist_cell">
-                        <img src="./images/game1.png" alt="" width="50">
-                        <p class="game_dsc_font">刺激战场</p>
-                    </div>
-                    <div class="app_gamelist_cell">
-                        <img src="./images/game8.png" alt="" width="50">
-                        <p class="game_dsc_font">崩坏3</p>
-                    </div>
-                    <div class="app_gamelist_cell">
-                        <img src="./images/game2.png" alt="" width="50">
-                        <p class="game_dsc_font">堡垒之夜</p>
-                    </div>
-                    <div class="app_gamelist_cell">
-                        <img src="./images/game3.png" alt="" width="50">
-                        <p class="game_dsc_font">狂野飙车9</p>
-                    </div>
-                    <div class="app_gamelist_cell">
-                        <img src="./images/game4.png" alt="" width="50">
-                        <p class="game_dsc_font">传说对决</p>
-                    </div>
-                    <div class="app_gamelist_cell">
-                        <img src="./images/game5.png" alt="" width="50">
-                        <p class="game_dsc_font">穿越火线</p>
-                    </div>
-                    <div class="app_gamelist_cell">
-                        <img src="./images/game6.png" alt="" width="50">
-                        <p class="game_dsc_font">部落冲突</p>
-                    </div>
-                    <div class="app_gamelist_cell">
-                        <img src="./images/game7.png" alt="" width="50">
-                        <p class="game_dsc_font">天命之子</p>
-                    </div>
+    <div class="flex_column_center" style="padding-top: 20px;">
+        <p class="links_title_font">畅玩国际服游戏</p>
+        <p class="app_package_font">支持手机游戏/PC游戏全球加速体验</p>
+    </div>
+    <!--banner背景-->
+    <div class="app_links_bg">
+        <van-swipe :width="145" :show-indicators="false" :loop="false">
+            <van-swipe-item @click="showImagePreview(0)">
+                <img src="./images/zhanshitu1.png" alt="">
+            </van-swipe-item>
+            <van-swipe-item  @click="showImagePreview(1)">
+                <img src="./images/zhanshitu2.png" alt="">
+            </van-swipe-item>
+            <van-swipe-item  @click="showImagePreview(2)">
+                <img src="./images/zhanshitu3.png" alt="">
+            </van-swipe-item>
+            <van-swipe-item  @click="showImagePreview(3)">
+                <img src="./images/zhanshitu4.png" alt="">
+            </van-swipe-item>
+            <van-swipe-item  @click="showImagePreview(4)">
+                <img src="./images/zhanshitu5.png" alt="">
+            </van-swipe-item>
+
+        </van-swipe>
+    </div>
+    <div class="links_container" style="padding-bottom:60px;">
+        <!--下载按钮-->
+        <a id="downBtn" class="download_appbtn">
+            <img src="./images/download_icon.png" alt="" width="22">
+            <span style="margin-left: 15px;">iOS / Android下载</span>
+        </a>
+
+        <div class="flex_column_center pos_game_wrap">
+            <p class="game_subtit">应用内可直接下载上千款国内外手游</p>
+            <div class="app_gamelist_box">
+                <div class="app_gamelist_cell">
+                    <img src="./images/game1.png" alt="" width="50">
+                    <p class="game_dsc_font">刺激战场</p>
+                </div>
+                <div class="app_gamelist_cell">
+                    <img src="./images/game8.png" alt="" width="50">
+                    <p class="game_dsc_font">崩坏3</p>
+                </div>
+                <div class="app_gamelist_cell">
+                    <img src="./images/game2.png" alt="" width="50">
+                    <p class="game_dsc_font">堡垒之夜</p>
+                </div>
+                <div class="app_gamelist_cell">
+                    <img src="./images/game3.png" alt="" width="50">
+                    <p class="game_dsc_font">狂野飙车9</p>
+                </div>
+                <div class="app_gamelist_cell">
+                    <img src="./images/game4.png" alt="" width="50">
+                    <p class="game_dsc_font">传说对决</p>
+                </div>
+                <div class="app_gamelist_cell">
+                    <img src="./images/game5.png" alt="" width="50">
+                    <p class="game_dsc_font">穿越火线</p>
+                </div>
+                <div class="app_gamelist_cell">
+                    <img src="./images/game6.png" alt="" width="50">
+                    <p class="game_dsc_font">部落冲突</p>
+                </div>
+                <div class="app_gamelist_cell">
+                    <img src="./images/game7.png" alt="" width="50">
+                    <p class="game_dsc_font">天命之子</p>
                 </div>
             </div>
-            <div class="links_des_box flex_column_center">
-                <p>雷神加速器 行业顶尖技术</p>
-                <p>小巧简洁, 加速速度快, 免费试用</p>
-                <p>游戏加速100%使用金融级专线技术</p>
-            </div>
-            <div class="flex_column_center">
-                <p class="download_details">上海雷神网络科技有限公司版权所有</p>
-                <p class="download_details">沪网文(2018)8355-502号 ICP证编号:沪B2-20180795</p>
-            </div>
         </div>
-        <!-- 底部导航 -->
-        <navlist v-if="appParam.platform==4"></navlist>
-        <!-- 选择框 -->
-        <van-popup v-model="langListshow" position="bottom" :overlay="false">
-           <van-picker show-toolbar value-key="name" title="选择语言" :columns="languageList" @cancel="onCancel" @confirm="onConfirm"  @change="onChange" />
-        </van-popup>
+        <div class="links_des_box flex_column_center">
+            <p>雷神加速器 行业顶尖技术</p>
+            <p>小巧简洁, 加速速度快, 免费试用</p>
+            <p>游戏加速100%使用金融级专线技术</p>
+        </div>
+        <div class="flex_column_center">
+            <p class="download_details">上海雷神网络科技有限公司版权所有</p>
+            <p class="download_details">沪网文(2018)8355-502号 ICP证编号:沪B2-20180795</p>
+        </div>
     </div>
+    <!-- 底部导航 -->
+    <navlist></navlist>
+    <!-- 选择框 -->
+    <van-popup v-model="langListshow" position="bottom" :overlay="false">
+        <van-picker show-toolbar value-key="name" title="选择语言" :columns="languageList" @cancel="onCancel"
+                    @confirm="onConfirm" @change="onChange"/>
+    </van-popup>
+</div>
 
-    <div class="shadow">
-        <img src="images/m_wx_tips.png"/>
-    </div>
+<div class="shadow">
+    <img src="images/m_wx_tips.png"/>
+</div>
 </body>
 </html>
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="leigod_account_manage editInfo">
+  <div class="leigod_account_manage editInfo" v-loading="isLoading">
     <div class="leigod_user_tit">修改信息</div>
     <div class="leigod_flex_vertify">
       <div class="leigod_editPortrial">
@@ -59,7 +59,9 @@
   </div>
 </template>
 <script lang="ts">
-import EditInfo from "./EditInfoControl";
-export default EditInfo;
+import EditInfoControl from "./EditInfoControl";
+export default class EditInfo extends EditInfoControl {
+
+};
 </script>
 

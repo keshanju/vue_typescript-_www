@@ -23,6 +23,18 @@
             <p class="user_agreement_font text_indent_3em">{{$t("agreement.e20")}}</p>
             <p class="user_agreement_font text_indent">{{$t("agreement.e21")}}</p>
             <p class="user_agreement_font text_indent">{{$t("agreement.e22")}}</p>
+            <p class="user_agreement_font text_indent">{{$t("agreement.e23")}}</p>
+            <p class="user_agreement_font text_indent">{{$t("agreement.e23_0")}}</p>
+            <h4 class="user_aggrement_h4font">{{$t("agreement.e24")}}</h4>
+            <p class="user_agreement_font text_indent">{{$t("agreement.e25")}}</p>
+            <p class="user_agreement_font text_indent_3em">{{$t("agreement.e26")}}</p>
+            <p class="user_agreement_font text_indent_3em">{{$t("agreement.e27")}}</p>
+            <p class="user_agreement_font text_indent_3em">{{$t("agreement.e28")}}</p>
+            <p class="user_agreement_font text_indent_3em">{{$t("agreement.e29")}}</p>
+            <p class="user_agreement_font text_indent_3em">{{$t("agreement.e30")}}</p>
+            <p class="user_agreement_font text_indent">{{$t("agreement.e31")}}</p>
+            <h4 class="user_aggrement_h4font">{{$t("agreement.e32")}}</h4>
+            <p class="user_agreement_font text_indent">{{$t("agreement.e33")}}</p>
         </div>
     </div>
 </template>

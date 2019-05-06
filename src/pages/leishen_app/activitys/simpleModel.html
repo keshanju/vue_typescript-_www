@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://hm.baidu.com/hm.js?17232eb197fe1658987da501d2a6379f"></script>
+    <title>雷神植树节活动模型</title>
+</head>
+
+<body>
+<div id="app" style="background-color: #49184f;">
+    <!--活动banner+套餐推荐区-->
+    <div class="app-act_banner"
+         :style="{background: 'url('+ activity_json.package_bg +') no-repeat center center' ,'background-size': '100% 100%'}"
+         style="text-align: center;padding-top: 180px;">
+        <!--立即充值按钮-->
+        <img src="../images/zhishu/btn_recharge_n.png" style="width: 32%;margin: 0 0 15px 55px;" @click="gotoRecharge">
+    </div>
+    <div style="text-align: center">
+        <span style="margin-right: 5px;color: #FFF;font-size: 12px;">充值720小时套餐可抽奖1次</span>
+        <span style="color: #FFF;font-size: 12px;">充值8760小时套餐可抽奖3次</span>
+    </div>
+    <!--主内容区-->
+    <div class="app-act_content">
+        <!--抽奖区-->
+        <div :style="{background: 'url('+ activity_json.choujiang_bg +') no-repeat center center' ,'background-size': '100% 100%'}"
+             style="margin-top: 10px;padding: 20px 0;text-align: center;">
+            <!--剩余抽奖次数-->
+            <p style="font-size: 16px;color: #FFF;text-align: center;">您还可以抽{{aCount}}次</p>
+            <!--抽奖动画-->
+            <div>
+                <img :src="activity_json.draw_img_win" alt="" v-if="isWin" style="width: 235px;margin: 0 auto;">
+                <img :src="activity_json.draw_img_normal" alt="" v-if="!isWin" style="width: 235px;margin: 0 auto;">
+            </div>
+            <!--tab点击弹框-->
+            <ul class="flex_row_start" style="padding: 5px 0;margin-top: 10px;">
+                <img @click="onClickGuize" src="../images/zhishu/btn_rule_h.png"
+                     style="margin-left: 4px;width: 30%;">
+                <img @click="onClickDraw" src="../images/zhishu/btn_draw_n.png"
+                     style="margin-left: 4px;width: 35%;height: 50px;">
+                <img @click="onClickAward" src="../images/zhishu/btn_jilu_h.png"
+                     style="margin-left: 4px;width: 30%;">
+            </ul>
+            <!--中奖名单列表-->
+            <div style="height: 65px;overflow: hidden;margin-top: 5px;">
+                <ul style="width: 80%;margin: 0 auto;" id="jilu_box">
+                    <li v-for="(item, index) in awardList" :key="index">
+                        <p class="app-zjlb_font words_flow" style="width: 100%;">
+                            <span>恭喜</span>
+                            <span>{{item.nickname}}</span>
+                            <span>获得</span>
+                            <span>{{item.title}}</span>
+                            <span>{{item.create_time}}</span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--奖品区-->
+        <div :style="{background: 'url('+ activity_json.choujiang_bg +') no-repeat center center' ,'background-size': '100% 100%'}"
+             style="margin-top: 10px;padding: 10px 0 15px;">
+            <p style="font-size: 14px;color: #FFF;margin: 10px 0 10px 35px;text-align: left">奖品</p>
+            <div class="flex_row_center">
+                <img :src="activity_json.prize_list[0]" alt="雷神加速器" style="width: 26%;">
+                <img :src="activity_json.prize_list[1]" alt="雷神加速器" style="width: 26%;margin: 0 10px;">
+                <img :src="activity_json.prize_list[2]" alt="雷神加速器" style="width: 26%;">
+            </div>
+        </div>
+        <!--推荐码链接区-->
+        <div :style="{background: 'url('+ activity_json.tuijian_model_bg +') no-repeat center center' ,'background-size': '100% 100%'}"
+             style="margin-top: 10px;padding: 10px 0 15px;text-align: center;">
+            <p style="font-size: 14px;color: #FFF;text-align: center;margin: 20px auto;">邀请好友送抽奖机会</p>
+            <a class="app-copy_link" v-text="refer_code_link"></a>
+            <p style="font-size: 12px;color: #FFF;text-align: left;margin: 5px 0 15px 20px;font-weight: bold;">
+                邀请好友注册充值获得同等抽奖机会</p>
+            <img style="width: 30%;" src="../images/zhishu/btn_copy_n.png" id="copyRefercodeLink"
+                 @click="copyRefercodeLink">
+        </div>
+        <!--规则区-->
+        <div style="padding: 10px 0;margin-top: 10px;"
+             :style="{background: 'url('+ activity_json.activity_info_bg +') center center no-repeat', 'background-size': '100% 100%'}">
+            <p style="font-size: 16px;text-align: center;color: #FFF;">活动规则</p>
+            <ul style="list-style: circle inside;text-align: left;padding: 0 10px;">
+                <li style="margin-bottom: 5px;">
+                    <span class="app-title_font">活动时间：</span>
+                    <span class="app-common_font" style="padding-left: 5px;font-weight: bold">2019年3月11日15:30~2019年4月11日15:30</span>
+                </li>
+                <li style="margin-bottom: 5px;">
+                    <p class="app-title_font">如何抽奖：</p>
+                    <div class="app-common_font" style="padding-left: 5px;">
+                        <p style="margin-bottom: 5px;">
+                            1、购买8760小时套餐可获得3次抽奖机会，购买其他任意套餐获得1次抽奖机会。邀请好友注册充值获得同等抽奖机会，奖品数量有限，先到先得。</p>
+                        <p style="margin-bottom: 5px;">2、抽奖一次消耗1次抽奖机会，每次抽奖后可随机获得奖励。<br>最高奖励apex英雄11500币。</p>
+                    </div>
+                </li>
+                <li style="margin-bottom: 5px;">
+                    <p class="app-title_font">奖品发放：</p>
+                    <div class="app-common_font" style="padding-left: 5px;">
+                        <p style="margin-bottom: 5px;">1、活动期间，抽中apex英雄币的用户请您根据中奖提示添加发奖客服微信<b>（微信号：service6000）</b>领取奖品。
+                        </p>
+                        <p style="margin-bottom: 5px;">2、官网页面抽中时长卡用户，直接在官网"个人中心-活动记录"页面进行兑换。</p>
+                        <p style="margin-bottom: 5px;">3、App和微信公众号中活动页面抽中时长卡用户，请访问雷神加速器PC官网(www.leigod.com
+                            )"个人中心--活动记录“页面进行兑换。</p>
+                        <p style="margin-bottom: 5px;">4、活动积分抽奖机会截止时间为本次活动结束时间<b>（2019年4月11日15：30）</b>，逾期清空作废。</p>
+                        <p style="margin-bottom: 5px;">5、时长卡兑换截止时间为2019年4月11日18：00。</p>
+                    </div>
+                </li>
+                <li style="margin-bottom: 10px;">
+                    <p class="app-title_font">注意事项：</p>
+                    <div class="app-common_font">
+                        <p style="margin-bottom: 5px;">1、此活动只针对于雷神超级会员，海外会员不在此活动范围内。</p>
+                        <p style="margin-bottom: 5px;">2、参与活动前请仔细阅读活动规则。</p>
+                        <p style="margin-bottom: 5px;">3、请扫描添加发奖客服微信。</p>
+                    </div>
+                </li>
+            </ul>
+            <div style="text-align: center;margin: 30px auto 20px;">
+                <img src="../images/zhishu/erweima.png" alt="" style="width: 90px;">
+                <p class="app-wechat_code">发奖客服微信</p>
+            </div>
+        </div>
+    </div>
+    <!--以下为弹框区-->
+    <!--中奖成功-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_win}" v-if="activity_json.cj_success_type">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_win}"
+             :style="{background: 'url('+ activity_json.choujiang_success_bg +') no-repeat center center', 'background-size': '100% 100%'}"
+             style="width: 80%;margin: 0 auto;text-align: center;padding: 20px 0;position: relative;">
+            <div class="app-dialog_content">
+                <div style="font-size: 16px;color: #FFF;margin: 25px 0 0 50px;text-align: center;">
+                    <p style="margin-top: 45px;margin-left: 10px;font-size: 16px;">恭喜您获得：</p>
+                    <p style="color: #ffda58;font-size:14px;height:24px;margin-top: 20px;margin-left: 10px;margin-bottom: 10px;">
+                        {{prize_name}}</p>
+                    <img style="width: 60%;" @click="closeDialog" src="../images/zhishu/btn_joinin.png" alt="">
+                </div>
+            </div>
+            <img @click="closeDialog" style="top: 10px;right: 10px;width: 20px;height: 20px;position: absolute;"
+                 :src="activity_json.dialog_close_bg" alt="">
+        </div>
+    </div>
+    <!--错误提示-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_error}">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_error}"
+             style="text-align: center;width: 80%;margin: 0 auto;padding: 30px 0 20px;position: relative;"
+             :style="{background: 'url('+ activity_json.dialog_notice_bg +') no-repeat center center', 'background-size': '100% 100%'}">
+            <p style="text-align: center;font-size: 26px;color: #FFF;">温馨提示</p>
+            <div class="app-dialog_content">
+                <!--请求失败+复制链接提示文字-->
+                <p class="activity_dialog_notice_msg"
+                   style="font-size: 16px;color: #FFF;margin: 10px auto 15px;padding: 0 20px;">{{dialog_msg}}</p>
+                <img @click="closeDialog" src="../images/zhishu/btn_sure.png" alt="" style="width: 60%;">
+            </div>
+            <img @click="closeDialog" style="top: 10px;right: 10px;width: 20px;height: 20px;position: absolute;"
+                 :src="activity_json.dialog_close_bg" alt="">
+        </div>
+    </div>
+    <!--提示充值-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_recharge}">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_recharge}"
+             style="width: 80%;margin: 0 auto;text-align: center;padding: 30px 0 20px;position: relative;"
+             :style="{background: 'url('+ activity_json.dialog_notice_bg +') no-repeat center center', 'background-size': '100% 100%'}">
+            <p style="font-size: 26px;color: #FFF;margin-top: 20px;">温馨提示</p>
+            <div class="app-dialog_content flex_column_center">
+                <p class="activity_dialog_notice_msg" style="font-size: 16px;color: #FFF;margin: 20px auto;">
+                    您还未购买抽奖套餐，暂不能参与抽奖 !</p>
+                <img src="../images/zhishu/btn_tobuy.png" @click="gotoRecharge" style="width: 60%;" alt="">
+            </div>
+            <img @click="onCloseRecharge" style="top: 10px;right: 10px;width: 20px;height: 20px;position: absolute;"
+                 :src="activity_json.dialog_close_bg" alt="">
+        </div>
+    </div>
+    <!--未登录提醒-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_no_login}">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_no_login}"
+             style="width: 80%;margin: 0 auto;text-align: center;padding: 30px 0 20px;position: relative;"
+             :style="{background: 'url('+ activity_json.dialog_notice_bg +') no-repeat center center', 'background-size': '100% 100%'}">
+            <p style="font-size: 26px;color: #FFF;margin-top: 20px;">温馨提示</p>
+            <div class="app-dialog_content">
+                <p style="font-size: 16px;color: #FFF;margin: 20px auto;">您还未登录<br/>请登录后再参与活动,谢谢</p>
+                <img src="../images/zhishu/btn_login.png" @click="gotoLogin" style="width: 60%;" alt="">
+            </div>
+            <img @click="onCloseNologin" :src="activity_json.dialog_close_bg" alt=""
+                 style="top: 10px;right: 10px;width: 20px;height: 20px;position: absolute;">
+        </div>
+    </div>
+    <!--活动规则弹窗-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_guize}" v-if="activity_json.guizejilutype == 1">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_guize}"
+             style="width: 80%;height: 333px;margin: 0 auto;text-align: center;padding: 10px 0;position: relative;"
+             :style="{background: 'url('+ activity_json.dialog_guize_bg +') no-repeat center center', 'background-size': '100% 100%'}">
+            <!--规则内容-->
+            <h3 style="text-align: center;color: #FFF;">活动规则</h3>
+            <div class="app-dialog_content" style="width: 95%;">
+                <div class="app-dialog_info" style="height: 75%;margin-top: 20px;box-shadow: black 0px 0px 10px;">
+                    <ul style="list-style: circle inside;">
+                        <li style="margin-bottom: 5px;">
+                            <p class="app-title_font">活动时间：</p>
+                            <p class="app-common_font" style="width: 100%;font-weight: bold;">
+                                2019年3月11日15:30~2019年4月11日15:30</p>
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            <p class="app-title_font">如何抽奖：</p>
+                            <div class="app-common_font" style="width: 100%">
+                                <p>1、购买8760小时套餐可获得3次抽奖机会，购买其他任意套餐获得1次抽奖机会。邀请好友注册充值获得同等抽奖机会，奖品数量有限，先到先得。</p>
+                                <p>2、抽奖一次消耗1次抽奖机会，每次抽奖后可随机获得奖励。最高奖励apex英雄11500币。</p>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 5px;">
+                            <p class="app-title_font">奖品发放：</p>
+                            <div class="app-common_font" style="width: 100%">
+                                <p>1、活动期间，抽中apex英雄币的用户请您根据中奖提示添加发奖客服微信<b>（微信号： service6000）</b>领取奖品。</p>
+                                <p style="margin-top: 10px;">2、官网页面抽中时长卡用户，直接在官网"个人中心-活动记录"页面进行兑换。</p>
+                                <p style="margin-top: 10px;">
+                                    3、App和微信公众号中活动页面抽中时长卡用户，请访问雷神加速器PC官网(www.leigod.com)"个人中心--活动记录“页面进行兑换。</p>
+                                <p style="margin-top: 10px;">4、活动积分抽奖机会截止时间为本次活动结束时间<b>（2019年4月11日15：30）</b>，逾期清空作废。</p>
+                                <p style="margin-top: 10px;">5、时长卡兑换截止时间为2019年4月11日18：00；</p>
+                                <p style="margin-top: 10px;">6、本次活动的最终解释权归上海雷神网络科技有限公司所有。</p>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <p class="app-title_font">注意事项：</p>
+                            <div class="app-common_font" style="width: 100%">
+                                <p>1、此活动只针对于雷神超级会员，海外会员不在此活动范围内。</p>
+                                <p style="margin-top: 10px;">2、参与活动前请仔细阅读活动规则。</p>
+                                <p style="margin-top: 10px;">3、请扫描添加发奖客服微信。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <img @click="onCloseGuize" :src="activity_json.dialog_close_bg" alt=""
+                 style="top: 10px;right: 10px;width: 20px;height: 20px;position: absolute;">
+        </div>
+    </div>
+    <!--中奖纪录弹窗-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_award}" v-if="activity_json.guizejilutype == 1">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_award}"
+             style="width: 80%;height: 303px;margin: 0 auto;text-align: center;padding: 30px 0 20px;"
+             :style="{background: 'url('+ activity_json.dialog_award_bg +') no-repeat center center', 'background-size': '100% 100%'}">
+            <p style="font-size: 18px;color: #FFF;text-align: center;">中奖纪录</p>
+            <div class="app-dialog_content">
+                <div class="app-dialog_info" style="margin-top: 10px;height: 100%;padding: 0;">
+                    <ul v-show="awardRecordList.length > 0 && account_token != ''"
+                        style="display:none;color: #FFF;">
+                        <li class="app-prize_li flex_row_between words_flow" v-for="(item, index) in awardRecordList"
+                            :key="index">
+                            <div class="app-prize_name">{{item.present_title}}</div>
+                            <div class="app-prize_time">{{item.create_time}}</div>
+                        </li>
+                    </ul>
+                    <div style="display: none;text-align: center;"
+                         v-show="awardRecordList.length == 0 && account_token != ''">
+                        <img src="../images/zhishu/no_present.png" alt="" style="width: 50%;margin-top: 20px;">
+                        <p style="margin: 10px auto;color: #FFF;">暂无中奖记录</p>
+                    </div>
+                </div>
+            </div>
+            <img @click="closeDialog" :src="activity_json.dialog_close_bg" alt=""
+                 style="top: 10px;right: 10px;width: 20px;height: 20px;position: absolute;">
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

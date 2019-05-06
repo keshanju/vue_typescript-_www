@@ -64,12 +64,49 @@
         "0": {
             "register": {
                 "is_email": 1
+            },
+            "zh_CN": {
+                "index_news":{
+                    "new_url":"https://www.leigod.com/index.html?region_code=0&language=zh_CN",
+                    "img_url":"/images/avatar_07.png"
+                }
+            },
+            "en": {
+                "index_news":{
+                    "new_url":"https://www.leigod.com/index.html?region_code=0&language=en",
+                    "img_url":"/images/avatar_07.png"
+                }
             }
         },
         "1": {
             "register": {
                 "is_email": 0
+            },
+            "zh_CN": {
+                "index_news":{
+                    "new_url":"https://www.leigod.com/index.html?region_code=1&language=zh_CN",
+                    "img_url":"/images/avatar_07.png"
+                }
+            },
+            "en": {
+                "index_news":{
+                    "new_url":"https://www.leigod.com/index.html?region_code=1&language=en",
+                    "img_url":"/images/avatar_07.png"
+                }
             }
+        },
+        "is_show_xianshi_activity":{
+            "is_show":true,
+            "show_msg":"APEX英雄限时特惠",
+            "start_time":"2019-3-22 09:00:00",
+            "end_time":"2019-3-31 23:59:59"
+        },
+        "jiaobiao_is_show":{
+            "is_show":true,
+            "start_time":"",
+            "end_time":"",
+            "jiaobiao_msg":"限时:4.12-4.23",
+            "jiaobiao_url":"/images/xsth.png"
         }
     }
 }

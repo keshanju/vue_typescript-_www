@@ -1,6 +1,5 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Actionsheet, Checkbox, Picker, Tab, Tabs, Toast } from "vant";
-import loading from './components/Loading.vue'
 import "./css/mui.min0125.css";
 import "./css/ls2.css";
 import "./css/wap.less";
@@ -34,13 +33,11 @@ class Register extends RegisterProxy {
 	public AreaCodeshow: boolean = false;
 	public showVioceCode = 0; //是否显示语音验证码 0 不显示  1显示
 	public langWidth:string='100px'
-	public isLoading:boolean=true
 	public appParam: AppParamModel = AppParamModel.getInstace(1)
 	public created() {
 		this.setBaseUrl(GlobalConfig.getBaseUrl());
 		this.init();
 		this.registerIsCaptcha();
-		this.isLoading=false
 		if(this.appParam.language!=='en'){
 			this.langWidth='240px'
 		}

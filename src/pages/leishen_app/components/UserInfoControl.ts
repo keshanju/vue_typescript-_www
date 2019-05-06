@@ -1,18 +1,15 @@
-import "../css/mui.min0125.css";
-import "../css/ls2.css";
 import "../css/wap.less";
 import { Vue, Component } from "vue-property-decorator";
 import UserProxy from '@/ts/proxy/UserProxy';
 import LocalStorageUtil from '@/ts/utils/LocalStorageUtil';
 import HttpClient from '@/ts/net/HttpClient';
 import { UpdateInfos, UserInfo } from '@/ts/models/UserModel';
-import CheckUtil from '@/ts/utils/CheckUtil';
 import VueI18n from 'vue-i18n';
 import AppParamModel from '@/ts/models/AppModel';
 import Util from '@/ts/utils/Util';
 import { LsLanguage } from '../util/LsLanguage';
 import GlobalConfig from '../global.config';
-import { Toast,Loading } from 'vant';
+import { Toast,Loading,Field,CellGroup} from 'vant';
 import { TipsMsgUtil } from '@/ts/utils/TipsMsgUtil';
 import JumpWeiXin from '../util/jump';
 import Load from './Loading.vue';
@@ -20,6 +17,8 @@ import Load from './Loading.vue';
 //语言包
 Vue.use(VueI18n);
 Vue.use(Loading);
+Vue.use(Field);
+Vue.use(CellGroup);
 const appParam: AppParamModel = AppParamModel.getInstace(Util.REGION_CODE_1, Util.ZH_CN);
 let lang = LsLanguage.getInstance();
 lang.initNoRefresh();

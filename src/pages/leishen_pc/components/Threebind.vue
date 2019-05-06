@@ -93,6 +93,7 @@ export default class ThreeBind extends BindingProxy implements IProxy {
 	public created() {
 		this.setBaseUrl(GlobalConfig.getBaseUrl());
 		this.languageType = Util.getLanguageType(this.appParam.language);
+        if(Util.getUrlParam("account_token") == '' || Util.getUrlParam("account_token") == undefined) return;
 		this.getThirdBindState();
 	}
 
@@ -109,7 +110,7 @@ export default class ThreeBind extends BindingProxy implements IProxy {
 	public thirdUntied(type: number) {
 		this.$confirm(
 			TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_REMOVEBIND_NOTIFY),
-			"提示",
+            TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF),
 			{
 				confirmButtonText: TipsMsgUtil.getTipsMsg(
 					TipsMsgUtil.KEY_NOTIF_YES
@@ -183,6 +184,15 @@ export default class ThreeBind extends BindingProxy implements IProxy {
      */
     public setBindUrlType(){
         localStorage.setItem(LocalStorageUtil.STORAGES_THIRDBIND_URL_TYPE,'0');
+    }
+
+    /**
+     * token过期处理
+     * @param param
+     */
+    public tokenExpired(param: string = ''): void {
+        const factory = ExtrnalFactory.getInstance().getFactory(this.appParam.platform);
+        factory.loginExpire();
     }
 }
 </script>

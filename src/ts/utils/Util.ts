@@ -345,4 +345,21 @@ export default class Util {
         }
         return StatusMinute;
     }
+
+    /**
+     * 获取window.location.origin
+     */
+    public static getOrigin() {
+        let origin = window.location.origin;
+        if (!origin) {
+            origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+        }
+        if(window.location.pathname.indexOf('/en/') != -1) {
+            origin = origin + '/en'
+        };
+        if(window.location.pathname.indexOf('/intl/') != -1) {
+            origin = origin + '/intl'
+        }
+        return origin;
+    }
 }

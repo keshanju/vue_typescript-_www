@@ -1,7 +1,5 @@
-import "./css/mui.min0125.css";
-import "./css/ls2.css";
 import "./css/wap.less";
-import { Vue, Component } from "vue-property-decorator";
+import {Vue, Component} from "vue-property-decorator";
 import UserProxy from "@/ts/proxy/UserProxy";
 import GlobalConfig from "./global.config";
 import LocalStorageUtil from "@/ts/utils/LocalStorageUtil";
@@ -10,156 +8,193 @@ import NavList from "./components/NavList.vue";
 import Load from "./components/Loading.vue";
 import VueI18n from "vue-i18n";
 import AppParamModel from "@/ts/models/AppModel";
-import { LsLanguage } from "./util/LsLanguage";
-import { TipsMsgUtil } from "@/ts/utils/TipsMsgUtil";
-import { Toast, Loading } from "vant";
+import {LsLanguage} from "./util/LsLanguage";
+import {TipsMsgUtil} from "@/ts/utils/TipsMsgUtil";
+import {Toast, Loading} from "vant";
 import JumpWeiXin from "./util/jump";
+
 Vue.use(Loading);
 //语言包
 Vue.use(VueI18n);
 const appParam: AppParamModel = AppParamModel.getInstace(
-  Util.REGION_CODE_1,
-  Util.ZH_CN
+    Util.REGION_CODE_1,
+    Util.ZH_CN
 );
 let lang = LsLanguage.getInstance();
 lang.initNoRefresh();
 const i18n = new VueI18n(lang);
+
 @Component({
-  components: {
-    navlist: NavList,
-    load: Load
-  }
+    components: {
+        navlist: NavList,
+        load: Load
+    }
 })
 class User extends UserProxy {
-  public package_level: number = 200; //200超级会员 201 海外会员
-  public package_name: string = "超级会员"; //200超级会员 201 海外会员
-  public showIndex: number = 0; //用户中心显示索引
+    public package_level: number = 200; //200超级会员 201 海外会员
+    public package_name: string = "超级会员"; //200超级会员 201 海外会员
+    public showIndex: number = 0; //用户中心显示索引
+    public showTime: number = 0; //用户总时长
+    public hours: number = 0; //用户剩余时长
+    public minutes: number = 0; //用户剩余分钟数
 
-  public mounted() {
-    this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
-    this.setBaseUrl(GlobalConfig.getBaseUrl());
-    this.init();
-  }
-
-  // 确认用户套餐类型
-  public onCheckPackageNname() {
-    this.package_level = LocalStorageUtil.getUserInfo().package_level;
-    if (
-      this.package_level != null &&
-      this.package_level == Util.PACKAGE_LEVEL_200
-    ) {
-      this.package_name = "超级会员";
-    } else if (
-      this.package_level != null &&
-      this.package_level == Util.PACKAGE_LEVEL_201
-    ) {
-      this.package_name = "海外会员";
+    public mounted() {
+        this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
+        this.setBaseUrl(GlobalConfig.getBaseUrl());
+        this.init();
     }
-  }
-  //获取用户信息成功
-  public getUserinfoSuccess() {
-    this.onCheckPackageNname();
-  }
 
-  //token过期
-  public tokenExpired(param: string = ""): void {
-    let tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_LOGIN_FAILURE);
-    Toast(tipMsg);
-    setTimeout(() => {
-      this.gotologin();
-    }, 3000);
-  }
-  //获取用户信息失败
-  public getUserinfoFail(data) {
-    let tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_LOGIN_FAILURE);
-    Toast(tipMsg);
-    setTimeout(() => {
-      this.gotologin();
-    }, 3000);
-  }
+    // 确认用户套餐类型
+    public onCheckPackageNname() {
+        this.package_level = LocalStorageUtil.getUserInfo().package_level;
+        if (
+            this.package_level != null &&
+            this.package_level == Util.PACKAGE_LEVEL_200
+        ) {
+            this.package_name = "超级会员";
+        } else if (
+            this.package_level != null &&
+            this.package_level == Util.PACKAGE_LEVEL_201
+        ) {
+            this.package_name = "海外会员";
+        }
+    }
 
-  // 切换用户中心页面
-  public changeUserIndex(index: number) {
-    this.showIndex = index;
-    this.$emit("changeshow", this.showIndex);
-  }
+    //获取用户信息成功
+    public getUserinfoSuccess() {
+        this.onCheckPackageNname();
+        this.SecondsConverse()
+    }
 
-  //跳转
+    //   秒数转小时和分钟
+    public SecondsConverse() {
+        this.showTime = this.userInfo.expiry_time_samp + this.userInfo.experience_time;
+        if (this.showTime <= 0) {
+            this.hours = 0;
+            this.minutes = 0;
+            return false;
+        } else {
+            this.hours = Math.floor(this.showTime / 3600);
+            this.minutes = Math.floor((this.showTime / 60) % 60);
 
-  /**
-   * 去充值
-   *  */
+        }
+    }
 
-  public gotoRecharge() {
-    let param = "platform=" + appParam.platform;
-    JumpWeiXin.gotoRecharge(param);
-  }
+    //token过期
+    public tokenExpired(param: string = ""): void {
+        let tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_LOGIN_FAILURE);
+        Toast(tipMsg);
+        setTimeout(() => {
+            this.gotologin();
+        }, 3000);
+    }
 
-  /**去暂停
-   *  */
+    //获取用户信息失败
+    public getUserinfoFail(data) {
+        let tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_LOGIN_FAILURE);
+        Toast(tipMsg);
+        setTimeout(() => {
+            this.gotologin();
+        }, 3000);
+    }
 
-  public gotopause() {
-    let param = "platform=" + appParam.platform;
-    JumpWeiXin.gotoPause(param);
-  }
+    // 切换用户中心页面
+    public changeUserIndex(index: number) {
+        this.showIndex = index;
+        this.$emit("changeshow", this.showIndex);
+    }
 
-  /**
-   * 去公告
-   * */
+    //跳转
 
-  public gotonotify() {
-    let param = "platform=" + appParam.platform;
-    JumpWeiXin.gotoNotify(param);
-  }
-  /**
-   * 去用户资料
-   * */
+    /**
+     * 去充值
+     *  */
 
-  public gotoinfos() {
-    let param = "platform=" + appParam.platform + "&pageIndex=" + 1;
-    JumpWeiXin.gotoCenter(param);
-  }
-  /**
-   * 去卡密
-   * */
+    public gotoRecharge() {
+        let param = "platform=" + appParam.platform;
+        JumpWeiXin.gotoRecharge(param);
+    }
 
-  public gotocardpsw() {
-    let param = "platform=" + appParam.platform + "&pageIndex=" + 2;
-    JumpWeiXin.gotoCenter(param);
-  }
-  /**
-   * 去订单
-   * */
+    /**去暂停
+     *  */
 
-  public gotonorders() {
-    let param = "platform=" + appParam.platform + "&pageIndex=" + 3;
-    JumpWeiXin.gotoCenter(param);
-  }
-  /**
-   * 去会员服务
-   * */
+    public gotopause() {
+        let param = "platform=" + appParam.platform;
+        JumpWeiXin.gotoPause(param);
+    }
 
-  public gotoitems() {
-    let param = "platform=" + appParam.platform;
-    JumpWeiXin.gotoItems(param);
-  }
-  /**
-   * 去设置
-   * */
+    /**
+     * 去公告
+     * */
 
-  public gotosetting() {
-    let param = "platform=" + appParam.platform + "&pageIndex=" + 4;
-    JumpWeiXin.gotoCenter(param);
-  }
+    public gotonotify() {
+        let param = "platform=" + appParam.platform;
+        JumpWeiXin.gotoNotify(param);
+    }
 
-  /**
-   * 去登录
-   * */
+    /**
+     * 去用户资料
+     * */
 
-  public gotologin() {
-    let param = "platform=" + appParam.platform;
-    JumpWeiXin.gotoLogin(param);
-  }
+    public gotoinfos() {
+        let param = "platform=" + appParam.platform + "&pageIndex=" + 1;
+        JumpWeiXin.gotoCenter(param);
+    }
+
+    /**
+     * 去卡密
+     * */
+
+    public gotocardpsw() {
+        let param = "platform=" + appParam.platform + "&pageIndex=" + 2;
+        JumpWeiXin.gotoCenter(param);
+    }
+
+    /**
+     * 去订单
+     * */
+
+    public gotonorders() {
+        let param = "platform=" + appParam.platform + "&pageIndex=" + 3;
+        JumpWeiXin.gotoCenter(param);
+    }
+
+    /**
+     * 去会员服务
+     * */
+
+    public gotoitems() {
+        let param = "platform=" + appParam.platform;
+        JumpWeiXin.gotoItems(param);
+    }
+
+    /**
+     * 去设置
+     * */
+
+    public gotosetting() {
+        let param = "platform=" + appParam.platform + "&pageIndex=" + 4;
+        JumpWeiXin.gotoCenter(param);
+    }
+
+    /**
+     * 去活动记录
+     * */
+
+    public gotoActitvity() {
+        let param = "platform=" + appParam.platform + "&pageIndex=" + 5;
+        JumpWeiXin.gotoActitvity(param);
+    }
+
+    /**
+     * 去登录
+     * */
+
+    public gotologin() {
+        let param = "platform=" + appParam.platform;
+        JumpWeiXin.gotoLogin(param);
+    }
 }
+
 //
 let vueC = new User({}).$mount("#app");

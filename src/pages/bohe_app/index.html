@@ -11,11 +11,15 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>薄荷app下载</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="page_box" id="app" v-clock>
-        <loading v-show="isLoading"></loading>
+    <div class="page_box" id="app" v-cloak>
         <div class="container_world" :class="{'container_world_cn':appParam.language == 'zh_CN'}" v-if="appParam.region_code == 0">
             <div class="btn_download">
                 <a class="pos_s0">

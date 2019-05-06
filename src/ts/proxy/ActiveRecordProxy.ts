@@ -13,6 +13,8 @@ import {
     ActiveRecordRequestModel,
     cardInfo
 } from "../models/UserModel";
+import {GetRegincodeModel} from "@/ts/models/NewsModel";
+import ConfigUtil from "@/ts/utils/ConfigUtil";
 // const presentType: Array<Object> = [{ id: 0, name: "充值卡" }, { id: 1, name: "现金红包" }, { id: 2, name: "实物" }, { id: 3, name: "三方充值卡" }];
 // const prizeStatus: Array<Object> = [{ id: 0, name: "待兑换" }, { id: 1, name: "已申请" }, { id: 2, name: "已发出" }, { id: 3, name: "已领取" }];
 
@@ -43,6 +45,10 @@ export default class ActiveRecordProxy extends Vue implements IProxy {
     public address: string = "";
     public is_auth_use: number = 0;
     public otherCard: string = "";
+    public discount:string='';//折扣码
+    public discount_title:string='';//折扣码名称
+    public details: string = '';//详情
+    public desc: string = '';//使用说明
     //////////公共参数
     public http = new HttpClient();
     public backData: IdataModel<any> | undefined;
@@ -81,19 +87,20 @@ export default class ActiveRecordProxy extends Vue implements IProxy {
 
     /**
      * 获取手机区号
+     * @param webUrl 官网路径
      */
-    public async getAreaCodeInfoList() {
-        const url = HttpClient.URL_TOOL_COUNTRY_CODES;
-        const param = {};
-
-        this.backData = await this.http.get<areaCodeCaptchaModel>(url, param);
-        //把返回的数据处理成组件所需要的数据格式
+    public async getAreaCodeInfoList(webUrl:string) {
+        let regionInfos:GetRegincodeModel =await ConfigUtil.getInstance().getRegincode(webUrl);
+        this.backData = await ConfigUtil.getInstance().getCounteyCode(webUrl);
         if (this.backData.code == HttpClient.HTTP_SUCCESS_NET_CODE) {
-            this.country_code = this.backData.data.now_country.code;
-            this.countryCode = this.backData.data.now_country;
+            this.countryCode = this.backData.data.list_country.filter((item)=>{
+                return item.code == regionInfos.mobile_code;
+            })[0];
+
+            console.log(this.countryCode);
+
             let country_code = localStorage.getItem(LocalStorageUtil.STORAGES_PHONE_REGION);
-            if (country_code != null && country_code != undefined) {
-                this.country_code = country_code;
+            if (country_code != null && country_code != 'undefined') {
                 this.countryCode = this.backData.data.list_country.filter((item)=>{
                     return item.code == country_code;
                 })[0];
@@ -165,6 +172,30 @@ export default class ActiveRecordProxy extends Vue implements IProxy {
      * row-当前的点击行的数据
      *  @param row
      */
+    public async getDiscount(row) {
+        this.isLoading = true;
+        const url = HttpClient.URL_USER_RECEIVE;
+        const token = LocalStorageUtil.getUserToken().account_token;
+        let param = new ActiveRecordPrizeRequestModel();
+        param.account_token = token;
+        param.prize_id = row.id;
+        let backData = await this.http.post(url, param);
+        this.isLoading = false;
+        if (backData.code == HttpClient.HTTP_SUCCESS_NET_CODE) {
+            this.discount = backData.data.card_no;
+            this.getDiscountSuccess(backData.msg,row);
+        } else if (backData.code == HttpClient.HTTP_TOKEN_EXPIRE) {
+            this.tokenExpired();
+        } else {
+            // @ts-ignore
+            this.getDiscountFail(backData.msg);
+        }
+    }
+    /**
+     * 用户活动 - 获取充值卡
+     * row-当前的点击行的数据
+     *  @param row
+     */
     public async chargeCard(row) {
         this.isLoading = true;
         const url = HttpClient.URL_USER_RECEIVE;
@@ -194,7 +225,6 @@ export default class ActiveRecordProxy extends Vue implements IProxy {
             this.chargeCardFail(backData.msg);
         }
     }
-
     /**
      * 当提交用户信息领取实物的，发送相关数据请求
      */
@@ -349,6 +379,18 @@ export default class ActiveRecordProxy extends Vue implements IProxy {
     public getActiveRecordListFail() {
     }
 
+    /**
+     * 获取用户折扣码或优惠券成功
+     */
+    public getDiscountSuccess(msg: string,row?: any){
+
+    }
+    /**
+     * 获取用户折扣码或优惠券失败
+     */
+    public getDiscountFail(msg: string){
+
+    }
     /**
      * 充值卡自动充值失败
      * @param msg

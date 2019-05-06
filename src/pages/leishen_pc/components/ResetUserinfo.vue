@@ -25,7 +25,8 @@
                 <div class="form_item flex_row_start">
                     <span class="form_title">{{$t("user.b15")}}</span>
                     <div class="form_input_box">
-                        <el-date-picker v-model="bornDate" type="date" :placeholder="$t('user.b76')" :picker-options="pickerOption"></el-date-picker>
+                        <el-date-picker v-model="bornDate" type="date" :placeholder="$t('user.b76')"
+                                        @change="onResetInfo" :picker-options="pickerOption"></el-date-picker>
                     </div>
                 </div>
                 <!--地址-->
@@ -48,16 +49,21 @@
                             @click="chooseUpdateType(1)">{{$t("user.b18")}}
                         </li>
                     </ul>
-                    <div class="update_type_upload" v-show="updateTypeIndex == 0" @mouseover="cameraShow = !cameraShow"  @mouseout="cameraShow = !cameraShow">
+                    <div class="update_type_upload" v-show="updateTypeIndex == 0" @mouseover="cameraShow = !cameraShow"
+                         @mouseout="cameraShow = !cameraShow">
                         <vue-cropper style="width: 1.42rem;height: 1.42rem;" ref="cropper" v-if="option.img != ''"
-                                     :img="option.img" :info="false" :fixedBox="!fixedBox" :high="true" :original="false"
-                                     :autoCrop="true" :full="true" :fixed="true" :autoCropWidth="140" :autoCropHeight="140">
+                                     :img="option.img" :info="false" :fixedBox="!fixedBox" :high="true"
+                                     :original="false"
+                                     :autoCrop="true" :full="true" :fixed="true" :autoCropWidth="140"
+                                     :autoCropHeight="140">
                         </vue-cropper>
-                        <img v-show="option.img == ''" :src="userinfo.avatar" onerror="javascript:this.src='./images/default_avatar.png'" class="img_filter"/>
-                        <div  v-show="cameraShow & !userChoose" style="position:absolute;left:0;top:0;right:0;bottom:0;cursor:pointer;">
+                        <img v-show="option.img == ''" :src="userinfo.avatar"
+                             onerror="javascript:this.src='./images/default_avatar.png'" class="img_filter"/>
+                        <div v-show="cameraShow && !userChoose"
+                             style="position:absolute;left:0;top:0;right:0;bottom:0;cursor:pointer;">
                             <img src="../images/huantouxiang@2x.png" alt="" class="img_filter">
                             <input class="update_input" @change="onChooseImage" ref="imageUpInput" id="imageUpBtn"
-                                type="file" accept="image/*">
+                                   type="file" accept="image/*">
                         </div>
                     </div>
                     <ul class="update_type_preview flex_row_start" v-show="updateTypeIndex == 1"
@@ -71,7 +77,8 @@
                 <!--图像预览部分-->
                 <div class="avtar_preview">
                     <div class="avtar_preview_img">
-                        <img :src="previewImg" onerror="javascript:this.src='./images/default_avatar.png'" alt="" class="img_filter" style="height:100%">
+                        <img :src="previewImg" onerror="javascript:this.src='./images/default_avatar.png'" alt=""
+                             class="img_filter" style="height:100%">
                     </div>
                     <p class="preview_msg">{{$t("user.b19")}}</p>
                     <div class="upload_btn" v-show="userChoose && updateTypeIndex == 0">
@@ -107,11 +114,11 @@
     import ConfigUtil from '@/ts/utils/ConfigUtil';
     import {IProxy} from '@/ts/interface/IProxy';
     import {TipsMsgUtil} from '@/ts/utils/TipsMsgUtil';
-    import { ExtrnalFactory } from '@/ts/factory/ExtrnalFactory';
+    import {ExtrnalFactory} from '@/ts/factory/ExtrnalFactory';
 
     @Component({
         watch: {
-            userinfo: {
+            userinfocount: {
                 handler(newVal, oldVal) {
                     this.init();
                 },
@@ -126,6 +133,7 @@
     })
     export default class ResetUserinfo extends Vue implements IProxy {
         @Prop() public userinfo!: UserInfo;
+        @Prop() public userinfocount!: number;
 
         public appParam: AppParamModel = AppParamModel.getInstace();
         public nickname: string = '';//昵称
@@ -138,7 +146,7 @@
         public imageHeadUrl = GlobalConfig.getImgBaseUrl();
         public imgUrlList: object = [];
         public isResetInfo: boolean = false;//是否修改了用户信息
-        public cameraShow:boolean = false;
+        public cameraShow: boolean = false;
         public userChoose: boolean = false;//是否用户自己上传的图片
         public fixedBox: boolean = false;//裁剪框是否可以调整
 
@@ -149,8 +157,8 @@
 
         public pickerOption = {
             disabledDate(time) {
-            return time.getTime() > Date.now();
-          }
+                return time.getTime() > Date.now();
+            }
         }
 
         public created() {
@@ -159,8 +167,10 @@
 
         public init() {
             this.nickname = this.userinfo.nickname;
-            if(this.userinfo.birthday != ''){
-            this.bornDate = this.userinfo.birthday;
+            if (this.userinfo.birthday != '') {
+                this.bornDate = this.userinfo.birthday;
+            }else {
+                this.bornDate = null;
             }
             this.address = this.userinfo.address;
             this.previewImg = this.userinfo.avatar;
@@ -168,7 +178,8 @@
                 this.sex = 1;
             } else if (this.userinfo.sex == 'Female' || this.userinfo.sex == '美女') {
                 this.sex = 2;
-            };
+            }
+            ;
         }
 
         public execute() {
@@ -245,6 +256,8 @@
                 };
             }
             e.target.value = '';
+            const factory = ExtrnalFactory.getInstance().getFactory(this.appParam.platform);
+            factory.MainBringToFront();
         }
 
         /**
@@ -259,6 +272,15 @@
             }
             // 获取截图的base64 数据
             const self = this;
+            let scale = (this.$refs.cropper as any).scale;
+            console.log(scale)
+            if(scale <= 0.03){
+                this.$message({
+                    message: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_IMGSCALE_SMALL),
+                    type: 'warning'
+                });
+                return;
+            }
             (this.$refs.cropper as any).getCropData((data) => {
                 self.avatar_str = data;
                 self.resetUserinfo();
@@ -274,13 +296,35 @@
             }
             ;
             let param = new UpdateInfos();
-            param.nickname = this.nickname;
-            param.address = this.address;
+            if(this.nickname.length > 0){
+                param.nickname = this.nickname;
+            }else if (this.nickname == '' && this.nickname != this.userinfo.nickname){
+                this.$message({
+                    message: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_NICKNAME_SETEMPTY),
+                    type: 'warning'
+                });
+                return;
+            }
+            if(this.address.length > 0){
+                param.address = this.address;
+            }else if (this.address == '' && this.address != this.userinfo.address){
+                this.$message({
+                    message: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_ADDRESS_SETEMPTY),
+                    type: 'warning'
+                });
+                return;
+            }
             param.sex = this.sex;
-            if (this.bornDate != '') {
+            if (this.bornDate != null) {
                 let date = new Date(this.bornDate);
                 let time = date.getTime();
                 param.birthday = (Util.formatDateTime(time)).substring(0, 10);
+            }else if (this.bornDate == null && this.userinfo.birthday != null){
+                this.$message({
+                    message: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_BIRTHDAY_SETEMPTY),
+                    type: 'warning'
+                });
+                return;
             }
             param.user_url = this.avatar_str;
             this.$emit('on-upload-userinfo', param);

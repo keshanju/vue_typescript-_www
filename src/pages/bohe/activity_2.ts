@@ -1,10 +1,10 @@
 import '@/assets/less/bohe.less';
+import "babel-polyfill";
 import HeadNav from './components/HeadNav.vue';
 import FootNav from './components/FootNav.vue';
 import { Vue, Component } from 'vue-property-decorator';
 import { LanguageConfig } from "@/ts/utils/Language";
 import GlobalConfig from "@/pages/bohe/global.config";
-import "babel-polyfill";
 import HttpClient from '@/ts/net/HttpClient';
 import { IdataModel } from '@/ts/models/IdataModel';
 import WebParamModel from "@/ts/models/WebModel";
@@ -15,7 +15,7 @@ import Clipboard from "clipboard";
 import ActivityProxy from "@/ts/proxy/ActivityProxy";
 import { Notification} from "element-ui";
 Vue.config.productionTip = false;
-
+import JumpWebUtil from '@/ts/utils/JumpWebUtil';
 //语言包
 Vue.use(VueI18n);
 Vue.use(Button);
@@ -33,7 +33,7 @@ const i18n = new VueI18n(lang);
 })
 class Activdetails extends ActivityProxy {
 
-    public activity_id = 3;
+    public activity_id = 5;
     public webParam = WebParamModel.getInstace(); // 浏览器参数
     public imageHeadUrl: string = '';
     public windowsDownloadUrl: string = '';
@@ -43,12 +43,10 @@ class Activdetails extends ActivityProxy {
     public language:string;
     public clipboard:any
     public isUserLogin:boolean=false
-    public globalUrl:string
     public backData: IdataModel<any> | undefined;
     //////////END
     public async created() {
         this.setBaseUrl(GlobalConfig.getBaseUrl());
-        this.globalUrl=GlobalConfig.getWebBaseUrl()
         this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
         this.language = LocalStorageUtil.getLanguage();
         this.getActivityId();
@@ -76,7 +74,8 @@ class Activdetails extends ActivityProxy {
      * @param url 
      */
     public goToLogin(){
-        window.open(window.location.origin+'/login.html')
+        JumpWebUtil.backLogin()
+        // window.open(window.location.href.replace('activity_2.html','login.html'))
     }
     /**
      * 切换语言
@@ -116,7 +115,6 @@ class Activdetails extends ActivityProxy {
                 })
             });
             if(self.clipboard.e){
-                console.log(self.clipboard.e)
                self.clipboard.e.success=[self.clipboard.e.success[0]]
             }
         }else{
@@ -140,7 +138,7 @@ class Activdetails extends ActivityProxy {
         this.macDownloadUrl = downConfig.mac.download_url;
     }
     public goToActivty1(){
-        window.open(window.location.origin+'/activity_1.html')
+       window.open(window.location.href.replace('activity_2.html','activity_1.html'))
     }
 }
 

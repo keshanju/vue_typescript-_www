@@ -6,15 +6,29 @@
                 <span class="webnav_font pos_line_member" style="color: #7e7e7e;">|</span>
                 <a class="webnav_font">{{$t("nav.navlist0")}}</a>
             </div>
-            <ul class="webnav_box flex_row_between">
+            <ul class="user_webnav_box flex_row_between">
                 <li class="webnav_font" @click="goHome">{{$t("nav.navlist1")}}</li>
                 <li class="webnav_font" @click="goRecharge">{{$t("nav.navlist3")}}</li>
                 <li class="webnav_font" @click="goNotify">{{$t("nav.navlist4")}}</li>
                 <li class="webnav_font" @click="goActivity">{{$t("nav.navlist5")}}</li>
+
+                <!--<li class="webnav_font" @click="goApex" style="position: relative;padding: 25px 10px;overflow: visible;">-->
+                <!--{{$t("nav.navlist28")}}-->
+                <!--<img src="../images/nav_up_icon.png" alt="" class="nav_newest_icon">-->
+                <!--</li>-->
+                <!---->
+                <!--<li class="webnav_font" style="margin-left: 20px;">-->
+                <!--<el-select style="width: 75px;text-align: left;" size="small" v-model="selectPage" @change="onSelectPage" :placeholder="$t('nav.navlist27')">-->
+                <!--<el-option :label="$t('nav.navlist7')" value="news.html">-->
+                <!--</el-option>-->
+                <!--<el-option :label="$t('nav.navlist6')" value="help.html">-->
+                <!--</el-option>-->
+                <!--</el-select>-->
+                <!--</li>-->
                 <li class="webnav_font" @click="goNews">{{$t("nav.navlist7")}}</li>
                 <li class="webnav_font" @click="goHelp">{{$t("nav.navlist6")}}</li>
-                <li class="webnav_font" style="margin-right: -70px;">
-                    <el-select style="width: 65px" size="small" v-model="seleteCode" @change="onSelectLang" :placeholder="$t('public.share25')">
+                <li class="webnav_font">
+                    <el-select style="width: 65px;text-align: left;" size="small" v-model="seleteCode" @change="onSelectLang" :placeholder="$t('public.share25')">
                         <el-option v-for="item in languageList" :key="item.code" :label="item.name" :value="item.code">
                         </el-option>
                     </el-select>
@@ -74,6 +88,14 @@
         }
 
         /**
+         * 选择页面
+         */
+        public onSelectPage(value: string) {
+            JumpWebUtil.userGotoWeb(GlobalConfig.getWebBaseUrl(), value);
+        }
+
+
+        /**
          * 切换语言
          */
         public onChangeLanguage(ln: string = "") {
@@ -111,10 +133,10 @@
         }
 
         /**
-         * 跳转资讯
+         * 跳转下载站
          */
-        public goNews() {
-            JumpWebUtil.userGotoWeb(GlobalConfig.getWebBaseUrl(), JumpWebUtil.HTML_NAME_NEWS);
+        public goApex() {
+            window.open(JumpWebUtil.HTML_NAME_DOWNLOAD);
         }
 
         /**
@@ -123,6 +145,11 @@
         public goHelp() {
             JumpWebUtil.userGotoWeb(GlobalConfig.getWebBaseUrl(), JumpWebUtil.HTML_NAME_HELP);
         }
+        /**
+         * 跳转帮助
+         */
+        public goNews() {
+            JumpWebUtil.userGotoWeb(GlobalConfig.getWebBaseUrl(), JumpWebUtil.HTML_NAME_NEWS);
+        }
     }
 </script>
-

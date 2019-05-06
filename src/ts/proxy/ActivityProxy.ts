@@ -343,6 +343,43 @@ export default class ActivityProxy extends Vue implements IProxy {
             this.prize_id = backData.data.present_id;
         }
         ;
+        if(this.activityJson.choujiang_type == 2) {
+            let num = Math.ceil(Math.random()*3) + 5;
+            let angel = 0;
+            switch(backData.data.present_id){
+                case 67:
+                    angel = Math.random()*45 + 22.5;
+                    break;
+                case 68:
+                    angel = Math.random()*45 + 67.5;
+                    break;
+                case 65:
+                    angel = Math.random()*45 + 112.5;
+                    break;
+                case 62:
+                    angel = Math.random()*45 + 157.5;
+                    break;
+                case 66:
+                    angel = Math.random()*45 + 202.5;
+                    break;
+                case 69:
+                    angel = Math.random()*45 + 247.5;
+                    break;
+                case 63:
+                    angel = Math.random()*45 + 292.5;
+                    break;
+                case 64:
+                    angel = Math.random()*45 + 337.5;
+                    break;
+            }
+            $('#roll_table').css({'transform':'rotate('+(360*num + angel)  +'0deg)','transition':'4s'});
+            setTimeout(()=>{
+                this.dialog_win = true;//弹出奖品图片动画
+                this.isBengin = false;
+            },4000);
+            this.prize_name = backData.data.title;
+            this.prize_id = backData.data.present_id;
+        }
 
         //计算次数
         this.points = backData.data.points;
@@ -448,6 +485,7 @@ export default class ActivityProxy extends Vue implements IProxy {
         this.dialog_win = false;
         this.dialog_award = false;
         $('body').removeClass('body_fixed');
+        $('#roll_table').css({'transform':'rotate(0deg)','transition':'0s'});
     }
 
     /**
@@ -498,7 +536,7 @@ export default class ActivityProxy extends Vue implements IProxy {
         clipboard.on("success", function (e) {
             e.clearSelection();
             that.dialog_error = true;
-            that.dialog_msg = '邀请链接已复制到剪切板！快去邀请好友注册充值获取抽奖机会吧！';
+            that.dialog_msg = '邀请链接已复制到剪切板！快去邀请好友注册获取抽奖机会吧！';
         });
     }
 
@@ -522,7 +560,7 @@ export default class ActivityProxy extends Vue implements IProxy {
         clipboard.on("success", function (e) {
             e.clearSelection();
             that.dialog_error = true;
-            that.dialog_msg = '邀请码已复制到剪切板！快去邀请好友注册充值获取抽奖机会吧！';
+            that.dialog_msg = '邀请码已复制到剪切板！快去邀请好友注册获取抽奖机会吧！';
         });
     }
 

@@ -1,5 +1,3 @@
-import "./css/mui.min0125.css";
-import "./css/ls2.css";
 import "./css/wap.less";
 import { Vue, Component } from 'vue-property-decorator';
 import UserProxy from '@/ts/proxy/UserProxy';
@@ -8,6 +6,7 @@ import UserInfo from "./components/UserInfo.vue";
 import UserCardpas from "./components/UserCardpas.vue";
 import UserSetting from "./components/UserSetting.vue";
 import UserOrder from "./components/UserOrder.vue";
+import UserActivity from "./components/UserActivity.vue";
 import AppParamModel from '@/ts/models/AppModel';
 import { LsLanguage } from './util/LsLanguage';
 import NavList from './components/NavList.vue';
@@ -25,6 +24,7 @@ const i18n = new VueI18n(lang);
     "user-cardpsw": UserCardpas,
     "user-setting": UserSetting,
     "user-orders": UserOrder,
+    "user-activity": UserActivity,
     "navlist":NavList
   }
 })
@@ -34,5 +34,5 @@ class User extends UserProxy {
 }
 //
 let vueC = new User({
-
+  i18n
 }).$mount("#app");

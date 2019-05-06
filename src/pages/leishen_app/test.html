@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <van-tabs>
+        <van-tab title="1">
+                <van-list
+                        v-model="loading"
+                        :finished="list[0].finished"
+                        finished-text="222"
+                        @load="onLoad(0)"
+                >
+                    <van-cell
+                            v-for="item in list[0].items"
+                            :key="item"
+                            :title="item"
+                    />
+                </van-list>
+        </van-tab>
+
+        <van-tab title="2">
+                <van-list
+                        v-model="loading"
+                        :finished="list[1].finished"
+                        finished-text="22222"
+                        @load="onLoad(1)"
+                >
+                    <van-cell
+                            v-for="item in list[1].items"
+                            :key="item"
+                            :title="item"
+                    />
+                </van-list>
+        </van-tab>
+    </van-tabs>
+</div>
+
+
+</body>
+</html>

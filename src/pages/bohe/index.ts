@@ -59,6 +59,7 @@ class Index extends Vue {
     //////////END
 
     public created() {
+        Util.googleSatics(this.webParam.region_code)
         this.debugInfo(); //debug信息
         this.setBaseUrl(GlobalConfig.getBaseUrl());
         this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
@@ -71,7 +72,6 @@ class Index extends Vue {
 
     public checkBrowserVersion() {
         let browserInfo = new TdappModel();
-        browserInfo.getBrowser();
         if (browserInfo.browser_version == 9) {
             this.browserTipShow = true;
         }
@@ -104,8 +104,6 @@ class Index extends Vue {
      * @param ln
      */
     public windowsDownload() {
-        let tdModel = new TdappModel();
-        tdModel.getBrowser();
         window.location.href = this.windowsDownloadUrl;
     }
 

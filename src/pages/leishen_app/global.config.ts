@@ -16,6 +16,8 @@ export default class GlobalConfig {
         if (ProjectConfig.server_type === 1) {
             // 开发环境
             return "http://dev-api1.leigod.com";
+            // return "https://vf-webapi.leigod.com";
+
         } else if (ProjectConfig.server_type === 2) {
             // 测试环境
             return "http://test-api2.leigod.com";

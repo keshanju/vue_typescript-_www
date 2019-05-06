@@ -104,7 +104,6 @@
         //////////END
 
         public created() {
-            this.debugInfo(); //debug信息
             this.setBaseUrl(GlobalConfig.getBaseUrl());
             this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
             this.getNotifyList();
@@ -200,14 +199,16 @@
          * 获取公告列表
          */
         public async getNotifyList(page: number = 1) {
-            let param = new NewsConfigModel();
-            param.baseUrl = GlobalConfig.getStafUrl();
+            let url = HttpClient.URL_NEWS;
+            let param = new NewRequestModel();
             param.page = page;
             param.size = 6;
             param.support_type = 1;
             param.region_code = this.webParam.region_code;
-            const model: NewsModel = await ConfigUtil.getInstance().getNotifyList(param);
-            this.notifyList = model.list;
+            this.backData = await this.http.get<Array<NewModel>>(url, param);
+            if (this.backData.code == HttpClient.HTTP_SUCCESS_NET_CODE) {
+                this.notifyList = this.backData.data.list;
+            }
         }
 
         /**
@@ -228,19 +229,6 @@
                     this.activityList[i]['imgUrl'] = imgUrl;
                 }
             }
-        }
-
-        /**
-         * 打印环境信息
-         */
-        public debugInfo() {
-            let txt = '';
-            txt += 'bohe' + '##';
-            txt += '当前环境:' + ProjectConfig.server_type + '##';
-            txt += '服务器地址:' + GlobalConfig.getBaseUrl() + '##';
-            txt += '图片地址:' + GlobalConfig.getImgBaseUrl() + '##';
-            txt += '网站地址' + GlobalConfig.getWebBaseUrl();
-            ProjectConfig.log(txt);
         }
         
         /**

@@ -1,28 +1,28 @@
 <template>
   <div>
     <ul class="navBottom">
-      <li :class="{cur:pageName=='index.html'}">
+      <li :class="{wxnavcur:pageName=='index.html'}">
         <a @click="gotoindex">
           <div class="weixinhome"></div>
-          <span>首页</span>
+          <span class="wxnavTit">首页</span>
         </a>
       </li>
-      <li :class="{cur:pageName=='recharge.html'}">
+      <li :class="{wxnavcur:pageName=='recharge.html'}">
         <a @click="gotoRecharge">
-          <div class="weixinpay"></div>
-          <span>充值续费</span>
-        </a>
-      </li>
-      <li :class="{cur:pageName=='mpause.html'}">
-        <a @click="gotopause">
-          <div class="weixincenter"></div>
-          <span>暂停恢复</span>
-        </a>
-      </li>
-      <li :class="{cur:pageName=='mcenterList.html'||pageName=='mmy_center.html'}">
-        <a @click="gotonavlist">
           <div class="weixinfee"></div>
-          <span>会员中心</span>
+          <span class="wxnavTit">充值</span>
+        </a>
+      </li>
+      <li :class="{wxnavcur:pageName=='mpause.html'}">
+        <a @click="gotopause">
+          <div class="weixinpause"></div>
+          <span class="wxnavTit">暂停</span>
+        </a>
+      </li>
+      <li :class="{wxnavcur:pageName=='mcenterList.html'||pageName=='mmy_center.html'}">
+        <a @click="gotonavlist">
+          <div class="weixincenter"></div>
+          <span class="wxnavTit">我的</span>
         </a>
       </li>
     </ul>

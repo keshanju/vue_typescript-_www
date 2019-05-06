@@ -35,12 +35,78 @@
         "0": {
             "register": {
                 "is_email": 1
+            },
+            "zh_CN": {
+                "index_news":{
+                    "index_new_1":{
+                        "new_url":"https://www.leigod.com/index.html?region_code=0&language=zh_CN",
+                        "img_url":"/images/apex_dl.png"
+                    },
+                    "index_new_2":{
+                        "new_url":"https://www.leigod.com/index.html?region_code=0&language=zh_CN",
+                        "img_url":"/images/apex_free.png"
+                    }
+                }
+            },
+            "en": {
+                "index_news":{
+                    "index_new_1":{
+                        "new_url":"https://www.leigod.com/index.html?region_code=0&language=en",
+                        "img_url":"/images/apex_dl.png"
+                    },
+                    "index_new_2":{
+                        "new_url":"https://www.leigod.com/index.html?region_code=0&language=en",
+                        "img_url":"/images/apex_free.png"
+                    }
+                }
             }
         },
         "1": {
             "register": {
                 "is_email": 0
+            },
+            "zh_CN": {
+                "index_news":{
+                    "index_new_1":{
+                        "new_url":"https://www.leigod.com/index.html?region_code=1&language=zh_CN",
+                        "img_url":"/images/apex_dl.png"
+                    },
+                    "index_new_2":{
+                        "new_url":"https://www.leigod.com/index.html?region_code=1&language=zh_CN",
+                        "img_url":"/images/apex_free.png"
+                    }
+                }
+            },
+            "en": {
+                "index_news":{
+                    "index_new_1":{
+                        "new_url":"https://www.leigod.com/index.html?region_code=1&language=en",
+                        "img_url":"/images/apex_dl.png"
+                    },
+                    "index_new_2":{
+                        "new_url":"https://www.leigod.com/index.html?region_code=1&language=en",
+                        "img_url":"/images/apex_free.png"
+                    }
+                }
             }
+        },
+        "timer_step": 300000,
+        "login_banner":{
+            "img_url":"/images/login_banner.png",
+            "link_url":""
+        },
+        "xianshi_activity":{
+            "start_time":"2019-3-22 12:00:00",
+            "end_time":"2019-3-31 23:59:59",
+            "img_url":"",
+            "is_show":""
+        },
+        "jiaobiao_is_show":{
+            "is_show":false,
+            "start_time":"2019-3-22 12:00:00",
+            "end_time":"2019-3-31 23:59:59",
+            "jiaobiao_msg":"限时:4.12-4.23",
+            "jiaobiao_url":"/images/scth.png"
         }
     }
 }

@@ -14,6 +14,7 @@ import {
 } from "./model/userModel";
 import JumpWebUtil from "@/ts/utils/JumpWebUtil";
 import { XmlDataModel } from "@/ts/models/IdataModel";
+import ConfigUtil from "@/ts/utils/ConfigUtil";
 
 @Component
 export class UserUtil extends Vue {
@@ -27,6 +28,9 @@ export class UserUtil extends Vue {
   public curNavIndex: number = 1;
   public editAvatarVisible: boolean = false; //修改头像
   public isPerfectinfo: boolean = true; //是否完善了资料填写
+  public feeType = 0; // 0 付费  1免费
+  public feeLink = ""; //跳转充值续费链接
+  public remainedTime = ""; //剩余时长
   public setBaseUrl(url: string): void {
     this.xmlHttp.setBaseUrl(url);
   }
@@ -41,11 +45,28 @@ export class UserUtil extends Vue {
    * 如果用户未完成完善资料 那么去完善资料页面
    */
   public gotoRegInfo(d) {
-    if (d.business_id) {
+    if (d.business_free == 0 || d.business_id) {
     } else {
       window.location.href =
         "reg.html?regstep=2&regToken=" +
         LocalStorageUtil.getCookie(LocalStorageUtil.STORAGES_TOKEN);
+    }
+  }
+  /**
+   *  判断是不是充值续费用户
+   */
+  public isFee(d) {
+    if (d.business_free == 0) {
+      this.feeType = 0;
+      this.remainedTime = UserUtil.minuteToHours(d.feecount);
+      this.feeLink =
+        GlobalConfig.getLinkUrl() +
+        "default.aspx?op=logintoken&token=" +
+        LocalStorageUtil.getCookie(LocalStorageUtil.STORAGES_TOKEN) +
+        "&return_url=" +
+        "netbarFee.html";
+    } else {
+      this.feeType = 1;
     }
   }
 
@@ -66,7 +87,7 @@ export class UserUtil extends Vue {
   public async getUserInfo() {
     try {
       this.isLoading = true;
-      let token = Util.getUrlParam("account_token");
+      let token = Util.getUrlParam(LocalStorageUtil.STORAGES_TOKEN);
       if (token == "") {
         token = LocalStorageUtil.getCookie(LocalStorageUtil.STORAGES_TOKEN);
       }
@@ -104,6 +125,7 @@ export class UserUtil extends Vue {
         this.userInfo.business_license = d.business_license;
         this.userInfo.business_weixin = d.business_weixin;
         this.userInfo.business_check_info = d.business_check_info;
+        this.userInfo.business_free = d.business_free;
 
         this.addUserInfo(this.userInfo);
         this.getInfoSuccess(d);
@@ -118,6 +140,7 @@ export class UserUtil extends Vue {
   //获取用户信息成功
   getInfoSuccess(d) {
     this.gotoRegInfo(d);
+    this.isFee(d);
     (this.$refs["shopinfo"] as any).init();
     (this.$refs["headnav"] as any).changePortraitInfo();
   }
@@ -346,8 +369,10 @@ export class UserUtil extends Vue {
    * 用户中心完善用户资料
    */
   public async onUserModi(param: onloadImproveRequestModel) {
+    this.isLoading = true;
     let url = XmlHttpClient.DO_MODI;
     this.backData = await this.xmlHttp.post<XmlDataModel>(url, param);
+    this.isLoading = false;
     if (this.backData.code == XmlHttpClient.HTTP_SUCCESS_NET_CODE) {
       this.onUserModiSuccess(this.backData);
     } else if (this.backData.code == XmlHttpClient.HTTP_TOKEN_EXPIRE) {
@@ -366,4 +391,14 @@ export class UserUtil extends Vue {
    * @param data
    */
   onUserModiFail(data) {}
+
+
+  /**
+   * 分钟转时长
+   */
+  public static minuteToHours(time){
+    let hours =Math.floor(time/60);
+    let minute = time%60;
+    return hours+'时'+minute+'分'
+  }
 }

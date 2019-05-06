@@ -111,6 +111,10 @@
             this.setBaseUrl(GlobalConfig.getBaseUrl());
             this.getPageIndex();
             this.init();
+            if(this.seleteCode!=LocalStorageUtil.getLanguage()){
+                this.onChangeLanguage(this.seleteCode)
+            }
+             this.$emit("changelanguage", this.seleteLng.code);
         }
         /**
          * 选择语言
@@ -124,6 +128,7 @@
          */
         public gotoLoginIn() {
             JumpWebUtil.backLogin();
+            // JumpWebUtil.webGotoUser(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_LOGIN);
         }
 
         /**
@@ -131,6 +136,7 @@
          */
         public gotoRegister() {
             JumpWebUtil.backRegister();
+            // JumpWebUtil.webGotoUser(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_REGISTER);
         }
 
         /**
@@ -138,6 +144,7 @@
          */
         public gotouserCentre() {
             JumpWebUtil.backUser();
+            // JumpWebUtil.webGotoUser(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_USER);
         }
 
         /**

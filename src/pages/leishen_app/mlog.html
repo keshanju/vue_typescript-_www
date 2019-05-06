@@ -11,8 +11,8 @@
     <meta http-equiv="Expires" content="0" />
 </head>
 
-<body class="white" style="padding:15px;">
-    <div class="mui-content orderBox white" id="app" v-cloak>
+<body >
+    <div class="mui-content orderBox" id="app"  style="padding:15px;overflow: hidden;" v-cloak>
        <div>
             <div class="no_orderList leigod_hide"  v-show="pauseTimeList.length==0">
                 <i class="ls icon-jilu"></i>
@@ -21,9 +21,9 @@
 
             <div class="logsList" id="logsList"  v-if="pauseTimeList.length>0">
                 <div class="logsList_cell" v-for="item in pauseTimeList">
-                    <h5 class="logsList_tit">{{item.pauseYears}}</h5>
+                    <h5 class="logsList_tit"></h5>
                     <dl class="logsList_con">
-                        <dt class="monthDay">{{item.pauseMonths}}月{{item.pauseDays}}日</dt>
+                        <dt class="monthDay">{{item.pauseYears}}.{{item.pauseMonths}}.{{item.pauseDays}}</dt>
                         <dd>[<span class="hours">{{item.pauseHMS}}</span>] 已<span class="operate">{{item.pauseStatus}}</span>使用加速时间</dd>
                     </dl>
                 </div>

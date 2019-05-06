@@ -1,5 +1,6 @@
 import GlobalConfig from "../global.config";
 import JumpWebUtil from "@/ts/utils/JumpWebUtil";
+import ProjectConfig from "../../../../project.config";
 
 export default class JumpWeiXin {
   //微信公众号跳转地址
@@ -19,78 +20,93 @@ export default class JumpWeiXin {
   public static gotoReg(param: string) {
     let userhost = window.location.origin;
     let pagehtml = JumpWeiXin.WEIXIN_REG;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
   }
 
   //   去登录
   public static gotoLogin(param: string) {
     let userhost = window.location.origin;
     let pagehtml = JumpWeiXin.WEIXIN_LOGIN;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
+  }
+  //   微信公众号自动登录跳转
+  public static gotoWXLogin(param: string) {
+    if(ProjectConfig.server_type === 3){
+      window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxcde8e099ce962bf6&redirect_uri=https://webapi.leigod.com/wap/auth&response_type=code&scope=snsapi_userinfo&state=mcenterList&connect_redirect=1#wechat_redirect'
+    }else{
+      window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd5fa154bd470f21a&redirect_uri=https://dev-api1.leigod.com/wap/auth&response_type=code&scope=snsapi_userinfo&state=mcenterList&connect_redirect=1#wechat_redirect'
+    }
   }
 
   // 忘记密码
   public static gotoforget(param: string) {
     let userhost = window.location.origin;
     let pagehtml = JumpWeiXin.WEIXIN_FORGET;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
   }
 
   // 用户中心导航
   public static gotoNavlist(param: string) {
     let userhost = window.location.origin;
     let pagehtml = JumpWeiXin.WEIXIN_NAVLIST;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
   }
   // 用户中心
   public static gotoCenter(param: string) {
     let userhost = window.location.origin;
     let pagehtml = JumpWeiXin.WEIXIN_USERCENTER;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
+  }
+  // 跳转到用户活动
+  public static gotoActitvity(param: string) {
+    let userhost = window.location.origin;
+    let pagehtml = JumpWeiXin.WEIXIN_USERCENTER;
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
+
   }
   // 充值
   public static gotoRecharge(param: string) {
     let userhost = window.location.origin;
     let pagehtml = JumpWeiXin.WEIXIN_RECHARGE;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
   }
   // 公告
   public static gotoNotify(param: string) {
     let userhost = window.location.origin;
     let pagehtml = JumpWeiXin.WEIXIN_NOTICY;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
   }
   // 会员服务条款
   public static gotoItems(param: string) {
     let userhost = window.location.origin;
     let pagehtml = JumpWeiXin.WEIXIN_ITEMS;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
   }
   // 日志
   public static gotoLogs(param: string) {
     let userhost = window.location.origin;
     let pagehtml = JumpWeiXin.WEIXIN_LOGS;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
   }
   // 首页
   public static gotoIndex(param: string) {
     let userhost = window.location.origin;
     let pagehtml = JumpWeiXin.WEIXIN_INDEX;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
   }
   // 暂停
   public static gotoPause(param: string) {
     let userhost = window.location.origin;
     let pagehtml = JumpWeiXin.WEIXIN_PAUSE;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
   }
   // 去活动
   public static gotoActive(pagehtml:string,param: string) {
     let userhost = window.location.origin;
-    JumpWebUtil.wapJump(userhost, pagehtml, param);
+    JumpWebUtil.mobileGotoUser(userhost, pagehtml, param);
   }
 
 
 
-  
+
 }

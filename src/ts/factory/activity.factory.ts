@@ -186,6 +186,48 @@ export default class ActivityFactory {
                 }
 
                 break;
+            case 193:
+                this.joinLeft = true;
+                this.endtime = '2019/05/15 15:30:00';
+                this.guizejilutype = 1;
+                this.choujiang_type = 2;
+                this.cj_success_type = true;
+                this.banner_bg_top = '/images/wuyi/banner01.jpg';
+                this.banner_bg_bottom = '/images/wuyi/banner02.jpg';
+                this.package_bg = '/images/wuyi/banner03.jpg';
+                this.choujiang_bg = '/images/wuyi/screen01.png';
+                // this.weibo_model_bg = '/images/kaixue/hj_weibo_bg.png';
+                this.tuijian_model_bg = '/images/wuyi/screen02.png';
+                this.weixin_model_bg = '/images/wuyi/screen04.png';
+                this.shouyou_model_bg = '/images/wuyi/screen03.png';
+                this.dialog_guize_bg = '/images/kaixue/tips_02.png';
+                this.dialog_award_bg = '/images/kaixue/tips_02.png';
+                this.dialog_notice_bg = '/images/wuyi/dialog_bg.png';
+                this.dialog_close_bg = '/images/wuyi/close.png';
+                this.prize_list = [
+                    '/images/kaixue/01.png',
+                    '/images/kaixue/02.png',
+                    '/images/kaixue/03.png',
+                    '/images/kaixue/04.png',
+                    '/images/kaixue/05.png',
+                    '/images/kaixue/06.png'
+                ];
+                this.prize_active_img = ['/images/kaixue/boder_on.png','/images/kaixue/boder_on01.png'];
+                this.choujiang_success_bg = '/images/wuyi/dialog_bg.png';
+                this.activity_share_bg = '/images/wuyi/maodian.png';
+                if(type != 'pc'){
+                    this.joinLeft = false;
+                    this.banner_bg_top = '/images/wuyi/banner01.png';
+                    this.package_bg = '/images/kaixue/banner.jpg';
+                    this.weixin_model_bg = '';
+                    this.shouyou_model_bg = '';
+                    this.prize_active_img = ['/images/kaixue/border.png'];
+                    this.choujiang_success_bg = '/images/wuyi/dialog_bg.png';
+                    this.dialog_close_bg = '/images/wuyi/x.png';
+                    this.dialog_guize_bg = '/images/wuyi/wuyi_guize_bg.png';
+                }
+
+                break;
         }
     }
 }

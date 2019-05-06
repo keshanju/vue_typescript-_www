@@ -1,0 +1,25 @@
+{
+	"bohe": {
+		"android": {
+			"download_url": "//www.bohe.com/soft/win/BOHESetup.1.0.1.6.exe"
+		},
+		"windows": {
+			"download_url": "//www.bohe.com/soft/win/BOHESetup.1.0.1.6.exe"
+		},
+		"pay": {
+			"is_show_wx": 0,
+			"is_show_zfb": 0,
+			"is_show_paypal": 1
+		},
+		"0": {
+            "register": {
+                "is_email": 0
+            }
+        },
+        "1": {
+            "register": {
+                "is_email": 1
+            }
+        }
+	}
+}

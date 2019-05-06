@@ -8,6 +8,8 @@ import {LoginModel, LoginRequestModel} from '../models/UserModel';
 import {TipsMsgUtil} from '../utils/TipsMsgUtil';
 import Md5 from 'md5';
 import Util from "@/ts/utils/Util";
+import ConfigUtil from "@/ts/utils/ConfigUtil";
+import {GetRegincodeModel} from "@/ts/models/NewsModel";
 
 /**
  * 登录proxy
@@ -62,8 +64,7 @@ export class LoginProxy extends Vue implements IProxy {
             this.email = email;
             this.username = email;
         }
-        this.getAreaCodeList();
-        this.getAreaCodeInfoList();
+        // this.getAreaCodeList();
         this.changeLoginType(0);
     }
 
@@ -98,19 +99,71 @@ export class LoginProxy extends Vue implements IProxy {
     /**
      * 获取手机区号
      */
-    public async getAreaCodeInfoList() {
-        const url = HttpClient.URL_TOOL_COUNTRY_CODES;
-        const param = {};
+    // public async getAreaCodeInfoList() {
+    //     const url = HttpClient.URL_TOOL_COUNTRY_CODES;
+    //     const param = {};
+    //     this.backData = await this.http.get<areaCodeCaptchaModel>(url, param);
+    //     if (this.backData.code == HttpClient.HTTP_SUCCESS_NET_CODE) {
+    //         this.countryCode = this.backData.data.now_country;
+    //         let country_code = localStorage.getItem(LocalStorageUtil.STORAGES_PHONE_REGION);
+    //         if (country_code != null && country_code != 'undefined') {
+    //             this.countryCode = this.backData.data.list_country.filter((item)=>{
+    //                 return item.code == country_code;
+    //             })[0];
+    //         };
+    //         this.areaCodeListArr = this.backData.data.list_country;
+    //         let n = 0;
+    //         let list = [];
+    //         let arr = {
+    //             label:"",
+    //             options:[]
+    //         };
+    //         for(let i=0; i< this.areaCodeListArr.length ; i++){
+    //             if(i == this.areaCodeListArr.length - 1) {
+    //                 let arr = {
+    //                     label:"",
+    //                     options:[]
+    //                 };
+    //                 arr.label = this.areaCodeListArr[i].group;
+    //                 arr.options = this.areaCodeListArr.slice(n,i+1);
+    //                 list.push(arr);
+    //             } else if(this.areaCodeListArr[i].group != this.areaCodeListArr[i+1].group){
+    //                 let arr = {
+    //                     label:"",
+    //                     options:[]
+    //                 };
+    //                 arr.label = this.areaCodeListArr[i].group;
+    //                 arr.options = this.areaCodeListArr.slice(n,i+1);
+    //                 list.push(arr);
+    //                 n = i+1;
+    //             }
+    //         }
+    //         arr.options = this.backData.data.top_country;
+    //         list.unshift(arr);
+    //         this.country_code_list = list;
+    //     }
+    // }
 
-        this.backData = await this.http.get<areaCodeCaptchaModel>(url, param);
+
+    /**
+     * 获取手机区号
+     * @param webUrl 官网路径
+     */
+    public async getAreaCodeInfoList(webUrl:string) {
+        let regionInfos:GetRegincodeModel =await ConfigUtil.getInstance().getRegincode(webUrl);
+        this.backData = await ConfigUtil.getInstance().getCounteyCode(webUrl);
         if (this.backData.code == HttpClient.HTTP_SUCCESS_NET_CODE) {
-            this.countryCode = this.backData.data.now_country;
+            this.countryCode = this.backData.data.list_country.filter((item)=>{
+                return item.code == regionInfos.mobile_code;
+            })[0];
+
             let country_code = localStorage.getItem(LocalStorageUtil.STORAGES_PHONE_REGION);
             if (country_code != null && country_code != 'undefined') {
                 this.countryCode = this.backData.data.list_country.filter((item)=>{
                     return item.code == country_code;
                 })[0];
             };
+            this.country_code = this.countryCode.code;
             this.areaCodeListArr = this.backData.data.list_country;
             let n = 0;
             let list = [];
@@ -143,6 +196,9 @@ export class LoginProxy extends Vue implements IProxy {
             this.country_code_list = list;
         }
     }
+
+
+
 
     /**
      * 切换登录方式

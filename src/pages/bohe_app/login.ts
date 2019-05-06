@@ -2,7 +2,6 @@ import "./css/mui.min0125.css";
 import "./css/ls2.css";
 import "./css/wap.less";
 import { Actionsheet, Picker, Tab, Tabs, Toast } from "vant";
-import loading from './components/Loading.vue'
 import { LoginProxy } from "@/ts/proxy/LoginProxy";
 import GlobalConfig from "./global.config";
 import { TipsMsgUtil } from "@/ts/utils/TipsMsgUtil";
@@ -39,7 +38,6 @@ class Login extends LoginProxy {
 	public bangding: boolean = true; //微信公众号
 	public region_code: number = 0;
 	public platform: number = 4; //平台类型
-	public isLoading:boolean=true
 
 	public created() {
 		//根据不同的regioncode显示不同的语言
@@ -47,7 +45,6 @@ class Login extends LoginProxy {
 		this.init();
 		// this.getcode();
 		this.onCheckPlatType();
-		this.isLoading=false
 	}
 	//   获取regincode
 	public async getcode() {

@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue测试</title>
+    <style>
+        h1 {
+            text-align: center;
+            color: red;
+        }
+
+        h3 {
+            text-align: center;
+            color: blue;
+        }
+
+        a {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+<div id="app" style="padding: 20px;">
+    <div>
+        <a>当前浏览器:</a>
+        <span class="red">{{browserModel.browser}}</span>
+        <span class="red">{{browserModel.browser_version}}</span>
+    </div>
+
+    <div>
+        <a>是否移动端:</a>
+        <span>【weixin】{{isDeviceWx}}</span>
+        <span>【android】{{isDeviceAndroid}}</span>
+        <span>【ios】{{isDeviceIos}}</span>
+    </div>
+
+    <div>
+        <a>多语言测试:</a>
+        <span class="red">{{$t("news.d18")}}</span>
+    </div>
+
+    <div class="mag_1">
+        <button @click="testGet">测试Get请求</button>
+        <a>{{getData}}</a>
+    </div>
+
+    <div class="mag_1">
+        <button @click="testPost">测试Post请求</button>
+        <a>{{postData}}</a>
+    </div>
+
+    <div class="mag_1">
+        <a>element-ui 兼容测试</a>
+        <div class="mag_1">
+            <el-radio v-model="radio" label="1">备选项1</el-radio>
+            <el-radio v-model="radio" label="2">备选项2</el-radio>
+        </div>
+        <div class="mag_1" style="width: 200px;">
+            <el-input prefix-icon="el-icon-search" placeholder="请输入内容" size="small"></el-input>
+        </div>
+        <div class="mag_1">
+            <el-select v-model="value" placeholder="请选择" size="small">
+                <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                </el-option>
+            </el-select>
+        </div>
+    </div>
+
+    <h1>***************************************************</h1>
+
+    <!--常见布局列表，分为两套，一套是flex，一套是fload;对应的每一个布局的实现要有两套写法-->
+
+    <h1>1、左中右布局+左右布局+上下布局+上中下布局等，备注：宽度和内外边距自定义style</h1>
+    <!--flex-->
+    <h1>flex</h1>
+    <!--左中右3段-->
+    <div class="center_auto">
+        <h3>左中右3段（flex）</h3>
+        <div class="rowbox flex_row_start" style="width: 650px;">
+            <div class="white_box_radius rowbox-cell" style="width: 200px;padding: 15px 25px;">
+                <a href="http://www.leigod.com" class="rowbox-cell-txt">one</a>
+            </div>
+            <div class="white_box_radius rowbox-cell" style="width: 200px;margin-left: 25px;padding: 15px 25px;">
+                <a href="http://www.leigod.com" class="rowbox-cell-txt">two</a>
+            </div>
+            <div class="white_box_radius rowbox-cell" style="width: 200px;margin-left: 25px;padding: 15px 25px;">
+                <a href="http://www.leigod.com" class="rowbox-cell-txt">three</a>
+            </div>
+        </div>
+    </div>
+
+    <!--左右布局，文字填充-->
+    <div class="center_auto">
+        <h3>左右布局，文字填充（flex）</h3>
+        <div class="flex_row_start rowbox" style="">
+            <div class="white_box_radius rowbox-cell" style="width: 200px;padding: 10px 15px;">
+                <p class="rowbox-cell-txt">Sidebar content</p>
+            </div>
+            <div class="white_box_radius rowbox-cell" style="width: 1000px;padding: 10px 15px;margin-left: 25px;">
+                <p class="rowbox-cell-txt">Body content</p>
+            </div>
+        </div>
+    </div>
+
+    <!--左右布局，图片填充-->
+    <div class="center_auto">
+        <h3>左右布局，图片填充（flex）</h3>
+        <div class="flex_row_start rowbox">
+            <div class="white_box_radius rowbox-cell" style="width: 1000px;">
+                <a href="http://www.leigod.com" style="height: 180px">
+                    <img class="rowbox-cell-img" src="./images/nb_en_banner.jpg" alt="雷神加速器">
+                </a>
+            </div>
+            <div class="white_box_radius rowbox-cell" style="width: 375px;margin-left: 25px;">
+                <a href="http://www.leigod.com" style="height: 180px">
+                    <img class="rowbox-cell-img" src="./images/new_leigod_net.png" alt="雷神加速器">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--'上一下三'格子布局-->
+    <div class="center_auto">
+        <h3>上一下三格子布局（flex）</h3>
+        <div class="flex_row_start_wrap rowbox" style="width: 680px;">
+            <!--独占一列-->
+            <div style="width: 680px;padding: 100px 10px;margin-bottom: 10px;" class="white_box_radius rowbox-cell">1
+            </div>
+            <!--共享一列-->
+            <div style="width: 220px;padding: 100px 10px;margin-bottom: 10px;" class="white_box_radius rowbox-cell">2
+            </div>
+            <div style="width: 220px;margin-left: 10px;padding: 100px 10px;margin-bottom: 10px;"
+                 class="white_box_radius rowbox-cell">3
+            </div>
+            <div style="width: 220px;margin-left: 10px;padding: 100px 10px;margin-bottom: 10px;"
+                 class="white_box_radius rowbox-cell">4
+            </div>
+        </div>
+    </div>
+
+    <!--'上三下一'格子布局-->
+    <div class="center_auto">
+        <h3>上三下一格子布局（flex）</h3>
+        <div class="flex_row_start_wrap rowbox" style="width: 680px;">
+            <!--共享一列-->
+            <div style="width: 220px;padding: 100px 10px;margin-bottom: 10px;" class="white_box_radius rowbox-cell">2
+            </div>
+            <div style="width: 220px;margin-left: 10px;padding: 100px 10px;margin-bottom: 10px;"
+                 class="white_box_radius rowbox-cell">3
+            </div>
+            <div style="width: 220px;margin-left: 10px;padding: 100px 10px;margin-bottom: 10px;"
+                 class="white_box_radius rowbox-cell">4
+            </div>
+            <!--独占一列-->
+            <div style="width: 680px;padding: 100px 10px;margin-bottom: 10px;" class="white_box_radius rowbox-cell">1
+            </div>
+        </div>
+    </div>
+
+    <!--左一右二上下全-->
+    <div class="center_auto">
+        <h3>左一右二上下全（flex）</h3>
+        <div class="rowbox" style="width: 680px;">
+            <div class="white_box_radius rowbox-cell" style="width: 680px;padding: 30px 0;">上</div>
+            <div class="flex_row_start" style="margin: 10px auto;">
+                <div class="white_box_radius rowbox-cell" style="width: 330px;padding: 34px 0;">左</div>
+                <div class="" style="width: 330px;margin-left: 20px;">
+                    <div class="white_box_radius rowbox-cell" style="width: 330px;margin-bottom: 10px;padding: 10px 0;">
+                        上
+                    </div>
+                    <div class="white_box_radius rowbox-cell" style="width: 330px;padding: 10px 0">下</div>
+                </div>
+            </div>
+            <div class="white_box_radius rowbox-cell" style="width: 680px;padding: 15px 0;">下</div>
+        </div>
+    </div>
+
+    <!--九宫格布局-->
+    <div class="center_auto">
+        <h3>九宫格布局（flex）</h3>
+        <div class="rowbox flex_row_start_wrap" style="width: 680px;">
+            <!--first-->
+            <div class="white_box_radius rowbox-cell" style="width: 220px;padding: 50px;margin-bottom: 10px;">1</div>
+            <div class="white_box_radius rowbox-cell"
+                 style="width: 220px;padding: 50px;margin-left: 10px;margin-bottom: 10px;">1
+            </div>
+            <div class="white_box_radius rowbox-cell"
+                 style="width: 220px;padding: 50px;margin-left: 10px;margin-bottom: 10px;">1
+            </div>
+            <!--second-->
+            <div class="white_box_radius rowbox-cell" style="width: 220px;padding: 50px;margin-bottom: 10px;">1</div>
+            <div class="white_box_radius rowbox-cell"
+                 style="width: 220px;padding: 50px;margin-left: 10px;margin-bottom: 10px;">1
+            </div>
+            <div class="white_box_radius rowbox-cell"
+                 style="width: 220px;padding: 50px;margin-left: 10px;margin-bottom: 10px;">1
+            </div>
+            <!--third-->
+            <div class="white_box_radius rowbox-cell" style="width: 220px;padding: 50px;margin-bottom: 10px;">1</div>
+            <div class="white_box_radius rowbox-cell"
+                 style="width: 220px;padding: 50px;margin-left: 10px;margin-bottom: 10px;">1
+            </div>
+            <div class="white_box_radius rowbox-cell"
+                 style="width: 220px;padding: 50px;margin-left: 10px;margin-bottom: 10px;">1
+            </div>
+        </div>
+    </div>
+
+    <!--float-->
+    <h1>float</h1>
+    <!--左中右3段（float）-->
+    <div class="center_auto">
+        <h3>左中右3段（float）</h3>
+        <div class="row-fluid rowbox" style="width: 650px;">
+            <div class="span4 rowbox-cell white_box_radius" style="width: 200px;padding: 15px 25px;">
+                <a href="http://www.leigod.com" class="rowbox-cell-txt">one</a>
+            </div>
+            <div class="span4 rowbox-cell white_box_radius" style="width: 200px;margin-left: 25px;padding: 15px 25px;">
+                <a href="http://www.leigod.com" class="rowbox-cell-txt">one</a>
+            </div>
+            <div class="span4 rowbox-cell white_box_radius" style="width: 200px;margin-left: 25px;padding: 15px 25px;">
+                <a href="http://www.leigod.com" class="rowbox-cell-txt">one</a>
+            </div>
+        </div>
+    </div>
+
+    <!--一列4个盒子-->
+    <div class="center_auto">
+        <h3>一列4个盒子（float）</h3>
+        <div class="row-fluid rowbox" style="width: 395px;">
+            <div class="span3 rowbox-cell" style="width:80px;">
+                <div class="white_box_radius pad_v15">
+                    icon
+                </div>
+                <a href="http://www.leigod.com" class="rowbox-cell-txt">APEX</a>
+            </div>
+            <div class="span3 rowbox-cell" style="width: 80px;margin-left: 25px;">
+                <div class="white_box_radius pad_v15">
+                    icon
+                </div>
+                <a href="http://www.leigod.com" class="rowbox-cell-txt">LOL</a>
+            </div>
+            <div class="span3 rowbox-cell" style="width: 80px;margin-left: 25px;">
+                <div class="white_box_radius pad_v15">
+                    icon
+                </div>
+                <a href="http://www.leigod.com" class="rowbox-cell-txt">DATA2</a>
+            </div>
+            <div class="span3 rowbox-cell" style="width: 80px;margin-left: 25px;">
+                <div class="white_box_radius pad_v15">
+                    icon
+                </div>
+                <a href="http://www.leigod.com" class="rowbox-cell-txt">PUBG</a>
+            </div>
+        </div>
+    </div>
+
+    <!--左右布局，文字填充-->
+    <div class="center_auto">
+        <h3>左右布局，文字填充（float）</h3>
+        <div class="row-fluid rowbox">
+            <div class="span2 rowbox-cell white_box_radius" style="padding: 10px 15px;">
+                <p class="rowbox-cell-txt">Sidebar content</p>
+            </div>
+            <div class="span10 rowbox-cell white_box_radius" style="padding: 10px 15px;margin-left: 25px;">
+                <p class="rowbox-cell-txt">Body content</p>
+            </div>
+        </div>
+    </div>
+
+    <!--左右布局，图片填充-->
+    <div class="container-fluid">
+        <h3>左右布局，图片填充（float）</h3>
+        <div class="row-fluid rowbox center_auto">
+            <div class="span8 rowbox-cell white_box_radius">
+                <a href="http://www.leigod.com" style="height: 180px">
+                    <img class="rowbox-cell-img" src="./images/nb_en_banner.jpg" alt="雷神加速器">
+                </a>
+            </div>
+            <div class="span4 rowbox-cell white_box_radius">
+                <a href="http://www.leigod.com" style="height: 180px">
+                    <img class="rowbox-cell-img" src="./images/new_leigod_net.png" alt="雷神加速器">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--'上一下三'格子布局-->
+    <div class="center_auto text_center">
+        <h3>上一下三格子布局（float）</h3>
+        <ul class="row-fluid" style="width: 680px;margin: 0 auto;">
+            <!--独占一列-->
+            <li style="padding: 100px 10px;margin-bottom: 10px;" class="span12 white_box_radius">1</li>
+            <!--共享一列-->
+            <li class="span4 white_box_radius" style="margin-left: 0;padding: 100px 10px;margin-bottom: 10px;">2</li>
+            <li style="padding: 100px 10px;margin-bottom: 10px;" class="span4 white_box_radius">3</li>
+            <li style="padding: 100px 10px;margin-bottom: 10px;" class="span4 white_box_radius">4</li>
+        </ul>
+    </div>
+
+    <!--'上三下一格子布局-->
+    <div class="center_auto text_center">
+        <h3>上三下一格子布局（float）</h3>
+        <ul class="row-fluid" style="width: 680px;margin: 0 auto;">
+            <!--共享一列-->
+            <li style="padding: 100px 10px;margin-bottom: 10px;" class="span4 white_box_radius">2</li>
+            <li style="padding: 100px 10px;margin-bottom: 10px;" class="span4 white_box_radius">3</li>
+            <li style="padding: 100px 10px;margin-bottom: 10px;" class="span4 white_box_radius">4</li>
+            <!--独占一列-->
+            <li class="span12 white_box_radius" style="margin-left: 0;padding: 100px 10px;margin-bottom: 10px;">1</li>
+        </ul>
+    </div>
+
+    <!--左一右二上下全-->
+    <div class="center_auto text_center">
+        <h3>左一右二上下全（float）</h3>
+        <ul class="row-fluid" style="width: 680px;margin: 0 auto;">
+            <li class="span12 white_box_radius" style="width: 680px;padding: 30px 0;">上</li>
+            <li class="span12" style="margin-left: 0;margin-top: 10px;margin-bottom: 10px;">
+                <ul class="row-fluid">
+                    <li class="span6 white_box_radius" style="padding: 34px 0;">左</li>
+                    <li class="span6">
+                        <ul class="row-fluid">
+                            <li class="span12 white_box_radius" style="margin-bottom: 10px;padding: 10px 0;">上</li>
+                            <li style="margin-left: 0;padding: 10px 0;" class="span12 white_box_radius">下</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li style="margin-left: 0;padding: 30px 0;" class="span12 white_box_radius">下</li>
+        </ul>
+    </div>
+
+    <!--九宫格布局-->
+    <div class="center_auto text_center">
+        <h3>九宫格布局（float）</h3>
+        <ul class="row-fluid" style="width: 680px;margin: 0 auto;">
+            <!--first-->
+            <li class="span4 white_box_radius" style="padding: 50px;margin-bottom: 10px;">1</li>
+            <li class="span4 white_box_radius" style="padding: 50px;margin-bottom: 10px;">1</li>
+            <li class="span4 white_box_radius" style="padding: 50px;margin-bottom: 10px;">1</li>
+            <!--second-->
+            <li style="margin-left: 0;padding: 50px;margin-bottom: 10px;" class="span4 white_box_radius">1</li>
+            <li class="span4 white_box_radius" style="padding: 50px;margin-bottom: 10px;">1</li>
+            <li class="span4 white_box_radius" style="padding: 50px;margin-bottom: 10px;">1</li>
+            <!--third-->
+            <li style="margin-left: 0;padding: 50px;margin-bottom: 10px;" class="span4 white_box_radius">1</li>
+            <li class="span4 white_box_radius" style="padding: 50px;margin-bottom: 10px;">1</li>
+            <li class="span4 white_box_radius" style="padding: 50px;margin-bottom: 10px;">1</li>
+        </ul>
+    </div>
+
+    <h1>2、列表项内的布局--参照官网首页公告列表</h1>
+    <!--flex-->
+    <h1>flex</h1>
+    <!--左右两边都是上下布局的文字-->
+    <div class="center_auto">
+        <h3>左右两边都是上下布局的文字（flex）</h3>
+        <div style="width: 450px;margin: 0 auto;">
+            <ul>
+                <li class="flex_row_start listbox">
+                    <div class="listbox-l-cell white_box_radius flex_column_center" style="width: 80px;padding: 10px;">
+                        <p>01/30</p>
+                        <p>2019</p>
+                    </div>
+                    <div class="listbox-r-cell white_box_radius flex_content_left"
+                         style="width: 370px;padding: 10px;background-color:#e0e0e0;">
+                        <div class="listbox-cell_txt">
+                            <a>雷神加速器手游免费版</a>
+                            <p>
+                                雷神加速器将于2019年1月24日07:00~09:00进行后台不停机不中断数据升级，期间用户使用加速器正常加速不受影响，极少用户概率可能存在维护故障如存在也会在第一时间恢复，让我们一起体验V4.0.1.14版本带来的更好体验吧！</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--上下文字-->
+    <div class="center_auto">
+        <h3>上下文字（flex）</h3>
+        <div style="width: 450px;margin: 0 auto;">
+            <ul class="listbox">
+                <li class="listbox-cell white_box_radius clear_fix" style="padding: 10px 12px;">
+                    <p class="title text_left" style="margin: 10px 0;">
+                        <a class="words_flow" href="javascript:void (0);">美国众议院拥有足够的票数通过边境安全支出法案安全支出法案安全支出法案</a>
+                    </p>
+                    <p class="time">
+                        <span class="f_left">今天 09:52</span>
+                        <span class="f_right">雷神运营中心</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--上中下左右布局的文字-->
+    <div class="center_auto">
+        <h3>上中下左右布局的文字（flex）</h3>
+        <div style="width: 450px;margin: 0 auto;">
+            <div class="flex_row_between" style="margin-bottom: 12px;">
+                <div class="white_box_radius" style="padding: 10px 15px;">
+                    <p class="words_flow">左文字</p>
+                </div>
+                <div class="white_box_radius" style="padding: 10px 15px;width: 200px;">
+                    <p class="words_flow">右文字右文字右文字右文字右文字右文字</p>
+                </div>
+            </div>
+            <div class="flex_row_center">
+                <div class="white_box_radius" style="padding: 10px 15px;">
+                    <p class="words_flow">文字</p>
+                </div>
+            </div>
+            <div class="flex_row_between" style="margin-top: 12px;">
+                <div class="white_box_radius" style="padding: 10px 15px;">
+                    <p class="words_flow">左文字</p>
+                </div>
+                <div class="white_box_radius" style="padding: 10px 15px;">
+                    <p class="words_flow">右文字</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--fload-->
+    <h1>fload</h1>
+    <!--左右两边都是上下布局的文字-->
+    <div class="center_auto">
+        <h3>左右两边都是上下布局的文字（float）</h3>
+        <div style="width: 450px;margin: 0 auto;">
+            <ul>
+                <li class="listbox clear_fix">
+                    <div class="listbox-l-cell white_box_radius f_left" style="width: 80px;padding: 10px;">
+                        <p class="">01/30</p>
+                        <p>2019</p>
+                    </div>
+                    <div class="listbox-r-cell white_box_radius f_left"
+                         style="width: 370px;padding: 10px;background-color:#e0e0e0;">
+                        <div class="listbox-cell_txt">
+                            <a>雷神加速器手游免费版</a>
+                            <p>
+                                雷神加速器将于2019年1月24日07:00~09:00进行后台不停机不中断数据升级，期间用户使用加速器正常加速不受影响，极少用户概率可能存在维护故障如存在也会在第一时间恢复，让我们一起体验V4.0.1.14版本带来的更好体验吧！</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--上下文字-->
+    <div class="center_auto">
+        <h3>上下文字（float）</h3>
+        <div style="width: 450px;margin: 0 auto;">
+            <ul class="listbox">
+                <li class="listbox-cell white_box_radius clear_fix" style="padding: 10px 12px;">
+                    <p class="title text_left" style="margin: 10px 0;">
+                        <a class="words_flow" href="javascript:void (0);">美国众议院拥有足够的票数通过边境安全支出法案安全支出法案安全支出法案</a>
+                    </p>
+                    <p class="time">
+                        <span class="f_left">今天 09:52</span>
+                        <span class="f_right">雷神运营中心</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--上中下左右布局的文字-->
+    <div class="center_auto">
+        <h3>上中下左右布局的文字（float）</h3>
+        <div style="width: 450px;margin: 0 auto;">
+            <div class="clear_fix" style="margin-bottom: 12px;">
+                <div class="white_box_radius f_left" style="padding: 10px 15px;">
+                    <p class="words_flow">左文字</p>
+                </div>
+                <div class="white_box_radius f_right" style="padding: 10px 15px;width: 200px;">
+                    <p class="words_flow">右文字右文字右文字右文字右文字右文字</p>
+                </div>
+            </div>
+            <div class="text_center">
+                <p class="white_box_radius words_flow" style="padding: 10px 15px;display: inline-block;">文字</p>
+            </div>
+            <div class="clear_fix" style="margin-top: 12px;">
+                <div class="white_box_radius f_left" style="padding: 10px 15px;">
+                    <p class="words_flow">左文字</p>
+                </div>
+                <div class="white_box_radius f_right" style="padding: 10px 15px;">
+                    <p class="words_flow">右文字</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <h1>3、图片+描述，上下布局</h1>
+    <!--flex-->
+    <h1>flex</h1>
+    <!--图居上，文居下-->
+    <div class="center_auto">
+        <h3>图居上，文居下（flex）</h3>
+        <ul class="flex_row_start" style="width: 640px;margin: 0 auto;">
+            <li class="graphicbox white_box_radius" style="width: 200px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="flex_content_left graphicbox-cell" style="padding: 10px;">
+                        <p style="margin: 10px 0;">Leather Hoodie (White)</p>
+                        <p>
+                            <span>¥298</span>
+                            <span>原价: <s>¥488</s></span>
+                        </p>
+                    </div>
+                </a>
+            </li>
+            <li class="graphicbox white_box_radius" style="width: 200px;margin-left: 20px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="flex_content_left graphicbox-cell" style="padding: 10px;">
+                        <p style="margin: 10px 0;">Leather Hoodie (White)</p>
+                        <p>
+                            <span>¥298</span>
+                            <span>原价: <s>¥488</s></span>
+                        </p>
+                    </div>
+                </a>
+            </li>
+            <li class="graphicbox white_box_radius" style="width: 200px;margin-left: 20px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="flex_content_left graphicbox-cell" style="padding: 10px;">
+                        <p style="margin: 10px 0;">Leather Hoodie (White)</p>
+                        <p>
+                            <span>¥298</span>
+                            <span>原价: <s>¥488</s></span>
+                        </p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!--图居上，文居下，底部右侧有小icon-->
+    <div class="center_auto">
+        <h3>图居上，文居下，底部右侧有小icon（flex）</h3>
+        <ul class="flex_row_start" style="width: 640px;margin: 0 auto;">
+            <li class="graphicbox white_box_radius" style="width: 200px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="text_left flex_row_between graphicbox-cell" style="padding: 10px;">
+                        <div>
+                            <p style="margin: 0 0 5px;">Leather Hoodie (White)</p>
+                            <p>
+                                <span>¥298</span>
+                                <span>原价: <s>¥488</s></span>
+                            </p>
+                        </div>
+                        <div class="graphicbox-l_icon" style="width: 36px;height: 36px;">
+                            <!--放置小图标-->
+                            <img class="img_filter" src="./images/code_btn@2x.png" alt="">
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="graphicbox white_box_radius" style="width: 200px;margin-left: 20px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="text_left flex_row_between graphicbox-cell" style="padding: 10px;">
+                        <div>
+                            <p style="margin: 0 0 5px;">Leather Hoodie (White)</p>
+                            <p>
+                                <span>¥298</span>
+                                <span>原价: <s>¥488</s></span>
+                            </p>
+                        </div>
+                        <div class="graphicbox-l_icon" style="width: 36px;height: 36px;">
+                            <!--放置小图标-->
+                            <img class="img_filter" src="./images/code_btn@2x.png" alt="">
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="graphicbox white_box_radius" style="width: 200px;margin-left: 20px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="text_left flex_row_between graphicbox-cell" style="padding: 10px;">
+                        <div>
+                            <p style="margin: 0 0 5px;">Leather Hoodie (White)</p>
+                            <p>
+                                <span>¥298</span>
+                                <span>原价: <s>¥488</s></span>
+                            </p>
+                        </div>
+                        <div class="graphicbox-l_icon" style="width: 36px;height: 36px;">
+                            <!--放置小图标-->
+                            <img class="img_filter" src="./images/code_btn@2x.png" alt="">
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!--fload-->
+    <h1>fload</h1>
+    <!--图居上，文居下-->
+    <div class="center_auto">
+        <h3>图居上，文居下（float）</h3>
+        <ul class="clear_fix" style="width: 640px;margin: 0 auto;padding: 10px;">
+            <li class="graphicbox white_box_radius f_left" style="width: 200px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="graphicbox-cell" style="padding: 10px;">
+                        <p style="margin: 10px 0;">Leather Hoodie (White)</p>
+                        <p>
+                            <span>¥298</span>
+                            <span>原价: <s>¥488</s></span>
+                        </p>
+                    </div>
+                </a>
+            </li>
+            <li class="graphicbox white_box_radius f_left" style="width: 200px;margin-left: 20px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="graphicbox-cell" style="padding: 10px;">
+                        <p style="margin: 10px 0;">Leather Hoodie (White)</p>
+                        <p>
+                            <span>¥298</span>
+                            <span>原价: <s>¥488</s></span>
+                        </p>
+                    </div>
+                </a>
+            </li>
+            <li class="graphicbox white_box_radius f_left" style="width: 200px;margin-left: 20px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="graphicbox-cell" style="padding: 10px;">
+                        <p style="margin: 10px 0;">Leather Hoodie (White)</p>
+                        <p>
+                            <span>¥298</span>
+                            <span>原价: <s>¥488</s></span>
+                        </p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!--图居上，文居下，底部右侧有小icon-->
+    <div class="center_auto">
+        <h3>图居上，文居下，底部右侧有小icon（float）</h3>
+        <ul class="clear_fix" style="width: 640px;margin: 0 auto;padding: 10px;">
+            <li class="graphicbox white_box_radius f_left" style="width: 200px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="text_left clear_fix graphicbox-cell" style="padding: 10px;">
+                        <div class="f_left">
+                            <p style="margin: 0 0 5px;">Leather Hoodie (White)</p>
+                            <p>
+                                <span>¥298</span>
+                                <span>原价: <s>¥488</s></span>
+                            </p>
+                        </div>
+                        <div class="graphicbox-l_icon f_right" style="width: 36px;height: 36px;">
+                            <!--放置小图标-->
+                            <img class="img_filter" src="./images/code_btn@2x.png" alt="">
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="graphicbox white_box_radius f_left" style="width: 200px;margin-left: 20px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="text_left clear_fix graphicbox-cell" style="padding: 10px;">
+                        <div class="f_left">
+                            <p style="margin: 0 0 5px;">Leather Hoodie (White)</p>
+                            <p>
+                                <span>¥298</span>
+                                <span>原价: <s>¥488</s></span>
+                            </p>
+                        </div>
+                        <div class="graphicbox-l_icon f_right" style="width: 36px;height: 36px;">
+                            <!--放置小图标-->
+                            <img class="img_filter" src="./images/code_btn@2x.png" alt="">
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="graphicbox white_box_radius f_left" style="width: 200px;margin-left: 20px;">
+                <a href="http://www.leigod.com">
+                    <!--图片部分-->
+                    <div class="graphicbox-cell">
+                        <img src="./images/zixun_1.png" alt="雷神加速器">
+                    </div>
+                    <!--文字部分-->
+                    <div class="text_left clear_fix graphicbox-cell" style="padding: 10px;">
+                        <div class="f_left">
+                            <p style="margin: 0 0 5px;">Leather Hoodie (White)</p>
+                            <p>
+                                <span>¥298</span>
+                                <span>原价: <s>¥488</s></span>
+                            </p>
+                        </div>
+                        <div class="graphicbox-l_icon f_right" style="width: 36px;height: 36px;">
+                            <!--放置小图标-->
+                            <img class="img_filter" src="./images/code_btn@2x.png" alt="">
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!--上图下文，底部文字部分有按钮和icon-->
+    <div class="center_auto">
+        <h3>上图下文，底部文字部分有按钮和icon（float）</h3>
+        <ul class="clear_fix" style="width: 980px;margin: 0 auto;padding: 10px;">
+            <li class="graphicbox white_box_radius f_left" style="width: 320px;">
+                <!--图片部分-->
+                <div class="graphicbox-cell">
+                    <a href="http://www.leigod.com"><img style="width: 320px" src="./images/zixun_1.png"
+                                                         alt="雷神加速器"></a>
+                </div>
+                <!--文字部分-->
+                <div class="text_left graphicbox-cell" style="padding: 10px;">
+                    <!--第一行文字-->
+                    <div style="margin: 5px 0 0;" class="clear_fix">
+                        <h4 style="width: 50%;" class="f_left words_flow">APEX英雄官方版</h4>
+                        <div class="f_right">
+                            <img src="./images/download_btn@2x.png" alt="" style="width: 10px;height: 10px;">
+                            人气: <span>1000</span>
+                        </div>
+                    </div>
+                    <!--第二行文字-->
+                    <div class="clear_fix" style="margin: 15px 0 0;">
+                        <div class="f_left">
+                            <p>大小：<span>21G</span></p>
+                            <p>更新时间：<span>2019.02.18</span></p>
+                        </div>
+                        <div class="f_right">
+                            <a href="http://www.leigod.com" class="public_btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="graphicbox white_box_radius f_left" style="width: 320px;margin-left: 10px;">
+                <!--图片部分-->
+                <div class="graphicbox-cell">
+                    <a href="http://www.leigod.com"><img style="width: 320px" src="./images/zixun_1.png"
+                                                         alt="雷神加速器"></a>
+                </div>
+                <!--文字部分-->
+                <div class="text_left graphicbox-cell" style="padding: 10px;">
+                    <!--第一行文字-->
+                    <div style="margin: 5px 0 0;" class="clear_fix">
+                        <h4 style="width: 50%;" class="f_left words_flow">APEX英雄官方版</h4>
+                        <div class="f_right">
+                            <img src="./images/download_btn@2x.png" alt="" style="width: 10px;height: 10px;">
+                            人气: <span>1000</span>
+                        </div>
+                    </div>
+                    <!--第二行文字-->
+                    <div class="clear_fix" style="margin: 15px 0 0;">
+                        <div class="f_left">
+                            <p>大小：<span>21G</span></p>
+                            <p>更新时间：<span>2019.02.18</span></p>
+                        </div>
+                        <div class="f_right">
+                            <a href="http://www.leigod.com" class="public_btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="graphicbox white_box_radius f_left" style="width: 320px;margin-left: 10px;">
+                <!--图片部分-->
+                <div class="graphicbox-cell">
+                    <a href="http://www.leigod.com"><img style="width: 320px" src="./images/zixun_1.png"
+                                                         alt="雷神加速器"></a>
+                </div>
+                <!--文字部分-->
+                <div class="text_left graphicbox-cell" style="padding: 10px;">
+                    <!--第一行文字-->
+                    <div style="margin: 5px 0 0;" class="clear_fix">
+                        <h4 style="width: 50%;" class="f_left words_flow">APEX英雄官方版</h4>
+                        <div class="f_right">
+                            <img src="./images/download_btn@2x.png" alt="" style="width: 10px;height: 10px;">
+                            人气: <span>1000</span>
+                        </div>
+                    </div>
+                    <!--第二行文字-->
+                    <div class="clear_fix" style="margin: 15px 0 0;">
+                        <div class="f_left">
+                            <p>大小：<span>21G</span></p>
+                            <p>更新时间：<span>2019.02.18</span></p>
+                        </div>
+                        <div class="f_right">
+                            <a href="http://www.leigod.com" class="public_btn">下载</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <h1>4、小图标+时间+文字描述（大小标题），左右布局</h1>
+    <!--flex-->
+    <h1>flex</h1>
+    <div class="center_auto">
+        <ul class="imglistboxes">
+            <li class="flex_row_start imglistbox">
+                <div class="imglistbox-l-cell">
+                    <img src="./images/riqi.png" alt="雷神加速器">
+                    <div class="l_inner_box">
+                        <p class="top_txt">2019-01</p>
+                        <p class="bottom_txt">11</p>
+                    </div>
+                </div>
+                <div class="imglistbox-r-cell">
+                    <a href="www.baidu.com">新增Apex英雄等11款游戏加速通知</a>
+                    <p class="words_flow">
+                        Apex英雄,pubglite等多款热门游戏持续限免中Apex英雄,pubglite等多款热门游戏持续限免中Apex英雄,pubglite等多款热门游戏持续限免中Apex英雄,pubglite等多款热门游戏持续限免中Apex英雄,pubglite等多款热门游戏持续限免中</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!--fload-->
+    <h1>fload</h1>
+    <div class="center_auto">
+        <ul class="imglistboxes">
+            <li class="clear_fix imglistbox">
+                <div class="imglistbox-l-cell f_left">
+                    <img src="./images/riqi.png" alt="雷神加速器">
+                    <div class="l_inner_box">
+                        <p class="top_txt">2019-01</p>
+                        <p class="bottom_txt">11</p>
+                    </div>
+                </div>
+                <div class="imglistbox-r-cell f_left">
+                    <a href="www.baidu.com">新增Apex英雄等11款游戏加速通知</a>
+                    <p class="words_flow">
+                        Apex英雄,pubglite等多款热门游戏持续限免中Apex英雄,pubglite等多款热门游戏持续限免中Apex英雄,pubglite等多款热门游戏持续限免中</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <h1>5、公用弹出框</h1>
+    <!--flex-->
+    <h1>flex</h1>
+    <div class="center_auto">
+        <div class="flex_content_left graphicbox">
+
+        </div>
+    </div>
+    <!--float-->
+    <h1>float</h1>
+    <div class="center_auto">
+        <div class="pub_dialogbox hide">
+            <div class="pub_dialogbox-cell pub_dialog_in pub_dialog_out" style="width: 30%;margin-left: -15%;">
+                <div class="pub_dialogbox-head">
+                    <p class="f_left">提示信息</p>
+                    <img class="f_right cursor" src="./images/help_close.png" alt="" style="width: 20px;height: 20px;">
+                </div>
+                <div class="pub_dialogbox-body">
+                    <p class="text_left">请先登录！</p>
+                </div>
+                <div class="pub_dialogbox-foot">
+                    <a class="public_btn" style="display: inline-block;">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <h1>6、文字排版，标题、简述、详情</h1>
+    <!--flex-->
+    <h1>flex</h1>
+    <div class="flex_row_top_start center_auto">
+        <div class="white_box_radius" style="width: 450px;margin: 0 auto;padding: 10px;">
+            <h2>这是title</h2>
+            <p style="margin-bottom: 15px;" class="line_limit_3">
+                这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content</p>
+            <p>
+                <a href="http://wwww.leigod.com" class="">more+</a>
+            </p>
+        </div>
+    </div>
+
+    <!--float-->
+    <h1>float</h1>
+    <div class="center_auto">
+        <div class="white_box_radius" style="width: 450px;margin: 0 auto;padding: 10px;">
+            <h2>这是title</h2>
+            <p style="margin-bottom: 15px;" class="line_limit_3">
+                这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content这是content</p>
+            <p>
+                <a href="http://wwww.leigod.com" class="">more+</a>
+            </p>
+        </div>
+    </div>
+
+
+    <h1>7、登录注册模块</h1>
+    <!--仅使用传统的float布局，去掉flex布局-->
+    <div class="container">
+        <form class="form_signin">
+            <h2 class="form_signin_heading">Please sign in</h2>
+        </form>
+    </div>
+
+    <h1>8、下载按钮列表</h1>
+    <!--flex-->
+    <div>
+
+    </div>
+    <!--float-->
+    <div class="center_auto">
+        <ul class="downbox">
+            <li class="downbox-cell">
+                <img class="downbox-cell_img" src="./images/windows.png" alt="雷神加速器" style="width: 18px;">
+                <a href="http://www.baidu.com" class="downbox-cell_txt">windows下载</a>
+            </li>
+            <li class="downbox-cell">
+                <img class="downbox-cell_img" src="./images/mac.png" alt="雷神加速器" style="width: 18px;">
+                <a href="http://www.baidu.com" class="downbox-cell_txt">MacOS下载</a>
+            </li>
+            <li class="downbox-cell">
+                <img class="downbox-cell_img" src="./images/ios.png" alt="雷神加速器" style="width: 18px;">
+                <a href="http://www.baidu.com" class="downbox-cell_txt">iOS下载</a>
+            </li>
+            <li class="downbox-cell">
+                <img class="downbox-cell_img" src="./images/android.png" alt="雷神加速器" style="width: 18px;">
+                <a href="http://www.baidu.com" class="downbox-cell_txt">Android下载</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <h1>9、图文展示模块</h1>
+    <!--flex-->
+    <h1>flex</h1>
+    <!--背景图，鼠标移上出现相关信息-->
+    <div class="center_auto">
+        <h3>背景图，鼠标移上出现相关信息（float）</h3>
+        <div>
+            <ul class="newsviewbox flex_row_start_wrap" style="width: 690px;padding-bottom: 10px;margin: 0 auto;">
+                <!--图片盒子相对定位-->
+                <li class="newsviewbox-cell" style="position: relative;margin: 0 5px 10px;">
+                    <!--背景展示大图-->
+                    <div style="width: 220px;">
+                        <a class="box_radius" href="javascript: void (0)">
+                            <img class="box_radius" src="./images/haiwaiHuangye.png" alt="雷神加速器"
+                                 style="width: 220px;height: 150px;">
+                        </a>
+                    </div>
+                    <!--图片表面的内容-->
+                    <div class="txtbox rowbox-cell" style="padding: 10px;bottom: 0;width: 100%;height: 100%;">
+                        <!--内容表题-->
+                        <p style="color: #fff;font-size: 18px;text-align: left" class="title words_flow">绝地求生</p>
+                        <!--其他信息-->
+                        <div style="position:absolute;bottom: 0;left: 0;width: 100%;padding: 10px;box-sizing: border-box">
+                            <div class="f_left" style="color: #fff;font-size: 12px;text-align: left">
+                                <p>1.0M</p>
+                                <p>1920*1080</p>
+                            </div>
+                            <img class="f_right" src="./images/code_btn@2x.png" alt=""
+                                 style="width: 18px;height: 18px;margin-top: 6px;">
+                        </div>
+                    </div>
+                </li>
+                <li class="newsviewbox-cell" style="position: relative;margin: 0 5px 10px;">
+                    <!--背景展示大图-->
+                    <div style="width: 220px;">
+                        <a class="box_radius" href="javascript: void (0)">
+                            <img class="box_radius" src="./images/haiwaiHuangye.png" alt="雷神加速器"
+                                 style="width: 220px;height: 150px;">
+                        </a>
+                    </div>
+                    <!--图片表面的内容-->
+                    <div class="txtbox rowbox-cell" style="padding: 10px;bottom: 0;width: 100%;height: 100%;">
+                        <!--内容表题-->
+                        <p style="color: #fff;font-size: 18px;text-align: left" class="title words_flow">绝地求生</p>
+                        <!--其他信息-->
+                        <div style="position:absolute;bottom: 0;left: 0;width: 100%;padding: 10px;box-sizing: border-box">
+                            <div class="f_left" style="color: #fff;font-size: 12px;text-align: left">
+                                <p>1.0M</p>
+                                <p>1920*1080</p>
+                            </div>
+                            <img class="f_right" src="./images/code_btn@2x.png" alt=""
+                                 style="width: 18px;height: 18px;margin-top: 6px;">
+                        </div>
+                    </div>
+                </li>
+                <li class="newsviewbox-cell" style="position: relative;margin: 0 5px 10px;">
+                    <!--背景展示大图-->
+                    <div style="width: 220px;">
+                        <a class="box_radius" href="javascript: void (0)">
+                            <img class="box_radius" src="./images/haiwaiHuangye.png" alt="雷神加速器"
+                                 style="width: 220px;height: 150px;">
+                        </a>
+                    </div>
+                    <!--图片表面的内容-->
+                    <div class="txtbox rowbox-cell" style="padding: 10px;bottom: 0;width: 100%;height: 100%;">
+                        <!--内容表题-->
+                        <p style="color: #fff;font-size: 18px;text-align: left" class="title words_flow">绝地求生</p>
+                        <!--其他信息-->
+                        <div style="position:absolute;bottom: 0;left: 0;width: 100%;padding: 10px;box-sizing: border-box">
+                            <div class="f_left" style="color: #fff;font-size: 12px;text-align: left">
+                                <p>1.0M</p>
+                                <p>1920*1080</p>
+                            </div>
+                            <img class="f_right" src="./images/code_btn@2x.png" alt=""
+                                 style="width: 18px;height: 18px;margin-top: 6px;">
+                        </div>
+                    </div>
+                </li>
+                <li class="newsviewbox-cell" style="position: relative;margin: 0 5px 10px;">
+                    <!--背景展示大图-->
+                    <div style="width: 220px;">
+                        <a class="box_radius" href="javascript: void (0)">
+                            <img class="box_radius" src="./images/haiwaiHuangye.png" alt="雷神加速器"
+                                 style="width: 220px;height: 150px;">
+                        </a>
+                    </div>
+                    <!--图片表面的内容-->
+                    <div class="txtbox rowbox-cell" style="padding: 10px;bottom: 0;width: 100%;height: 100%;">
+                        <!--内容表题-->
+                        <p style="color: #fff;font-size: 18px;text-align: left" class="title words_flow">绝地求生</p>
+                        <!--其他信息-->
+                        <div style="position:absolute;bottom: 0;left: 0;width: 100%;padding: 10px;box-sizing: border-box">
+                            <div class="f_left" style="color: #fff;font-size: 12px;text-align: left">
+                                <p>1.0M</p>
+                                <p>1920*1080</p>
+                            </div>
+                            <img class="f_right" src="./images/code_btn@2x.png" alt=""
+                                 style="width: 18px;height: 18px;margin-top: 6px;">
+                        </div>
+                    </div>
+                </li>
+                <li class="newsviewbox-cell" style="position: relative;margin: 0 5px 10px;">
+                    <!--背景展示大图-->
+                    <div style="width: 220px;">
+                        <a class="box_radius" href="javascript: void (0)">
+                            <img class="box_radius" src="./images/haiwaiHuangye.png" alt="雷神加速器"
+                                 style="width: 220px;height: 150px;">
+                        </a>
+                    </div>
+                    <!--图片表面的内容-->
+                    <div class="txtbox rowbox-cell" style="padding: 10px;bottom: 0;width: 100%;height: 100%;">
+                        <!--内容表题-->
+                        <p style="color: #fff;font-size: 18px;text-align: left" class="title words_flow">绝地求生</p>
+                        <!--其他信息-->
+                        <div style="position:absolute;bottom: 0;left: 0;width: 100%;padding: 10px;box-sizing: border-box">
+                            <div class="f_left" style="color: #fff;font-size: 12px;text-align: left">
+                                <p>1.0M</p>
+                                <p>1920*1080</p>
+                            </div>
+                            <img class="f_right" src="./images/code_btn@2x.png" alt=""
+                                 style="width: 18px;height: 18px;margin-top: 6px;">
+                        </div>
+                    </div>
+                </li>
+                <li class="newsviewbox-cell" style="position: relative;margin: 0 5px 10px;">
+                    <!--背景展示大图-->
+                    <div style="width: 220px;">
+                        <a class="box_radius" href="javascript: void (0)">
+                            <img class="box_radius" src="./images/haiwaiHuangye.png" alt="雷神加速器"
+                                 style="width: 220px;height: 150px;">
+                        </a>
+                    </div>
+                    <!--图片表面的内容-->
+                    <div class="txtbox rowbox-cell" style="padding: 10px;bottom: 0;width: 100%;height: 100%;">
+                        <!--内容表题-->
+                        <p style="color: #fff;font-size: 18px;text-align: left" class="title words_flow">绝地求生</p>
+                        <!--其他信息-->
+                        <div style="position:absolute;bottom: 0;left: 0;width: 100%;padding: 10px;box-sizing: border-box">
+                            <div class="f_left" style="color: #fff;font-size: 12px;text-align: left">
+                                <p>1.0M</p>
+                                <p>1920*1080</p>
+                            </div>
+                            <img class="f_right" src="./images/code_btn@2x.png" alt=""
+                                 style="width: 18px;height: 18px;margin-top: 6px;">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--float-->
+    <h1>float</h1>
+    <!--上图下文，文字上移-->
+    <div class="center_auto">
+        <h3>上图下文，文字上移（float）</h3>
+        <ul class="newsviewbox clear_fix" style="width: 950px;padding-bottom: 10px;margin-bottom: 10px;">
+            <li class="newsviewbox-cell f_left">
+                <div class="newsviewbox-cell_img">
+                    <a href="http://www.leigod.com">
+                        <img src="./images/new_leigod_en_net.png" alt="雷神加速器" width="470" height="235">
+                    </a>
+                </div>
+                <div class="newsviewbox-cell_head" style="padding: 11px 15px 0;margin: -35px 12px 0 0;">
+                    <h3 class="text_left">
+                        <a href="http://www.leigod.com">雷神加速器</a>
+                    </h3>
+                </div>
+                <div class="newsviewbox-cell_main" style="
+    padding: 5px 27px 10px 15px;">
+                    <p>不用可暂停，一次购买终生使用</p>
+                </div>
+                <div class="newsviewbox-cell_foot" style="padding: 5px 0 5px 15px;">
+                    <p class="clear_fix">
+                        <span class="f_left">left</span>
+                        <span class="f_left">time</span>
+                        <span class="f_right">
+                            <i>icon</i>
+                            <b>999+</b>
+                        </span>
+                    </p>
+                </div>
+            </li>
+            <li class="newsviewbox-cell f_left" style="margin-left: 10px;">
+                <div class="newsviewbox-cell_img">
+                    <a href="http://www.leigod.com">
+                        <img src="./images/new_leigod_en_net.png" alt="雷神加速器" width="470" height="235">
+                    </a>
+                </div>
+                <div class="newsviewbox-cell_head" style="padding: 11px 15px 0;margin: -35px 12px 0 0;">
+                    <h3 class="text_left">
+                        <a href="http://www.leigod.com">雷神加速器</a>
+                    </h3>
+                </div>
+                <div class="newsviewbox-cell_main" style="
+        padding: 5px 27px 10px 15px;">
+                    <p>不用可暂停，一次购买终生使用</p>
+                </div>
+                <div class="newsviewbox-cell_foot" style="padding: 5px 0 5px 15px;">
+                    <p class="clear_fix">
+                        <span class="f_left">left</span>
+                        <span class="f_left">time</span>
+                        <span class="f_right">
+                                <i>icon</i>
+                                <b>999+</b>
+                            </span>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!--图文描述类+tag标识-->
+    <div class="center_auto">
+        <h3>图文描述类+tag标识（float）</h3>
+        <ul class="newsviewbox clear_fix" style="width: 950px;padding-bottom: 10px;margin-bottom: 10px;">
+            <li class="newsviewbox-cell f_left">
+                <div class="newsviewbox-cell_img">
+                    <a href="http://www.leigod.com">
+                        <img src="./images/new_leigod_en_net.png" alt="雷神加速器" width="470" height="235">
+                    </a>
+                </div>
+                <!--定位在图片的左上角-->
+                <span class="tag" style="padding: 10px 15px;">这是tag</span>
+                <!--底部的文字-->
+                <div class="newsviewbox-cell_head">
+                    <h3 class="text_left" style="padding: 10px;">
+                        <a>
+                            雷神加速器
+                        </a>
+                    </h3>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!--背景图，图片上有文字覆盖-->
+    <div class="center_auto">
+        <h3>背景图，图片上有文字覆盖（float）</h3>
+        <div>
+            <ul class="newsviewbox clear_fix" style="width: 950px;padding-bottom: 10px;margin-bottom: 10px;">
+                <!--图片盒子相对定位-->
+                <li class="newsviewbox-cell f_left" style="position: relative;">
+                    <div style="width: 470px;">
+                        <a class="box_radius" href="javascript: void (0)">
+                            <img class="box_radius" src="./images/haiwaiHuangye.png" alt="雷神加速器"
+                                 style="width: 470px;height: 235px;">
+                        </a>
+                    </div>
+                    <div class="txtbox rowbox-cell" style="width: 100%;bottom: 30px;padding: 0 5px;">
+                        <h3 style="color: #fff;font-size: 18px" class="title words_flow">
+                            这是title这是title这是title这是title</h3>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--背景图，鼠标移上出现相关信息-->
+    <div class="center_auto">
+        <h3>背景图，鼠标移上出现相关信息（float）</h3>
+        <div>
+            <ul class="newsviewbox clear_fix" style="width: 680px;padding-bottom: 10px;margin: 0 auto;">
+                <!--图片盒子相对定位-->
+                <li class="newsviewbox-cell f_left" style="position: relative;">
+                    <!--背景展示大图-->
+                    <div style="width: 220px;">
+                        <a class="box_radius" href="javascript: void (0)">
+                            <img class="box_radius" src="./images/haiwaiHuangye.png" alt="雷神加速器"
+                                 style="width: 220px;height: 150px;">
+                        </a>
+                    </div>
+                    <!--图片表面的内容-->
+                    <div class="txtbox rowbox-cell" style="padding: 10px;bottom: 0;width: 100%;height: 100%;">
+                        <!--内容表题-->
+                        <p style="color: #fff;font-size: 18px;text-align: left" class="title words_flow">绝地求生</p>
+                        <!--其他信息-->
+                        <div style="position:absolute;bottom: 0;left: 0;width: 100%;padding: 10px;box-sizing: border-box">
+                            <div class="f_left" style="color: #fff;font-size: 12px;text-align: left">
+                                <p>1.0M</p>
+                                <p>1920*1080</p>
+                            </div>
+                            <img class="f_right" src="./images/code_btn@2x.png" alt=""
+                                 style="width: 18px;height: 18px;margin-top: 6px;">
+                        </div>
+                    </div>
+                </li>
+                <li class="newsviewbox-cell f_left" style="position: relative;margin-left: 10px;margin-bottom: 10px;">
+                    <!--背景展示大图-->
+                    <div style="width: 220px;">
+                        <a class="box_radius" href="javascript: void (0)">
+                            <img class="box_radius" src="./images/haiwaiHuangye.png" alt="雷神加速器"
+                                 style="width: 220px;height: 150px;">
+                        </a>
+                    </div>
+                    <!--图片表面的内容-->
+                    <div class="txtbox rowbox-cell" style="padding: 10px;bottom: 0;width: 100%;height: 100%;">
+                        <!--内容表题-->
+                        <p style="color: #fff;font-size: 18px;text-align: left" class="title words_flow">绝地求生</p>
+                        <!--其他信息-->
+                        <div style="position:absolute;bottom: 0;left: 0;width: 100%;padding: 10px;box-sizing: border-box">
+                            <div class="f_left" style="color: #fff;font-size: 12px;text-align: left">
+                                <p>1.0M</p>
+                                <p>1920*1080</p>
+                            </div>
+                            <img class="f_right" src="./images/code_btn@2x.png" alt=""
+                                 style="width: 18px;height: 18px;margin-top: 6px;">
+                        </div>
+                    </div>
+                </li>
+                <li class="newsviewbox-cell f_left" style="position: relative;margin-left: 10px;margin-bottom: 10px;">
+                    <!--背景展示大图-->
+                    <div style="width: 220px;">
+                        <a class="box_radius" href="javascript: void (0)">
+                            <img class="box_radius" src="./images/haiwaiHuangye.png" alt="雷神加速器"
+                                 style="width: 220px;height: 150px;">
+                        </a>
+                    </div>
+                    <!--图片表面的内容-->
+                    <div class="txtbox rowbox-cell" style="padding: 10px;bottom: 0;width: 100%;height: 100%;">
+                        <!--内容表题-->
+                        <p style="color: #fff;font-size: 18px;text-align: left" class="title words_flow">绝地求生</p>
+                        <!--其他信息-->
+                        <div style="position:absolute;bottom: 0;left: 0;width: 100%;padding: 10px;box-sizing: border-box">
+                            <div class="f_left" style="color: #fff;font-size: 12px;text-align: left">
+                                <p>1.0M</p>
+                                <p>1920*1080</p>
+                            </div>
+                            <img class="f_right" src="./images/code_btn@2x.png" alt=""
+                                 style="width: 18px;height: 18px;margin-top: 6px;">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

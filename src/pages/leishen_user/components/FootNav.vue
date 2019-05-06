@@ -4,7 +4,7 @@
             <!--foot-one-->
             <div class="flex_col_item_left pos_foot_txt1">
                 <div class="cursor">
-                    <img src="../images/foot_logo.png" alt="" width="200">
+                    <img src="../images/foot_logo.png" alt="雷神加速器" width="150" style="width: 150px;">
                 </div>
                 <div>
                     <ul class="flex_column_around">
@@ -63,6 +63,12 @@
                             <img src="../images/qq_kfu@2x.png" alt="" width="16">
                             <a>{{$t("nav.navlist19")}}</a>
                         </li>
+                        <!--<li>-->
+                            <!--<a href="http://q.url.cn/cdmsbl?_type=wpa&qidian=true" class="kefu_box" target="_blank" style="color: inherit">-->
+                                <!--<img src="../images/qq_kfu@2x.png" alt="" width="16">-->
+                                <!--{{$t("nav.navlist19")}}-->
+                            <!--</a>-->
+                        <!--</li>-->
                         <!--<li class="web_phone_number pos_banner_txt0">-->
                         <!--021-80270833-->
                         <!--</li>-->

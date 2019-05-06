@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8" />
-		<title>会员中心</title>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-	</head>
-	<body style="padding-bottom: 50px;">
-		<div class="mui-content" id="app">
-			<loading v-show="isLoading"></loading>
-			<div v-show="!isLoading" style="display:none;">
-				<!-- 用户资料 -->
-				<user-info v-if="showIndex==1"></user-info>
+<head>
+    <meta charset="UTF-8"/>
+    <title>会员中心</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <style>
+        [v-cloak]{
+            display: none !important;
+        }
+    </style>
+</head>
+<body style="padding-bottom: 50px;">
+<div class="mui-content" id="app" v-cloak>
 
-				<!-- 卡密充值 -->
-				<user-cardpsw v-if="showIndex==2"></user-cardpsw>
+    <!-- 用户资料 -->
+    <user-info v-if="showIndex==1"></user-info>
 
-				<!-- 订单管理 -->
-				<user-orders v-if="showIndex==3"></user-orders>
+    <!-- 卡密充值 -->
+    <user-cardpsw v-if="showIndex==2"></user-cardpsw>
 
-				<!-- 设置 -->
-				<user-setting v-if="showIndex==4" v-on:changelanguage="onChangeLanguage"></user-setting>
-			</div>
-		</div>
-	</body>
+    <!-- 订单管理 -->
+    <user-orders v-if="showIndex==3"></user-orders>
+
+    <!-- 设置 -->
+    <user-setting v-if="showIndex==4" v-on:changelanguage="onChangeLanguage"></user-setting>
+</div>
+</body>
 </html>

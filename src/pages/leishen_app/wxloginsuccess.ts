@@ -43,8 +43,8 @@ class ThreeSuccess extends Vue {
             const loginM: LoginModel = backData.data;
             LocalStorageUtil.addUserToken(loginM.login_info);
             LocalStorageUtil.addUserInfo(loginM.user_info);
-            JumpWebUtil.wapJump(window.location.origin, this.JumpUrl,"platform=4");
-            
+            JumpWebUtil.mobileGotoUser(window.location.origin, this.JumpUrl,"platform=4");
+
         }
     }
 }

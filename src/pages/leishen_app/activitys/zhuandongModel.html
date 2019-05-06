@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://hm.baidu.com/hm.js?17232eb197fe1658987da501d2a6379f"></script>
+    <title>雷神开学季活动</title>
+</head>
+
+<body style="background-color: #5475ff;">
+
+<div id="app">
+
+    <!--活动banner+套餐推荐区-->
+    <div class="app-act_banner" :style="{background: 'url('+ activity_json.package_bg +') no-repeat center center' ,'background-size': '100% 100%'}" style="text-align: center;padding-top: 130px;">
+        <!--start   倒计时-->
+        <div class="app-backtime">
+            <span class="app-backtime_font">{{clock.days}}</span>
+            <span class="app-backtime_font" style="margin-left: 8%;">{{clock.hours}}</span>
+            <span class="app-backtime_font" style="margin-left: 5%;">{{clock.minutes}}</span>
+            <span class="app-backtime_font" style="margin-left: 4%;">{{clock.seconds}}</span>
+        </div>
+        <!--end 倒计时-->
+        <!--start   推荐购买按钮-->
+        <div style="margin-top: 50px;">
+            <img :src="activity_json.package_one" alt="" width="45%" @click="gotoRecharge">
+            <img :src="activity_json.package_two" alt="" width="45%" @click="gotoRecharge">
+        </div>
+        <!--end 推荐购买按钮-->
+    </div>
+
+    <!--主内容区-->
+    <div class="app-act_content">
+        <!--start   抽奖模块-->
+        <div style="padding-top: 60px;margin-top: 10px;text-align: center;" :style="{background: 'url('+ activity_json.choujiang_bg +') no-repeat center center' ,'background-size': '100% 100%'}">
+            <!--剩余抽奖次数-->
+            <div>您当前剩余抽奖次数为：{{aCount}} 次</div>
+            <!--奖品列表-->
+            <ul id="prize" class="app-present flex_row_start" style="flex-wrap: wrap;align-content: flex-start;">
+                <li class="app-present_cell activity_prize_0" style="position: relative;">
+                    <img :src="activity_json.prize_list[0]" alt="雷神加速器" style="width: 100%;height: 72px;">
+                    <img :src="activity_json.prize_active_img[0]" alt="雷神加速器" class="app-present_active">
+                </li>
+                <li class="app-present_cell activity_prize_1" style="position: relative;">
+                    <img :src="activity_json.prize_list[1]" alt="雷神加速器" style="width: 100%;height: 72px;">
+                    <img :src="activity_json.prize_active_img[0]" alt="雷神加速器" class="app-present_active">
+                </li>
+                <li class="app-present_cell activity_prize_2" style="position: relative;">
+                    <img :src="activity_json.prize_list[2]" alt="雷神加速器" style="width: 100%;height: 72px;">
+                    <img :src="activity_json.prize_active_img[0]" alt="雷神加速器" class="app-present_active">
+                </li>
+                <li class="app-present_cell activity_prize_5" style="position: relative;">
+                    <img :src="activity_json.prize_list[5]" alt="雷神加速器" style="width: 100%;height: 72px;">
+                    <img :src="activity_json.prize_active_img[0]" alt="雷神加速器" class="app-present_active">
+                </li>
+                <li class="app-present_cell activity_prize_4" style="position: relative;">
+                    <img :src="activity_json.prize_list[4]" alt="雷神加速器" style="width: 100%;height: 72px;">
+                    <img :src="activity_json.prize_active_img[0]" alt="雷神加速器" class="app-present_active">
+                </li>
+                <li class="app-present_cell activity_prize_3" style="position: relative;">
+                    <img :src="activity_json.prize_list[3]" alt="雷神加速器" style="width: 100%;height: 72px;">
+                    <img :src="activity_json.prize_active_img[0]" alt="雷神加速器" class="app-present_active">
+                </li>
+            </ul>
+            <!--按钮列表-->
+            <ul style="padding: 0 5px;margin-top: 10px;" class="flex_row_start">
+                <img @click="onClickGuize" src="../images/kaixue/btn_rules.png" style="width: 32%;margin-left: 4px;">
+                <img @click="onClickDraw" src="../images/kaixue/btn_cj.png" style="width: 32%;margin-left: 4px;">
+                <img @click="onClickAward" src="../images/kaixue/btn_rank.png" style="width: 32%;margin-left: 4px;">
+            </ul>
+            <!--名单列表-->
+            <ul class="app-record" id="jilu_box">
+                <li v-for="(item, index) in awardList" :key="index">
+                    <p class="words_flow app-record_font">
+                        <span>恭喜</span>
+                        <span>{{item.nickname}}</span>
+                        <span>获得</span>
+                        <span>{{item.title}}</span>
+                        <span>{{item.create_time}}</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <!--end 抽奖模块-->
+
+        <!--start   推荐好友注册充值-->
+        <div style="padding: 80px 0 20px;margin-top: 10px;text-align: center;" :style="{background: 'url('+ activity_json.tuijian_model_bg +') no-repeat center center' ,'background-size': '100% 100%'}">
+            <div class="app-copy_link" style="width: 95%;margin: 0 auto 20px;text-indent: 1em" v-text="refer_code_link"></div>
+            <img src="../images/kaixue/btn_copy.png" id="copyRefercodeLink" @click="copyRefercodeLink" style="width: 30%;">
+        </div>
+        <!--end 抽奖模块-->
+
+        <!--start   活动规则-->
+        <div style="margin-top: 10px;padding: 10px 10px 20px;" :style="{background: 'url('+ activity_json.activity_info_bg +') no-repeat center center' ,'background-size': '100% 100%'}">
+            <ul style="list-style: circle inside;margin-top: 40px;text-align: left;">
+                <li style="margin-bottom: 5px;">
+                    <p class="app-title_font">【活动时间】</p>
+                    <p class="app-common_font" style="padding-left: 5px;">2019年2月21日15:30~2019年3月11日15:30</p>
+                </li>
+                <li style="margin-bottom: 5px;">
+                    <p class="app-title_font">【如何抽奖】</p>
+                    <p class="app-common_font" style="padding-left: 5px;">
+                        每购买一次套餐可获得1次抽奖机会，购买8760小时套餐可获得3次抽奖机会。（邀请好友注册购买可获得同等抽奖机会）奖品数量有限，先到先得。</p>
+                </li>
+                <li style="margin-bottom: 5px;">
+                    <p class="app-title_font">【奖品发放】</p>
+                    <div class="app-common_font" style="padding-left: 5px;">
+                        <p>1、活动期间，抽中实物奖品请您根据中奖提示添加发奖客服微信
+                            <span style="color: #ff78df">（微信号： service6000）</span>领取奖品</p>
+                        <p>2、官网页面抽中时长卡用户，直接在官网"个人中心-活动记录"页面进行兑换</p>
+                        <p>3、App和微信公众号中活动页面抽中时长卡用户，请访问雷神加速器PC官网(www.leigod.com )登陆至"会员中心--活动记录"页面进行兑换</p>
+                        <p>4、活动积分抽奖机会截止时间为本次活动结束时间（2019年3月11日15：30），逾期清空作废</p>
+                        <p>5、本次活动的最终解释权归上海雷神网络科技有限公司所有</p>
+                        <p>（实物奖品颜色随机发放，请您及时与发奖客服进行联系，逾期将停止兑奖）</p>
+                    </div>
+                </li>
+                <li style="margin-bottom: 10px;">
+                    <p class="app-title_font">【注意事项】</p>
+                    <div class="app-common_font" style="padding-left: 5px;">
+                        <p>1、此活动只针对于雷神超级会员，海外会员不在此活动范围内</p>
+                        <p>2、参与活动前请仔细阅读活动规则</p>
+                        <p>3、请扫描添加发奖客服微信</p>
+                    </div>
+                </li>
+            </ul>
+            <div style="position: relative;text-align: center;">
+                <img src="../images/kaixue/bg_code.png" alt="" width="40%">
+                <img src="../images/kaixue/code.png" alt=""
+                     style="position: absolute;width: 30%;left: 35%;top: 10px;">
+            </div>
+        </div>
+        <!--end 活动规则-->
+    </div>
+
+    <!--弹框区（共6个）-->
+    <!--中奖提示弹框-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_win}" v-if="activity_json.cj_success_type">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_win}" style="text-align: center;">
+            <img :src="activity_json.choujiang_success_bg" alt="雷神加速器" width="80%">
+            <div class="app-dialog_head" style="top: -15px;">
+                <img :src="activity_json.dialog_title_bg" alt="雷神加速器" style="width: 70%;height: 34px;">
+                <p class="app-dialog_title" style="line-height: 30px;font-size: 18px;color: #101859;">中奖了</p>
+            </div>
+            <div class="app-dialog_content flex_column_center">
+                <p style="margin-top: 30px;padding: 0 20px;font-size: 16px;">恭喜您抽中</p>
+                <p style="font-size:24px;height: 28px;margin-top: 10px;">{{dialog_msg}}</p>
+                <img @click="closeDialog" class="kx_dialog_btn" src="../images/kaixue/btn_goon.png" style="margin-top: 30px;">
+            </div>
+            <div class="app-dialog_close" @click="closeDialog">
+                <img :src="activity_json.dialog_close_bg" alt="" width="70%">
+            </div>
+        </div>
+    </div>
+    <!--错误提示弹框-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_error}">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_error}" style="text-align: center;">
+            <img :src="activity_json.dialog_notice_bg" alt="雷神加速器" width="80%">
+            <div class="app-dialog_head" style="top: -15px;">
+                <img :src="activity_json.dialog_title_bg" alt="雷神加速器" style="width: 70%;height: 34px;">
+                <p class="app-dialog_title" style="line-height: 30px;font-size: 18px;color: #101859;">温馨提示</p>
+            </div>
+            <div class="app-dialog_content flex_column_center">
+                <p style="margin-top: 60px;padding: 0 10px;">{{dialog_msg}}</p>
+                <img @click="closeDialog" style="width: 30%;margin-top: 40px;" src="../images/kaixue/btn_sure.png">
+            </div>
+            <div class="app-dialog_close" @click="closeDialog">
+                <img :src="activity_json.dialog_close_bg" alt="" width="70%">
+            </div>
+        </div>
+    </div>
+    <!--提示充值弹框-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_recharge}">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_recharge}" style="text-align: center">
+            <img :src="activity_json.dialog_notice_bg" alt="雷神加速器" width="80%">
+            <div class="app-dialog_head" style="top: -15px;">
+                <img :src="activity_json.dialog_title_bg" alt="雷神加速器" style="width: 70%;height: 34px;">
+                <p class="app-dialog_title" style="line-height: 30px;font-size: 18px;color: #101859;">温馨提示</p>
+            </div>
+            <div class="app-dialog_content flex_column_center">
+                <p style="margin-top: 60px;padding: 0 5px;">您还未购买抽奖套餐，暂不能参与抽奖 !</p>
+                <img @click="gotoRecharge" style="width: 30%;margin-top: 40px;" src="../images/kaixue/btn_buy.png">
+            </div>
+            <div class="app-dialog_close" @click="onCloseRecharge">
+                <img :src="activity_json.dialog_close_bg" alt="" width="70%">
+            </div>
+        </div>
+    </div>
+    <!--未登录提醒弹框-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_no_login}">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_no_login}" style="text-align: center;">
+            <img :src="activity_json.dialog_notice_bg" alt="雷神加速器" width="80%">
+            <div class="app-dialog_head" style="top: -15px;">
+                <img :src="activity_json.dialog_title_bg" alt="雷神加速器" style="width: 70%;height: 34px;">
+                <p class="app-dialog_title" style="line-height: 30px;font-size: 18px;color: #101859;">温馨提示</p>
+            </div>
+            <div class="app-dialog_content flex_column_center">
+                <p style="margin-top: 60px;padding: 0 10px;">您还未登录<br/>请登录后再参与活动, 谢谢！</p>
+                <img @click="gotoLogin" style="width: 30%;margin-top: 40px;" src="../images/kaixue/btn_login.png">
+            </div>
+            <div class="app-dialog_close" @click="onCloseNologin">
+                <img :src="activity_json.dialog_close_bg" alt="" width="70%">
+            </div>
+        </div>
+    </div>
+    <!--活动规则弹框-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_guize}" v-if="activity_json.guizejilutype == 1">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_guize}" style="text-align: center;">
+            <img :src="activity_json.dialog_guize_bg" alt="雷神加速器" width="80%">
+            <div class="app-dialog_head" style="top: -15px;">
+                <img :src="activity_json.dialog_title_bg" alt="雷神加速器" style="width: 70%;height: 34px;">
+                <p class="app-dialog_title" style="line-height: 30px;font-size: 18px;color: #101859;">活动规则</p>
+            </div>
+            <div class="app-dialog_content">
+                <div class="app-dialog_info">
+                    <ul style="list-style: circle inside;text-align: left;">
+                        <li style="margin-bottom: 5px;">
+                            <p class="app-title_font">【活动时间】</p>
+                            <p class="app-common_font" style="padding-left: 5px;">2019年2月21日15:30~2019年3月11日15:30</p>
+                        </li>
+                        <li style="margin-bottom: 5px;">
+                            <p class="app-title_font">【如何抽奖】</p>
+                            <div class="app-common_font" style="padding-left: 5px;">
+                                <p>每购买一次套餐可获得1次抽奖机会，购买8760小时套餐可获得3次抽奖机会。（邀请好友注册购买可获得同等抽奖机会）奖品数量有限，先到先得。</p>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 5px;">
+                            <p class="app-title_font">【奖品发放】</p>
+                            <div class="app-common_font" style="padding-left: 5px;">
+                                <p style="padding-left: 5px;">1、活动期间，抽中实物奖品请您根据中奖提示添加发奖客服微信
+                                    <span style="color: #ff78df">（微信号： service6000）</span>领取奖品</p>
+                                <p>2、官网页面抽中时长卡用户，直接在官网"个人中心-活动记录"页面进行兑换</p>
+                                <p>3、App和微信公众号中活动页面抽中时长卡用户，请访问雷神加速器PC官网(www.leigod.com )登陆至"会员中心--活动记录"页面进行兑换</p>
+                                <p>4、活动积分抽奖机会截止时间为本次活动结束时间（2019年3月11日15：30），逾期清空作废</p>
+                                <p>5、本次活动的最终解释权归上海雷神网络科技有限公司所有</p>
+                                <p>（实物奖品颜色随机发放，请您及时与发奖客服进行联系，逾期将停止兑奖）</p>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 10px;">
+                            <p class="app-title_font">【注意事项】</p>
+                            <div class="app-common_font">
+                                <p>1、此活动只针对于雷神超级会员，海外会员不在此活动范围内</p>
+                                <p>2、参与活动前请仔细阅读活动规则</p>
+                                <p>3、请扫描添加发奖客服微信</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div style="position: relative;">
+                        <img src="../images/kaixue/bg_code.png" alt="" width="40%">
+                        <img src="../images/kaixue/code.png" alt="" style="position: absolute;width: 30%;left: 35%;top: 10px;">
+                    </div>
+                </div>
+            </div>
+            <div class="app-dialog_close" @click="onCloseGuize">
+                <img :src="activity_json.dialog_close_bg" alt="" width="70%">
+            </div>
+        </div>
+    </div>
+    <!--中奖纪录弹框-->
+    <div class="app_dialog" :class="{'app-hidden':!dialog_award}" v-if="activity_json.guizejilutype == 1">
+        <div class="app-dialog_out" :class="{'app-dialog_in':dialog_award}" style="text-align: center;">
+            <img :src="activity_json.dialog_award_bg" alt="雷神加速器" width="80%">
+            <div class="app-dialog_head" style="top: -15px;">
+                <img :src="activity_json.dialog_title_bg" alt="雷神加速器" style="width: 70%;height: 34px;">
+                <p class="app-dialog_title" style="line-height: 30px;font-size: 18px;color: #101859;">中奖纪录</p>
+            </div>
+            <div class="app-dialog_content">
+                <div class="app-dialog_info">
+                    <ul v-show="awardRecordList.length > 0 && account_token != ''" style="display:none;margin-top: 30px;">
+                        <li class="app-present_list flex_row_between" v-for="(item, index) in awardRecordList" :key="index">
+                            <div class="user_prize_name">{{item.present_title}}</div>
+                            <div class="user_prize_time">{{item.create_time}}</div>
+                        </li>
+                    </ul>
+                    <div style="display: none;margin-top: 40px;" v-show="awardRecordList.length == 0 && account_token != ''">
+                        <img style="width: 50%;" src="../images/kaixue/zjjl_empty.jpg" alt="">
+                        <p style="color: #101859;margin-top: 10px;">您暂无中奖记录</p>
+                    </div>
+                </div>
+            </div>
+            <div class="app-dialog_close" @click="closeDialog">
+                <img :src="activity_json.dialog_close_bg" alt="" width="70%">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>

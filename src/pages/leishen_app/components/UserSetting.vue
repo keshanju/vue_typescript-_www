@@ -1,34 +1,13 @@
 <template>
       <div class="my_setting_list">
-          <div>
-              <ul class="mui-table-view my_center_cell">
-                <li class="mui-table-view-cell">
-                    
-                    <a class="mui-navigate-right">
-                        <i class="kaixin icon-kaixin"></i>
-                        上传头像(不超过500K)
-                        <input type="file" @change="changeImage" class="uploadImg">
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="mui-table-view my_center_cell">
-                <li class="mui-table-view-cell">
-                    <a class="mui-navigate-right" @click="gotoforget">
-                        <i class="ls icon-guojiliuliangbao"></i>
-                        忘记密码
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="mui-table-view my_center_cell">
-                <li class="mui-table-view-cell" @click="removebind">
-                    <a class="mui-text-center">
-                        解除绑定
-                    </a>
-                </li>
-            </ul>   
+          <div style="position: relative;">
+              <van-cell title="上传头像" is-link value="(不超过500K)" />
+              <input type="file" @change="changeImage" class="uploadImg">
           </div>
+          <van-cell title="忘记密码" is-link @click="gotoforget" />
+          
+
+          <van-button size="large"  @click="removebind">解除绑定</van-button>
 
           	<!-- loading -->
 		   <load :isloading="isLoading" ></load>

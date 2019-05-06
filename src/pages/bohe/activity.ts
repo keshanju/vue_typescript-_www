@@ -1,11 +1,11 @@
 import '@/assets/less/bohe.less';
+import "babel-polyfill";
 import HeadNav from './components/HeadNav.vue';
 import FootNav from './components/FootNav.vue';
 import DownloadBox from './components/DownloadBox.vue';
 import { Vue, Component } from 'vue-property-decorator';
 import { LanguageConfig } from "@/ts/utils/Language";
 import GlobalConfig from "@/pages/bohe/global.config";
-import "babel-polyfill";
 import HttpClient from '@/ts/net/HttpClient';
 import { ActivityRequestModel, ActivityModel, NewModel, NewRequestModel, NewsModel } from '@/ts/models/NewsModel';
 import { IdataModel } from '@/ts/models/IdataModel';
@@ -96,7 +96,8 @@ class ActivityList extends Vue {
      */
     public goActivityDetail(item) {
         if (item.url_type == 1) {
-            window.open(item.url);
+            let activityHtml=item.url.split('/')[item.url.split('/').length-1]
+            window.open(window.location.href.replace('activity.html',activityHtml))
         } else {
             JumpWebUtil.gotoActivityDetails(item.id);
         }
@@ -135,7 +136,7 @@ class ActivityList extends Vue {
             for (var i = 0; i < this.activityList.length;i++){
                 let date = new Date();
                 let time = date.getTime();
-                let date1 = new Date(this.activityList[i].end_time);
+                let date1 = new Date(this.activityList[i].end_time.replace(/-/g,"/"));
                 let time1 = date1.getTime();
                 if (time1 > time){
                     this.activityList[i]['time_status'] = 1;

@@ -1,32 +1,45 @@
 <template>
-    <div class="mui-content userInfo">
+    <div class="mui-content userInfo" >
         <form>
             <div class="userInfo_mail">
-                <div class="mui-input-row">
-                    <label>昵称</label>
-                    <input type="text" v-model="nickname" maxlength="20" name="title" placeholder="请输入您的昵称" value="" />
-                </div>
-                <div class="mui-input-row">
-                    <label>手机号</label>
-                    <input type="text" v-model="mobile" disabled="disabled" name="tel" placeholder="暂无信息" value="" />
-                </div>
+                <van-cell-group>
+                    <van-field
+                            v-model="nickname"
+                            clearable
+                            label="昵称"
+                            placeholder="请输入您的昵称(大于两个字符)"
+                    />
+
+                    <van-field
+                            v-model="mobile"
+                            label="手机号"
+                            placeholder="暂无信息"
+                            disabled
+                    />
+                </van-cell-group>
             </div>
 
             <div class="userInfo_mail">
-                <div class="mui-input-row">
-                    <label>QQ号</label>
-                    <input type="text" v-model="qq" placeholder="请输入" value="" name="qq">
-                </div>
-                <div class="mui-input-row">
-                    <label>邮箱</label>
-                    <input type="text" v-model="email" disabled placeholder="暂无信息" name="mail" id="mail" value="">
-                </div>
+                <van-cell-group>
+                    <van-field
+                            v-model="qq"
+                            clearable
+                            label="QQ号"
+                            placeholder="请输入您的qq号"
+                    />
+
+                    <van-field
+                            v-model="email"
+                            label="邮箱"
+                            placeholder="暂无信息"
+                            disabled
+                    />
+                </van-cell-group>
             </div>
-            <h5 style="margin: 10px 15px;">请完善地址信息</h5>
+            <h5 class="userInfo_Tit">请完善地址信息</h5>
             <div class="userInfo_bot">
-                <div class="mui-input-row userInfo_adress">
-                    <label style="display: none;">详细地址</label>
-                    <textarea v-model="address"  rows="3" cols="" placeholder="请输入详细地址"></textarea>
+                <div class="userInfo_adress">
+                    <textarea v-model="address"  rows="6" cols="" placeholder="请输入详细地址"></textarea>
                 </div>
             </div>
             <button class="userInfo_btn" type="button" @click="onSaveUserInfo">提交</button>

@@ -1,4 +1,5 @@
 import "@/assets/less/bohe.less";
+import "babel-polyfill";
 import HeadNav from "./components/HeadNav.vue";
 import FootNav from "./components/FootNav.vue";
 import {LanguageConfig} from "@/ts/utils/Language";

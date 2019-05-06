@@ -1,92 +1,92 @@
 {
-  "news": [
-    {
-      "template_path": "news/template.html",
-      "static_file_path": "/data/leigod/",
-      "public_param": {
-        "region_code": 1
-      }
-    },
-    {
-      "template_path": "en/news/template.html",
-      "static_file_path": "/data/leigod/en/",
-      "public_param": {
-        "region_code": 1
-      }
-    },
-    {
-      "template_path": "news/template.html",
-      "static_file_path": "/data/leigod/0/",
-      "public_param": {
-        "region_code": 0
-      }
-    },
-    {
-      "template_path": "en/news/template.html",
-      "static_file_path": "/data/leigod/0/en/",
-      "public_param": {
-        "region_code": 0
-      }
-    }
-  ],
-  "notice": [
-    {
-      "template_path": "notice/template.html",
-      "static_file_path": "/data/leigod",
-      "public_param": {
-        "region_code": 1
-      }
-    },
-    {
-      "template_path": "en/notice/template.html",
-      "static_file_path": "/data/leigod/en/",
-      "public_param": {
-        "region_code": 1
-      }
-    },
-    {
-      "template_path": "notice/template.html",
-      "static_file_path": "/data/leigod/0/",
-      "public_param": {
-        "region_code": 0
-      }
-    },
-    {
-      "template_path": "en/notice/template.html",
-      "static_file_path": "/data/leigod/0/en/",
-      "public_param": {
-        "region_code": 0
-      }
-    }
-  ],
-  "activity": [
-    {
-      "template_path": "activity/template.html",
-      "static_file_path": "/data/leigod",
-      "public_param": {
-        "region_code": 1
-      }
-    },
-    {
-      "template_path": "en/activity/template.html",
-      "static_file_path": "/data/leigod/en/",
-      "public_param": {
-        "region_code": 1
-      }
-    },
-    {
-      "template_path": "activity/template.html",
-      "static_file_path": "/data/leigod/0/",
-      "public_param": {
-        "region_code": 0
-      }
-    },
-    {
-      "template_path": "en/activity/template.html",
-      "static_file_path": "/data/leigod/0/en/",
-      "public_param": {
-        "region_code": 0
-      }
-    }
-  ]
+    "news": [
+        {
+            "template_path": "news/template_cn.html",
+            "static_file_path": "/data/leigod/",
+            "public_param": {
+                "region_code": 1
+            }
+        },
+        {
+            "template_path": "news/template.html",
+            "static_file_path": "/data/leigod/en/",
+            "public_param": {
+                "region_code": 1
+            }
+        },
+        {
+            "template_path": "news/template_cn.html",
+            "static_file_path": "/data/leigod/0/",
+            "public_param": {
+                "region_code": 0
+            }
+        },
+        {
+            "template_path": "news/template.html",
+            "static_file_path": "/data/leigod/0/en/",
+            "public_param": {
+                "region_code": 0
+            }
+        }
+    ],
+    "notice": [
+        {
+            "template_path": "notice/template_cn.html",
+            "static_file_path": "/data/leigod",
+            "public_param": {
+                "region_code": 1
+            }
+        },
+        {
+            "template_path": "notice/template.html",
+            "static_file_path": "/data/leigod/en/",
+            "public_param": {
+                "region_code": 1
+            }
+        },
+        {
+            "template_path": "notice/template_cn.html",
+            "static_file_path": "/data/leigod/0/",
+            "public_param": {
+                "region_code": 0
+            }
+        },
+        {
+            "template_path": "notice/template.html",
+            "static_file_path": "/data/leigod/0/en/",
+            "public_param": {
+                "region_code": 0
+            }
+        }
+    ],
+    "activity": [
+        {
+            "template_path": "activity/template_cn.html",
+            "static_file_path": "/data/leigod",
+            "public_param": {
+                "region_code": 1
+            }
+        },
+        {
+            "template_path": "activity/template.html",
+            "static_file_path": "/data/leigod/en/",
+            "public_param": {
+                "region_code": 1
+            }
+        },
+        {
+            "template_path": "activity/template_cn.html",
+            "static_file_path": "/data/leigod/0/",
+            "public_param": {
+                "region_code": 0
+            }
+        },
+        {
+            "template_path": "activity/template.html",
+            "static_file_path": "/data/leigod/0/en/",
+            "public_param": {
+                "region_code": 0
+            }
+        }
+    ]
 }

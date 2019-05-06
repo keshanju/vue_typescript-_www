@@ -1,0 +1,11 @@
+{
+    "name": "leigod-com-lib",
+    "version": "1.0.8",
+    "description": "雷神项目公共包",
+    "license": "GPL",
+    "main": "./dist/leigod.js",
+    "keywords": [],
+    "scripts": {
+        "build": "rm -rf ./dist && tsc"
+    }
+}

@@ -43,14 +43,14 @@
                     <i class="pay_zfb pay_icon"></i>
                     <p>{{$t("user.b91")}}</p>
                 </li>
-                <li @click="onConfirmChooseOrderPayType(3)" class="pay_way" v-show="webParam.region_code == 1">
+                <li @click="onConfirmChooseOrderPayType(3)" class="pay_way">
                     <i class="pay_qq pay_icon"></i>
                     <p>{{$t("user.b92")}}</p>
                 </li>
-                <li @click="onConfirmChooseOrderPayType(5)" class="pay_way" v-show="webParam.region_code == 0">
-                    <i class="pay_paypal pay_icon"></i>
-                    <p>{{$t("user.b93")}}</p>
-                </li>
+                <!--<li @click="onConfirmChooseOrderPayType(5)" class="pay_way" v-show="webParam.region_code == 0">-->
+                    <!--<i class="pay_paypal pay_icon"></i>-->
+                    <!--<p>{{$t("user.b93")}}</p>-->
+                <!--</li>-->
             </ul>
         </el-dialog>
     </div>

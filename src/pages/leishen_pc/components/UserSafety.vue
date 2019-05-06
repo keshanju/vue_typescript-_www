@@ -87,8 +87,8 @@
                            :placeholder="$t('public.share4')">
                     <span class="send_code">
                         <!--发送验证码-->
-                        <span class="send cursor" @click="sendVerifyCode" v-show="smsCountDownNum <= 0">{{$t("public.share21")}}</span>
-                        <span class="send" v-show="smsCountDownNum > 0">{{smsCountDownNum}}</span>
+                        <span class="send cursor" @click="sendVerifyCode" v-show="verifyCountDownNum <= 0">{{$t("public.share21")}}</span>
+                        <span class="send" v-show="verifyCountDownNum > 0">{{verifyCountDownNum}}</span>
                     </span>
                 </div>
                 <div class="form_input_box" style="margin-top:0.15rem;">
@@ -136,11 +136,24 @@
         <el-dialog :visible.sync="bindPhoneShow" :title="$t('user.b100')" @close="onbindPhoneClose" width="60%" append-to-body>
             <div class="dialog_form">
                 <div class="form_input_box flex_row_between" style="margin-top:0.15rem;">
-                    <el-select filterable v-model="countryCode">
-                        <el-option v-for="(val,key,index) in areaCodeList" :key="index" :label="'+'+val" :value="val">
-                        </el-option>
-                    </el-select>
-                    <div class="form_input_box" style="width:65%">
+                    <div class="select_box" style="width:40%;border: 1px solid #dcdfe6;">
+                        <img :src="country_code.ico" alt="" style="margin-left: .1rem;">
+                        <el-select @change="onSelectCountryCode" value=""
+                                   :placeholder="$t('public.share25')" style="width:.2rem;margin-left: .1rem;vertical-align: middle;">
+                            <el-option-group
+                                    v-for="group in country_code_list"
+                                    :key="group.label"
+                                    :label="group.label">
+                                <el-option v-for="(val,index) in group.options" :key="index"
+                                           :value="val">
+                                    <img :src="val.ico" alt="">
+                                    <span style="color:#666;">{{val.name}}</span>
+                                </el-option>
+                            </el-option-group>
+                        </el-select>
+                        <span style="font-size: 14px;display: inline-block;width: 30%;vertical-align: middle;">{{'+' + country_code.code}}</span>
+                    </div>
+                    <div class="form_input_box" style="width:55%">
                         <input v-model="phone" class="form_input" type="text" name=""
                                :placeholder="$t('public.share2')">
                     </div>
@@ -190,11 +203,24 @@
                 <p style="text-align:left;padding-top:20px;" v-show="stepCount == 1">{{$t("user.b57")}}{{'+' +
                     userinfo.country_code + userinfo.mobile}}</p>
                 <div class="form_input_box flex_row_between" style="margin-top:15px;" v-show="stepCount == 2">
-                    <el-select filterable v-model="countryCode">
-                        <el-option v-for="(val,key,index) in areaCodeList" :key="index" :label="'+'+val" :value="val">
-                        </el-option>
-                    </el-select>
-                    <div class="form_input_box" style="width:65%">
+                    <div class="select_box" style="width:35%;border: 1px solid #dcdfe6;">
+                        <img :src="country_code.ico" alt="" style="margin-left: 10px;">
+                        <el-select @change="onSelectCountryCode" value=""
+                                   :placeholder="$t('public.share25')" style="width:20px;margin-left: 10px;vertical-align: middle">
+                            <el-option-group
+                                    v-for="group in country_code_list"
+                                    :key="group.label"
+                                    :label="group.label">
+                                <el-option v-for="(val,index) in group.options" :key="index"
+                                           :value="val">
+                                    <img :src="val.ico" alt="">
+                                    <span style="color:#666;">{{val.name}}</span>
+                                </el-option>
+                            </el-option-group>
+                        </el-select>
+                        <span style="font-size: 14px;display: inline-block;width: 30%;vertical-align: middle;">{{'+' + country_code.code}}</span>
+                    </div>
+                    <div class="form_input_box" style="width:60%">
                         <input v-model="phone" class="form_input" type="text" name="" :placeholder="$t('user.b55')">
                     </div>
                 </div>
@@ -313,7 +339,7 @@
     import {NewResetpwdRequestModel, UserInfo} from '@/ts/models/UserModel';
     import {Md5} from "ts-md5";
     import LocalStorageUtil from '@/ts/utils/LocalStorageUtil';
-    import {Message, Dialog, Select, Option} from 'element-ui';
+    import {Message, Dialog, Select, Option, OptionGroup} from 'element-ui';
     import HttpClient from '@/ts/net/HttpClient';
     import Util from '@/ts/utils/Util';
     import {BindingProxy} from '@/ts/proxy/BindingProxy';
@@ -327,7 +353,8 @@
         components: {
             'el-dialog': Dialog,
             'el-select': Select,
-            'el-option': Option
+            'el-option': Option,
+            'el-option-group': OptionGroup
         }
     })
     export default class UserSafety extends BindingProxy {
@@ -349,6 +376,15 @@
         public created() {
             this.setBaseUrl(GlobalConfig.getBaseUrl());
             this.getAreaCodeList();
+            this.getAreaCodeInfoList(GlobalConfig.getWebBaseUrl());
+        }
+
+        /**
+         * 改变手机区号
+         */
+        public onSelectCountryCode(value) {
+            this.country_code = value;
+            this.countryCode = value.code;
         }
 
         /**
@@ -386,7 +422,7 @@
         }
 
         /**
-         * 打开修改手机弹窗
+         * 打开绑定手机弹窗
          */
         public onbindPhoneShow() {
             this.onChangeRegisterType(7);
@@ -401,7 +437,7 @@
         }
 
         /**
-         * 打开绑定手机弹窗
+         * 打开修改手机弹窗
          */
         public onResetPhoneShow() {
             this.resetPhoneShow = true;
@@ -521,10 +557,10 @@
                 type: 'success'
             });
             //倒计时
-            this.emailCountDownNum = 60;
+            this.smsCountDownNum = 60;
             const sefl = this;
-            Util.countDown(this.emailCountDownNum, 1, (n: number) => {
-                sefl.emailCountDownNum = n;
+            Util.countDown(this.smsCountDownNum, 1, (n: number) => {
+                sefl.smsCountDownNum = n;
             });
         }
 

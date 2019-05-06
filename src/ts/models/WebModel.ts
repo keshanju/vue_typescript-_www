@@ -17,7 +17,7 @@ export default class WebParamModel implements IParam {
     public id: number = 0; // 详情id
     public infrom: number = 0; // 0默认 1 ios（给苹果审核用的官网)
     public from: string = ''; //来源
-    public domainList = ['cn.bohe.com'];
+    public domainList = ['cn.leigod.com'];
 
     public static getInstace(region_code: number = Util.REGION_CODE_0,language: string = Util.EN) {
         if(WebParamModel.instace == null) WebParamModel.instace = new WebParamModel(region_code,language);

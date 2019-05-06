@@ -2,11 +2,10 @@
  * 全局的config
  */
 import ProjectConfig from "../../../project.config";
-import LocalStorageUtil from './LocalStorageUtil';
-import Util from '@/ts/utils/Util';
+import LocalStorageUtil from "./LocalStorageUtil";
+import Util from "@/ts/utils/Util";
 
 export default class GlobalConfig {
-  
   /**
    * interface url
    */
@@ -19,7 +18,7 @@ export default class GlobalConfig {
       return "http://sandboxie-user.leigod.com/";
     } else if (ProjectConfig.server_type === 3) {
       // 生产环境
-      return "https://netbar-api.leigod.com/";
+      return "//netbar-api.leigod.com/";
     } else if (ProjectConfig.server_type === 4) {
       // 验证环境
       return "https://vfapi.bohe.com";
@@ -27,7 +26,6 @@ export default class GlobalConfig {
       return "";
     }
   }
-
 
   /**
    * www服务器url
@@ -50,18 +48,17 @@ export default class GlobalConfig {
       // 验证环境
       return "https://vf-webapi.leigod.com";
     } else {
-      return '';
+      return "";
     }
   }
 
-
   /**
-    * wwww config地址
-    */
+   * wwww config地址
+   */
   public static getStafUrl() {
     if (ProjectConfig.server_type === 1) {
       // 开发环境
-      return "http://dev-api1.leigod.com";
+      return "http://sandboxie-user.leigod.com/";
     } else if (ProjectConfig.server_type === 2) {
       // 测试环境
       return "http://test-api2.leigod.com";
@@ -72,7 +69,28 @@ export default class GlobalConfig {
       // 验证环境
       return "https://vf-staffapi.leigod.com";
     } else {
-      return '';
+      return "";
+    }
+  }
+
+  /**
+   * 取环境地址
+   */
+  public static getLinkUrl() {
+    if (ProjectConfig.server_type === 1) {
+      // 开发环境
+      return "http://sandboxie-netbar.leigod.com/";
+    } else if (ProjectConfig.server_type === 2) {
+      // 测试环境
+      return "http://user2.leigod.com/";
+    } else if (ProjectConfig.server_type === 3) {
+      // 生产环境
+      return "https://netbar-api.leigod.com/";
+    } else if (ProjectConfig.server_type === 4) {
+      // 验证环境
+      return "https://vf-staffapi.leigod.com";
+    } else {
+      return "";
     }
   }
   /**

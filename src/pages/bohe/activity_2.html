@@ -66,10 +66,9 @@
               </p>
               <div class="activty_detail_greyPart">
                 <div class="activty_detail_tip" id="activty_detail_tip">
-                  <span>{{ $t("notify.y7") }}
+                  <span>{{ $t("notify.y7") }}<br/>{{ $t("notify.y7_3") }}
                     <br>
-                    <span v-show="isUserLogin">{{globalUrl+'/register.html?refer_code='+refer_code}}{{ $t("notify.y7_2") }}{{ refer_code }}】</span>
-                  <span v-show="!isUserLogin">{{ $t("notify.y7_1") }}</span>
+                    <span v-if="isUserLogin">{{globalUrl+'/register.html?refer_code='+refer_code}}{{ $t("notify.y7_2") }}{{ refer_code }}】</span>
                   </span>
                 </div>
                 <p style="text-align:center;">
@@ -97,7 +96,7 @@
                 <p>{{ $t("notify.y15") }}</p>
               </div>
             </div>
-            <div style="padding-top:0px;margin-bottom: 6px;">
+            <div style="padding-top:0px;">
               <img style="cursor:pointer"
                 src="./images/banner.png"
                 alt=""

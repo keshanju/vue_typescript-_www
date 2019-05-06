@@ -11,19 +11,20 @@ import {
 import GlobalConfig from "../global_config";
 import { UserUtil } from "../UserUtil";
 import XmlToJsonUtil from "@/ts/utils/XmlToJsonUtil";
-import { Input, Upload, Message } from "element-ui";
+import { Input, Upload, Message, Loading } from "element-ui";
 import CheckUtil from "@/ts/utils/CheckUtil";
 import netbarCheckUtil from "../netbarCheckUtil";
 Vue.use(Input);
 Vue.use(Upload);
+Vue.use(Loading);
 Vue.prototype.$message = Message;
 @Component({
   components: {
     avataredit: AvatarEdit
   }
 })
-export default class EditInfo extends UserUtil {
-  public isLoading: boolean;
+export default class EditInfoControl extends UserUtil {
+  public isLoading: boolean = false;
   public userInfo: UserInfoModel = JSON.parse(
     localStorage.getItem(LocalStorageUtil.STORAGES_USER_INFO)
   ) as UserInfoModel;

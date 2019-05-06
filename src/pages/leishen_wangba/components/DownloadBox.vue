@@ -15,9 +15,9 @@
             </el-tooltip>
             <el-tooltip class="item" effect="dark" placement="bottom">
                 <div slot="content">
-                    <img src="../images/weibo.png" alt="">
+                    <img src="../images/qqkefuewm.png" alt="">
                 </div>
-                <div class="weibo_icon"></div>
+                <div class="qq_icon cursor"></div>
             </el-tooltip>
         </div>
     </div>

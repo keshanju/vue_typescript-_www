@@ -3,7 +3,7 @@ import "babel-polyfill";
 import {Component, Vue} from 'vue-property-decorator';
 import FootNavTwo from './components/FootNavTwo.vue';
 import VueI18n from "vue-i18n";
-import {Loading, Notification, Option, Select} from 'element-ui';
+import {Loading, Notification, Option, Select, OptionGroup} from 'element-ui';
 import {RegisterProxy} from '@/ts/proxy/RegisterProxy';
 import GlobalConfig from './global.config';
 import {TipsMsgUtil} from '@/ts/utils/TipsMsgUtil';
@@ -22,10 +22,8 @@ import {ActivityPictureModel, ActivityRequestPictureModel} from '@/ts/models/New
 Vue.prototype.$notify = Notification;
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(OptionGroup);
 Vue.use(Loading);
-
-const jumpUrl = GlobalConfig.getSuserBaseUrl() + '/' + JumpWebUtil.HTML_NAME_REGISTER;
-JumpWebUtil.checkLowBrowser(jumpUrl);
 
 //语言包
 Vue.use(VueI18n);
@@ -64,13 +62,14 @@ class Register extends RegisterProxy {
         //读取配置文件
         this.getDownloadUrl();
         this.imageHeadUrl = GlobalConfig.getImgBaseUrl();
-        this.getActivityInfo();
+        // this.getActivityInfo();
         this.init();
     }
 
     public init(): void {
         this.referCode = Util.getUrlParam('refer_code');
-        this.getAreaCodeList();
+        // this.getAreaCodeList();
+        this.getAreaCodeInfoList(GlobalConfig.getWebBaseUrl());
         this.onGetPackage(1);
     }
 
@@ -81,9 +80,12 @@ class Register extends RegisterProxy {
     public async getDownloadUrl() {
         const jsonConfig = await ConfigUtil.getInstance().download();
         const region_code = LocalStorageUtil.getRegionCodes();
+        const language = LocalStorageUtil.getLanguage();
         if (jsonConfig != null) {
             const regConfig = jsonConfig.leigod[region_code].register;
             this.isShowEmail = Number(regConfig.is_email);
+            this.bannerImg = jsonConfig.leigod[region_code][language].index_news.img_url;
+            this.activeLink = jsonConfig.leigod[region_code][language].index_news.new_url;
         }
     }
 
@@ -156,8 +158,9 @@ class Register extends RegisterProxy {
     /**
      * 改变手机区号
      */
-    public onSelectCountryCode(value: string) {
-        this.countryCode = value;
+    public onSelectCountryCode(value) {
+        this.country_code = value;
+        this.countryCode = value.code;
     }
 
     /**
@@ -501,7 +504,7 @@ class Register extends RegisterProxy {
         if (!CheckUtil.checkPwd(this.emailPassword) && flag) {
             tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_PASSWORD_ERROR);
             flag = false;
-            if (this.phonePassword == "") {
+            if (this.emailPassword == "") {
                 tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_PASSWORD_EMPTY);
                 flag = false;
             }
@@ -511,7 +514,7 @@ class Register extends RegisterProxy {
         if (!CheckUtil.checkPwdTwo(this.emailPasswordTwo, this.emailPassword) && flag) {
             tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_PASSWORDTWO_ERROR);
             flag = false;
-            if (this.phonePasswordTwo == "") {
+            if (this.emailPasswordTwo == "") {
                 tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_PASSWORD_EMPTY);
                 flag = false;
             }
@@ -563,6 +566,8 @@ class Register extends RegisterProxy {
         let param = new LoginRequestModel();
         param.username = phone;
         param.password = Md5.hashStr(password).toString();
+        param.country_code = this.countryCode;
+        param.src_channel = LocalStorageUtil.getSrcChannel();
 
         const url = HttpClient.URL_AUTH_LOGIN;
         this.backData = await this.http.post<LoginModel>(url, param);
@@ -571,7 +576,7 @@ class Register extends RegisterProxy {
             const loginM: LoginModel = this.backData.data;
             LocalStorageUtil.addUserToken(loginM.login_info);
             LocalStorageUtil.addUserInfo(loginM.user_info);
-            JumpWebUtil.backUser();
+            JumpWebUtil.wapJump(GlobalConfig.getUserBaseUrl(), JumpWebUtil.HTML_NAME_USER);
         } else {
         }
     }

@@ -1,6 +1,8 @@
 import "@/assets/less/bohe.less";
 import HeadNav from "./components/HeadNav.vue";
 import FootNav from "./components/FootNav.vue";
+import shareTo from "./components/shareTo.vue";
+
 import DetailsNews from "./components/DetailsNews.vue";
 import { LanguageConfig } from "@/ts/utils/Language";
 import { Component, Vue } from "vue-property-decorator";
@@ -28,7 +30,8 @@ const i18n = new VueI18n(lang);
         "head-nav": HeadNav,
         "foot-nav": FootNav,
         "details-news": DetailsNews,
-        'el-pagination': Pagination
+        'el-pagination': Pagination,
+        "share-to":shareTo
     }
 })
 class News extends Vue {
@@ -42,12 +45,17 @@ class News extends Vue {
     //////////公共参数
     public http = new HttpClient();
     public backData: IdataModel<any> | undefined;
+    public  divLeft:String='';
+    public  divTop:String='400px';
+    public  wxImgSrc:String=''
+    public showChart:boolean=false
     //////////END
 
     public created() {
         this.setBaseUrl(GlobalConfig.getBaseUrl());
         this.getNewsList();
         this.getChinaNewsList();
+        this.divLeft=(document.body.clientWidth-280)/2+'px'
     }
 
     /**
@@ -109,6 +117,12 @@ class News extends Vue {
         if (this.backData.code == HttpClient.HTTP_SUCCESS_NET_CODE) {
             this.newsListTop = this.backData.data.list;
         }
+    }
+    // 点击分享微信的时候
+    public  showWxImg(url:string,clientY:number){
+        this.showChart=true;
+        this.divTop=clientY+'px';
+        this.wxImgSrc=url;
     }
 }
 

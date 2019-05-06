@@ -7,7 +7,6 @@ import $ from "jquery";
 import {LanguageConfig} from '@/ts/utils/Language';
 import VueI18n from "vue-i18n";
 import ConfigUtil from "@/ts/utils/ConfigUtil";
-import loading from './components/Loading.vue'
 //语言包
 Vue.use(VueI18n);
 const appParam: AppParamModel = AppParamModel.getInstace();
@@ -15,22 +14,16 @@ let lang = LanguageConfig.getInstance();
 lang.initNoRefresh();
 const i18n = new VueI18n(lang);
 
-@Component({
-    components:{
-        loading:loading
-    }
-})
+@Component
 export class Applinks extends Vue {
     /**
      * 获取地址栏参数region_code
      */
     public appParam: AppParamModel = AppParamModel.getInstace();
     public androidDownloadUrl: string = '';
-    public isLoading:boolean=true
     public created() {
         this.appParam.getAppParam();
         this.getDownloadUrl();
-        this.isLoading=false
     }
 
     /**

@@ -3,7 +3,7 @@ import "babel-polyfill";
 import { Vue, Component } from 'vue-property-decorator';
 import FootNavTwo from './components/FootNavTwo.vue';
 import VueI18n from "vue-i18n";
-import { Notification, Select, Option, Loading } from 'element-ui';
+import { Notification, Select, Option, Loading, OptionGroup } from 'element-ui';
 import { RegisterProxy } from '@/ts/proxy/RegisterProxy';
 import GlobalConfig from './global.config';
 import { TipsMsgUtil } from '@/ts/utils/TipsMsgUtil';
@@ -19,6 +19,7 @@ import ConfigUtil from '@/ts/utils/ConfigUtil';
 Vue.prototype.$notify = Notification;
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(OptionGroup);
 Vue.use(Loading);
 
 
@@ -50,6 +51,7 @@ class BindMobile extends RegisterProxy {
 
     public created() {
         this.setBaseUrl(GlobalConfig.getBaseUrl());
+        this.getDownloadUrl();
         this.changeResignType(4);
         this.token = LocalStorageUtil.getUserToken().account_token;
         this.bindUrlType = localStorage.getItem(LocalStorageUtil.STORAGES_THIRDBIND_URL_TYPE);
@@ -58,7 +60,8 @@ class BindMobile extends RegisterProxy {
 
     public init(): void {
         this.referCode = Util.getUrlParam('refer_code');
-        this.getAreaCodeList();
+        // this.getAreaCodeList();
+        this.getAreaCodeInfoList(GlobalConfig.getWebBaseUrl());
         this.onGetPackage(1);
     }
 
@@ -93,8 +96,9 @@ class BindMobile extends RegisterProxy {
     /**
      * 改变手机区号
      */
-    public onSelectCountryCode(value: string) {
-        this.countryCode = value;
+    public onSelectCountryCode(value) {
+        this.country_code = value;
+        this.countryCode = value.code;
     }
 
     /**
@@ -374,8 +378,8 @@ class BindMobile extends RegisterProxy {
             });
             return;
         }
-        
-        this.onBindDefaultAccount()
+
+        this.onBindDefaultAccount('',"4")
     }
 
     /**
@@ -523,7 +527,7 @@ class BindMobile extends RegisterProxy {
                 tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_BINDING_MOBILE);
             } else if (this.resignType == 5) {
                 tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_BINDING_EMAIL);
-            } 
+            }
         }
         this.$notify({
             title: TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_SUCCESS_TITLE),

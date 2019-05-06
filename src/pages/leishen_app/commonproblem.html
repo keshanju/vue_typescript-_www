@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <meta name="robots" content="noindex">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <title>常见问题</title>
+</head>
+<body style="background:#f2f2f2;">
+<div id="app" style="padding-bottom: 55px;">
+    <div class="app_detail_container">
+        <van-collapse v-model="active" accordion>
+            <van-collapse-item title="100兆光纤，为何加速后游戏延迟还这么高？" name="1">
+                <p>高带宽 并不等于低延迟</p>
+                <p>a）网速的单位是mb，延迟的单位是ms，网速快不代表网络环境好；</p>
+                <p>b）物理距离因素，延迟与地区有关。</p>
+                <p> 无论多少兆光纤，多快网速，只有本地网络正常，用加速器才有效果。
+                    节点延迟是用户本地到加速节点的实际延迟，游戏延迟是用户节点延迟和节点到服务器延迟的总和，所以节点延迟并不代表游戏延迟。一般情况下，节点延迟越低，游戏延迟也相对较低</p>
+            </van-collapse-item>
+            <van-collapse-item title="我使用加速器后，为什么国服游戏延迟还变高了" name="2">
+                <p>
+                    国服游戏主要是解决跨运营商问题，游戏延迟可能并不会降低，比如联通的网络去访问电信的游戏服务器，因为运营商的不同，可能会有丢包跳ping，这个时候效果就很明显了，尤其手游4g信号不稳定到加速服务器之间延迟会更高
+                    游戏流畅度大概可以从两个方面来衡量：</p>
+                <p>一是FPS：FPS是指每秒传输帧数(Frames Per Second)，FPS越高，对显卡的处理能力要求越高，也就是说，显卡越好，FPS值越大，显示出来的内容就越流畅。</p>
+                <p> 再就是是延迟：延迟是指各式各样的数据在网络介质中通过网络协议(如TCP/IP)进行传输，如果信息量过大不加以限制，超额的网络流量就会导致设备反应缓慢，造成网络延迟，通常以MS（毫秒）为单位。</p>
+            </van-collapse-item>
+            <van-collapse-item title="一般游戏延迟数据" name="3">
+                <p>1~30ms：极快，几乎察觉不出有延迟，玩任何游戏速度都特别顺畅 <br>
+                    31~50ms：良好，可以正常游戏，没有明显的延迟情况<br>
+                    51~100ms：普通，对抗类游戏能感觉出明显延迟，稍有停顿<br>
+                    >100ms：差，无法正常游戏，有卡顿，丢包并掉线现象<br>
+                    （以上延迟参考为国服游戏）<br>
+                    欧服延迟：150-220ms<br>
+                    美服延迟：170-260ms<br>
+                    台服延迟：50-100ms<br>
+                    澳服延迟：150-250ms<br>
+                    韩服延迟：30-100ms<br>
+                    亚服延迟：25-100ms<br>
+                    日服延迟：40-100ms<br>
+                    （以上延迟仅作为参考正常值，由于地区宽带问题延迟都会有些许的增高）</p>
+            </van-collapse-item>
+            <van-collapse-item title="网络基础知识科普" name="4">
+                <p>网络带宽：指下载、上传速度 （应用于在线视频、下载等）；<br>
+                    网络质量：指Ping值、丢包率，网络游戏取决于网络质量和上行带宽，与下载速度无关；<br>
+                    网络设备：路由器、无线网卡、交换机等，较差或长时间运行都可能会导致网络不稳定，建议隔定期重启一次。<br>
+
+                    简单判断本地网络好坏两个参数:（本地网络正常，用加速器才有效果）<br>
+                    1. 本地到骨干网的延迟高低。(ping www.baidu.com 延迟，一般小于50ms)<br>
+                    2. 本地网络是否跳ping丢包。（步骤一ping的结果，是否稳定。）</p>
+            </van-collapse-item>
+            <van-collapse-item title="为什么自动分配的节点很卡？" name="5">
+                <p>检查本地网络情况，请用户提供所在城市，宽带运营商和连接的节点
+                </p>
+            </van-collapse-item>
+            <van-collapse-item title="为什么绝地求生加载不进大厅？" name="6">
+                <p>卡在三级头人物界面，请尝试修复网络lsp，<br>
+                    部分用户宽带运营商与线路兼容性问题，请更换节点尝试，北方用户连接山东H节点，其他地区连接江苏G节点，无法解决联系运维协助 <br>
+                    提示服务器繁忙 servers are too busy ,尝试兼容模式 <br>
+                    服务器故障</p>
+            </van-collapse-item>
+            <van-collapse-item title="为什么绝地求生加载不进出生岛？" name="7">
+                <p>尝试关闭杀毒软件防火墙</p>
+            </van-collapse-item>
+            <van-collapse-item title="绝地求生延迟很高？" name="8">
+                <p>检查用户所选服务器和游戏匹配的真实服务器是否一致，<br>本地网络是否正常，<br>所在城市，宽带运营商是否匹配，<br>加速器是否走流量，现在看不到流量，需要查看加速日志，
+                    Start game acc successful 连接成功后 如果还有加速日志证明已经走流量了</p>
+            </van-collapse-item>
+        </van-collapse>
+    </div>
+    <div @click="onUchat" class="linkserve"
+         style="
+         position: fixed;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        line-height: 50px;
+        background: #fff;
+        text-align: center;
+        box-shadow: 1px 1px 5px 2px #eee;
+        color: #1989fa;">
+        没有解决？连线客服
+    </div>
+</div>
+</body>
+</html>

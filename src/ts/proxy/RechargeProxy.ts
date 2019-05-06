@@ -2,7 +2,7 @@ import {Vue,Component} from "vue-property-decorator";
 import {IProxy} from "@/ts/interface/IProxy";
 import HttpClient from '../net/HttpClient';
 import {IdataModel} from '../models/IdataModel';
-import {PayModel, PayRequestModel, PriceList, UserInfo, UserRechargeInfo} from '../models/UserModel';
+import {PayModel, PayRequestModel, PriceList, UserDiscountList, UserInfo, UserRechargeInfo} from '../models/UserModel';
 import LocalStorageUtil from '../utils/LocalStorageUtil';
 import Util from '../utils/Util';
 import {TipsMsgUtil} from "@/ts/utils/TipsMsgUtil";
@@ -26,6 +26,8 @@ export default class RechargeProxy extends Vue implements IProxy {
     public priceHoverIndex: number = 0;//套餐hover的index
     public is_change_price: number = 0;// 是否首单特惠
     public now_time: string = '';//系统当前时间
+    public userDiscountList: Array<UserDiscountList> = [];//请求回的全部折扣码列表
+    public discountList = [];//页面显示的折扣码列表
 
     //////////公共参数
     // loading
@@ -43,6 +45,7 @@ export default class RechargeProxy extends Vue implements IProxy {
         this.userInfo = LocalStorageUtil.getUserInfo();
         this.checkUserType();
         this.getUserPackage();
+        this.getUserDiscount();
     }
 
     public execute(): void {
@@ -105,6 +108,52 @@ export default class RechargeProxy extends Vue implements IProxy {
         } else {
             this.getUserPackageError();
         }
+    }
+
+    /**
+     * 获取用户私有折扣码
+     */
+    public async getUserDiscount() {
+        this.isLoading = true;
+        const token = LocalStorageUtil.getUserToken().account_token;
+        let url = HttpClient.URL_USER_DISCOUNT;
+        let param = {
+            account_token: token,
+            region_code: LocalStorageUtil.getRegionCodes()
+        };
+        this.backData = await this.http.post<Array<UserDiscountList>>(url, param);
+        this.isLoading = false;
+        if (this.backData.code == HttpClient.HTTP_SUCCESS_NET_CODE) {
+            this.userDiscountList = this.backData.data;
+            this.userDiscountList.forEach((item,index)=> {
+                item['value'] = item.title;
+            });
+            this.userDiscountList = this.userDiscountList.sort((a,b)=> {
+                let value1 = a.discount_value;
+                let value2 = b.discount_value;
+                return value2 - value1;
+            });
+            this.discountList = this.userDiscountList;
+            this.getUserDiscountSuccess();
+        } else if (this.backData.code == HttpClient.HTTP_TOKEN_EXPIRE) {
+            this.tokenExpired();
+        } else {
+            this.getUserDiscountError();
+        }
+    }
+
+    /**
+     * 获取优惠券成功
+     * TODO... 需重写此方法
+     */
+    public getUserDiscountSuccess() {
+    }
+
+    /**
+     * 获取优惠券失败
+     * TODO... 需重写此方法
+     */
+    public getUserDiscountError() {
     }
 
     /**
@@ -181,6 +230,14 @@ export default class RechargeProxy extends Vue implements IProxy {
         if (type == null) type = this.priceIndex;
         this.priceIndex = type;
         this.choosePrice = this.priceList[this.priceIndex].price_num;
+        this.discountList = this.userDiscountList.filter((item)=> {
+            return item.price_ids.indexOf(this.priceList[this.priceIndex].price_id) != -1;
+        });
+        if(this.discountList.length == 0) {
+            this.zheCode = '';
+        }else {
+            this.zheCode = this.discountList[0].discount_code;
+        }
     }
 
     /**

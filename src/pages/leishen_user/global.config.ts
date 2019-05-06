@@ -18,7 +18,7 @@ export default class GlobalConfig {
             return "http://dev-api1.leigod.com";
         } else if (ProjectConfig.server_type === 2) {
             // 测试环境
-            return "http://test-api2.leigod.com";
+            return "http://test-api1.leigod.com";
         } else if (ProjectConfig.server_type === 3) {
             // 生产环境
             if(LocalStorageUtil.getRegionCodes() == Util.REGION_CODE_0) {
@@ -28,7 +28,11 @@ export default class GlobalConfig {
             }
         }else if (ProjectConfig.server_type === 4) {
             // 验证环境
-            return "https://vf-webapi.leigod.com";
+            if(LocalStorageUtil.getRegionCodes() == Util.REGION_CODE_0) {
+                return "https://vf-hkapi1.leigod.com";
+            }else {
+                return "https://vf-webapi.leigod.com";
+            }
         } else {
             return '';
         }
@@ -76,6 +80,32 @@ export default class GlobalConfig {
             return '';
         }
     }
+
+    /**
+     *  跳转去下载站
+     */
+    public static goTodownUrl() {
+        if (ProjectConfig.server_type === 1) {
+            // 开发环境
+            return "http://dev-xiazai.leigod.com/";
+            // return 'http://localhost:8080';
+        } else if (ProjectConfig.server_type === 2) {
+            // 测试环境
+            return "http://test-xiazai.leigod.com";
+        } else if (ProjectConfig.server_type === 3) {
+            // 生产环境
+            return "https://xiazai.leigod.com/";
+        }else if (ProjectConfig.server_type === 4) {
+            // 验证环境
+            return "https://vf-xiazai.leigod.com/";
+        } else {
+            return '';
+        }
+    }
+
+
+
+
 
     /**
      * 用户中心路径

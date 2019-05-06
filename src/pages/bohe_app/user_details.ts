@@ -3,7 +3,6 @@ import "leigod-lib-flexible";
 import "babel-polyfill";
 import VueI18n from "vue-i18n";
 import { Vue, Component } from "vue-property-decorator";
-import LsLoading from "./components/Loading.vue";
 
 import AppParamModel from "@/ts/models/AppModel";
 import { LsLanguage } from "./util/LsLanguage";
@@ -11,7 +10,6 @@ import { LsLanguage } from "./util/LsLanguage";
 import HttpClient from "@/ts/net/HttpClient";
 import NewsConfigModel, { NoticeDetailRequestModel, NoticeDetailModel } from "@/ts/models/NewsModel";
 import GlobalConfig from "./global.config";
-import Util from "@/ts/utils/Util";
 
 Vue.config.productionTip = false;
 
@@ -21,21 +19,15 @@ let lang = LsLanguage.getInstance();
 lang.initNoRefresh();
 const i18n = new VueI18n(lang);
 
-@Component({
-	components: {
-		"ls-loading": LsLoading
-	}
-})
+@Component
 class Details extends Vue {
 	public appParam: AppParamModel = AppParamModel.getInstace(1);
 	public detailData: NoticeDetailModel = new NoticeDetailModel();
 	public http = new HttpClient();
-	public isLoading: boolean = true; //loading显示
 	// 根据url的id获取对应的详情数据
 	created() {
 		this.setBaseUrl(GlobalConfig.getBaseUrl());
 		this.getDetails();
-		this.isLoading=false
 	}
 	public setBaseUrl(url: string): void {
 		this.http.setBaseUrl(url);

@@ -1,11 +1,11 @@
 import '@/assets/less/bohe.less';
+import "babel-polyfill";
 import HeadNav from './components/HeadNav.vue';
 import FootNav from './components/FootNav.vue';
 import DownloadBox from './components/DownloadBox.vue';
 import { Vue, Component } from 'vue-property-decorator';
 import { LanguageConfig } from "@/ts/utils/Language";
 import GlobalConfig from "@/pages/bohe/global.config";
-import "babel-polyfill";
 import HttpClient from '@/ts/net/HttpClient';
 import { ActivityRequestModel, ActivityModel, NewModel, NewRequestModel, NewsModel } from '@/ts/models/NewsModel';
 import { IdataModel } from '@/ts/models/IdataModel';
@@ -21,7 +21,6 @@ Vue.config.productionTip = false;
 //语言包
 Vue.use(VueI18n);
 Vue.use(Button);
-const webParam = WebParamModel.getInstace();
 let lang = LanguageConfig.getInstance();
 lang.init();
 const i18n = new VueI18n(lang);
@@ -51,7 +50,6 @@ class Activdetails extends Vue {
         this.language = LocalStorageUtil.getLanguage();
     }
     mounted(){
-        console.log(this.language)
         this.$nextTick(()=>{
         //@ts-ignore
         this.$refs.headerNav.pageName='activity.html'
@@ -75,12 +73,11 @@ class Activdetails extends Vue {
     public onChangeLanguage(ln: string) {
         lang.changeLanguage(ln);
         i18n.locale = lang.locale;
-        GlobalConfig.log('切换语言:' + lang.locale);
         this.language =ln
     }
     // 跳转到另外一个活动页面
     goToActivity(){
-       window.open(window.location.origin+'/activity_2.html')
+       window.open(window.location.href.replace('activity_1.html','activity_2.html'))
     }
     /**
      * 获取下载url

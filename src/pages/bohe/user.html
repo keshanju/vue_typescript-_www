@@ -25,6 +25,11 @@
     <title>用户中心</title>
     <meta name="keywords" content="a1">
     <meta name="description" content="a1">
+    <style>
+        img{
+            max-width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -41,11 +46,11 @@
                         <div class="wrap_top_user_info">
                             <div class="avatar_user_bh cursor_pointer">
                                 <img class="head_avatar" @click="onEditAvatar" :src="userInfo.avatar" alt="" style="width: 64px;height: 64px;">
-                                <p @click="onEditAvatar" class="edit_avtar_bh">{{$t("user.z1")}}</p>
+                                <!--<p @click="onEditAvatar" class="edit_avtar_bh">{{$t("user.z1")}}</p>-->
                             </div>
                             <div class="nickname_user_bh">
                                 <div class="be_suer_edit">
-                                    <p class="user_nickname" v-text="userInfo.nickname"></p>
+                                    <p class="user_nickname" v-text="userInfo.nickname" style="max-width: 100%;"></p>
                                     <a style="display: none;" v-show="!isGuest" class="edit_img_bh" @click="nicknameDialogOpen">
                                         <img src="./images/edit_normal.png" alt="">
                                     </a>
@@ -96,12 +101,10 @@
                             <!-- 分享功能 -->
                             <p class="free_share">{{$t("user.z41")}}</p>
                             <div class="share_box">
-                                <div class="bdsharebuttonbox">
-                                    <a href="#" class="bds_weixin share_wechat share_icon" data-cmd="weixin" title="分享到微信"></a>
-                                    <a href="#" class="bds_sqq share_qq share_icon" data-cmd="sqq" title="分享到QQ好友"></a>
-                                    <a href="#" class="bds_tsina share_weibo share_icon" data-cmd="tsina" title="分享到新浪微博"></a>
-                                    <a href="#" class="bds_tieba share_tieba share_icon" data-cmd="tieba" title="分享到百度贴吧"></a>
-                                    <a href="#" class="bds_qzone share_kongjian share_icon" data-cmd="qzone" title="分享到QQ空间"></a>
+                                <div>
+                                    <share-to v-if="webParam.region_code==1"  @show_code_img="showWxImg"
+                                              share-page="user"
+                                              size="40px"></share-to>
                                 </div>
                             </div>
                             <!-- 分享功能 END -->
@@ -122,6 +125,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div v-show="showChart" class="news-wxTip" :style="{left:divLeft,top:divTop}">
+            <p><span>分享到微信朋友圈</span><span @click="showChart=false" class="news-wxTip__close">X</span></p>
+            <img :src="wxImgSrc" class="news-wxTip__img">
+            <p>打开微信，点击底部的“发现”</p>
+            <p>使用“扫一扫”即可将网页分享至朋友圈。</p>
         </div>
         <!-- 底部 -->
         <div class="wrap_of_footer">
@@ -152,26 +161,9 @@
         </el-dialog>
 
         <!--修改头像-->
-        <el-dialog width="30%" :visible.sync="editAvatarVisible">
-            <user-edit-avatar v-on:on-upload-avatar="onUploadAvatar"></user-edit-avatar>
+        <el-dialog width="30%" :visible.sync="editAvatarVisible" @close="closedAvatarDailog">
+            <user-edit-avatar v-on:on-upload-avatar="onUploadAvatar" ref="userEditAvatar"></user-edit-avatar>
         </el-dialog>
     </div>
-    <script>
-        window._bd_share_config = {
-            "common": {
-                "bdSnsKey": {},
-                "bdText": "",
-                "bdMini": "2",
-                "bdMiniList": false,
-                "bdPic": "",
-                "bdStyle": "1",
-                "bdSize": "32"
-            },
-            "share": {}
-        };
-        with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src =
-            '/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)
-        ];
-    </script>
 </body>
 </html>

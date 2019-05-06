@@ -12,8 +12,6 @@
 </template>
 
 <script lang="ts">
-import "../css/mui.min0125.css";
-import "../css/ls2.css";
 import "../css/wap.less";
 import { Vue, Component, Prop } from "vue-property-decorator";
 

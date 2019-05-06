@@ -29,16 +29,32 @@
         <!--用户绑定填写框-->
         <div style="margin-top: 0.2rem;">
             <ul v-show="resignType == 4 && bindUrlType != 0" style="min-height: 1.2rem;display: none;">
-                <li class="flex_sbe" style="align-items: flex-start;width: 80%;margin: 0 auto;">
-                    <el-select @change="onSelectCountryCode" filterable v-model="countryCode" :placeholder="$t('public.share25')"
-                        style="width:30%;">
-                        <el-option v-for="(val,key,index) in areaCodeList" :key="index" :label="'+'+val" :value="val">
-                        </el-option>
-                    </el-select>
-                    <label class="pc_input_box flex_row_between" for="">
-                        <input style="width: 60%;" v-model="phone" type="text" class="pc_check_input" :placeholder="$t('public.share2')">
-                    </label>
+                <li class="flex_sbe" style="align-items: flex-start;width: 80%;margin: 0 auto;margin-bottom: .12rem;">
+                    <div class="form_input_box flex_row_between" style="margin-top:0.15rem;">
+                        <div class="flex_row_center" style="width:40%;border: 1px solid #dcdfe6;border-radius: .05rem;">
+                            <img :src="country_code.ico" alt="" style="margin-left: .1rem;">
+                            <el-select @change="onSelectCountryCode" value=""
+                                       :placeholder="$t('public.share25')" style="width:.45rem;margin-left: 0.1rem;vertical-align: middle;">
+                                <el-option-group
+                                        v-for="group in country_code_list"
+                                        :key="group.label"
+                                        :label="group.label">
+                                    <el-option v-for="(val,index) in group.options" :key="index"
+                                               :value="val">
+                                        <img :src="val.ico" alt="">
+                                        <span style="color:#666;">{{val.name}}</span>
+                                    </el-option>
+                                </el-option-group>
+                            </el-select>
+                            <span style="font-size: 14px;display: inline-block;width: 30%;vertical-align: middle;color: #666;margin-left: .08rem;">{{'+' + country_code.code}}</span>
+                        </div>
+                        <div class="form_input_box" style="width:55%">
+                            <input v-model="phone" class="form_input" type="text" name=""
+                                   :placeholder="$t('public.share2')">
+                        </div>
+                    </div>
                 </li>
+                <!--图形验证码-->
                 <li v-show="isimgVerification" style="display:none;">
                     <label class="pc_input_box flex_row_between" for="">
                         <input style="width: 60%;" v-model="imgCaptchaCode" class="pc_check_input" type="text"
@@ -48,6 +64,7 @@
                         </div>
                     </label>
                 </li>
+                <!--短信验证码-->
                 <li>
                     <label class="pc_input_box flex_row_between" for="">
                         <input style="width: 50%;" v-model="smscode" class="pc_check_input" type="text" :placeholder="$t('public.share48')">
@@ -109,7 +126,7 @@
             <input class="pc_input_box" v-model="referCode" type="text" :placeholder="$t('public.share59')" style="width: 100%;">
         </div>
         <!--会员服务条款-->
-        <div style="width: 100%;display: none;margin: 0 auto;" class="flex_row_start" v-show="bind_status == 4">
+        <div style="width: 80%;display: none;margin: 0 auto;" class="flex_row_start" v-show="bind_status == 4">
             <input class="pc_check_input pos_download_list" v-model="agreementChceked" type="checkbox">
             <span class="h5_font14_white" @click="agreementChceked = !agreementChceked">{{$t("public.share43")}}</span>
             <a class="web_protocol_font">{{$t("public.share44")}}</a>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://hm.baidu.com/hm.js?0eb4303e084ff5791f2a25e3df421cea"></script>
+    <title>春节活动</title>
+</head>
+
+<body>
+    <div id="app" class="cj_container">
+
+        <!--顶部导航-->
+        <head-nav ref="head" v-on:changelanguage="onChangeLanguage"></head-nav>
+        <div class="cj_main_banner">
+            <img src="./images/chunjie_banner01.jpg" alt="雷神加速器" width="3000">
+            <img src="./images/chunjie_banner02.jpg" alt="雷神加速器" width="3000">
+            <img src="./images/chunjie_banner03.jpg" alt="雷神加速器" width="3000">
+            <!--定位盒子-->
+            <div class="cj_backtime_box">
+                <div class="cj_backtime_cell" style="left: 222px;">{{clock.days}}</div>
+                <div class="cj_backtime_cell" style="left: 303px;">{{clock.hours}}</div>
+                <div class="cj_backtime_cell" style="left: 390px;">{{clock.minutes}}</div>
+                <div class="cj_backtime_cell" style="left: 470px;">{{clock.seconds}}</div>
+            </div>
+            <div class="cj_abs_box">
+                <img style="margin-left: 8px;" src="./images/chunjie_45.png" alt="雷神加速器">
+                <a style="left: 88px;" class="cj_buy_btn" @click="gotoRecharge">立即购买</a>
+                <img style="margin-left: 18px;" src="./images/chunjie_188.png" alt="雷神加速器">
+                <a style="left: 406px;" class="cj_buy_btn" @click="gotoRecharge">立即购买</a>
+                <a href="#choujiang" style="display: inline-block;width: 320px;height: 240px;"></a>
+            </div>
+        </div>
+        <div id="choujiang" class="cj_box_container">
+            <img src="./images/chunjie_bg_main01.png" alt="雷神加速器" width="1467">
+            <!--定位盒子-->
+            <div class="cj_abs_container">
+                <!--tab切换-->
+                <div class="cj_tab_box">
+                    <div class="cj_tab_list">
+                        <ul class="clear_fix" style="position:relative;top: -15px;">
+                            <li class="f_left cj_tab_item" :class="{'cj_tab_item_active': tabIndex == 0}" @click="changeTabPage(0)">活动规则</li>
+                            <li class="f_left cj_tab_item" :class="{'cj_tab_item_active': tabIndex == 1}" @click="changeTabPage(1)">中奖纪录</li>
+                            <li class="f_left cj_tab_item" :class="{'cj_tab_item_active': tabIndex == 2}" @click="changeTabPage(2)">邀请人数</li>
+                        </ul>
+                        <div class="cj_tab_cell" style="height:420px;">
+                            <div class="" v-show="tabIndex == 0">
+                                <b>活动时间：</b><br>
+                                2019年1月29日15:30~2019年2月21日15:30<br>
+                                <b>活动规则：</b><br>
+                                1.购买188套餐可获得9个点亮福袋，购买其他任意套餐获得7个点亮福袋。集齐点亮10个福袋就可以开启福袋奖励<br>
+                                2.邀请新人注册点亮：对方注册新账户使用您的推荐码，你可以获得一个点亮福袋，邀请好友注册最多获得3次点亮机会。新注册账户如使用了推荐码会自动获得3个福袋奖励。<br>
+                                3.邀请成功如果未显示点亮福袋，请退出登录刷新页面。<br>
+                                4.活动期间，抽中实物奖品，现金红包，请您根据中奖提示添加发奖客服微信 （微信号： service6000）领取奖品<br />
+                                5.官网页面抽中时长卡用户，直接在官网"个人中心-活动记录"页面进行兑换。<br>
+                                6.App和微信公众号中活动页面抽中时长卡用户，请访问雷神加速器PC官网(www.leigod.com )"个人中心--活动记录“页面进行兑换。<br>
+                                7.活动积分抽奖机会截止时间为本次活动结束时间（2019年2月21日15：30），逾期清空作废；<br>
+                                8.时长卡兑换截止时间为2019年2月25日18：00；<br>
+                                9.本次活动的最终解释权归上海雷神网络科技有限公司所有。<br>
+                            </div>
+                            <div style="width: 100%;height: 420px;position:relative;display: none;text-align: center;padding-top: 10px;box-sizing: border-box;"
+                                v-show="tabIndex == 1">
+                                <!--中奖纪录-->
+                                <ul class="cj_history_box" id="chunjie_rewardList" v-show="awardRecordList.length > 0 && account_token != ''">
+                                    <li class="cj_history_cell clear_fix" v-for="(item, index) in awardRecordList" :key="index">
+                                        <div class="f_left" style="text-indent: 1em">
+                                            抽中
+                                            <span style="margin: 0 10px;">{{item.present_title}}</span>
+                                            <span style="margin: 0 10px;">{{item.create_time}}</span>
+                                        </div>
+                                        <a class="cj_exchange_btn f_right" @click="gotoDuijiang(item.status)">{{item.status
+                                            == 0 ? '立即兑换' : item.status_title}}</a>
+                                    </li>
+                                </ul>
+                                <img class="cj_zjjl_empty" style="display: none;" src="./images/cj/none.png" alt=""
+                                    v-show="awardRecordList.length == 0 && account_token != ''">
+                                <p class="zjjl_empty_msg" style="display: none;" v-show="awardRecordList.length == 0 && account_token != ''">您暂无中奖记录</p>
+                                <p class="zjjl_empty_msg" style="display: none;" v-show="account_token == ''">您还未登录账号</p>
+                                <div slot="footer" class="dialog-footer" style="margin-top: 40px;display: none;" v-show="account_token == ''">
+                                    <a @click="gotoLogin" class="cj_dialog_btn">登录</a>
+                                </div>
+                                <!--关注微信二维码-->
+                                <div class="cj_focus_box clear_fix">
+                                    <img style="margin-top: 35px;" class="f_left" src="./images/chunjie_kfewm.png" alt="雷神加速器"
+                                        width="94">
+                                    <div style="width: 310px;margin-left: 8px;margin-top: 3px;text-align: left;" class="f_left">
+                                        <p style="color: #f0433f;font-size: 14px;text-align: left;">扫码添加发奖客服微信</p>
+                                        <p style="color: #9a5e1c;font-size: 12px">
+                                            1、活动期间，抽中实物奖品、现金红包、请你根据中奖提示
+                                            添加发奖客服微信 <span style="color: #f0433f;">（微信号: service6000）</span> 领取奖品
+                                            2、抽中时长卡用户，点击领取兑换即可充值到你的账户余额
+                                            里面，也可以进入官网个人中心活动记录点击兑换
+                                            <br>3、活动积分抽奖机会截止时间为本次活动结束时间（2019年2月21日15：30），逾期清空作废
+                                            <br>4、时长卡兑换截止时间为2019年2月25日18：00
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 100%;height: 420px;position:relative;display: none;text-align: center;padding-top: 10px;box-sizing: border-box;"
+                                v-show="tabIndex == 2">
+                                <!--邀请记录-->
+                                <ul class="cj_history_box" id="chunjie_referList" v-show="myReferList.length > 0 && account_token != ''">
+                                    <li class="cj_history_cell clear_fix" v-for="(item, index) in myReferList" :key="index">
+                                        <div style="text-indent: 1em">
+                                            <span style="margin: 0 10px;">{{item.create_time}}</span>邀请
+                                            <span style="margin: 0 10px;">{{item.mobile_num||item.mail}}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <img class="cj_zjjl_empty" style="display: none;" src="./images/cj/none.png" alt=""
+                                    v-show="myReferList.length == 0 && account_token != ''">
+                                <p class="zjjl_empty_msg" style="display: none;" v-show="myReferList.length == 0 && account_token != ''">您暂无邀请记录</p>
+                                <p class="zjjl_empty_msg" style="display: none;" v-show="account_token == ''">您还未登录账号</p>
+                                <div slot="footer" class="dialog-footer" style="margin-top: 40px;display: none;" v-show="account_token == ''">
+                                    <a @click="gotoLogin" class="cj_dialog_btn">登录</a>
+                                </div>
+                                <!--关注微信二维码-->
+                                <div class="cj_focus_box clear_fix">
+                                    <img style="margin-top: 35px;" class="f_left" src="./images/chunjie_kfewm.png" alt="雷神加速器"
+                                        width="94">
+                                    <div style="width: 310px;margin-left: 8px;margin-top: 3px;text-align: left;" class="f_left">
+                                        <p style="color: #f0433f;font-size: 14px;text-align: left;">扫码添加发奖客服微信</p>
+                                        <p style="color: #9a5e1c;font-size: 12px">
+                                            1、活动期间，抽中实物奖品、现金红包、请你根据中奖提示
+                                            添加发奖客服微信 <span style="color: #f0433f;">（微信号: service6000）</span> 领取奖品
+                                            2、抽中时长卡用户，点击领取兑换即可充值到你的账户余额
+                                            里面，也可以进入官网个人中心活动记录点击兑换
+                                            <br>3、活动积分抽奖机会截止时间为本次活动结束时间（2019年2月21日15：30），逾期清空作废
+                                            <br>4、时长卡兑换截止时间为2019年2月25日18：00
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cj_redpack_box f_left" :class="{'cj_redpack_box_burn':isWin}">
+                        <div class="prize_hidden" :class="{'prize_show':dialog_win}">
+                            <img v-if="isWin" :src="imageHeadUrl + awardInfo.img_url" alt="">
+                        </div>
+                        <!--<img v-if="isWin" class="prize_show" src="./images/chunjie_288.png" alt="">-->
+                        <p class="zj_font f_left" style="margin-top: 280px;" v-show="isWin">恭喜获得</p>
+                        <p class="zj_font f_left" v-show="isWin">{{prize_name}}</p>
+                        <a class="open_bag f_left" :class="{'open_bag_again':isWin}" @click="onClickDraw">开启福袋</a>
+                    </div>
+                </div>
+                <!--中奖滚动区-->
+                <div style="margin: 40px auto 20px;position: relative;">
+                    <img src="./images/chunjiebg_scroll.png" alt="雷神加速器">
+                    <div style="position: absolute;left: 0;top: 0;margin-left: 40px;height: 60px;overflow: hidden;">
+                        <ul class="clear_fix" id="jilu_box" style="height: 60px;overflow: hidden;">
+                            <li class="f_left cj_scroll_cell" v-for="(item, index) in awardList" :key="index">
+                                恭喜
+                                <span>{{item.mobile_num ? item.mobile_num : item.mail}}</span>
+                                获得
+                                <span>{{item.title}}</span>
+                                <span>{{item.create_time}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--福袋列表-->
+                <div style="margin: 0 auto 40px;">
+                    <ul class="clear_fix" style="width: 88%;margin: 0 auto;">
+                        <li class="cj_fudai_cell f_left cursor" :class="{'cj_fudai_cell_active':points >0}" @click="clickFudai(1)">
+                            <span :class="{'cj_fudai_font' : points < 1}">雷</span>
+                            <span class="cj_dot_cell" v-show="points>10">{{points%10 >= 1 ? aCount + 1 : aCount}}</span>
+                        </li>
+                        <li class="cj_fudai_cell f_left cursor" :class="{'cj_fudai_cell_active':points >1}" @click="clickFudai(2)">
+                            <span :class="{'cj_fudai_font' : points < 2}">神</span>
+                            <span class="cj_dot_cell" v-show="points>11">{{points%10 >= 2 ? aCount + 1 : aCount}}</span>
+                        </li>
+                        <li class="cj_fudai_cell f_left cursor" :class="{'cj_fudai_cell_active':points >2}" @click="clickFudai(3)">
+                            <span :class="{'cj_fudai_font' : points < 3}">加</span>
+                            <span class="cj_dot_cell" v-show="points>12">{{points%10 >= 3 ? aCount + 1 : aCount}}</span>
+                        </li>
+                        <li class="cj_fudai_cell f_left cursor" :class="{'cj_fudai_cell_active':points >3}" @click="clickFudai(4)">
+                            <span :class="{'cj_fudai_font' : points < 4}">速</span>
+                            <span class="cj_dot_cell" v-show="points>13">{{points%10 >= 4 ? aCount + 1 : aCount}}</span>
+                        </li>
+                        <li class="cj_fudai_cell f_left cursor" :class="{'cj_fudai_cell_active':points >4}" @click="clickFudai(5)">
+                            <span :class="{'cj_fudai_font' : points < 5}">器</span>
+                            <span class="cj_dot_cell" v-show="points>14">{{points%10 >= 5 ? aCount + 1 : aCount}}</span>
+                        </li>
+                    </ul>
+                    <ul class="clear_fix" style="width: 88%;margin: 0 auto;">
+                        <li class="cj_fudai_cell f_left cursor" :class="{'cj_fudai_cell_active':points >5}" @click="clickFudai(6)">
+                            <span :class="{'cj_fudai_font' : points < 6}">不</span>
+                            <span class="cj_dot_cell" v-show="points>15">{{points%10 >= 6 ? aCount + 1 : aCount}}</span>
+                        </li>
+                        <li class="cj_fudai_cell f_left cursor" :class="{'cj_fudai_cell_active':points >6}" @click="clickFudai(7)">
+                            <span :class="{'cj_fudai_font' : points < 7}">用</span>
+                            <span class="cj_dot_cell" v-show="points>16">{{points%10 >= 7 ? aCount + 1 : aCount}}</span>
+                        </li>
+                        <li class="cj_fudai_cell f_left cursor" :class="{'cj_fudai_cell_active':points >7}" @click="clickFudai(8)">
+                            <span :class="{'cj_fudai_font' : points < 8}">可</span>
+                            <span class="cj_dot_cell" v-show="points>17">{{points%10 >= 8 ? aCount + 1 : aCount}}</span>
+                        </li>
+                        <li class="cj_fudai_cell f_left cursor" :class="{'cj_fudai_cell_active':points >8}" @click="clickFudai(9)">
+                            <span :class="{'cj_fudai_font' : points < 9}">暂</span>
+                            <span class="cj_dot_cell" v-show="points>18">{{points%10 >= 9 ? aCount + 1 : aCount}}</span>
+                        </li>
+                        <li class="cj_fudai_cell f_left cursor" :class="{'cj_fudai_cell_active':points >9}" @click="clickFudai(10)">
+                            <span :class="{'cj_fudai_font' : points < 10}">停</span>
+                            <span class="cj_dot_cell" v-show="points>19">{{aCount}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <!--福袋礼品-->
+                <img src="./images/chunjie_fudai_list.png" alt="雷神加速器">
+            </div>
+            <div class="cj_abs_codebox">
+                <p style="color: #ff2728;font-size: 28px;margin: 10px auto 25px;font-weight: bold">
+                    邀请好友点亮福袋
+                </p>
+                <div class="clear_fix" style="margin-bottom: 22px;text-align: left">
+                    <span class="cj_copy_links" v-text="refer_code_link" id="spanCopyRefercodeLink">https://user.leigod.com/register.html?refer_code=M2YUHK</span>
+                    <a class="cj_copy_btn" @click="copyRefercodeLink" id="copyRefercodeLink">复制推荐链接</a>
+                </div>
+                <div style="text-align: left">
+                    <span class="cj_copy_links" v-text="refer_code">sdjikxnd</span>
+                    <a class="cj_copy_btn" @click="copyRefercode" id="copyRefercode">复制推荐码</a>
+                </div>
+            </div>
+        </div>
+
+        <img class="cj_bottom_box" src="./images/chunjie_screen02.png" alt="雷神加速器" width="1110">
+        <!--错误提示-->
+        <div class="hj_dialog" v-show="dialog_error" style="display:none;">
+            <div class="cj_dialog_notice" style="text-align: center;">
+                <p class="cj_dialog_title">温馨提示</p>
+                <div class="flex_column_center">
+                    <span class="cj_dialog_notice_msg">{{dialog_msg}}</span>
+                    <span slot="footer" class="dialog-footer" style="margin-top: 40px;">
+                        <a @click="closeDialog" class="cj_dialog_btn">确定</a>
+                    </span>
+                </div>
+                <div class="cj_dialog_close" @click="closeDialog"></div>
+            </div>
+        </div>
+
+        <!--提示充值-->
+        <div class="hj_dialog" v-show="dialog_recharge" style="display:none;">
+            <div class="cj_dialog_notice" style="text-align: center">
+                <p class="cj_dialog_title">温馨提示</p>
+                <div class="flex_column_center">
+                    <span class="cj_dialog_notice_msg" style="padding: 0 20px;">您还有{{10 -
+                        points}}个福袋未点亮，请点亮所有福袋后再进行开启福袋抽奖。</span>
+                    <span slot="footer" class="dialog-footer" style="margin-top: 80px;">
+                        <a @click="gotoRecharge" class="cj_dialog_btn">前去充值</a>
+                    </span>
+                </div>
+                <div class="cj_dialog_close" @click="onCloseRecharge"></div>
+            </div>
+        </div>
+
+        <!--未登录提醒-->
+        <div class="hj_dialog" v-show="dialog_no_login" style="display:none;">
+            <div class="cj_dialog_notice" style="text-align: center;">
+                <p class=" cj_dialog_title">温馨提示</p>
+                <div class="flex_column_center">
+                    <p class="cj_dialog_notice_msg">您还未登录<br />请登录后再参与活动, 谢谢</p>
+                    <span slot="footer" class="dialog-footer" style="margin-top: 40px;">
+                        <a @click="gotoLogin" class="cj_dialog_btn">登录</a>
+                    </span>
+                </div>
+                <div class="cj_dialog_close" @click="onCloseNologin"></div>
+            </div>
+        </div>
+        <foot-nav class="other_foot_nav"></foot-nav>
+    </div>
+</body>
+<!-- 客服-->
+#include('./components/_kefu.html')
+
+</html>

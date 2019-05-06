@@ -2,78 +2,66 @@
  *
  */
 export default class ProjectConfig {
-	/**
-	 * debug模式
-	 */
-	public static isDebug = false;
-	/**
-	 * 1开发环境 2测试 3生产 4预发布
-	 */
-	 public static server_type = 1;
-	// public static server_type = 2;
-	// public static server_type = 4;
-	// public static server_type = 3;
+    /**
+     * debug模式
+     */
+    public static isDebug = false;
+    /**
+     * 1开发环境 2测试 3生产 4预发布
+     */
+    public static server_type = parseInt(process.env.VUE_APP_SERVER_TYPE);
 
-	/**
-	 * 输出
-	 */
-	public static log(...args: any[]) {
-		if (ProjectConfig.server_type != 3) {
-			for (let i = 0; i < args.length; i++) {
-				console.log(args[i]);
-			}
-		}
-	}
+    /**
+     * 输出
+     */
+    public static log(...args: any[]) {
+        if (ProjectConfig.server_type != 3) {
+            for (let i = 0; i < args.length; i++) {
+                console.log(args[i]);
+            }
+        }
+    }
 
-	/**
-	 * ###################################薄荷(bohe)项目打包命令
-	 */
-	//开发环境
-	// cd dev/;npm run build;python3 py_bohe_meta.py;sh bohe.sh;cd ..;
-	// cd dev/;npm run build;sh bohe_app.sh;cd ..;
+    /**
+     * 命令列表
+     */
+    ////////////////////////////【bohe】////////////////////////
+    // 薄荷调试 npm run bohe-debug
+    // 薄荷开发打包 npm run bohe-dev
+    // 薄荷测试打包 npm run bohe-test
+    // 薄荷验证打包 npm run bohe-vfbuild
+    // 薄荷生产打包 npm run bohe-tbuild
 
-	//测试环境
-	// cd test/;npm run build;python3 py_bohe_meta.py;sh bohe.sh;cd ..;
-	// cd test/;npm run build;sh bohe_app.sh;cd ..;
+    // 薄荷app调试 npm run bohe_app-debug
+    // 薄荷app开发打包 npm run bohe_app-dev
+    // 薄荷app测试打包 npm run bohe_app-test
+    // 薄荷app验证打包 npm run bohe_app-vfbuild
+    // 薄荷app生产打包 npm run bohe_app-tbuild
 
-	//预发布
-	// cd vfbuild/;npm run build;python3 py_bohe_meta.py;cd ..;
-	// cd vfbuild/;npm run build;cd ..;
+    ////////////////////////////【leishen】////////////////////////
+    // 雷神调试 npm run leishen-debug
+    // 雷神开发打包 npm run leishen-dev
+    // 雷神验证打包 npm run leishen-vfbuild
+    // 雷神生产打包 npm run leishen-tbuild
 
-	//生产环境
-	// cd tbuild/;npm run build;python3 py_bohe_meta.py;cd ..;
-	// cd tbuild/;npm run build;cd ..;
+    // 雷神user调试 npm run leishen_user-debug
+    // 雷神user开发打包 npm run leishen_user-dev
+    // 雷神user验证打包 npm run leishen_user-vfbuild
+    // 雷神user生产打包 npm run leishen_user-tbuild
 
-	/**
-	 * ###################################雷神(bohe)项目打包命令
-	 */
-	///////////开发环境
-	//leishen
-	// cd dev/;npm run build;python3 py_leishen_meta.py;sh leishen.sh;cd ..;
-	//leishen_app
-	// cd dev/;npm run build;sh leishen_app.sh;cd ..;
-	//leishen_user
-	// cd dev/;npm run build;sh leishen_user.sh;cd ..;
-	//leishen_pc
-	// cd dev/;npm run build;sh leishen_pc.sh;cd ..;
+    // 雷神app调试 npm run leishen_app-debug
+    // 雷神app开发打包 npm run leishen_app-dev
+    // 雷神app验证打包 npm run leishen_app-vfbuild
+    // 雷神app生产打包 npm run leishen_app-tbuild
 
-	//////////预发布
-	//leishenta
-	// cd vfbuild/;npm run build;python3 py_leishen_meta.py;cd ..;
-	//leishen_app
-	// cd vfbuild/;npm run build;cd ..;
-	//leishen_user
-	// cd vfbuild/;npm run build;cd..;
-	//leishen_pc
-	// cd vfbuild/;npm run build;cd ..;
+    // 雷神pc调试 npm run leishen_pc-debug
+    // 雷神pc开发打包 npm run leishen_pc-dev
+    // 雷神pc验证打包 npm run leishen_pc-vfbuild
+    // 雷神pc生产打包 npm run leishen_pc-tbuild
 
-    //////////生产
-    //leishen
-    // cd tbuild/;npm run build;python3 py_leishen_meta.py;cd ..;
-    //leishen_app
-    // cd tbuild/;npm run build;cd ..;
-    //leishen_user
-    // cd tbuild/;npm run build;cd ..;
-    //leishen_pc
-    // cd tbuild/;npm run build;cd ..;
+    // 雷神wangba调试 npm run leishen_wangba-debug
+    // 雷神wangba开发打包 npm run leishen_wangba-dev
+    // 雷神wangba验证打包 npm run leishen_wangba-vfbuild
+    // 雷神wangba生产打包 npm run leishen_wangba-tbuild
 }
+ProjectConfig.log('当前环境:' + ProjectConfig.server_type + "【1开发环境 2测试 3生产 4预发布】");

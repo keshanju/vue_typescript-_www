@@ -1,12 +1,18 @@
-@baseColor: #fff;
-// ement ui
-// ement ui end
-// 背景颜色:备用
-@BGC0: #ededf2;
-@BGC1: #31353d;
-@BGC2: #ededf2;
-// 图片根路径
-@BgimgUrl: "../../pages/bohe/images";
+@element-separator:'__';
+@modifier-separator: '--';
+/* 公共变量部分 */
+@baseColor: #ffffff;
+@BGC0:#ededf2;
+@black--pure:#000000;
+@black-darker:#333333;
+@BGC1: #31353d;// 背景颜色:备用
+@BgimgUrl: "../../pages/bohe/images";// 图片根路径
+/* 公共mixin部分 */
+.flex_cen(@align:'center',@justify:'center') {
+    display: flex;
+    justify-content: @justify;
+    align-items: @align;
+}
 /* 公共标签样式 */
 * {
     margin: 0;
@@ -38,7 +44,7 @@ a {
     background: transparent;
 }
 .bg_com2 {
-    background: #fff;
+    background: @baseColor;
 }
 .bg_com3 {
     background-color: #232c41;
@@ -70,7 +76,7 @@ a {
 // 边框圆角
 .raduis_div {
     border-radius: 50%;
-    background: #fff;
+    background: @baseColor;
 }
 
 // 块级元素居中
@@ -124,7 +130,7 @@ a {
 
 // 文字颜色
 .words_col0 {
-    color: #ffffff;
+    color: @baseColor;
 }
 
 .words_col1 {
@@ -191,14 +197,14 @@ a {
     background: #5198ff;
     border-radius: 2px;
     border: 1px solid transparent;
-    color: #fff;
+    color: @baseColor;
 }
 
 .normal_btn:hover {
     background: #5198ff;
     border-radius: 2px;
     border: 1px solid transparent;
-    color: #fff;
+    color: @baseColor;
 }
 
 // 鼠标移上效果1
@@ -206,7 +212,7 @@ a {
     background-image: linear-gradient(36deg, #5198ff 0%, #4cfde5 100%);
     border-radius: 2px;
     .words_col0 {
-        color: #fff;
+        color: @baseColor;
     }
 }
 
@@ -273,7 +279,7 @@ body {
     width: 100%;
     min-width: 1200px;
     color: @baseColor;
-    background: #ededf2;
+    background: @BGC0;
     overflow-x: hidden;
     margin: 0 auto;
     -webkit-overflow-scrolling:touch;
@@ -291,19 +297,19 @@ body {
     margin: 187px 0 20px;
 }
 .link_to_CN_bh {
-    color: #fff;
+    color: @baseColor;
     font-size: 48px;
     letter-spacing: 0;
     line-height: 44px;
 }
 .explain_bh_software {
-    color: #fff;
+    color: @baseColor;
     font-size: 24px;
     margin: 28px;
     line-height: 28px;
 }
 .range_of_application {
-    color: #fff;
+    color: @baseColor;
     margin-bottom: 47px;
     font-size: 16px;
 }
@@ -323,7 +329,7 @@ body {
     padding: 14px 40px;
     font-size: 14px;
     font-weight: 700;
-    border: 1px solid #fff;
+    border: 1px solid @baseColor;
     border-radius: 4px;
 }
 .font_s17:hover {
@@ -343,7 +349,7 @@ body {
 }
 .download_client_bh {
     font-size: 14px;
-    color: #fff;
+    color: @baseColor;
     letter-spacing: 2px;
     margin-top: 130px;
 }
@@ -392,7 +398,7 @@ body {
     width: 100%;
     margin-top: -57px;
     opacity: 1;
-    color: #fff;
+    color: @baseColor;
     filter: Alpha(opacity=10);
     transition: 0.8s;
 }
@@ -401,7 +407,7 @@ body {
     display: block;
     width: 60px;
     height: 60px;
-    background: url(../../pages/bohe/images/icon.png) no-repeat;
+    background: url("@{BgimgUrl}/icon.png") no-repeat;
     margin: 0 auto;
 }
 
@@ -438,7 +444,7 @@ body {
     left: 0;
     top: 100%;
     background: rgba(0, 62, 199, 0.6);
-    color: #fff;
+    color: @baseColor;
     width: 100%;
     height: 100%;
     text-align: center;
@@ -529,7 +535,7 @@ body {
 }
 
 .index_cn {
-    background-color: #fff;
+    background-color: @baseColor;
     color: #333;
 }
 
@@ -568,7 +574,7 @@ body {
 }
 
 .fw_title {
-    font-family: MicrosoftYaHei-Bold;
+   font-family: "Microsoft YaHei";
     font-size: 16px;
     color: #666666;
     letter-spacing: 0;
@@ -597,8 +603,7 @@ body {
 }
 
 .advantage_bg {
-    background: url("../../pages/bohe/images/advantage_bg.png") right center
-        no-repeat;
+    background: url("@{BgimgUrl}/advantage_bg.png") right center no-repeat;
 }
 
 .advantages_img {
@@ -616,7 +621,7 @@ body {
 
 .advantage_title {
     text-align: center;
-    font-family: MicrosoftYaHei-Bold;
+   font-family: "Microsoft YaHei";
     font-size: 16px;
     color: #666666;
 }
@@ -638,7 +643,7 @@ body {
     width: 456px;
     margin: 80px auto 0;
     color: #7d8e91;
-    background: #ededf2;
+    background: @BGC0;
 }
 // 登录注册共有
 .logo_register_bh {
@@ -650,7 +655,7 @@ body {
 }
 .main_content_register_bh {
     width: 100%;
-    background: #fff;
+    background: @baseColor;
     text-align: center;
     box-shadow: 0 2px 4px 0 #c4c4cf;
     border-radius: 4px;
@@ -860,7 +865,7 @@ body {
 .third_login_title {
     width: 50%;
     margin: 0 auto;
-    background-color: #fff;
+    background-color: @baseColor;
     text-align: center;
     margin-top: -10px;
 }
@@ -884,43 +889,43 @@ body {
     cursor: pointer;
 }
 .third_login_wechat {
-    background: url("../../pages/bohe/images/icon.png");
+    background: url("@{BgimgUrl}/icon.png");
     background-position: 136px 180px;
 }
 .third_login_wechat:hover {
     background-position: 102px 180px;
 }
 .third_login_qq {
-    background: url("../../pages/bohe/images/icon.png");
+    background: url("@{BgimgUrl}/icon.png");
     background-position: 136px 146px;
 }
 .third_login_qq:hover {
     background-position: 102px 146px;
 }
 .third_login_weibo {
-    background: url("../../pages/bohe/images/weibo_icon.png");
+    background: url("@{BgimgUrl}/weibo_icon.png");
     background-size: 100% 100%;
 }
 .third_login_weibo:hover {
-    background: url("../../pages/bohe/images/weibo_hover.png");
+    background: url("@{BgimgUrl}/weibo_hover.png");
     background-size: 100% 100%;
 }
 .third_login_facebook {
-    background: url("../../pages/bohe/images/icon.png");
+    background: url("@{BgimgUrl}/icon.png");
     background-position: 136px 112px;
 }
 .third_login_facebook:hover {
     background-position: 102px 112px;
 }
 .third_login_twitter {
-    background: url("../../pages/bohe/images/icon.png");
+    background: url("@{BgimgUrl}/icon.png");
     background-position: 136px 78px;
 }
 .third_login_twitter:hover {
     background-position: 102px 78px;
 }
 .third_login_google {
-    background: url("../../pages/bohe/images/icon.png");
+    background: url("@{BgimgUrl}/icon.png");
     background-position: 136px 44px;
 }
 .third_login_google:hover {
@@ -1066,7 +1071,7 @@ body {
     position: relative;
     width: 276px;
     height: 360px;
-    background-color: #fff;
+    background-color: @baseColor;
     border-radius: 2px;
     float: left;
     margin-right: 13px;
@@ -1260,7 +1265,7 @@ body {
     padding: 20px 18px;
     box-sizing: border-box;
     width: 100%;
-    background: #ededf2;
+    background: @BGC0;
 }
 .main_container_bh {
     width: 1200px;
@@ -1273,7 +1278,7 @@ body {
     box-shadow: 0 2px 4px 0 #c4c4cf;
     border-radius: 2px;
     margin-right: 15px;
-    background: #fff;
+    background: @baseColor;
 }
 // 用户中心样式 *****修改暂定
 .wrap_of_user_info_bh {
@@ -1393,7 +1398,7 @@ body {
 }
 .offical_num {
     width: 190px;
-    font-family: MicrosoftYaHei-Bold;
+   font-family: "Microsoft YaHei";
     font-size: 18px;
     color: #5198ff;
     letter-spacing: 0;
@@ -1408,7 +1413,7 @@ body {
     height: 789px;
     box-shadow: 0 2px 4px 0 #c4c4cf;
     border-radius: 2px;
-    background: #fff;
+    background: @baseColor;
     padding: 40px 0;
     box-sizing: border-box;
 }
@@ -1460,7 +1465,7 @@ body {
 
 // /***********详情活动页面***********************/
 .notice_head {
-    background-color: #fff;
+    background-color: @baseColor;
     a {
         color: #9aabbb;
     }
@@ -1469,7 +1474,7 @@ body {
 .wrap_of_notice_bh {
     width: 1200px;
     margin: 0 auto;
-    background: #fff;
+    background: @baseColor;
 }
 
 .detail_notice_bh {
@@ -1477,7 +1482,7 @@ body {
     width: 100%;
     color: #666;
     // padding-bottom: 50px;
-    background: #fff;
+    background: @baseColor;
 }
 
 .content_notice_bh{
@@ -1600,7 +1605,31 @@ body {
 // /end  ***********详情活动页面***********************/
 
 // /start ***********资讯列表也页面*****************
-
+.news-wxTip{
+    padding: 10px;
+    width: 280px !important;
+    height: 220px !important;
+    background: #fff;
+    border: solid 1px #d8d8d8;
+    position: absolute;
+    text-align: center;
+    color: #333;
+}
+.news-wxTip__img{
+    width:148px;
+    height:148px;
+}
+.news-wxTip__close{
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.news-share__img{
+    margin-left: 8px;
+}
 .wrap_of_news {
     color: #999999;
     font-size: 12px;
@@ -1609,7 +1638,7 @@ body {
     width: 1200px;
     margin: 0 auto;
     padding: 30px 0;
-    background: #fff;
+    background: @baseColor;
 }
 .ul_com_s2 {
     overflow: hidden;
@@ -1638,7 +1667,7 @@ body {
     white-space: nowrap;
 }
 .font_s10 {
-    font-family: MicrosoftYaHei-Bold;
+   font-family: "Microsoft YaHei";
     padding-left: 10px;
     font-size: 16px;
     color: #333333;
@@ -1699,11 +1728,11 @@ body {
     margin: 0 5px;
 }
 .li_com_s3:hover {
-    background: #ffffff;
+    background: @baseColor;
     border-radius: 2px;
 }
 .lis_active_s1 {
-    background: #ffffff;
+    background: @baseColor;
     border-radius: 2px;
 }
 .li_com_s3:last-child {
@@ -1723,7 +1752,7 @@ body {
     float: left;
     border:2px solid transparent;
     margin-right: 25px;
-    background: #ffffff;
+    background: @baseColor;
     border-radius: 2px;
     padding: 20px 15px;
     box-shadow: 0 2px 6px 0 #c7c7c7;
@@ -1735,7 +1764,7 @@ body {
 }
 
 .li_com_s4:hover .font_s15 {
-    color: #fff;
+    color: @baseColor;
     border: 1px solid transparent;
     background-image: linear-gradient(36deg, #5198ff 0%, #4cfde5 100%);
     border-radius: 2px;
@@ -1747,7 +1776,7 @@ body {
 }
 
 .li_com_s4_tj{
-    background: #fff url('../../pages/bohe/images/tuijian.png') top right no-repeat;
+    background: @baseColor url('@{BgimgUrl}/tuijian.png') top right no-repeat;
     background-size: 20% 15%;
 }
 
@@ -1765,7 +1794,7 @@ body {
     background: #5198ff;
     border-radius: 100px;
     font-size: 12px;
-    color: #fff;
+    color: @baseColor;
     letter-spacing: 0;
     text-align: center;
 }
@@ -1800,13 +1829,13 @@ body {
     letter-spacing: 0;
 }
 .font_s15:hover {
-    color: #fff;
+    color: @baseColor;
     border: 1px solid transparent;
     background-image: linear-gradient(36deg, #5198ff 0%, #4cfde5 100%);
     border-radius: 2px;
 }
 .li_com_s4_hover .font_s15 {
-    color: #fff;
+    color: @baseColor;
     border: 1px solid transparent;
     background-image: linear-gradient(36deg, #5198ff 0%, #4cfde5 100%);
     border-radius: 2px;
@@ -1837,7 +1866,7 @@ body {
     color: white;
 }
 .banner_1 {
-    background: #fff url("@{BgimgUrl}/banner_toubu.png") no-repeat top center;
+    background: @baseColor url("@{BgimgUrl}/banner_toubu.png") no-repeat top center;
     background-size: 100% 720px;
     text-align: center;
     overflow: hidden;
@@ -1849,7 +1878,7 @@ body {
 }
 .uls_1 {
     margin-top: 122px;
-    background: #ffffff;
+    background: @baseColor;
     box-shadow: 0 2px 4px 0 #b6b6b6;
     border-radius: 4px;
     padding: 40px 60px;
@@ -1923,7 +1952,7 @@ body {
 .font_s19 {
     padding: 80px 0;
     font-size: 36px;
-    color: #ffffff;
+    color: @baseColor;
     letter-spacing: 2.25px;
 }
 .content_of_protocol {
@@ -1932,7 +1961,7 @@ body {
     padding: 60px 0 40px;
 }
 .font_s20 {
-    font-family: MicrosoftYaHei-Bold;
+   font-family: "Microsoft YaHei";
     font-size: 14px;
     color: #333333;
     letter-spacing: 1px;
@@ -1969,7 +1998,7 @@ body {
 .header_nav {
     padding: 17px 27px 17px 37px;
     position: relative;
-    color: #fff;
+    color: @baseColor;
 }
 
 .head_style {
@@ -2041,7 +2070,7 @@ body {
     background-image: linear-gradient(36deg, #5198ff 0%, #4cfde5 100%);
     border-radius: 2px;
     a {
-        color: #fff;
+        color: @baseColor;
     }
 }
 
@@ -2109,7 +2138,7 @@ body {
     width: 120px;
     text-align: center;
     margin-bottom: 6px;
-    color: #fff;
+    color: @baseColor;
     font-size: 12px;
     line-height: 18px;
 }
@@ -2127,7 +2156,7 @@ body {
 }
 
 .email_of_bh {
-    color: #fff;
+    color: @baseColor;
     font-size: 12px;
 }
 
@@ -2136,7 +2165,7 @@ body {
 }
 
 .down_client_bh {
-    color: #fff;
+    color: @baseColor;
     font-size: 12px;
     margin-bottom: 25px;
 }
@@ -2217,7 +2246,7 @@ body {
     background: #5198ff;
     border-radius: 2px;
     text-align: center;
-    color: #fff;
+    color: @baseColor;
     cursor: pointer;
 }
 
@@ -2394,18 +2423,9 @@ body {
     margin-right: 10px;
 }
 
-// .mouth_plan_bh:hover {
-//     background: url("../../pages/bohe/images/on.png") right bottom no-repeat
-//         #e9f2f9;
-//     background-size: 14px 12px;
-//     border: 1px solid #5198ff;
-//     border-radius: 2px;
-//     box-sizing: border-box;
-// }
-
 .f_pay:hover {
     background: #e9f2f9;
-    background: url("../../pages/bohe/images/on.png") right bottom no-repeat
+    background: url("@{BgimgUrl}/on.png") right bottom no-repeat
         #e9f2f9;
     background-size: 14px 12px;
     border: 1px solid #5198ff;
@@ -2418,13 +2438,13 @@ body {
     border: 1px solid #5198ff;
     border-radius: 2px;
     box-sizing: border-box;
-    background: url("../../pages/bohe/images/on.png") right bottom no-repeat
+    background: url("@{BgimgUrl}/on.png") right bottom no-repeat
         #e9f2f9;
     background-size: 14px 12px;
 }
 
 .price_icon {
-    color: #fff;
+    color: @baseColor;
     position: absolute;
     display: block;
     font-size: 12px;
@@ -2440,7 +2460,7 @@ body {
 /******* 支付弹窗 *********/ 
 .pay_main {
     display: block;
-    background-color: #fff;
+    background-color: @baseColor;
     border-radius: 4px;
     width: 100%;
     overflow: hidden;
@@ -2470,7 +2490,7 @@ body {
     color: #3e474f;
     padding: 30px 60px 30px 50px;
     float: left;
-    background-color: #fff;
+    background-color: @baseColor;
     width: 45%;
     box-sizing: border-box;
 }
@@ -2517,7 +2537,7 @@ body {
 
 .pay_main_order {
     display: table;
-    background-color: #fff;
+    background-color: @baseColor;
     border: 1px solid #d8d8d8;
     border-radius: 4px;
     padding: 10px;
@@ -2564,17 +2584,17 @@ body {
 }
 
 .pay_zfb {
-    background: url(../../pages/bohe/images/icon_zhifubao.png) no-repeat;
+    background: url("@{BgimgUrl}/icon_zhifubao.png") no-repeat;
     cursor: pointer;
 }
 
 .pay_paypal {
-    background: url(../../pages/bohe/images/icon_paypalpay.png) no-repeat;
+    background: url("@{BgimgUrl}/icon_paypalpay.png") no-repeat;
     cursor: pointer;
 }
 
 .pay_wechart_1 {
-    background: url(../../pages/bohe/images/icon_wechartpay.png) no-repeat;
+    background: url("@{BgimgUrl}/icon_wechartpay.png") no-repeat;
     cursor: pointer;
 }
 
@@ -2687,7 +2707,7 @@ body {
     display: inline-block;
     width: 36px;
     height: 40px;
-    background: url(../../pages/bohe/images/icon.png) no-repeat center center;
+    background: url("@{BgimgUrl}/icon.png") no-repeat center center;
     margin: auto;
 }
 
@@ -2711,7 +2731,7 @@ body {
     display: inline-block;
     width: 30px;
     height: 30px;
-    background: url(../../pages/bohe/images/icon.png) no-repeat;
+    background: url("@{BgimgUrl}/icon.png") no-repeat;
     margin: auto;
     vertical-align: middle;
 }
@@ -2850,7 +2870,7 @@ body {
 }
 
 .free_fw_title {
-    font-family: MicrosoftYaHei-Bold;
+   font-family: "Microsoft YaHei";
     font-size: 16px;
     color: #5198ff;
     margin-top: 10px;
@@ -2916,52 +2936,52 @@ body {
 }
 
 .bdsharebuttonbox .share_wechat {
-    background: url("../../pages/bohe/images/wechat_icon.png");
+    background: url("@{BgimgUrl}/wechat_icon.png");
     background-size: 100% 100%;
 }
 
 .bdsharebuttonbox .share_wechat:hover {
-    background: url("../../pages/bohe/images/wechat_hover.png");
+    background: url("@{BgimgUrl}/wechat_hover.png");
     background-size: 100% 100%;
 }
 
 .bdsharebuttonbox .share_qq {
-    background: url("../../pages/bohe/images/qq.png");
+    background: url("@{BgimgUrl}/qq.png");
     background-size: 100% 100%;
 }
 
 .bdsharebuttonbox .share_qq:hover {
-    background: url("../../pages/bohe/images/qq_hover.png");
+    background: url("@{BgimgUrl}/qq_hover.png");
     background-size: 100% 100%;
 }
 
 .bdsharebuttonbox .share_weibo {
-    background: url("../../pages/bohe/images/weibo_icon.png");
+    background: url("@{BgimgUrl}/weibo_icon.png");
     background-size: 100% 100%;
 }
 
 .bdsharebuttonbox .share_weibo:hover {
-    background: url("../../pages/bohe/images/weibo_hover.png");
+    background: url("@{BgimgUrl}/weibo_hover.png");
     background-size: 100% 100%;
 }
 
 .bdsharebuttonbox .share_tieba {
-    background: url("../../pages/bohe/images/tieba.png");
+    background: url("@{BgimgUrl}/tieba.png");
     background-size: 100% 100%;
 }
 
 .bdsharebuttonbox .share_tieba:hover {
-    background: url("../../pages/bohe/images/tieba_hover.png");
+    background: url("@{BgimgUrl}/tieba_hover.png");
     background-size: 100% 100%;
 }
 
 .bdsharebuttonbox .share_kongjian {
-    background: url("../../pages/bohe/images/kongjian.png");
+    background: url("@{BgimgUrl}/kongjian.png");
     background-size: 100% 100%;
 }
 
 .bdsharebuttonbox .share_kongjian:hover {
-    background: url("../../pages/bohe/images/kongjian_hover.png");
+    background: url("@{BgimgUrl}/kongjian_hover.png");
     background-size: 100% 100%;
 }
 
@@ -3058,7 +3078,7 @@ body {
     background: #5198ff;
     border-radius: 2px;
     border: 1px solid transparent;
-    color: #fff;
+    color: @baseColor;
 }
 
 .update_input{
@@ -3222,7 +3242,7 @@ body {
     align-items: center;
     width: 280px;
     height: 80px;
-    background: #FFFFFF;
+    background: @baseColor;
     box-shadow: 0 1px 4px 0 #CDCDCD;
     border-radius: 4px;
     cursor: pointer;
@@ -3235,7 +3255,7 @@ body {
     align-items: center;
     width: 270px;
     height: 155px;
-    background: #FFFFFF;
+    background: @baseColor;
     box-shadow: 0 1px 4px 0 #CDCDCD;
     border-radius: 4px;
     cursor: pointer;
@@ -3246,20 +3266,20 @@ body {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background: #FFFFFF;
+    background: @baseColor;
     box-shadow: 0 1px 4px 0 #CDCDCD;
     border-radius: 4px;
 }
 
 .user_down_txt {
-    font-family: MicrosoftYaHei;
+   font-family: "Microsoft YaHei";
     font-size: 14px;
     color: #666666;
     letter-spacing: 0.88px;
 }
 
 .user_down_txt_1 {
-    font-family: MicrosoftYaHei;
+   font-family: "Microsoft YaHei";
     font-size: 16px;
     color: #5198FF;
     letter-spacing: 0;
@@ -3282,7 +3302,7 @@ body {
     height: 30px;
     border: 1px solid #5198FF;
     border-radius: 4px;
-    background: url("../../pages/bohe/images/d_down_icon.png") no-repeat center center;
+    background: url("@{BgimgUrl}/d_down_icon.png") no-repeat center center;
     background-size: 20px 20px;
     text-align: center;
 }
@@ -3292,7 +3312,7 @@ body {
     height: 30px;
     border: 1px solid #5198FF;
     border-radius: 4px;
-    background: url("../../pages/bohe/images/d_code_icon.png") no-repeat center center;
+    background: url("@{BgimgUrl}/d_code_icon.png") no-repeat center center;
     background-size: 20px 20px;
     text-align: center;
 }
@@ -3320,7 +3340,7 @@ body {
             font-stretch: normal;
             line-height: 46px;
             letter-spacing: 0px;
-            color: #ffffff;
+            color: @baseColor;
             text-align: center;
             font-weight: bolder;
         }
@@ -3332,7 +3352,7 @@ body {
             letter-spacing: 0px;
         }
         .activty_detail_topDesc{
-            font-family: MicrosoftYaHei;
+           font-family: "Microsoft YaHei";
             font-size: 20px;
             font-weight: normal;
             font-stretch: normal;
@@ -3350,7 +3370,7 @@ body {
             background-repeat: no-repeat;
             background-position-x: center;
             margin-top: 8px;
-            font-family: MicrosoftYaHei;
+           font-family: "Microsoft YaHei";
             font-size: 24px;
             font-weight: normal;
             font-stretch: normal;
@@ -3362,9 +3382,9 @@ body {
             width: 951px;
             position: relative;
             box-sizing: border-box;
-            background: #fff;
+            background: @baseColor;
             padding-top: 0px;
-            border: 1px solid #fff;
+            border: 1px solid @baseColor;
             border-radius: 4px;
             .activty_detail_phone{
                 position: absolute;
@@ -3377,7 +3397,7 @@ body {
                 right: -33px;
             }
             .activty_detail_innerTitle{
-                font-family: MicrosoftYaHei-Bold;
+               font-family: "Microsoft YaHei";
                 font-size: 26px;
                 font-weight: normal;
                 font-stretch: normal;
@@ -3397,7 +3417,7 @@ body {
                 color: #2f496d;
             }
             .activty_detail_subTitle{
-                font-family: MicrosoftYaHei;
+               font-family: "Microsoft YaHei";
                 font-size: 15px;
                 font-weight: normal;
                 font-stretch: normal;
@@ -3416,7 +3436,7 @@ body {
             }
             .activty_detail_tip{
                 word-break: keep-all;
-                background-color: #ffffff;
+                background-color: @baseColor;
                 padding: 23px 44px 28px 27px;
                 display: flex;
                 align-items: center;
@@ -3490,42 +3510,44 @@ body {
     background-size: cover;
     width: 100%;
     height: calc(100% - 69px);
-    display: flex;
-    align-items: center;
     position: relative;
     padding: 80px;
     box-sizing: border-box;
     height:673px;
     .activty_detail_0_leftCon{
-        width:560px;
-        float: right;
-        font-family: MicrosoftYaHei-Bold;
+        width:1200;
+        margin:0 auto;
+        padding-left:279px;
+        padding-top:68px;
+       font-family: "Microsoft YaHei";
         box-sizing: border-box;
         .activty_detail_0_enTitle{
-            width: 157px;
-            font-family: MicrosoftYaHei-Bold;
+           font-family: "Microsoft YaHei";
             font-size: 57px;
+            font-weight:bold;
+            letter-spacing: -2px;
+            color: @baseColor;
+            margin-bottom:40px;
+        }
+        .activty_detail_0_cnTitle{
+           font-family: "Microsoft YaHei";
+            font-size: 26px;
             font-weight: normal;
             font-stretch: normal;
             letter-spacing: -2px;
-            color: #ffffff;
-            margin-bottom:42px;
+            color: @baseColor;
+            margin-bottom:20px;
         }
-        .activty_detail_0_subTitle{
-            width: 560px;
-            font-family: MicrosoftYaHei-Bold;
-            font-size: 42px;
-            font-weight: normal;
-            font-stretch: normal;
-            line-height: 46px;
-            letter-spacing: 0px;
-            color: #ffffff;
+        .activty_detail_0_en_subTitle{
+           font-family: "Microsoft YaHei";
+            font-size: 27px;
+            font-weight: bold;
+            color: @baseColor;
             margin-bottom: 24px;
         }
         .activty_detail_0_activeTime{
             margin-top: 32px;
-            font-size: 20px;
-            font-size: 34px;
+            font-size: 22px;
             font-weight: normal;
             font-stretch: normal;
             line-height: 46px;
@@ -3533,21 +3555,15 @@ body {
             color: #35255b;
         }
         .activty_detail_0_registerBtn{
-            margin-top: 32px;
+            margin-top: 48px;
             width: 259px;
             height: 103px;
-            background-color: #ffffff;
+            background-color: @baseColor;
             background:  url("@{BgimgUrl}/activty_0_btn.png");
             background-size: contain;
             background-repeat: no-repeat;
-            display: -webkit-box;
-            display: -ms-flexbox;
             display: flex;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
+            // align-items: center;
             justify-content: center;
             span{
                 font-size: 35px;
@@ -3562,46 +3578,37 @@ body {
             background-size: contain;
             background-repeat: no-repeat;
             span{
-                color: #fff;
+                color: @baseColor;
             }
         }
         .activty_detail_0_footer{
             height:28px;
             margin-top:120px;
             .activty_detail_0_footer_desc{
-                font-family: MicrosoftYaHei;
+               font-family: "Microsoft YaHei";
                 font-size: 24px;
                 font-weight: normal;
                 font-stretch: normal;
                 line-height: 46px;
                 letter-spacing: 0px;
-                color: #ffffff;
+                color: @baseColor;
                 display: inline-block;
                 vertical-align: middle;
             }
             .activty_detail_0_footer_action{
-                font-family: MicrosoftYaHei;
+               font-family: "Microsoft YaHei";
                 text-decoration: underline;
                 font-size: 24px;
                 font-weight: normal;
                 font-stretch: normal;
                 line-height: 46px;
                 letter-spacing: 0px;
-                color: #ffffff;
+                color: @baseColor;
                 display: inline-block;
                 vertical-align: middle;
                 margin-left: 16px;
             }
         }
-    }
-    .activty_detail_0_rightCon{
-        width:calc(100% - 560px);
-        height: 100%;
-        float: left; 
-        background: url("@{BgimgUrl}/bg_activity0_icon.png");
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
     }
 }
 .activty_detail_0_desc{
@@ -3611,10 +3618,8 @@ body {
 }
 
 .activty_detail_0_desc .activty_detail_0_desc_title{
-    font-family: MicrosoftYaHeiLight;
+    font-family: "Microsoft YaHei";
 	font-size: 33px;
-	font-weight: normal;
-	font-stretch: normal;
 	line-height: 46px;
 	letter-spacing: 0px;
     color: #999999;
@@ -3627,7 +3632,7 @@ body {
     justify-content: center;
 }
 .activty_detail_0_desc .activty_detail_0_desc_img_desc{
-    font-family: MicrosoftYaHei;
+   font-family: "Microsoft YaHei";
 	font-size: 16px;
 	font-weight: normal;
 	font-stretch: normal;
@@ -3638,38 +3643,37 @@ body {
 }
 .activty_detail_0_desc .activty_detail_0_desc_desc div{
     float: left;
-    margin-left:50px;
+    margin-left:120px;
     text-align: center;
 }
 .activty_detail_0_contact{
     padding: 36px;
     box-sizing: border-box;
-    height:408px;
     background-color: #f2f2f2;
     text-align: center;
 }
 .activty_detail_0_contact .activty_detail_0_contact_title{
-    font-family: MicrosoftYaHei-Bold;
+   font-family: "Microsoft YaHei";
 	font-size: 33px;
-	font-weight: normal;
-	font-stretch: normal;
+	font-weight: bold;
 	line-height: 46px;
 	letter-spacing: 0px;
     color: #35255b;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    margin-top:36px;
 }
 .activty_detail_0_contact .activty_detail_0_contact_sub_title{
-    font-family: MicrosoftYaHei;
+   font-family: "Microsoft YaHei";
 	font-size: 21px;
 	font-weight: normal;
 	font-stretch: normal;
 	line-height: 29px;
 	letter-spacing: 0px;
     color: #35255b;
-    margin-bottom: 24px;
+    margin-bottom: 40px;
 }
 .activty_detail_0_contact .activty_detail_0_contact_desc{
-    font-family: MicrosoftYaHei;
+   font-family: "Microsoft YaHei";
 	font-size: 20px;
 	font-weight: normal;
 	font-stretch: normal;
@@ -3679,7 +3683,7 @@ body {
     margin-bottom: 16px;
 }
 .activty_detail_0_contact .activty_detail_0_contact_qq{
-    font-family: MicrosoftYaHei;
+   font-family: "Microsoft YaHei";
 	font-size: 26px;
 	font-weight: normal;
 	font-stretch: normal;
@@ -3695,7 +3699,7 @@ body {
     border: solid 1px #35255b;
 }
 .activty_detail_0_contact .activty_detail_0_contact_qq_desc{
-    font-family: MicrosoftYaHei;
+   font-family: "Microsoft YaHei";
 	font-size: 16px;
 	font-weight: normal;
 	font-stretch: normal;
@@ -3704,7 +3708,7 @@ body {
 	color: #715588;
 }
 .activty_detail_0_contact .activty_detail_0_contact_qq_numer{
-    font-family: MicrosoftYaHei;
+   font-family: "Microsoft YaHei";
 	font-size: 26px;
 	font-weight: normal;
 	font-stretch: normal;

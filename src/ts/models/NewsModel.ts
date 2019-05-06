@@ -306,9 +306,14 @@ export class PresentListResponseModel {
 /*************************************旧 END*/
 
 /**
- * 中奖列表返回数据
+ * 当前地区返回数据
  */
 export class GetRegincodeModel {
   public region_code: number = 0;
   public ip_address: string = "";
+  public isp:string=""
+  public latitude: number
+  public longitude: number
+  public mobile_code: number
+  public province_code: string
 }

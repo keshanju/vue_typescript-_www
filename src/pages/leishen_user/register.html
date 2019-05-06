@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>注册</title>
     <script src="https://hm.baidu.com/hm.js?0eb4303e084ff5791f2a25e3df421cea"></script>
+    <script src="./web.js"></script>
 </head>
 
 <body style="height:100%" class="element">
@@ -23,9 +24,10 @@
                         <!--<p class="web_title_font">{{$t("public.share24")}}</p>-->
                         <!--<p class="title_icon"></p>-->
                         <!--</div>-->
-                        <div class="activity_content flex_sbe box_radius" style="width: 585px;height: 320px;margin-top: 50px"
-                            @click="goActivityDetail(activityInfo)">
-                            <img class="img_filter cursor box_radius" :src="bannerImg" alt="">
+                        <div class="activity_content flex_sbe box_radius" style="width: 585px;height: 320px;margin-top: 50px">
+                            <a :href="activeLink" class="img_filter">
+                                <img class="img_filter cursor box_radius" :src="bannerImg" alt="">
+                            </a>
                         </div>
                     </div>
                     <!--登录注册区-->
@@ -47,12 +49,23 @@
                             <!-- 手机号注册 -->
                             <ul style="width: 310px;display: none;" class="register_box" v-show="resignType == 0">
                                 <li class="flex_sbe">
-                                    <el-select @change="onSelectCountryCode" filterable v-model="countryCode"
-                                        :placeholder="$t('public.share25')" style="width:30%;margin-bottom: 12px;margin-right: 10px;">
-                                        <el-option v-for="(val,key,index) in areaCodeList" :key="index" :label="'+'+val"
-                                            :value="val">
-                                        </el-option>
-                                    </el-select>
+                                    <div class="select_box" style="width:50%;margin-bottom: 12px;margin-right: 10px;position: relative;">
+                                        <img :src="country_code.ico" alt="" style="position:absolute;left: 10px;top: 10px;z-index: 100;">
+                                        <el-select @change="onSelectCountryCode" value=""
+                                                   placeholder="" style="width:60%;">
+                                            <el-option-group
+                                                    v-for="group in country_code_list"
+                                                    :key="group.label"
+                                                    :label="group.label">
+                                                <el-option v-for="(val,index) in group.options" :key="index"
+                                                           :value="val">
+                                                    <img :src="val.ico" alt="">
+                                                    <span style="color:#666;">{{val.name}}</span>
+                                                </el-option>
+                                            </el-option-group>
+                                        </el-select>
+                                        <span style="font-size: 14px;">{{'+' + country_code.code}}</span>
+                                    </div>
                                     <!-- <input style="width: 82px;" class="input_box" type="text" placeholder="+86"> -->
                                     <input style="width: 217px;" v-model="phone" class="input_box" type="text"
                                         :placeholder="$t('public.share2')">

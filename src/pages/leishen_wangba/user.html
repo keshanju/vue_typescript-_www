@@ -21,6 +21,7 @@
                         <div class="leigod_user_portraitBox">
                             <img :src="face_image_url" alt="" class="leigod_user_portrait">
                             <div class="leigod_user_username leigod_mt20">{{username}}</div>
+                            <div v-if="feeType==0" class="leigod_user_username leigod_mt20">剩余:{{remainedTime}}</div>
                             <div class="leigod_dashedbottom"></div>
                         </div>
                         <ul class="leigod_userNavList">
@@ -43,6 +44,11 @@
                                 <img class="leigod_userNav_icon"  v-if="curNavIndex!=4"  src="./images/wangbaedit.png" alt="">
                                 <img class="leigod_userNav_icon"  v-if="curNavIndex==4"  src="./images/wangbaedith.png" alt="">
                                 <h5 class="leigod_userNav_tit leigod_ml10">修改资料</h5>
+                            </li>
+                            <li class="leigod_userNav_cell leigod_flex" v-if="feeType==0">
+                                <img class="leigod_userNav_icon"  v-if="curNavIndex!=5"  src="./images/wangbafee.png" alt="">
+                                <img class="leigod_userNav_icon"  v-if="curNavIndex==5"  src="./images/wangbafeeh.png" alt="">
+                                <h5 class="leigod_userNav_tit leigod_ml10"><a :href="feeLink" target="_blank" style="color:#666;">充值续费</a></h5>
                             </li>
                             <li class="leigod_dashedbottom"></li>
                         </ul>
