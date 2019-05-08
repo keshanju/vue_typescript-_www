@@ -1,27 +1,35 @@
-import '@/assets/less/leishen_app.less';
 import "../css/wap.less";
+import '@/assets/less/leishen_app.less';
 import './assets/less/wuyi.less';
 import 'babel-polyfill';
 import {Component, Vue} from 'vue-property-decorator';
 import $ from 'jquery';
 import GlobalConfig from '../global.config';
 import Util from '@/ts/utils/Util';
+import VueI18n from "vue-i18n";
 import LocalStorageUtil from "@/ts/utils/LocalStorageUtil";
 import ActivityProxy from "@/ts/proxy/ActivityProxy";
 import ActivityFactory from "@/ts/factory/activity.factory";
 import AppParamModel from "@/ts/models/AppModel";
-import JumpWeiXin from "@/pages/leishen_app/util/jump";
 import JumpWebUtil from "@/ts/utils/JumpWebUtil";
 import LoginDialog from "./components/LoginDialog";
 import RegisterDialog from "./components/RegisterDialog";
 import ForgetDialog from "./components/ForgetDialog";
 import RechargeDialog from "./components/RechargeDialog";
+import RewardDialog from "./components/RewardDialog";
 
-import {Popup } from "vant";
-Vue.use(Popup );
+import {Popup} from "vant";
+import {LsLanguage} from "@/pages/leishen_app/util/LsLanguage";
+
+Vue.use(Popup);
 
 Vue.config.productionTip = false;
 
+//语言包
+Vue.use(VueI18n);
+let lang = LsLanguage.getInstance();
+lang.initNoRefresh();
+const i18n = new VueI18n(lang);
 const appParam: AppParamModel = AppParamModel.getInstace(Util.REGION_CODE_1, Util.ZH_CN);
 
 @Component({
@@ -29,7 +37,8 @@ const appParam: AppParamModel = AppParamModel.getInstace(Util.REGION_CODE_1, Uti
         "login-dialog": LoginDialog,
         "register-dialog": RegisterDialog,
         "forget-dialog": ForgetDialog,
-        "recharge-dialog": RechargeDialog
+        "recharge-dialog": RechargeDialog,
+        "reward-dialog": RewardDialog
     }
 })
 class activityModel extends ActivityProxy {
@@ -38,11 +47,14 @@ class activityModel extends ActivityProxy {
     public appParam = AppParamModel.getInstace(); // 浏览器参数
 
     //  新增参数
+    public isLoading: boolean = false; //loading
+    public show_login: boolean = false;//登录弹框
     public show_dialog: boolean = false;//登录弹框
+    public showType: number = 1;//组件显示次序，1登录 2注册 3忘记密码
     public show_recharge: boolean = false;//支付弹窗
-    public price_id:number = 10;//价格id
+    public show_reward: boolean = false;//兑奖弹窗
+    public price_id: number = 10;//价格id
     public package_id: number = 2;//套餐id
-    public showType: number = 1;//组件显示次序
 
     public created() {
         this.activityJson = this.activity_json;
@@ -53,7 +65,6 @@ class activityModel extends ActivityProxy {
         this.getReferActivitys();
         this.checkEnvironment();//获取当前设备环境
         if (this.account_token == '') {
-            this.show_dialog = true;
             this.refer_code = '请先登录!';
             this.refer_code_link = '请先登录!';
         }
@@ -68,41 +79,6 @@ class activityModel extends ActivityProxy {
             this.dialog_error = true;
         }
     }
-
-    /**
-     * 去登录
-     */
-    public toLogin() {
-        this.showType = 1;
-    }
-    
-    /**
-     * 登录成功
-     */
-    public isLogin(data) {
-        if (data == 0) {
-            // 关闭登录弹窗
-            this.show_dialog = false;
-            //需要重新刷新页面，重新获取用户信息，以及对应的活动积分
-            document.execCommand("Refresh");
-            // window.location.reload();
-        }
-    }
-
-    /**
-     * 去注册
-     */
-    public toRegister() {
-        this.showType = 2;
-    }
-
-    /**
-     * 忘记密码
-     */
-    public toForgetpwd() {
-        this.showType = 3;
-    }
-    
     /**
      * 设置组件的名字
      */
@@ -110,11 +86,35 @@ class activityModel extends ActivityProxy {
         switch (this.showType) {
             case 1:
                 return 'login-dialog';
-                break
+                break;
             case 2:
                 return 'register-dialog';
-                break
+                break;
+            case 3:
+                return 'forget-dialog';
+                break;
         }
+    }
+
+    /**
+     * 跳转到登录界面
+     */
+    public toLogin(){
+        this.showType=1;
+    }
+
+    /**
+     * 跳转到注册界面
+     */
+    public toRegister(){
+        this.showType=2;
+    }
+
+    /**
+     * 跳转到忘记密码界面
+     */
+    public toForgetPwd(){
+        this.showType=3;
     }
 
     /**
@@ -166,10 +166,12 @@ class activityModel extends ActivityProxy {
      */
     public gotoRecord() {
         if (this.account_token == '') {
-            this.show_dialog = true;
+            //提示登录
+            this.dialog_no_login = true;
+            return;
         } else {
-            let param = "platform=" + this.appParam.platform + "&pageIndex=5";
-            JumpWeiXin.gotoCenter(param);
+            this.show_reward = true;
+            (this.$refs.to_reward  as any).loadList();
         }
     }
 
@@ -183,30 +185,39 @@ class activityModel extends ActivityProxy {
     }
 
     /**
+     * 登录成功，父组件事件
+     * @param data
+     */
+    public alreadyLogin(data) {
+        if (data == 0) {
+            // 关闭登录弹窗
+            this.show_dialog = false;
+            //需要重新刷新页面，重新获取用户信息，以及对应的活动积分
+            // document.execCommand("Refresh");
+            window.location.reload();
+        }
+    }
+
+    /**
      * 默认充值
      */
-    public gotoRecharge() {
+    public async gotoRecharge() {
         if (this.account_token == '') {
-            // 提示登录
-            this.show_dialog = true;
+            //提示登录
+            this.dialog_no_login = true;
+            return;
         } else {
+            await (this.$refs.to_recharge as any).getUserInfo();
             //  如果不是微信环境，直接走原先的移动端充值逻辑
             if (this.appParam.platform != 4) {
                 this.dialog_recharge = false;
                 this.show_recharge = !this.show_recharge;
                 $('body').removeClass('body_fixed');
             } else {
-                //  如果是微型环境，直接调用子组件的原生微信支付方法
-                this.wechatPay(this.appParam.platform + 1, 2);
+                //  如果是微信环境，直接调用子组件的原生微信支付方法
+                (this.$refs.to_recharge as any).defaultPay(this.appParam.platform + 1, 2, this.price_id, this.package_id);
             }
         }
-    }
-
-    /**
-     * 微信支付
-     */
-    public wechatPay(from: number, plan: number) {
-        (this.$refs.to_recharge as any).defaultPay(from, plan, this.price_id, this.package_id);
     }
 
     /**
@@ -217,9 +228,9 @@ class activityModel extends ActivityProxy {
         LocalStorageUtil.loginOut();
         this.account_token = '';
         this.userInfo = null;
-        this.show_dialog = true;
+        this.show_login = true;
     }
 
 }
 
-new activityModel({}).$mount('#app')
+new activityModel({i18n}).$mount('#app')

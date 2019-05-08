@@ -1,42 +1,42 @@
 <template>
-    <div class="register-app">
-        <!-- main-content -->
+    <div class="register_app">
         <div class="mui-content regBox newregBox">
             <van-tabs type="card" :class="{emailhide:isShowEmail==0}" color="#9F9F9F" :swipeable=true animated @change="changeResignType">
+                <!--手机注册（不区分国内外）-->
                 <van-tab>
                     <div slot="title">手机</div>
                     <form class="mui-input-group nobg">
                         <div class="login">
+                            <!--手机号-->
                             <div class="mui-input-row login_user">
-
                                 <div @click="changeAreaCode" class="leigod_flex_left areaCode" style="width:110px;">
                                     <img :src="country.ico" alt="">
                                     +<span v-text="country.code"></span>
                                     <img src="../../images/weixinjt.png" width="18" alt="">
                                 </div>
-
                                 <input type="text" v-model="phone" class="mui-input-clear" placeholder="手机号">
                             </div>
+                            <!--图形验证码-->
                             <div class="mui-input-row login_user leigod_flex_between" v-show="isimgVerification">
                                 <div style="width:70%;">
                                     <input type="text" class="txyzm_input" v-model="imgCaptchaCode" placeholder="图形验证码">
                                 </div>
-                                <img alt="雷神加速器" @click="getCaptcha" :src="imgCaptchaM.img" width="78" class="txyzm" />
+                                <img alt="雷神加速器" @click="getCaptcha" :src="imgCaptchaM.img" width="78" class="txyzm"/>
                             </div>
-
+                            <!--短信验证码-->
                             <div class="mui-input-row login_user leigod_flex_between" v-show="showVioceCode==0">
                                 <div style="width:60%;">
                                     <input type="text" v-model="smscode" class="txyzm_input" placeholder="短信验证码">
                                 </div>
-                                <a class="get_dxyzm" :style="{marginRright:(smsCountDownNum > 0?'0.5rem':'0px')}" @click="onSmsCode" v-show="smsCountDownNum <= 0">发送短信</a>
+                                <a class="get_dxyzm" :style="{marginRright:(smsCountDownNum > 0?'0.5rem':'0px')}"
+                                   @click="onSmsCode" v-show="smsCountDownNum <= 0">发送短信</a>
                                 <a class="get_dxyzm" style="color:#999;margin-right:0;" v-show="smsCountDownNum > 0">已发送{{smsCountDownNum}}s</a>
                             </div>
-
+                            <!--语音验证码-->
                             <div class="mui-input-row login_user leigod_flex_between" v-show="showVioceCode==1">
                                 <div style="width:60%;">
                                     <input type="text" v-model="smscode" class="txyzm_input" placeholder="短信验证码">
                                 </div>
-
                                 <div v-show="smsCountDownNum <= 0" class="leigod_flex">
                                     <a class="get_dxyzm" @click="onSmsCode">发短信</a>
                                     <div>|</div>
@@ -44,22 +44,24 @@
                                 </div>
                                 <a class="get_dxyzm" style="color:#999;" v-show="smsCountDownNum > 0">已发送{{smsCountDownNum}}s</a>
                             </div>
-
+                            <!--密码-->
                             <div class="mui-input-row login_user mui-password">
-                                <input type="password" class="mui-input-password" placeholder="密码6～20位数字加字母组合" v-model="phonePassword">
+                                <input type="password" class="mui-input-password" placeholder="密码6～20位数字加字母组合"
+                                       v-model="phonePassword">
                             </div>
+                            <!--确认密码-->
                             <div class="mui-input-row login_user mui-password">
-                                <input type="password" class="mui-input-password" placeholder="再次确认密码" v-model="phonePasswordTwo">
+                                <input type="password" class="mui-input-password" placeholder="再次确认密码"
+                                       v-model="phonePasswordTwo">
                             </div>
-
+                            <!--推荐码-->
                             <div class="mui-input-row login_user">
                                 <input type="text" class="mui-input-clear" v-model="referCode" placeholder="推荐码（选填）">
                             </div>
-
-
                         </div>
                     </form>
                 </van-tab>
+                <!--邮箱注册（仅在国外显示）-->
                 <van-tab v-if="isShowEmail == 1">
                     <div slot="title">邮箱</div>
                     <form class="mui-input-group nobg">
@@ -74,7 +76,7 @@
                                     <input type="text" class="txyzm_input" v-model="imgCaptchaCode" placeholder="图形验证码">
                                 </div>
 
-                                <img alt="雷神加速器" @click="getCaptcha" :src="imgCaptchaM.img" width="78" class="txyzm" />
+                                <img alt="雷神加速器" @click="getCaptcha" :src="imgCaptchaM.img" width="78" class="txyzm"/>
                             </div>
                             <div class="mui-input-row login_user leigod_flex_between">
                                 <div>
@@ -82,16 +84,20 @@
                                     <input type="text" v-model="emailcode" class="txyzm_input" placeholder="邮箱验证码">
                                 </div>
 
-                                <button type="button" class="get_dxyzm" @click="onEmailCode" v-show="emailCountDownNum <= 0">发送邮件</button>
+                                <button type="button" class="get_dxyzm" @click="onEmailCode"
+                                        v-show="emailCountDownNum <= 0">发送邮件
+                                </button>
                                 <a class="get_dxyzm" style="color:#999;" v-show="emailCountDownNum > 0">已发送{{emailCountDownNum}}s</a>
                             </div>
                             <div class="mui-input-row login_user mui-password">
                                 <i class="ls icon-mima"></i>
-                                <input type="password" class="mui-input-password" placeholder="密码6~20位数字加字母组合" v-model="emailPassword">
+                                <input type="password" class="mui-input-password" placeholder="密码6~20位数字加字母组合"
+                                       v-model="emailPassword">
                             </div>
                             <div class="mui-input-row login_user mui-password">
                                 <i class="ls icon-mima"></i>
-                                <input type="password" class="mui-input-password" placeholder="再次确认密码" v-model="emailPasswordTwo">
+                                <input type="password" class="mui-input-password" placeholder="再次确认密码"
+                                       v-model="emailPasswordTwo">
                             </div>
                             <div class="mui-input-row login_user">
                                 <img src="../../images/refercode.png" class="new_email" alt="">
@@ -108,10 +114,10 @@
             </div>
             <button class="btn login_btn" type="button" v-if="agreementChceked" @click="clickRegister">注册</button>
             <button class="btn login_btn" v-if="!agreementChceked" style="background:#999;" type="button">注册</button>
-            <a @click="gotologin" class="login_reg_link">已有雷神账号? 去登录</a>
+            <a @click="goLogin" class="login_reg_link">已有雷神账号? 去登录</a>
 
-            <van-popup v-model="AreaCodeshow" position="right" :lazy-render="false"  style="width: 100%;">
-                <country-item  @getcountry="getcountry"></country-item>
+            <van-popup v-model="AreaCodeshow" position="right" :lazy-render="false" style="width: 100%;">
+                <country-item @getcountry="getcountry"></country-item>
             </van-popup>
 
 

@@ -1,4 +1,3 @@
-import "@/assets/less/leishen_app.less";
 import 'babel-polyfill';
 import "leigod-lib-flexible";
 import {Component, Vue} from 'vue-property-decorator';
@@ -13,21 +12,24 @@ import ConfigUtil from "@/ts/utils/ConfigUtil";
 import {TipsMsgUtil} from "@/ts/utils/TipsMsgUtil";
 import HttpClient from "@/ts/net/HttpClient";
 import {LoginRequestModel} from "@/ts/models/UserModel";
-import JumpWeiXin from "@/pages/leishen_app/util/jump";
-import { Field, Toast, Loading, Icon, Button } from "vant";
+import {Field, Toast, Loading, Icon, Button, Tab, Tabs, Checkbox} from "vant";
 import Load from "../../components/Loading.vue";
 import Countries from '../../components/Country.vue';
+
 Vue.use(Field);
 Vue.use(Toast);
 Vue.use(Loading);
 Vue.use(Icon);
 Vue.use(Button);
+Vue.use(Tab);
+Vue.use(Tabs);
+Vue.use(Checkbox);
 
 const appParam: AppParamModel = AppParamModel.getInstace(Util.REGION_CODE_1, Util.ZH_CN);
 
 @Component({
     components: {
-        'load': Load,
+        load: Load,
         'country-item': Countries
     }
 })
@@ -54,9 +56,7 @@ export default class LoginDialog extends LoginProxy {
         iso_code: '',
         name: ''
     };//国家信息
-
-    public is_login: number = 0;//
-
+    public is_login: number = 0;//是否已经登录，0已经登录成功
 
     public created() {
         this.setBaseUrl(GlobalConfig.getBaseUrl());
@@ -66,39 +66,18 @@ export default class LoginDialog extends LoginProxy {
         this.onCheckPlatType();
     }
 
-    public mounted() {
+    /**
+     * 跳转忘记密码
+     */
+    public goForgetPwd() {
+        this.$emit('toforget')
     }
 
     /**
-     * 去登录
+     * 跳转注册
      */
-    public toRegister() {
-        this.$emit("toregister");
-    }
-
-    /**
-     * 去登录
-     */
-    public toForgetpwd() {
-        this.$emit("toforgetpwd");
-    }
-
-    //   获取regincode
-    public async getcode() {
-        let regincode = await ConfigUtil.getInstance().getRegincode();
-        this.region_code = regincode;
-        LocalStorageUtil.addRegionCode(this.region_code);
-    }
-
-
-    /**
-     * 获取选中的国家信息
-     * @param data
-     */
-    public getcountry(data) {
-        this.country = data;
-        this.country_code = data.code;
-        this.AreaCodeshow = false;
+    public goRegister() {
+        this.$emit('toregister')
     }
 
     /**
@@ -118,11 +97,30 @@ export default class LoginDialog extends LoginProxy {
             this.emailPassword = emailpsw;
         }
         await this.getAreaCodeInfoList(GlobalConfig.getWebBaseUrl());
-        this.country=this.countryCode;
-        this.country_code=this.countryCode.code;
+        this.country = this.countryCode;
+        this.country_code = this.countryCode.code;
         this.changeLoginType(0);
     }
 
+    /**
+     * 获取regincode
+     */
+    public async getcode() {
+        let regincode = await ConfigUtil.getInstance().getRegincode();
+        this.region_code = regincode;
+        LocalStorageUtil.addRegionCode(this.region_code);
+    }
+
+    /**
+     * 判断平台类型 微信公众号还是手机端
+     */
+    public onCheckPlatType() {
+        this.platform = appParam.platform;
+    }
+
+    /**
+     * 检查页面环境
+     */
     public checkEnvironment() {
         const self = this;
         $(function () {
@@ -145,6 +143,16 @@ export default class LoginDialog extends LoginProxy {
     }
 
     /**
+     * 获取选中的国家信息
+     * @param data
+     */
+    public getcountry(data) {
+        this.country = data;
+        this.country_code = data.code;
+        this.AreaCodeshow = false;
+    }
+
+    /**
      * 切换登录方式
      */
     public changeLoginType(index) {
@@ -154,12 +162,6 @@ export default class LoginDialog extends LoginProxy {
     //  呼出区域选择列表
     public changeAreaCode() {
         this.AreaCodeshow = true;
-    }
-
-
-    //判断平台类型 微信公众号还是手机端
-    public onCheckPlatType() {
-        this.platform = appParam.platform;
     }
 
     /**
@@ -213,7 +215,7 @@ export default class LoginDialog extends LoginProxy {
         this.notifTitle = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_LOGIN);
         Toast(this.notifTitle);
         // 登录成功后不跳转，停留当前页面，并且关闭登录PopUp
-        this.$emit("is-login", this.is_login)
+        this.$emit("already-login", this.is_login)
     }
 
     /**
@@ -239,7 +241,6 @@ export default class LoginDialog extends LoginProxy {
     public onSelectCountryCode(value: string) {
         this.country_code = value;
     }
-
 
     /**
      * 手机登录

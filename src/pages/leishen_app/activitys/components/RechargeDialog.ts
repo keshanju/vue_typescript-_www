@@ -1,20 +1,19 @@
 import "@/assets/less/leishen_app.less";
 import "leigod-lib-flexible";
 import "babel-polyfill";
-import {Component, Prop, Vue} from "vue-property-decorator";
+import {Component, Vue} from "vue-property-decorator";
 import RechargeProxy from "@/ts/proxy/RechargeProxy";
 import AppParamModel from "@/ts/models/AppModel";
-import $ from "jquery";
 import GlobalConfig from "../../global.config";
 import HttpClient from "@/ts/net/HttpClient";
-import {PriceList, UserInfo, PayRequestModel, PayModel, UserRechargeInfo} from "@/ts/models/UserModel";
+import {UserInfo, PayRequestModel, PayModel} from "@/ts/models/UserModel";
 import {IdataModel} from "@/ts/models/IdataModel";
 import LocalStorageUtil from "@/ts/utils/LocalStorageUtil";
 import {ExtrnalFactory} from "@/ts/factory/ExtrnalFactory";
 import Util from "@/ts/utils/Util";
-import JumpWeiXin from "../../util/jump";
 import {TipsMsgUtil} from "@/ts/utils/TipsMsgUtil";
 import {Popup, Toast, Loading} from "vant";
+
 Vue.use(Popup);
 Vue.use(Toast);
 Vue.use(Loading);
@@ -31,10 +30,11 @@ export default class RechargeDialog extends RechargeProxy {
     //  新增参数
     public show: boolean = false; //支付方式弹窗
     public discountshow: boolean = false;//优惠券选择弹窗
+    public isGetUserInfo: boolean = false;//阻止多次获取用户信息
 
-    //  传递的套餐、价格ID
-    public price_id: number;
-    public package_id: number;
+    //  默认传递的套餐、价格ID
+    public price_id: number = 10;
+    public package_id: number = 2;
 
     public http = new HttpClient();
     public appParam: AppParamModel = AppParamModel.getInstace();
@@ -42,7 +42,6 @@ export default class RechargeDialog extends RechargeProxy {
 
     public created() {
         this.setBaseUrl(GlobalConfig.getBaseUrl());
-        this.getUserInfo();//初始化用户信息
     }
 
     /**
@@ -58,6 +57,7 @@ export default class RechargeDialog extends RechargeProxy {
      */
     public async getUserInfo() {
         try {
+            if (this.isGetUserInfo) return;//获取用户信息成功后，不再重复获取
             let token = this.appParam.account_token;
             if (token == "" || token == null) {
                 token = LocalStorageUtil.getUserToken().account_token;
@@ -79,6 +79,14 @@ export default class RechargeDialog extends RechargeProxy {
     }
 
     /**
+     * 获取套餐成功
+     * TODO... 需重写此方法
+     */
+    public getUserPackageSuccess() {
+        this.isGetUserInfo = true;
+    }
+
+    /**
      * 选择支付方式
      */
     public onChooseAndPay(type: number) {
@@ -86,13 +94,22 @@ export default class RechargeDialog extends RechargeProxy {
         this.onPay(this.appParam.platform + 1, 2);
     }
 
+    /**
+     * 默认微信支付方式
+     * @param from 订单来源
+     * @param plan 平台类型
+     * @param price_id
+     * @param package_id
+     */
     public defaultPay(from: number, plan: number, price_id: number, package_id: number) {
         this.price_id = price_id;
         this.package_id = package_id;
+        this.payType = 1;
         this.onPay(from, plan)
     }
 
     /**
+     * from 订单来源 0官网 1PC客户端 2IOS客户端 3Android客户端 4Apple 5注册赠送订单  6mac客户端 7微信公众号(备注：转换后的值)
      * plan 支付返回的二维码显示方式 1官网二维码 2移动端需要的二维码 3官网pc端支付宝打开的控制台页面
      * 请求支付
      */
@@ -127,7 +144,7 @@ export default class RechargeDialog extends RechargeProxy {
         } else if (this.backData.code == HttpClient.HTTP_ERROR_WX_NOBIND) {
             this.onBeginpayError('系统检测到您未绑定公众号，将自动为您跳转至登录页进行绑定...');
             setTimeout(function () {
-                that.gotologin(1);
+                that.gotologin();
             }, 2000)
         } else {
             this.onBeginpayError(this.backData.msg);
@@ -141,9 +158,7 @@ export default class RechargeDialog extends RechargeProxy {
         if (this.appParam.platform === 4) {
             this.initWxConfig(this.payObj.pay_url);
         } else {
-            const factory = ExtrnalFactory.getInstance().getFactory(
-                this.appParam.platform
-            );
+            const factory = ExtrnalFactory.getInstance().getFactory(this.appParam.platform);
             window.location.href = this.payObj.pay_url;
         }
     }
@@ -206,22 +221,15 @@ export default class RechargeDialog extends RechargeProxy {
     public tokenExpired() {
         let tipMsg = TipsMsgUtil.getTipsMsg(TipsMsgUtil.KEY_NOTIF_LOGIN_FAILURE);
         Toast(tipMsg);
-        // setTimeout(() => {
-        //     this.gotologin();
-        // }, 3000);
+        setTimeout(() => {
+            this.gotologin();
+        }, 3000);
     }
 
     /**
      *  去登录
-     * @param n
      */
-    public gotologin(n: number = 0) {//0表示正常跳转  1表示执行微信公众号的自动登录跳转
-
-        let param = "platform=" + appParam.platform;
-        if (n == 1) {
-            JumpWeiXin.gotoWXLogin(param)
-        } else {
-            JumpWeiXin.gotoLogin(param);
-        }
+    public gotologin() {
+        this.$emit("tologin")
     }
 }
